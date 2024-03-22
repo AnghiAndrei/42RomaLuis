@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/21 15:19:28 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/22 12:41:37 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static void	builtin_dad(t_master *master, t_cmd *cur, char *str)
 		bt_export(master, cur, -1, -1);
 	if (ft_strncmp(str, "unset", 6) == 0)
 		bt_unset(master, cur, -1, -1);
+	dup2(master->in, STDIN_FILENO);
+	dup2(master->out, STDOUT_FILENO);
 }
 
 void	executor(t_master *master, int i)
