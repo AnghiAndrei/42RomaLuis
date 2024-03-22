@@ -1,0 +1,51 @@
+- i filosofi sono attorno a un tavolo
+- nessuno puo parlare / sapere ci sta per muorire
+- il programma termina al primo philosofo morto di fame
+    o che tutti abbiano mangiato
+
+- ogni filosofo una una sua forchetta a destra
+- ogni filosofo a un id da 1 a n.philosofi
+- ogni filosofo ha un suo thread
+- ogni filosofo per mangiare prende 2 forchette,
+    la sua a destra e una a sinistra
+
+la ruoten:
+    1- mangiano
+    2- dormono
+    0- pensano (se non ha nulla da fare)
+    3- morte
+
+//nota:
+hunger = 0 == philofoso affamato
+
+turn = 0 //mangiano i pari
+turn = 1 //mangiano i dispari
+turn = 2 //mangiano il philofoso disparo, se ce
+
+Parametri: //nota: tempo in millisecond
+./philo n.philosofi t.morte t.mangiare t.dormire [n.v.mangiato]
+
+t.morte = tempo prima che muoia dall'ultimo pasto
+t.mangiare = tempo impiegato per mangiare
+t.dormire = tempo impiegato per dormire
+[n.v.mangiato] = (opsionale) numero di volte minimo, che un philofoso
+                    dovrebbe mangiare prima di chiudere il problamma
+
+Stampa: //nota: la stampa di morte deve apparire entro 10 ms dalla morte
+◦ tempo_millisecondi id.philofoso has taken a fork
+◦ tempo_millisecondi id.philofoso is eating
+◦ tempo_millisecondi id.philofoso is sleeping
+◦ tempo_millisecondi id.philofoso is thinking
+◦ tempo_millisecondi id.philofoso died
+
+External functs:
+    pthread_mutex_init, pthread_mutex_destroy, pthread_mutex_lock, pthread_mutex_unlock
+    memset, printf, malloc, free, write, usleep, gettimeofday,
+    pthread_create, pthread_detach, pthread_join
+
+Visualizza la ruoten dei filofofi:
+https://nafuka11.github.io/philosophers-visualizer/
+
+
+Giuda:
+https://github.com/TommyJD93/Philosophers

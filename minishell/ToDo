@@ -1,0 +1,50 @@
+[X] Prendere in input una stringa
+[X] Cronologia dei comandi
+[X] Avviare comandi, esempio: ls
+[X] Avviare comandi, esempio: /bin/ls
+[X] Gestire ' ":
+    [X] ' prende il contenuto delle ' e lo usa cosi come
+    [X] " prende il contenuto delle " e lo usa cosi come, tranne la var. ambiente
+    [X] se non sono stati chiusi: '
+    [X] se non sono stati chiusi: "
+[X] Redirect:
+    [X] < ridireziona l'input
+    [X] > ridireziona l'output sostituendo il contenuto
+    [X] >> ridireziona l'output in modo append
+    [X] << fine leggere dallo standart input fino all'inserimento del delimitatore
+    [X] | l'uotput del comando diventa l'input del prossimo comando
+[X] Stampa le variabili globali, esempio: $HOME
+[X] Stampa codice uscita dell'ultimmo comando: $?
+[ ] Gestire segnali, quando aspetta dei comandi:
+    [ ] ctrl-C cancella il contenuto della riga
+    [ ] ctrl-D esce dalla shell
+    [ ] ctrl-\ non fa nulla
+[ ] Builtins:
+    [ ] echo
+    [ ] echo -n
+    [ ] cd (solo con persorso relativo o assuloto)
+    [ ] pwd
+    [-] export
+    [-] unset
+    [X] env
+    [X] exit
+
+Bonus:
+[X] Implementa: && esegue entrambi i comandi
+[X] Implementa: || esegue il secondo comando solo se il precedente ha dato esito positivo
+[ ] Implementa: le ()
+[ ] Implementa: wildcard *
+
+Casi limite:
+[ ] echo 1 2 > hola outfile
+[ ] echo "'"$HOME"'"
+[ ] "echo"
+[ ] 'echo'
+Dare errore:
+	[ ] cmd &&& cmd
+	[ ] |, &&, ||, non chiusi
+	[ ] cmd && && cmd
+	[ ] cmd || || cmd
+Non fa nulla:
+	[X] Nessun valore
+	[X] Solo spazi

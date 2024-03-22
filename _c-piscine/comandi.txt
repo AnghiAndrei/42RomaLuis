@@ -1,0 +1,23 @@
+tar -cf nome_compresso.tar * //comprime tutti i file della cartella
+tar -xpf nome_compresso.tar //apre il file compresso
+
+
+Vim nome
+:Stdheader
+
+:set list
+:set nolist
+
+
+//auto norminette
+//installazione
+pip3 install c-formatter-42
+pip3 install --user c-formatter-42
+
+python3 -m c_formatter_42 < *.c > c.c
+
+norminette ft_print_combn.c //controlla se il file passato e in norma
+
+Python tutors visual compiler
+
+find . -type f -name .DS_Store -exec rm {} \;
