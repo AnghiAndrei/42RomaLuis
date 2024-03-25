@@ -6,19 +6,21 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:52:58 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/20 15:49:44 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/25 16:06:20 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	controll_malloc_matrix(char **m)
+int	controll_malloc_matrix(char **m)
 {
 	if (m == NULL)
 	{
+		return (0);
 		perror("Marshal: Malloc error");
 		exit(EXIT_FAILURE);
 	}
+	return (1);
 }
 
 int	ceck_fork(void)

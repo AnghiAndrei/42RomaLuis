@@ -20,21 +20,21 @@
     [ ] ctrl-D esce dalla shell
     [ ] ctrl-\ non fa nulla
 [ ] Builtins:
-    [Y] echo
-		[Y] echo testo Stampa il testo con \n
-		[Y] echo -n testo Stampa il testo senza il \n
+    [X] echo
+		[X] echo testo Stampa il testo con \n
+		[X] echo -n testo Stampa il testo senza il \n
     [ ] cd Ti cambia di directori
 		[ ] cd ~ Ti porta all'inizio delle cartelle
 		[ ] cd  Ti porta all'inizio delle cartelle
 		[ ] cd .. Ti porta alla cartella precedente
 		[ ] cd cartella Ti porta alla cartella indicata
-    [ ] pwd Mostra in quale cartella ti trovi con il terminale
+    [X] pwd Mostra in quale cartella ti trovi con il terminale
     [-] export
-		[X] export Stampa tutte le variabili d'ambiente
+		[-] export Stampa tutte le variabili d'ambiente, in ordine alfabetico
 		[X] export var Aggiunge la variabile d'ambiente senza valore
-		[Y] export var=val Aggiunge/Imposta la variabile d'ambiente con valore
-		[Y] export var+=val Aggiunge/Imposta la variabile d'ambiente con valore
-    [Y] unset Rimuove una variabile d'ambiente
+		[X] export var=val Aggiunge/Imposta la variabile d'ambiente con valore
+		[-] export var+=val Aggiunge/Imposta la variabile d'ambiente con valore
+    [X] unset Rimuove una variabile d'ambiente
     [X] env Mostra tutte le variabili d'ambiente con all'interno dei valori
     [X] exit
 		[X] Esce dalla shell

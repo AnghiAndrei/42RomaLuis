@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins1.c                                        :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/22 12:25:31 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/25 17:11:02 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	bt_exit(char *cmd)
 	return (1);
 }
 
-int	bt_echo(t_cmd *cur, int i, int n)
+int	bt_echo(t_master *master, t_cmd *cur, int i, int n)
 {
 	char	**arg;
 
@@ -47,7 +47,7 @@ int	bt_echo(t_cmd *cur, int i, int n)
 		if (arg[i + 1] != NULL)
 			write(1, " ", 1);
 	}
-	if (n != 0)
+	if (n == 0)
 		printf("\n");
 	free_matrix(arg);
 	return (1);
@@ -55,6 +55,25 @@ int	bt_echo(t_cmd *cur, int i, int n)
 
 int	bt_cd(t_master *master, t_cmd *cur, int i)
 {
-	i = get_a(cur->cmd);
-	
+	i = get_a(0, cur->cmd);
+	while (master->env[i] != NULL)
+		i++;
+	return (1);
+}
+
+int	bt_pwd(t_master *master, t_cmd *cur)
+{
+	char	cwd[1024];
+	char	**arg;
+
+	arg = get_args(cur->cmd, master, cur);
+	controll_malloc_matrix(arg);
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+        printf("%s\n", cwd);
+    else
+	{
+        perror("getcwd() error");
+	}
+	free_matrix(arg);
+	return (1);
 }

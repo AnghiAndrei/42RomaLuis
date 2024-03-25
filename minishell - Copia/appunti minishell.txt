@@ -5,67 +5,13 @@ File: access, open, read, close, unlink
 Processi: fork, wait, waitpid, wait3, wait4
 Segnali: signal, sigaction, sigemptyset, sigaddset
 Chiudi: kill, exit
-Cartelle: opendir, readdir, closedir, chdir
+Cartelle: opendir, readdir, closedir, chdir, getcwd
 Pipe: dup, dup2, pipe
 Esecuzione: execve
 Errori: perror, strerror
 Tget: tcsetattr, tcgetattr, tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-Bho: getcwd, stat, lstat, fstat, isatty, ttyname, ttyslot, ioctl
+Bho: stat, lstat, fstat, isatty, ttyname, ttyslot, ioctl
 
 Note:
 -Possiamo usare una variabile globale per salvare il codice di usita de comandi
 -readline() puo produrre memory leacks
-
-/*	funzionamento splitter	*\
--prende in input un comando
--controlla se " ' sono stati chiusi
--splittare l'input per le |, evitando il contenuto delle ' "
-//per ogni pezzo:
--splittare per le &&, evitando il contenuto delle ' "
-//per ogni pezzo:
--splittare per le ||, evitando il contenuto delle ' "
--esegue il primo comando
--prima del secondo controlla se stato_uscita del comando precedente == 0
-
-/*	funzionamento esecuzione	*\
--splitta per gli spazi prima e dopo le redirection, mantieni la redirecion
--controlla che redirection c'e:
-    < : dup2(open_r(com[2]), 0)
-    > : dup2(open_t(com[2]), 1)
-    >> : dup2(open_a(com[2]), 1)
-    << : usa l'here_doc di pipex
--pulizia del comando dalla redirection
--usa get_args di pipex. Modifica: trimma inizio del comando per le PATH di $PATH
--usa get_program_name di pipex. Modifica: controlla se il comando senza join dei persorsi PATH= poi se non trovato join dei persorsi
-
-/*	schema pratico	*\
-nodo 1:
-	echo "hola" > input.txt
-	c1
-	p1
-nodo 2:
-	echo "mondo" >> input.txt
-	c2
-	p1
-
-nodo 3:
-	tr a-z A-Z < input.txt
-	c1
-	p1
-nodo 4:
-	cat -e << fine
-	c2
-	p1
-
-nodo 5:
-	grep " "
-	-
-	p2
-nodo 6:
-	head -n 5
-	c1
-	p2
-nodo 7:
-	cat -e
-	c2
-	p2
