@@ -72,6 +72,7 @@ void	init_start(t_master *master, char **env);
 void	gu1(int *word, char *s, int *i, char ch);
 char	*program_name(char *command, char *path);
 int		search_env(t_master *master, char *rule);
+char	*extract_mane(t_cmd *cur, int i, int i2);
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 char	*controll_close_char(char *str, char c);
 int		controll_file(char *file, int command);
@@ -105,4 +106,6 @@ char	**redirect(char **m);
 int		bt_exit(char *cmd);
 int		ft_mlen(char **m);
 char	*ft_itoa(int n);
+
+int		bt_cd(t_master *master, t_cmd *cur, int i);
 #endif

@@ -76,6 +76,8 @@ static void	builtin_dad(t_master *master, t_cmd *cur, char *str, int s)
 		bt_export(master, cur, -1);
 	if (ft_strncmp(str, "unset", 6) == 0)
 		bt_unset(master, cur, -1);
+	if (ft_strncmp(str, "cd", 3) == 0)
+		bt_cd(master, cur, 0);
 }
 
 static void	pipe_cmd(t_master *master, t_cmd *cur)

@@ -24,30 +24,9 @@ int	controll_builtins(t_master *master, t_cmd *cur)
 		return (1);
 	if (ft_strncmp(clear_space(cur->cmd), "echo", 5) == 0)
 		return (bt_echo(cur, 0, 0));
+	if (ft_strncmp(clear_space(cur->cmd), "cd", 3) == 0)
+		return (1);
 	return (0);
-}
-
-int	bt_export(t_master *master, t_cmd *cur, int i2)
-{
-	char	**m2;
-	char	**arg;
-
-	arg = get_args(cur->cmd, master, cur);
-	controll_malloc_matrix(arg);
-	if (ft_mlen(arg) > 1 && search_env(master, arg[1]) == 0)
-	{
-		m2 = malloc((ft_mlen(master->env) + 2) * sizeof(char *));
-		controll_malloc_matrix(m2);
-		while (master->env[++i2] != NULL)
-			m2[i2] = master->env[i2];
-		m2[i2] = ft_strjoin(arg[1], "=");
-		m2[++i2] = NULL;
-		master->env = m2;
-	}
-	else if (ft_mlen(arg) == 1 && master->print == 1)
-		bt_env2(master);
-	free_matrix(arg);
-	return (1);
 }
 
 int	bt_unset(t_master *master, t_cmd *cur, int i2)
@@ -55,17 +34,19 @@ int	bt_unset(t_master *master, t_cmd *cur, int i2)
 	char	**m2;
 	char	**s;
 	char	**arg;
+	char	*str;
 
 	arg = get_args(cur->cmd, master, cur);
 	controll_malloc_matrix(arg);
-	if (ft_mlen(arg) > 1 && search_env(master, arg[1]) == 0)
+	if (ft_mlen(arg) > 1 && search_env(master, bts2_export(cur->cmd, 0, 0)) == 0)
 	{
+		str = bts2_export(cur->cmd, 0, 0);
 		m2 = malloc((ft_mlen(master->env)) * sizeof(char *));
 		controll_malloc_matrix(m2);
 		while (master->env[++i2] != NULL)
 		{
 			s = ft_split(master->env[i2], '=');
-			if (ft_strncmp(s[0], arg[1], ft_strlen(arg[1]) + 1) != 0)
+			if (ft_strncmp(s[0], str, ft_strlen(str) + 1) != 0)
 				m2[i2] = master->env[i2];
 			free_matrix(s);
 		}
@@ -74,6 +55,7 @@ int	bt_unset(t_master *master, t_cmd *cur, int i2)
 		master->env = m2;
 	}
 	free_matrix(arg);
+	free(free);
 	return (1);
 }
 

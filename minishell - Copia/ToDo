@@ -32,8 +32,8 @@
     [-] export
 		[X] export Stampa tutte le variabili d'ambiente
 		[X] export var Aggiunge la variabile d'ambiente senza valore
-		[-] export var=val Aggiunge/Imposta la variabile d'ambiente con valore
-		[-] export var+=val Aggiunge/Imposta la variabile d'ambiente con valore
+		[Y] export var=val Aggiunge/Imposta la variabile d'ambiente con valore
+		[Y] export var+=val Aggiunge/Imposta la variabile d'ambiente con valore
     [Y] unset Rimuove una variabile d'ambiente
     [X] env Mostra tutte le variabili d'ambiente con all'interno dei valori
     [X] exit
@@ -43,16 +43,16 @@
 		[X] Controllare se sia passsato un numero
 
 Bonus:
-[X] Implementa: && esegue entrambi i comandi
-[X] Implementa: || esegue il secondo comando solo se il precedente ha dato esito positivo
-[ ] Implementa: le ()
-[ ] Implementa: wildcard *
+	[X] Implementa: && esegue entrambi i comandi
+	[X] Implementa: || esegue il secondo comando solo se il precedente ha dato esito positivo
+	[ ] Implementa: le ()
+	[ ] Implementa: wildcard *
 
 Casi limite:
-[ ] echo 1 2 > hola outfile
-[ ] echo "'"$HOME"'"
-[ ] "echo"
-[ ] 'echo'
+	[ ] echo 1 2 > hola outfile
+	[ ] echo "'"$HOME"'"
+	[ ] "echo"
+	[ ] 'echo'
 Dare errore:
 	[ ] cmd &&& cmd
 	[ ] |, &&, ||, non chiusi

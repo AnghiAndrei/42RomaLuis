@@ -52,3 +52,9 @@ int	bt_echo(t_cmd *cur, int i, int n)
 	free_matrix(arg);
 	return (1);
 }
+
+int	bt_cd(t_master *master, t_cmd *cur, int i)
+{
+	i = get_a(cur->cmd);
+	
+}

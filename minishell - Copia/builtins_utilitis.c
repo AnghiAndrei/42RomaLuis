@@ -15,16 +15,27 @@
 int	search_env(t_master *master, char *rule)
 {
 	int		i;
+	char	**s;
 
 	i = 0;
 	while (master->env[i] != NULL)
 	{
-		if (ft_strncmp(master->env[i], ft_strjoin(rule, "="),
-				ft_strlen(rule) + 2) == 0)
+		s = ft_split(master->env[i], '=');
+		if (ft_strncmp(s[0], rule, ft_strlen(rule) + 1) == 0)
 			return (1);
 		i++;
+		free_matrix(s);
 	}
 	return (0);
+}
+
+char	*extract_mane(t_cmd *cur, int i, int i2)
+{
+	i = get_a(cur->cmd);
+	i2 = i;
+	while (cur->cmd[i] != '\0' && cur->cmd[i] != '+' && cur->cmd[i] != '=')
+		i++;
+	return (ft_substr(cur->cmd, i2, i - i2));
 }
 
 int	get_a(int i, char *cmd)
