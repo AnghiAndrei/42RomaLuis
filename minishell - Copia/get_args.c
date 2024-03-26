@@ -59,7 +59,7 @@ char	**get_args(char *s, t_master *master, t_cmd *cmd)
 
 	s = clear_cmd(s, master, cmd);
 	m = (char **)malloc((count_arg(s) + 1) * sizeof(char *));
-	controll_malloc_matrix(m);
+	cmmal(m);
 	w = 0;
 	i = skip(0, s);
 	while (count_arg(s) != w)

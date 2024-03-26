@@ -65,6 +65,11 @@ char	*get_command_f_0(void)
 	int		i;
 
 	input = readline("02: Give me a command, darling: ");
+	if (input == NULL)
+	{
+		printf("02: WDYM, darling?");
+		exit(EXIT_FAILURE);
+	}
 	add_history(input);
 	input = get_command_f_histori(input);
 	input = controll_close_char(input, '\'');

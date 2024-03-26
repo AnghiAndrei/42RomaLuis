@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/22 12:25:31 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/25 17:10:28 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,110 +14,67 @@
 
 int	controll_builtins(t_master *master, t_cmd *cur)
 {
-	char	*str;
-
-	str = clear_space(cur->cmd);
-	if (ft_strncmp(str, "exit", 5) == 0)
+	if (ft_strncmp(clear_space(cur->cmd), "exit", 5) == 0)
 		return (bt_exit(cur->cmd));
-	if (ft_strncmp(str, "env", 4) == 0)
-		return (bt_env(master));
-	if (ft_strncmp(str, "export", 7) == 0)
+	if (ft_strncmp(clear_space(cur->cmd), "env", 4) == 0)
+		return (bt_env(master, cur));
+	if (ft_strncmp(clear_space(cur->cmd), "export", 7) == 0)
+		return (bt_export(master, cur, -1));
+	if (ft_strncmp(clear_space(cur->cmd), "unset", 6) == 0)
 		return (1);
-	if (ft_strncmp(str, "unset", 6) == 0)
+	if (ft_strncmp(clear_space(cur->cmd), "echo", 5) == 0)
+		return (bt_echo(master, cur, 0, 0));
+	if (ft_strncmp(clear_space(cur->cmd), "cd", 3) == 0)
 		return (1);
-	free(str);
+	if (ft_strncmp(clear_space(cur->cmd), "pwd", 4) == 0)
+		return (bt_pwd(master, cur));
 	return (0);
 }
 
-int	bt_unset(t_master *master, t_cmd *cur, int i2, int i)
+int	bt_unset(t_master *master, t_cmd *cur, int i2, char *str)
 {
-	char	**m2;
 	char	**arg;
+	char	**m2;
+	char	**s;
+	int		i;
 
 	arg = get_args(cur->cmd, master, cur);
 	controll_malloc_matrix(arg);
-	if (ft_mlen(arg) > 1 && search_env(master, arg[1]) == 0)
+	i = -1;
+	if (ft_mlen(arg) > 1 && search_env(master, str) != 0)
 	{
-		m2 = malloc((ft_mlen(master->env)) * sizeof(char *));
-		controll_malloc_matrix(m2);
-		while (master->env[++i2] != NULL)
+		m2 = malloc((ft_mlen(master->env) + 1) * sizeof(char *));
+		while (master->env[++i2] != NULL && controll_malloc_matrix(arg))
 		{
-			if (ft_strncmp(master->env[i2], arg[1], ft_strlen(arg[1]) + 1) != 0)
-				m2[i2] = master->env[i2];
+			s = ft_split(master->env[i2], '=');
+			if (ft_strncmp(s[0], str, ft_strlen(str) + 1) != 0)
+				m2[++i] = master->env[i2];
+			free_matrix(s);
 		}
-		m2[i2] = NULL;
+		m2[++i] = NULL;
 		master->env = m2;
 	}
-	while (arg[++i] != NULL)
-		free(arg[i]);
-	free(arg);
+	free_matrix(arg);
+	free(str);
 	return (1);
 }
 
-int	bt_export(t_master *master, t_cmd *cur, int i2, int i)
-{
-	char	**m2;
-	char	**arg;
-
-	arg = get_args(cur->cmd, master, cur);
-	controll_malloc_matrix(arg);
-	if (ft_mlen(arg) > 1 && search_env(master, arg[1]) == 0)
-	{
-		m2 = malloc((ft_mlen(master->env) + 2) * sizeof(char *));
-		controll_malloc_matrix(m2);
-		while (master->env[++i2] != NULL)
-			m2[i2] = master->env[i2];
-		m2[i2] = ft_strjoin(arg[1], "=");
-		m2[++i2] = NULL;
-		master->env = m2;
-	}
-	else if (ft_mlen(arg) == 1)
-		bt_env2(master);
-	while (arg[++i] != NULL)
-		free(arg[i]);
-	free(arg);
-	return (1);
-}
-
-int	bt_env(t_master *master)
+int	bt_env(t_master *master, t_cmd *cur)
 {
 	int		i;
-	int		i2;
 	char	**s;
+	char	**arg;
 
 	i = 0;
-	while (master->env[i] != NULL)
+	arg = get_args(cur->cmd, master, cur);
+	while (master->env[i] != NULL && master->print == 1)
 	{
 		s = ft_split(master->env[i], '=');
 		if (getenv(s[0]) != NULL)
 			printf("%s\n", master->env[i]);
-		i2 = -1;
-		while (s[++i2] != NULL)
-			free(s[i2]);
-		free(s);
+		free_matrix(s);
 		i++;
 	}
-	return (1);
-}
-
-int	bt_exit(char *cmd)
-{
-	int		i;
-	int		i2;
-
-	i = get_a(0, cmd);
-	i2 = i;
-	while (cmd[i] != ' ' && cmd[i] != '\0' && ft_isdigit(cmd[i]))
-		i++;
-	if (cmd[i] == ' ' || cmd[i] == '\0')
-	{
-		printf("02: Sayōnara, darling\n");
-		exit(ft_atoi(ft_substr(cmd, i2, i - i2)));
-	}
-	else
-	{
-		perror("Marshal: Requested numerical value");
-		exit(EXIT_FAILURE);
-	}
+	free_matrix(arg);
 	return (1);
 }

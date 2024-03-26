@@ -48,7 +48,7 @@ int	get_a(int i, char *cmd)
 	return (i);
 }
 
-void	bt_env2(t_master *master)
+char	*get_env(t_master *master, char *env)
 {
 	char	**s;
 	int		i;
@@ -57,11 +57,10 @@ void	bt_env2(t_master *master)
 	while (master->env[i] != NULL)
 	{
 		s = ft_split(master->env[i], '=');
-		if (ft_mlen(s) == 1)
-			printf("declare -x %s\n", s[0]);
-		else
-			printf("declare -x %s=\"%s\"\n", s[0], s[1]);
+		if (ft_strncmp(s[0], env, ft_strlen(env)) == 0)
+			return (s[1]);
 		free_matrix(s);
 		i++;
 	}
+	return (NULL);
 }

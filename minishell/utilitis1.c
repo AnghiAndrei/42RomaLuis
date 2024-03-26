@@ -67,3 +67,13 @@ int	ft_mlen(char **m)
 		i++;
 	return (i);
 }
+
+void	free_matrix(char **m)
+{
+	int		i;
+
+	i = -1;
+	while (m[++i] != NULL)
+		free(m[i]);
+	free(m);
+}

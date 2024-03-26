@@ -17,7 +17,7 @@ static char	**clean_m(char **m, int i, int i2, int i3)
 	char	**m2;
 
 	m2 = malloc((i + 1) * sizeof(char *));
-	controll_malloc_matrix(m2);
+	cmmal(m2);
 	while (m[i2] != NULL)
 	{
 		if (ft_strncmp(m[i2], " ", 2) != 0)

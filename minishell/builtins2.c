@@ -55,41 +55,25 @@ int	bt_echo(t_master *master, t_cmd *cur, int i, int n)
 
 int	bt_cd(t_master *master, t_cmd *cur, int i)
 {
-	char	cwd[1024];
-	char	**arg;
-
-    if (getcwd(cwd, sizeof(cwd)) != NULL)
-    {
-		arg = get_args(cur->cmd, master, cur);
-		free(cur->cmd);
-		cur->cmd = ft_strjoin("export PWD=", getenv("HOME"));
-		if (cmmal(arg) == 1 && ft_mlen(arg) == 2)
-		{
-			cur->cmd = ft_strjoin("export PWD=", arg[1]);
-			chdir(arg[1]);
-		}
-		else if (cmmal(arg) == 1 && ft_mlen(arg) == 1)
-			chdir(getenv("HOME"));
-		bt_export(master, cur, -1);
-		free(cur->cmd);
-		cur->cmd = ft_strjoin("export OLDPWD=", cwd);
-		bt_export(master, cur, -1);
-	}
-    else
-        perror("Marshal: getcwd() error");
-	free_matrix(arg);
+	i = get_a(0, cur->cmd);
+	while (master->env[i] != NULL)
+		i++;
 	return (1);
 }
 
-int	bt_pwd(void)
+int	bt_pwd(t_master *master, t_cmd *cur)
 {
 	char	cwd[1024];
+	char	**arg;
 
+	arg = get_args(cur->cmd, master, cur);
+	controll_malloc_matrix(arg);
     if (getcwd(cwd, sizeof(cwd)) != NULL)
         printf("%s\n", cwd);
     else
 	{
-        perror("Marshal: getcwd() error");
+        perror("getcwd() error");
 	}
+	free_matrix(arg);
 	return (1);
 }

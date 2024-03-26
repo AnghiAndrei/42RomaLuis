@@ -39,7 +39,7 @@ void	here_doc(char *rule)
 void	init_start(t_master *master, char **env)
 {
 	master->ncmd = 0;
-	master->env = env;
+	master->env = copy_m(env);
 	master->lcmd = NULL;
 	master->path = getenv("PATH");
 	master->out = dup(STDOUT_FILENO);

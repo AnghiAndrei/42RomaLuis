@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -81,12 +82,10 @@ int		controll_file(char *file, int command);
 void	gu4(int *i, char *s, int *w, char **m);
 void	spik_duote(int *i, char *str, char c);
 int		bt_env(t_master *master, t_cmd *cur);
-int		bt_pwd(t_master *master, t_cmd *cur);
 char	*get_command_f_histori(char *input);
 void	ceck_pipe_fork(int *fd, pid_t *pid);
 char	**ft_split(char const *s, char c);
 void	executor(t_master *master, int i);
-int		controll_malloc_matrix(char **m);
 char	*expander(t_cmd *cmd, t_data d);
 char	*gu2(int *i, char *s, char ch);
 int		count_pipe(char *str, char c);
@@ -95,7 +94,6 @@ void	split_cmd(t_master *master);
 int		ft_atoi(const char *string);
 void	free_all(t_master *master);
 int		ft_isdigit(int char_test);
-void	bt_env2(t_master *master);
 int		get_a(int i, char *cmd);
 char	*clear_space(char *str);
 char	*get_next_line(int fd);
@@ -105,7 +103,10 @@ char	*gu3(int *i, char *s);
 void	here_doc(char *rule);
 int		skip(int i, char *s);
 char	**redirect(char **m);
+void	**copy_m(char **m);
 int		bt_exit(char *cmd);
 int		ft_mlen(char **m);
+int		cmmal(char **m);
 char	*ft_itoa(int n);
+int		bt_pwd(void);
 #endif

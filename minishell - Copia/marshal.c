@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	controll_malloc_matrix(char **m)
+int	cmmal(char **m)
 {
 	if (m == NULL)
 	{

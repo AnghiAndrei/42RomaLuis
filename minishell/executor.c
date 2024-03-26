@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/22 12:41:37 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/25 15:54:23 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,21 @@ static void	child(t_master *master, t_cmd *cur)
 	}
 }
 
+static void	builtin_dad(t_master *master, t_cmd *cur, char *str)
+{
+	master->print = 0;
+	if (ft_strncmp(str, "export", 7) == 0)
+		bt_export(master, cur, -1);
+	if (ft_strncmp(str, "unset", 6) == 0)
+		bt_unset(master, cur, -1, extract_mane(cur, 0, 0));
+	if (ft_strncmp(str, "cd", 3) == 0)
+		bt_cd(master, cur, 0);
+	master->print = 1;
+}
+
 static void	pipe_cmd(t_master *master, t_cmd *cur)
 {
+	builtin_dad(master, cur, clear_space(cur->cmd));
 	if (!(cur->or == 1 && g_code_exit != 0))
 	{
 		if (cur->pipe == 1)
@@ -83,16 +96,7 @@ static void	pipe_cmd(t_master *master, t_cmd *cur)
 		dup2(master->in, STDIN_FILENO);
 		dup2(master->out, STDOUT_FILENO);
 	}
-}
-
-static void	builtin_dad(t_master *master, t_cmd *cur, char *str)
-{
-	if (ft_strncmp(str, "export", 7) == 0)
-		bt_export(master, cur, -1, -1);
-	if (ft_strncmp(str, "unset", 6) == 0)
-		bt_unset(master, cur, -1, -1);
-	dup2(master->in, STDIN_FILENO);
-	dup2(master->out, STDOUT_FILENO);
+	cur = cur->next;
 }
 
 void	executor(t_master *master, int i)
@@ -107,19 +111,17 @@ void	executor(t_master *master, int i)
 	{
 		while (master->ncmd != i++)
 		{
+			builtin_dad(master, cur, clear_space(cur->cmd));
 			if (!(cur->or == 1 && g_code_exit != 0))
 				child(master, cur);
-			builtin_dad(master, cur, clear_space(cur->cmd));
 			cur = cur->next;
+			dup2(master->in, STDIN_FILENO);
+			dup2(master->out, STDOUT_FILENO);
 		}
 	}
 	else
 	{
 		while (master->ncmd != i++)
-		{
 			pipe_cmd(master, cur);
-			builtin_dad(master, cur, clear_space(cur->cmd));
-			cur = cur->next;
-		}
 	}
 }
