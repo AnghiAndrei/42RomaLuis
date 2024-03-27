@@ -1,0 +1,38 @@
+Obiettivo:
+Creare un gioco in 3D, in prima persona.
+Il gioco deve rappresentare un labirinto.
+Per creare il gioco deve essere usato la tecnica: Ray-Casting.
+Prendere ispirazione da: Wolfenstein 3D.
+
+Note:
+-Possiamo usare Libft
+-L'uso delle immagini della minilibX è fortemente consigliato
+-Il programma deve prendere in input un file: .cub
+-Nel file .cub deve contenere:
+    NO ./path_to_the_north_texture
+    SO ./path_to_the_south_texture
+    WE ./path_to_the_west_texture
+    EA ./path_to_the_east_texture
+    F 220,100,0
+    C 225,30,0
+    
+    111
+    1N1
+    111
+
+Note bonus:
+-Puoi aggiungere caratteri nella mappa
+-Puoi usare qualsiasi funzione
+
+Funzioni permesse:
+Generali: printf
+File: open, close, read, write
+Memoria dinamica: malloc, free
+Errori: perror, strerror
+Uscire: exit
+L'intere librerie: math, MinilibX
+
+Da approfondire:
+Except for the map content, each type of element can be separated by one or more empty line(s).
+Except for the map content which always has to be the last, each type of element can be set in any order in the file.
+Except for the map, each type of information from an element can be separated by one or more space(s).

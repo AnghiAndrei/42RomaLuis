@@ -27,7 +27,7 @@ static char	*bts1_export(t_cmd *cur, char *arg, int i, t_master *master)
 			i++;
 		if (cur->cmd[i] == ' ')
 			i--;
-		return (ft_strjoin(getenv(master, arg), ft_substr(cur->cmd, i2, i - i2)));
+		return (ft_strjoin(get_env(master, arg), ft_substr(cur->cmd, i2, i - i2)));
 	}
 	else if (cur->cmd[i] == '=')
 	{
@@ -50,7 +50,7 @@ static	char	**order(char **mt)
 	i = 0;
 	while (mt[i + 1] != NULL)
 	{
-		if (strncmp(mt[i + 1], mt[i], ft_strlen(mt[i])) > 0)
+		if (ft_strncmp(mt[i + 1], mt[i], ft_strlen(mt[i])) > 0)
 		{
 			i = 0;
 			temp = mt[i + 1];

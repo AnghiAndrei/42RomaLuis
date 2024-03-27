@@ -57,7 +57,7 @@ char	*get_env(t_master *master, char *env)
 	while (master->env[i] != NULL)
 	{
 		s = ft_split(master->env[i], '=');
-		if (ft_strncmp(s[0], env, ft_strlen(env)) == 0)
+		if (ft_strncmp(s[0], env, ft_strlen(env) + 1) == 0)
 			return (s[1]);
 		free_matrix(s);
 		i++;

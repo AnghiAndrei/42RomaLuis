@@ -16,11 +16,16 @@ int		g_code_exit = 0;
 
 static	void sigc(int signum)
 {
-    write(0, "\0", 1);
+	(void)signum;
+    write(1, "\n", 2);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 static void	sigd(int signum)
 {
+	(void)signum;
     exit(EXIT_SUCCESS);
 }
 
