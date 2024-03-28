@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/25 15:54:23 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:06:28 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ static void	child_pipe(t_master *master, t_cmd *cur, int status, pid_t pid)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		if (controll_builtins(master, cur) == 0)
-		{
 			execve(program_name(cur->cmd, master->path),
 				get_args(cur->cmd, master, cur), master->env);
-			write(2, "02: What command did you give me, darling\n", 42);
-			exit(EXIT_FAILURE);
-		}
 		else
+		{
+			free_all_steoridi(master);
 			exit(EXIT_SUCCESS);
+		}
 	}
 	else
 	{
@@ -52,14 +51,13 @@ static void	child(t_master *master, t_cmd *cur)
 	if (pid == 0)
 	{
 		if (controll_builtins(master, cur) == 0)
-		{
 			execve(program_name(cur->cmd, master->path),
 				get_args(cur->cmd, master, cur), master->env);
-			write(2, "02: What command did you give me, darling\n", 42);
-			exit(EXIT_FAILURE);
-		}
 		else
+		{
+			free_all_steoridi(master);
 			exit(EXIT_SUCCESS);
+		}
 	}
 	else
 	{
@@ -77,11 +75,12 @@ static void	builtin_dad(t_master *master, t_cmd *cur, char *str)
 	if (ft_strncmp(str, "unset", 6) == 0)
 		bt_unset(master, cur, -1, extract_mane(cur, 0, 0));
 	if (ft_strncmp(str, "cd", 3) == 0)
-		bt_cd(master, cur, 0);
+		bt_cd(master, cur);
 	master->print = 1;
+	free(str);
 }
 
-static void	pipe_cmd(t_master *master, t_cmd *cur)
+static int	pipe_cmd(t_master *master, t_cmd *cur)
 {
 	builtin_dad(master, cur, clear_space(cur->cmd));
 	if (!(cur->or == 1 && g_code_exit != 0))
@@ -96,32 +95,32 @@ static void	pipe_cmd(t_master *master, t_cmd *cur)
 		dup2(master->in, STDIN_FILENO);
 		dup2(master->out, STDOUT_FILENO);
 	}
-	cur = cur->next;
+	return (0);
 }
 
-void	executor(t_master *master, int i)
+void	executor(t_master *master, char *str, int i)
 {
 	t_cmd	*cur;
 
 	cur = master->lcmd;
-	if (master->ncmd == 1 && ft_strncmp(clear_space(cur->cmd),
-			"exit", 5) == 0)
-		bt_exit(cur->cmd);
-	if (master->npipe == 0)
+	str = clear_space(cur->cmd);
+	if (master->ncmd == 1 && ft_strncmp(str, "exit", 5) == 0)
 	{
-		while (master->ncmd != i++)
-		{
-			builtin_dad(master, cur, clear_space(cur->cmd));
-			if (!(cur->or == 1 && g_code_exit != 0))
-				child(master, cur);
-			cur = cur->next;
-			dup2(master->in, STDIN_FILENO);
-			dup2(master->out, STDOUT_FILENO);
-		}
+		free(str);
+		bt_exit(master, cur->cmd, 0, 0);
 	}
-	else
+	if (str != NULL)
+		free(str);
+	while (master->npipe == 0 && master->ncmd != i++)
 	{
-		while (master->ncmd != i++)
-			pipe_cmd(master, cur);
+		builtin_dad(master, cur, clear_space(cur->cmd));
+		if (!(cur->or == 1 && g_code_exit != 0))
+			child(master, cur);
+		cur = cur->next;
+		dup2(master->in, STDIN_FILENO);
+		dup2(master->out, STDOUT_FILENO);
 	}
+	while (master->npipe != 0 && master->ncmd != i++
+		&& pipe_cmd(master, cur) == 0)
+		cur = cur->next;
 }

@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   utilitis2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 08:17:36 by aanghi            #+#    #+#             */
-/*   Updated: 2024/01/10 08:17:36 by aanghi           ###   ########.fr       */
+/*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
+/*   Updated: 2024/03/28 16:13:54 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
+char	**copy_m(char **m)
 {
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else if (!(lst == NULL || new == NULL))
+	char	**cm;
+	int		i;
+
+	i = 0;
+	cm = malloc((ft_mlen(m) + 1) * sizeof(char *));
+	while (m[i] != NULL)
 	{
-		while ((*lst)->next != NULL)
-			lst = &(*lst)->next;
-		(*lst)->next = new;
+		cm[i] = ft_strjoin(m[i], "");
+		i++;
 	}
+	cm[i] = NULL;
+	return (cm);
+}
+
+void	free_all_steoridi(t_master *master)
+{
+	free_all(master);
+	rl_clear_history();
+	free_matrix(master->env);
 }

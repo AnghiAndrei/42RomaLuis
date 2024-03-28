@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:55:20 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/13 10:55:20 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 15:19:23 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 int	skip(int i, char *s)
 {
-	while (s[i] == ' ')
-		i++;
+	if (s == NULL)
+		return (i);
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\t' || s[i] == ' ')
+		{
+			i++;
+			continue ;
+		}
+		break ;
+	}
 	return (i);
 }
 
@@ -62,6 +71,8 @@ void	free_all(t_master *master)
 		free(cur);
 		cur = next;
 	}
+	free(cur->cmd);
+	free(cur);
 	master->lcmd = NULL;
 	free(master->input);
 	master->ncmd = 0;
@@ -84,5 +95,7 @@ char	*program_name(char *command, char *path)
 			return (ft_strjoin(ft_strjoin(path_c[i], "/"), c_c[0]));
 		i++;
 	}
+	write(2, "02: What command did you give me, darling\n", 42);
+	exit(EXIT_FAILURE);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:18:43 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/21 11:46:09 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 10:22:50 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,31 @@ char	*get_command_f_histori(char *input)
 		{
 			free(input);
 			input = hist_entry->line;
+			free(hist_entry->line);
 			printf("02: Give me a command, darling: %s\n", input);
 		}
 	}
 	return (input);
 }
 
-char	*controll_close_char(char *input, char c)
+static char	*controll_close_char(char *input, char c, int i, int i2)
 {
-	int		i;
-	int		i2;
 	char	*s;
+	char	*d;
 
-	i = 0;
-	i2 = 0;
-	while (input[i2] != '\0')
+	while (input[++i2] != '\0')
 	{
 		if (input[i2] == c && i == 0)
 			i = 1;
 		else if (input[i2] == c && i == 1)
 			i = 0;
-		i2++;
 	}
 	if (i == 1)
 	{
 		printf("02: Close the \' or \", darling: %s", input);
-		s = ft_strjoin(input, readline(""));
+		d = readline("");
+		s = ft_strjoin(input, d);
+		free(d);
 		add_history(s);
 		free(input);
 	}
@@ -62,13 +61,17 @@ char	*controll_close_char(char *input, char c)
 char	*get_command_f_0(void)
 {
 	char	*input;
+	char	*f;
 	int		i;
 
 	input = readline("02: Give me a command, darling: ");
-	add_history(input);
+	if (input == NULL)
+		return (NULL);
+	if (strlen(input) > 0)
+		add_history(input);
 	input = get_command_f_histori(input);
-	input = controll_close_char(input, '\'');
-	input = controll_close_char(input, '\"');
+	input = controll_close_char(input, '\'', 0, -1);
+	input = controll_close_char(input, '\"', 0, -1);
 	i = skip(0, input);
 	if (input[i] == '\0')
 	{
@@ -76,5 +79,7 @@ char	*get_command_f_0(void)
 		input = malloc(1);
 		input[0] = '\0';
 	}
-	return (ft_strjoin(input, " "));
+	f = ft_strjoin(input, " ");
+	free(input);
+	return (f);
 }

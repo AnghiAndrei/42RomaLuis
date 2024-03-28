@@ -2,41 +2,47 @@
 [X] Cronologia dei comandi
 [X] Avviare comandi, esempio: ls
 [X] Avviare comandi, esempio: /bin/ls
-[X] Gestire ' ":
+[-] Stampa le variabili globali, esempio: $HOME. Nota: una var dámbiente e composto da charatteri alphamunnetici e _, qiundi lui espande a prescindere
+[X] Stampa codice uscita dell'ultimmo comando: $?
+Gestire ' ":
     [X] ' prende il contenuto delle ' e lo usa cosi come
     [X] " prende il contenuto delle " e lo usa cosi come, tranne la var. ambiente
     [X] se non sono stati chiusi: '
     [X] se non sono stati chiusi: "
-[X] Redirect:
+Redirect:
     [X] < ridireziona l'input
     [X] > ridireziona l'output sostituendo il contenuto
     [X] >> ridireziona l'output in modo append
     [X] << fine leggere dallo standart input fino all'inserimento del delimitatore
     [X] | l'uotput del comando diventa l'input del prossimo comando
-[X] Stampa le variabili globali, esempio: $HOME
-[X] Stampa codice uscita dell'ultimmo comando: $?
-[ ] Gestire segnali, quando aspetta dei comandi:
-    [ ] ctrl-C cancella il contenuto della riga
-    [ ] ctrl-D esce dalla shell
-    [ ] ctrl-\ non fa nulla
-[ ] Builtins:
-    [X] echo
-		[X] echo testo Stampa il testo con \n
-		[X] echo -n testo Stampa il testo senza il \n
-    [ ] cd Ti cambia di directori
-		[ ] cd ~ Ti porta all'inizio delle cartelle
-		[ ] cd  Ti porta all'inizio delle cartelle
-		[ ] cd .. Ti porta alla cartella precedente
-		[ ] cd cartella Ti porta alla cartella indicata
-    [X] pwd Mostra in quale cartella ti trovi con il terminale
-    [-] export
-		[-] export Stampa tutte le variabili d'ambiente, in ordine alfabetico
-		[X] export var Aggiunge la variabile d'ambiente senza valore
-		[X] export var=val Aggiunge/Imposta la variabile d'ambiente con valore
-		[-] export var+=val Aggiunge/Imposta la variabile d'ambiente con valore
-    [X] unset Rimuove una variabile d'ambiente
+Gestire segnali, quando aspetta dei comandi:
+    [X] ctrl-C cancella il contenuto della riga
+    [X] ctrl-D esce dalla shell
+    [X] ctrl-\ non fa nulla
+Builtins:
+	SE CANCELLA PATH QUESTI DEVONO CONTINUARE A FUNZIONARE
     [X] env Mostra tutte le variabili d'ambiente con all'interno dei valori
-    [X] exit
+    [-] pwd Mostra in quale cartella ti trovi con il terminale
+    [-] unset Rimuove una variabile d'ambiente
+    echo
+		[X] echo testo Stampa il testo con \n
+		[-] echo "  testo  " Stampa il testo con \n
+		[-] echo '  testo  ' Stampa il testo con \n
+		[X] echo -n testo Stampa il testo senza il \n
+    cd Ti cambia di directori del terminale
+		[-] cd  Ti porta all'inizio delle cartelle
+		[-] cd .. Ti porta alla cartella precedente
+		[-] cd cartella Ti porta alla cartella indicata
+    export
+		[X] export Stampa tutte le variabili d'ambiente, in ordine alfabetico
+		[-] export var Aggiunge la variabile d'ambiente senza valore
+		[-] export var=val Aggiunge la variabile d'ambiente con valore
+		[-] export var=val Assegna il valore, alla variabile esistente
+		[-] export var+=val Aggiunge la variabile d'ambiente con valore
+		[-] export var+=val Aggiunge il valore alla variabile d'ambiente
+		[-] export var+="gestisco i '"
+		[-] export var+='gestisco i "'
+    exit
 		[X] Esce dalla shell
 		[X] Non esce dalla shell se in una pipe
 		[X] exit 42 Esce dal programma con quel codice di errore

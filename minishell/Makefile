@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/03/28 16:01:13 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC = ft_atoi.c ft_strncmp.c ft_lstadd_back.c ft_isdigit.c ft_strjoin.c ft_itoa.
 	  main.c u_input.c split_cmd.c marshal.c executor.c \
 	  get_next_line.c get_next_line_utils.c \
 	  builtins1.c builtins2.c builtins3.c \
-	  utilitis.c utilitis1.c \
+	  utilitis.c utilitis1.c utilitis2.c \
 	  builtins_utilitis.c
 OBJ = $(SRC:.c=.o)
 
@@ -61,11 +61,15 @@ test: re
 test2: re
 	rm -f $(OBJ)
 	clear
-	echo valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-	@echo Norminette error: 
-	norminette | grep Error! | wc -l
-	@echo
+	echo valgrind --leak-check=full ./$(NAME)
+	valgrind --leak-check=full ./$(NAME)
+#echo valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+#valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+
+#echo Norminette error: 
+#norminette | grep Error! | wc -l
+#echo
+
 # @leaks -atExit -- ./$(NAME) > temp.txt
 # cat temp.txt | grep "total leaked bytes."
 # rm temp.txt	

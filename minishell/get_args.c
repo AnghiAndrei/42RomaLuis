@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/20 13:22:27 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 02:43:16 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*clear_cmd(char *s, t_master *master, t_cmd *cmd)
 	d.dquote = 0;
 	d.env_var = NULL;
 	d.env_name = NULL;
-	s = expander(cmd, d);
+	s = expander(master, cmd, d);
 	return (s);
 }
 
@@ -59,7 +59,7 @@ char	**get_args(char *s, t_master *master, t_cmd *cmd)
 
 	s = clear_cmd(s, master, cmd);
 	m = (char **)malloc((count_arg(s) + 1) * sizeof(char *));
-	controll_malloc_matrix(m);
+	cmmal(m);
 	w = 0;
 	i = skip(0, s);
 	while (count_arg(s) != w)
