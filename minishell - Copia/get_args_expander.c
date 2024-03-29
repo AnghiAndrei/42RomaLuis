@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 08:46:41 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/18 11:21:38 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 00:58:38 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	void	expand(t_cmd *cmd, t_data *d)
 	cmd->cmd = d->temp;
 }
 
-static void	set_expand(t_cmd *cmd, t_data *d)
+static void	set_expand(t_master *master, t_cmd *cmd, t_data *d)
 {
 	while (cmd->cmd[d->i] != '\0' && cmd->cmd[d->i] != ' '
 		&& cmd->cmd[d->i] != '\'' && cmd->cmd[d->i] != '\"')
@@ -47,12 +47,12 @@ static void	set_expand(t_cmd *cmd, t_data *d)
 		|| cmd->cmd[d->i] == ' ')
 		d->i--;
 	d->env_name = ft_substr(cmd->cmd, d->i2, d->i - d->i2 + 1);
-	d->env_var = getenv(d->env_name);
+	d->env_var = get_env(master, d->env_name);
 	if (d->env_var != NULL)
 		expand(cmd, d);
 }
 
-char	*expander(t_cmd *cmd, t_data d)
+char	*expander(t_master *master, t_cmd *cmd, t_data d)
 {
 	while (cmd->cmd[d.i] != '\0')
 	{
@@ -71,7 +71,7 @@ char	*expander(t_cmd *cmd, t_data d)
 				if (d.env_var != NULL)
 					expand(cmd, &d);
 			}
-			set_expand(cmd, &d);
+			set_expand(master, cmd, &d);
 		}
 		if (cmd->cmd[d.i] != '\0')
 			d.i++;

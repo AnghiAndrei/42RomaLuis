@@ -1,0 +1,18 @@
+Funzioni:
+Input: readline, rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history
+Generali: printf, malloc, free, write
+File: access, open, read, close, unlink
+Processi: fork, wait, waitpid, wait3, wait4
+Segnali: signal, sigaction, sigemptyset, sigaddset
+Chiudi: kill, exit
+Cartelle: opendir, readdir, closedir, chdir, getcwd
+Pipe: dup, dup2, pipe
+Esecuzione: execve
+Errori: perror, strerror
+Variabili D'ambiente: getenv
+Tget: tcsetattr, tcgetattr, tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+Bho: stat, lstat, fstat, isatty, ttyname, ttyslot, ioctl
+
+Note:
+-Possiamo usare una variabile globale per salvare il codice di usita de comandi
+-readline() puo produrre memory leacks

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/21 17:32:55 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 16:14:03 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	here_doc(char *rule)
 		unlink("aanghi_temp_file.txt");
 }
 
-void	init_start(t_master *master, char **env)
+int	init_start(t_master *master, char **env)
 {
 	master->ncmd = 0;
 	master->env = copy_m(env);
@@ -44,6 +44,7 @@ void	init_start(t_master *master, char **env)
 	master->path = getenv("PATH");
 	master->out = dup(STDOUT_FILENO);
 	master->in = dup(STDIN_FILENO);
+	return (0);
 }
 
 char	*clear_space(char *str)
@@ -51,6 +52,8 @@ char	*clear_space(char *str)
 	int		i;
 	int		i2;
 
+	if (str == NULL)
+		return (NULL);
 	i = skip(0, str);
 	i2 = i;
 	while (str[i] != ' ' && str[i] != '\0')
@@ -72,8 +75,16 @@ void	free_matrix(char **m)
 {
 	int		i;
 
-	i = -1;
-	while (m[++i] != NULL)
-		free(m[i]);
-	free(m);
+	if (m == NULL)
+		return ;
+	if (m != NULL)
+	{
+		i = 0;
+		while (m[i] != NULL)
+		{
+			free(m[i]);
+			i++;
+		}
+		free(m);
+	}
 }

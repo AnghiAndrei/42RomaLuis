@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/18 16:58:49 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/03/28 16:13:39 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,8 @@ char	*trim_cmd(char *str, t_master *master, t_cmd *cmd, int i)
 		free(join);
 		join = ft_strjoin(path_c[i++], "/");
 	}
+	if (join != NULL)
+		free(join);
+	free_matrix(path_c);
 	return (cmd->cmd);
 }
