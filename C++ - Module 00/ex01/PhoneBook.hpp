@@ -1,3 +1,5 @@
+#include "Contact.hpp"
+
 class PhoneBook{
     Contact list[9];
     Int insert;
@@ -15,68 +17,72 @@ class PhoneBook{
         list[8]=NULL;
     }
     ~PhoneBook(){}
-    void add_contact(Contact cont)
-    {
-        if (insert==9)
-            insert=0;
-        list[insert]=cont;
-        insert++;
-    }
-    void search(){
-        int i=0, i2=0;
-        while(i != 8){
-            cout<<i<<"         | ";
-            i2=0;
-            while (list[insert].name[i2] != '\0' && i2 != 10)
-            {
-                if(i2 == 10 && list[insert].name[i2+1] != '\0')
-                    cout<<".";
-                else
-                    cout<<list[insert].name[i2];
-                i2++;
-            }
-            while (i2 != 10)
-            {
-                cout<<" ";
-                i2++;
-            }
-            cout<<"| ";
-            i2=0;
-            while (list[insert].name2[i2] != '\0' && i2 != 10)
-            {
-                if(i2 == 10 && list[insert].name2[i2+1] != '\0')
-                    cout<<".";
-                else
-                    cout<<list[insert].name2[i2];
-                i2++;
-            }
-            while (i2 != 10)
-            {
-                cout<<" ";
-                i2++;
-            }
-            cout<<"| ";
-            i2=0;
-            while (list[insert].surname[i2] != '\0' && i2 != 10)
-            {
-                if(i2 == 10 && list[insert].surname[i2+1] != '\0')
-                    cout<<".";
-                else
-                    cout<<list[insert].surname[i2];
-                i2++;
-            }
-            while (i2 != 10)
-            {
-                cout<<" ";
-                i2++;
-            }
-            cout<<"| ";
-            i++;
+    public:
+        void add_contact(Contact cont)
+        {
+            if (insert==9)
+                insert=0;
+            list[insert]=cont;
+            insert++;
         }
-        do{
-            cout<<"SEARCH>";
-            cin>>i;
-        }while (!(i > 0 && i < 8) && list[i] != NULL);
-        cout<<"Index: "<<i<<"\nFirst name: "<<list[insert].name<<"\nLast name: "<<list[insert].name2<<"\nSurname: "<<list[insert].surname<<"\nPhone: "<<list[insert].tel<<"\nDarkest secret: "<<list[insert].dse;
-    }
-}
+        void search(){
+            int i=0, i2=0;
+            std::cout << "---------------------------------------------" << std::endl;
+            std::cout << "|    index |firstname | lastname | surname  |" << std::endl;
+            std::cout << "---------------------------------------------" << std::endl;
+            while(i != 8){
+                std::cout<<i<<"|         | ";
+                i2=0;
+                while (list[insert].name[i2] != '\0' && i2 != 10)
+                {
+                    if(i2 == 10 && list[insert].name[i2+1] != '\0')
+                        std::cout<<".";
+                    else
+                        std::cout<<list[insert].name[i2];
+                    i2++;
+                }
+                while (i2 != 10)
+                {
+                    std::cout<<" ";
+                    i2++;
+                }
+                std::cout<<"| ";
+                i2=0;
+                while (list[insert].name2[i2] != '\0' && i2 != 10)
+                {
+                    if(i2 == 10 && list[insert].name2[i2+1] != '\0')
+                        std::cout<<".";
+                    else
+                        std::cout<<list[insert].name2[i2];
+                    i2++;
+                }
+                while (i2 != 10)
+                {
+                    std::cout<<" ";
+                    i2++;
+                }
+                std::cout<<"| ";
+                i2=0;
+                while (list[insert].surname[i2] != '\0' && i2 != 10)
+                {
+                    if(i2 == 10 && list[insert].surname[i2+1] != '\0')
+                        std::cout<<".";
+                    else
+                        std::cout<<list[insert].surname[i2];
+                    i2++;
+                }
+                while (i2 != 10)
+                {
+                    std::cout<<" ";
+                    i2++;
+                }
+                std::cout<<"|\n";
+                i++;
+            }
+            do{
+                std::cout<<"SEARCH>";
+                std::cin>>i;
+            }while (!(i > 0 && i < 8) && list[i] != NULL);
+            std::cout<<"Index: "<<i<<"\nFirst name: "<<list[insert].name<<"\nLast name: "<<list[insert].name2<<"\nSurname: "<<list[insert].surname<<"\nPhone: "<<list[insert].tel<<"\nDarkest secret: "<<list[insert].dse;
+        }
+};

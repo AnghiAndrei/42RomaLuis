@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Megaphone
+NAME = TheJobOfYourDreams
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = megaphone.cpp
+SRC = test.cpp Account.cpp
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
