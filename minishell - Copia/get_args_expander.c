@@ -22,7 +22,7 @@ static	void	expand(t_cmd *cmd, t_data *d)
 	while (cmd->cmd[++i] != '$')
 		d->temp[i] = cmd->cmd[i];
 	i2 = 0;
-	while (d->env_var[i2] != '\0')
+	while (d->env_var[i2] != NULL && d->env_var[i2] != '\0')
 	{
 		d->temp[i + i2] = d->env_var[i2];
 		i2++;
@@ -41,15 +41,15 @@ static	void	expand(t_cmd *cmd, t_data *d)
 static void	set_expand(t_master *master, t_cmd *cmd, t_data *d)
 {
 	while (cmd->cmd[d->i] != '\0' && cmd->cmd[d->i] != ' '
-		&& cmd->cmd[d->i] != '\'' && cmd->cmd[d->i] != '\"')
+		&& cmd->cmd[d->i] != '\'' && cmd->cmd[d->i] != '\"'
+		&& cmd->cmd[d->i] != '$')
 		d->i++;
 	if (cmd->cmd[d->i] == '\'' || cmd->cmd[d->i] == '\"'
 		|| cmd->cmd[d->i] == ' ')
 		d->i--;
 	d->env_name = ft_substr(cmd->cmd, d->i2, d->i - d->i2 + 1);
 	d->env_var = get_env(master, d->env_name);
-	if (d->env_var != NULL)
-		expand(cmd, d);
+	expand(cmd, d);
 }
 
 char	*expander(t_master *master, t_cmd *cmd, t_data d)

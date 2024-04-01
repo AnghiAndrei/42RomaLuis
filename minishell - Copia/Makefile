@@ -15,8 +15,8 @@ MAKEFLAGS += -s
 NAME = minishell
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_atoi.c ft_strncmp.c ft_lstadd_back.c ft_isdigit.c ft_strjoin.c ft_itoa.c ft_strlen.c ft_split.c ft_substr.c \
-	  get_args.c get_args_utilis.c get_args_expander.c get_args_redirect.c \
+SRC = ft_atoi.c ft_strncmp.c ft_strnstr.c ft_lstadd_back.c ft_isdigit.c ft_strjoin.c ft_itoa.c ft_strlen.c ft_split.c ft_substr.c \
+	  get_args.c get_args_utilis.c get_args_expander.c get_args_redirect.c get_args_wildcard.c \
 	  main.c u_input.c split_cmd.c marshal.c executor.c \
 	  get_next_line.c get_next_line_utils.c \
 	  builtins1.c builtins2.c builtins3.c \

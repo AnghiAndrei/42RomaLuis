@@ -55,7 +55,7 @@ int	bt_echo(t_master *master, t_cmd *cur, int i, int n)
 			n++;
 		else
 		{
-			printf("%s", cstr);
+			printf("%s", arg[i]);
 			if (arg[i + 1] != NULL && ft_strncmp(cstr2, "-n", 3) != 0)
 				printf(" ");
 			free(cstr);

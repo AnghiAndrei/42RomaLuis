@@ -1,49 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilitis2.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:13:54 by aanghi           ###   ########.fr       */
+/*   Created: 2024/01/09 17:57:23 by aanghi            #+#    #+#             */
+/*   Updated: 2024/01/09 17:57:34 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**copy_m(char **m)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	**cm;
-	int		i;
+	size_t	i;
+	size_t	i2;
+	size_t	lenn;
 
+	if (haystack == NULL && len == 0)
+		return (NULL);
+	lenn = ft_strlen((char *)needle);
+	if (lenn == 0)
+		return ((char *)haystack);
 	i = 0;
-	cm = malloc((ft_mlen(m) + 1) * sizeof(char *));
-	while (m[i] != NULL)
+	while (haystack[i] != '\0' && i < len)
 	{
-		cm[i] = ft_strjoin(m[i], "");
+		i2 = 0;
+		while (i + i2 < len && haystack[i + i2] == needle[i2]
+			&& needle[i2] != '\0')
+			i2++;
+		if (needle[i2] == '\0')
+			return ((char *)(haystack + i));
 		i++;
-	}
-	cm[i] = NULL;
-	return (cm);
-}
-
-void	free_all_steoridi(t_master *master)
-{
-	free_all(master);
-	rl_clear_history();
-	free_matrix(master->env);
-}
-
-char	*get_path(void)
-{
-	char	cwd[1024];
-
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		return (cwd);
-	else
-	{
-		perror("Marshal: getcwd() error");
 	}
 	return (NULL);
 }

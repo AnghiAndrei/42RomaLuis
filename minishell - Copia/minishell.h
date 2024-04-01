@@ -62,6 +62,7 @@ typedef struct s_master
 	int		out;
 }				t_master;
 
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*trim_cmd(char *str, t_master *master, t_cmd *cmd, int i);
 int		bt_unset(t_master *master, t_cmd *cur, int i2, char *str);
@@ -70,6 +71,7 @@ int		bt_echo(t_master *master, t_cmd *cur, int i, int n);
 int		bt_exit(t_master *master, char *cmd, int i, int i2);
 char	*expander(t_master *master, t_cmd *cmd, t_data d);
 char	**get_args(char *s, t_master *master, t_cmd *cmd);
+char	*wildcard(t_master *master, t_cmd *cur, t_data d);
 int		bt_export(t_master *master, t_cmd *cur, int i2);
 int		controll_builtins(t_master *master, t_cmd *cur);
 char	*program_name(char *command, char *path, int i);
@@ -112,6 +114,7 @@ char	**redirect(char **m);
 char	**copy_m(char **m);
 int		ft_mlen(char **m);
 int		cmmal(char **m);
+char	*get_path(void);
 char	*ft_itoa(int n);
 int		bt_pwd(void);
 #endif

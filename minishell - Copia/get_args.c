@@ -24,6 +24,9 @@ static char	*clear_cmd(char *s, t_master *master, t_cmd *cmd)
 	d.env_var = NULL;
 	d.env_name = NULL;
 	s = expander(master, cmd, d);
+	d.i = 0;
+	d.i2 = 0;
+	s = wildcard(master, cmd, -1);
 	return (s);
 }
 
