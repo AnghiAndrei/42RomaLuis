@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 14:06:28 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 19:22:20 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	child_pipe(t_master *master, t_cmd *cur, int status, pid_t pid)
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		if (controll_builtins(master, cur) == 0)
-			execve(program_name(cur->cmd, master->path),
+			execve(program_name(cur->cmd, get_env(master, "PATH")),
 				get_args(cur->cmd, master, cur), master->env);
 		else
 		{
@@ -51,7 +51,7 @@ static void	child(t_master *master, t_cmd *cur)
 	if (pid == 0)
 	{
 		if (controll_builtins(master, cur) == 0)
-			execve(program_name(cur->cmd, master->path),
+			execve(program_name(cur->cmd, get_env(master, "PATH")),
 				get_args(cur->cmd, master, cur), master->env);
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:55:20 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 15:19:23 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 14:59:27 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*program_name(char *command, char *path)
 {
 	char	**c_c;
 	char	**path_c;
+	char	*temp;
 	int		i;
 
 	c_c = ft_split((const char *)command, ' ');
@@ -91,8 +92,10 @@ char	*program_name(char *command, char *path)
 	i = 0;
 	while (path_c[i] != NULL)
 	{
-		if (access(ft_strjoin(ft_strjoin(path_c[i], "/"), c_c[0]), R_OK) == 0)
-			return (ft_strjoin(ft_strjoin(path_c[i], "/"), c_c[0]));
+		temp = ft_strjoin1f(ft_strjoin(path_c[i], "/"), c_c[0]);
+		if (access(temp, R_OK) == 0)
+			return (temp);
+		free(temp);
 		i++;
 	}
 	write(2, "02: What command did you give me, darling\n", 42);

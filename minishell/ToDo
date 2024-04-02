@@ -2,7 +2,7 @@
 [X] Cronologia dei comandi
 [X] Avviare comandi, esempio: ls
 [X] Avviare comandi, esempio: /bin/ls
-[-] Stampa le variabili globali, esempio: $HOME. Nota: una var dámbiente e composto da charatteri alphamunnetici e _, qiundi lui espande a prescindere
+[X] Stampa le variabili globali, esempio: $HOME. Nota: una var dámbiente e composto da charatteri alphamunnetici e _, qiundi lui espande a prescindere
 [X] Stampa codice uscita dell'ultimmo comando: $?
 Gestire ' ":
     [X] ' prende il contenuto delle ' e lo usa cosi come
@@ -22,12 +22,12 @@ Gestire segnali, quando aspetta dei comandi:
 Builtins:
 	SE CANCELLA PATH QUESTI DEVONO CONTINUARE A FUNZIONARE
     [X] env Mostra tutte le variabili d'ambiente con all'interno dei valori
-    [-] pwd Mostra in quale cartella ti trovi con il terminale
-    [-] unset Rimuove una variabile d'ambiente
+    [X] pwd Mostra in quale cartella ti trovi con il terminale
+    [X] unset Rimuove una variabile d'ambiente
     echo
 		[X] echo testo Stampa il testo con \n
-		[-] echo "  testo  " Stampa il testo con \n
-		[-] echo '  testo  ' Stampa il testo con \n
+		[X] echo "  testo  " Stampa il testo con \n
+		[X] echo '  testo  ' Stampa il testo con \n
 		[X] echo -n testo Stampa il testo senza il \n
     cd Ti cambia di directori del terminale
 		[-] cd  Ti porta all'inizio delle cartelle
@@ -35,9 +35,11 @@ Builtins:
 		[-] cd cartella Ti porta alla cartella indicata
     export
 		[X] export Stampa tutte le variabili d'ambiente, in ordine alfabetico
-		[-] export var Aggiunge la variabile d'ambiente senza valore
-		[-] export var=val Aggiunge la variabile d'ambiente con valore
-		[-] export var=val Assegna il valore, alla variabile esistente
+		[X] export var Aggiunge la variabile d'ambiente senza valore
+		[X] export var=val Aggiunge la variabile d'ambiente con valore
+		[X] export var=val Assegna il valore, alla variabile esistente
+		[X] export var="gestisco i '"
+		[X] export var='gestisco i "'
 		[-] export var+=val Aggiunge la variabile d'ambiente con valore
 		[-] export var+=val Aggiunge il valore alla variabile d'ambiente
 		[-] export var+="gestisco i '"

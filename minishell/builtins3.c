@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:51:13 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 19:40:38 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	bts2_export(t_cmd *cur, int *i)
 static char	*bts1_export(t_cmd *cur, char *a, int i, t_master *m)
 {
 	int		i2;
+	char	*temp;
 
 	while (cur->cmd[i] != '\0' && cur->cmd[i] != '+' && cur->cmd[i] != '=')
 		i++;
@@ -43,11 +44,7 @@ static char	*bts1_export(t_cmd *cur, char *a, int i, t_master *m)
 	{
 		i = i + 2;
 		i2 = bts2_export(cur, &i);
-		if (get_env(m, a) == NULL)
-			return (ft_substr(cur->cmd, i2, i - i2));
-		else
-			return (ft_strjoin12f(get_env(m, a),
-					ft_substr(cur->cmd, i2, i - i2)));
+		return (ft_strjoin12f(get_env(m, a), ft_substr(cur->cmd, i2, i - i2)));
 	}
 	else if (cur->cmd[i] == '=')
 	{
@@ -55,7 +52,9 @@ static char	*bts1_export(t_cmd *cur, char *a, int i, t_master *m)
 		i2 = bts2_export(cur, &i);
 		return (ft_substr(cur->cmd, i2, i - i2));
 	}
-	return (NULL);
+	temp = malloc(1);
+	temp[0] = '\0';
+	return (temp);
 }
 
 static void	bt_env2(t_master *master, int i)
@@ -84,13 +83,12 @@ static char	**bts3_export(t_master *master, t_cmd *cur, char *e, int i2)
 	m2 = malloc((ft_mlen(master->env) + 2) * sizeof(char *));
 	cmmal(m2);
 	while (master->env[++i2] != NULL)
-		m2[i2] = master->env[i2];
+		m2[i2] = ft_strjoin(master->env[i2], "\0");
 	m2[i2] = ft_strjoin12f(ft_strjoin(e, "="),
 			bts1_export(cur, e, get_a(0, cur->cmd), master));
-	if (m2[i2] == NULL)
-		m2[i2] = ft_strjoin(e, "=");
-	m2[++i2] = NULL;
-	master->env = m2;
+	i2++;
+	m2[i2] = NULL;
+	free_matrix(master->env);
 	return (m2);
 }
 
@@ -101,18 +99,18 @@ int	bt_export(t_master *master, t_cmd *cur, int i2)
 	char	*e;
 
 	arg = get_args(cur->cmd, master, cur);
-	cmmal(arg);
 	e = extract_mane(cur, 0, 0);
-	if (ft_mlen(arg) > 1 && search_env(master, e) == 0)
+	if (cmmal(arg) != 0 && ft_mlen(arg) > 1 && search_env(master, e) == 0)
 		master->env = bts3_export(master, cur, e, i2);
-	else if (ft_mlen(arg) == 1 && master->print == 1)
+	else if (cmmal(arg) != 0 && ft_mlen(arg) == 1 && master->print == 1)
 		bt_env2(master, 0);
 	else
 	{
 		while (master->env[++i2] != NULL)
 		{
 			m2 = ft_split(master->env[i2], '=');
-			if (ft_strncmp(m2[0], e, ft_strlen(e) + 1) == 0)
+			if (ft_strncmp(m2[0], e, ft_strlen(e) + 1) == 0
+				&& free_norm(master->env[i2]))
 				master->env[i2] = ft_strjoin12f(ft_strjoin(e, "="),
 						bts1_export(cur, e, get_a(0, cur->cmd), master));
 			free_matrix(m2);

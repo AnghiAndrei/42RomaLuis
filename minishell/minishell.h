@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:57:21 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:14:07 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 14:54:44 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_master
 	t_cmd	*lcmd;
 	char	*input;
 	char	**env;
-	char	*path;
 	int		print;
 	int		npipe;
 	int		ncmd;
@@ -92,9 +91,11 @@ void	ceck_pipe_fork(int *fd, pid_t *pid);
 void	free_all_steoridi(t_master *master);
 char	*ft_strjoin12f(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+char	*ft_strjoin1f(char *s1, char *s2);
 char	*gu2(int *i, char *s, char ch);
 int		count_pipe(char *str, char c);
 int		ft_strlen(const char *string);
+char	**ft_splitf(char *s, char c);
 void	split_cmd(t_master *master);
 int		ft_atoi(const char *string);
 void	free_all(t_master *master);
@@ -108,6 +109,7 @@ char	*gu3(int *i, char *s);
 void	here_doc(char *rule);
 int		skip(int i, char *s);
 char	**redirect(char **m);
+bool	free_norm(char *str);
 char	**copy_m(char **m);
 int		ft_mlen(char **m);
 int		cmmal(char **m);

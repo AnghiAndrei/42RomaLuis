@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:14:03 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:32:35 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	init_start(t_master *master, char **env)
 	master->ncmd = 0;
 	master->env = copy_m(env);
 	master->lcmd = NULL;
-	master->path = getenv("PATH");
 	master->out = dup(STDOUT_FILENO);
 	master->in = dup(STDIN_FILENO);
 	return (0);

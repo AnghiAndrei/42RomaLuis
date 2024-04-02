@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/13 17:32:53 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 19:03:47 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,34 @@ char	**ft_split(char const *s, char c)
 		w++;
 	}
 	m[w] = NULL;
+	return (m);
+}
+
+char	**ft_splitf(char *s, char c)
+{
+	char				**m;
+	int					w;
+	int					i;
+	unsigned int		b;
+
+	if (!s)
+		return (NULL);
+	m = (char **)malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (m == NULL)
+		return (NULL);
+	w = 0;
+	i = 0;
+	i = skip2(i, s, c);
+	while (count_words(s, c) != w)
+	{
+		b = i;
+		while (s[i] != '\0' && s[i] != c)
+			i++;
+		m[w] = ft_substr(s, b, i - b);
+		i = skip2(i, s, c);
+		w++;
+	}
+	m[w] = NULL;
+	free(s);
 	return (m);
 }

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:13:54 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 19:40:44 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	get_a(int i, char *cmd)
 char	*get_env(t_master *master, char *env)
 {
 	char	**s;
+	char	*d;
 	int		i;
 
 	i = 0;
@@ -60,11 +61,17 @@ char	*get_env(t_master *master, char *env)
 		s = ft_split(master->env[i], '=');
 		if (ft_mlen(master->env) >= 2
 			&& ft_strncmp(s[0], env, ft_strlen(env) + 1) == 0)
-			return (s[1]);
+		{
+			d = ft_strjoin(s[1], "\0");
+			free_matrix(s);
+			return (d);
+		}
 		free_matrix(s);
 		i++;
 	}
-	return (NULL);
+	d = malloc(1);
+	d[0] = '\0';
+	return (d);
 }
 
 char	**order(char **mt, int i, int i2, int len)
