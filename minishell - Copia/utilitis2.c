@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:13:54 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:08:40 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_path(void)
 	char	cwd[1024];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		return (cwd);
+		return (ft_strjoin1f(cwd, ""));
 	else
 	{
 		perror("Marshal: getcwd() error");

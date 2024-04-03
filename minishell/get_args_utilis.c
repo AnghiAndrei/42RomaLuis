@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 13:10:18 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 15:22:25 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ void	gu4(int *i, char *s, int *w, char **m)
 	(*w)++;
 }
 
-char	*trim_cmd(char *str, t_master *master, t_cmd *cmd, int i)
+void	trim_cmd(t_master *master, t_cmd *cmd, int i)
 {
 	char	**path_c;
 	char	*join;
 	char	*temp;
 
 	temp = get_env(master, "PATH");
-	if (temp == NULL)
-		return (cmd->cmd);
+	if (temp[0] == '\0' && free_n(temp))
+		return ;
 	path_c = ft_splitf(temp, ':');
 	join = ft_strjoin(path_c[i], "/");
 	while (path_c[i] != NULL)
 	{
-		if (ft_strncmp(str, join, ft_strlen(join)) == 0)
+		if (ft_strncmp(cmd->cmd, join, ft_strlen(join)) == 0)
 			cmd->cmd = cmd->cmd + ft_strlen(join);
 		free(join);
 		join = ft_strjoin(path_c[i++], "/");
@@ -80,5 +80,4 @@ char	*trim_cmd(char *str, t_master *master, t_cmd *cmd, int i)
 	if (join != NULL)
 		free(join);
 	free_matrix(path_c);
-	return (cmd->cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:13:54 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:11:58 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	bt_exit(t_master *master, char *cmd, int i, int i2)
 		str = ft_substr(cmd, i2, i - i2);
 		i = ft_atoi(str);
 		free_all_steoridi(master);
-		free_matrix(master->env);
 		exit(i);
 	}
 	else

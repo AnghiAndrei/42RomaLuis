@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 12:21:10 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/22 12:26:12 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 12:07:52 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ static char	**clean_m(char **m, int i, int i2, int i3)
 	while (m[i2] != NULL)
 	{
 		if (ft_strncmp(m[i2], " ", 2) != 0)
-			m2[i3++] = m[i2];
-		else
-			free(m[i2]);
+			m2[i3++] = ft_strjoin(m[i2], "\0");
 		i2++;
 	}
-	free(m);
 	m2[i3] = NULL;
+	free_matrix(m);
 	return (m2);
 }
 

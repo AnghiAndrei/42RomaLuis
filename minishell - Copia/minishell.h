@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:57:21 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:14:07 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:05:14 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <signal.h>
+# include <dirent.h>
 # include <stdbool.h>
 # include <sys/wait.h>
 # include <readline/history.h>
@@ -71,7 +72,6 @@ int		bt_echo(t_master *master, t_cmd *cur, int i, int n);
 int		bt_exit(t_master *master, char *cmd, int i, int i2);
 char	*expander(t_master *master, t_cmd *cmd, t_data d);
 char	**get_args(char *s, t_master *master, t_cmd *cmd);
-char	*wildcard(t_master *master, t_cmd *cur, t_data d);
 int		bt_export(t_master *master, t_cmd *cur, int i2);
 int		controll_builtins(t_master *master, t_cmd *cur);
 char	*program_name(char *command, char *path, int i);
@@ -95,6 +95,7 @@ void	free_all_steoridi(t_master *master);
 char	*ft_strjoin12f(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin1f(char *s1, char *s2);
+char	*wildcard(t_cmd *cur, t_data d);
 char	*gu2(int *i, char *s, char ch);
 int		count_pipe(char *str, char c);
 int		ft_strlen(const char *string);

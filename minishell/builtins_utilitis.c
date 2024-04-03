@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 19:40:44 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 11:30:45 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	search_env(t_master *master, char *rule)
 	return (0);
 }
 
-char	*extract_mane(t_cmd *cur, int i, int i2)
+char	*extr_m(t_cmd *cur, int i, int i2)
 {
 	i = get_a(0, cur->cmd);
 	i2 = i;

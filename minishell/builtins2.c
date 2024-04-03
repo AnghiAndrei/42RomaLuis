@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 13:15:27 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:23:13 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	bt_exit(t_master *master, char *cmd, int i, int i2)
 {
 	char	*str;
 
-	i = get_a(0, cmd);
 	i2 = i;
 	while (cmd[i] != ' ' && cmd[i] != '\0' && ft_isdigit(cmd[i]))
 		i++;
@@ -35,8 +34,9 @@ int	bt_exit(t_master *master, char *cmd, int i, int i2)
 	{
 		free_all(master);
 		free_matrix(master->env);
-		perror("Marshal: Requested numerical value");
-		exit(EXIT_FAILURE);
+		write(2, "Marshal: Requested numerical value\n", 35);
+		g_code_exit = 2;
+		exit(2);
 	}
 	return (1);
 }
@@ -69,32 +69,22 @@ int	bt_echo(t_master *master, t_cmd *cur, int i, int n)
 	return (1);
 }
 
-int	bt_cd(t_master *master, t_cmd *cur)
+int	bt_cd(t_master *master, t_cmd *cur, char *home, char **arg)
 {
-	char	cwd[1024];
-	char	**arg;
-
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	{
-		arg = get_args(cur->cmd, master, cur);
-		free(cur->cmd);
-		cur->cmd = ft_strjoin("export PWD=", getenv("HOME"));
-		if (cmmal(arg) == 1 && ft_mlen(arg) == 2)
-		{
-			cur->cmd = ft_strjoin("export PWD=", arg[1]);
-			chdir(arg[1]);
-		}
-		else if (cmmal(arg) == 1 && ft_mlen(arg) == 1)
-			chdir(getenv("HOME"));
-		bt_export(master, cur, -1);
-		free(cur->cmd);
-		cur->cmd = ft_strjoin("export OLDPWD=", cwd);
-		bt_export(master, cur, -1);
-		free_matrix(arg);
-	}
-	else
-		perror("Marshal: getcwd() error");
-	return (1);
+	free(cur->cmd);
+	cur->cmd = ft_strjoin2f("export OLDPWD=", get_path());
+	bt_export(master, cur, (t_data2){NULL, extr_m(cur, 0, 0), NULL, -1});
+	if (cmmal(arg) == 1 && ft_mlen(arg) == 2)
+		chdir(arg[1]);
+	else if (cmmal(arg) == 1 && ft_mlen(arg) == 1)
+		chdir(home);
+	free(cur->cmd);
+	cur->cmd = ft_strjoin2f("export PWD=", get_path());
+	bt_export(master, cur, (t_data2){NULL, extr_m(cur, 0, 0), NULL, -1});
+	free(cur->cmd);
+	cur->cmd = ft_strjoin("cd", "\0");
+	free_matrix(arg);
+	return (free(home), 1);
 }
 
 int	bt_pwd(void)

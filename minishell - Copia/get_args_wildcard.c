@@ -6,13 +6,13 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:13:39 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:04:54 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_file(t_cmd *cur, t_data d)
+static char	*get_file(t_data d)
 {
 	DIR				*dir;
 	struct dirent	*entry;
@@ -39,7 +39,7 @@ static char	*get_file(t_cmd *cur, t_data d)
 	return (d.env_name);
 }
 
-char	*wildcard(t_master *master, t_cmd *cur, t_data d)
+char	*wildcard(t_cmd *cur, t_data d)
 {
 	while (cur->cmd[d.i] != '\0')
 	{
@@ -55,7 +55,7 @@ char	*wildcard(t_master *master, t_cmd *cur, t_data d)
 		while (cur->cmd[d.i] != '\0' && cur->cmd[d.i] != ' ')
 			d.i++;
 		d.env_var = ft_substr(cur->cmd, d.i2, d.i - d.i2);
-		d.temp = ft_strjoin12f(d.temp, get_file(cur->cmd, d));
+		d.temp = ft_strjoin12f(d.temp, get_file(d));
 	}
 	free(cur->cmd);
 	cur->cmd = d.temp;

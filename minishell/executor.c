@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 19:22:20 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:21:40 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	child_pipe(t_master *master, t_cmd *cur, int status, pid_t pid)
 {
 	int		fd[2];
 
-	ceck_pipe_fork(fd, &pid);
+	check_pipe_fork(fd, &pid);
 	if (pid == 0)
 	{
 		close(fd[0]);
@@ -71,11 +71,12 @@ static void	builtin_dad(t_master *master, t_cmd *cur, char *str)
 {
 	master->print = 0;
 	if (ft_strncmp(str, "export", 7) == 0)
-		bt_export(master, cur, -1);
+		bt_export(master, cur, (t_data2){NULL, extr_m(cur, 0, 0), NULL, -1});
 	if (ft_strncmp(str, "unset", 6) == 0)
-		bt_unset(master, cur, -1, extract_mane(cur, 0, 0));
+		bt_unset(master, cur, -1, extr_m(cur, 0, 0));
 	if (ft_strncmp(str, "cd", 3) == 0)
-		bt_cd(master, cur);
+		bt_cd(master, cur, get_env(master, "HOME"),
+			get_args(cur->cmd, master, cur));
 	master->print = 1;
 	free(str);
 }
@@ -107,7 +108,7 @@ void	executor(t_master *master, char *str, int i)
 	if (master->ncmd == 1 && ft_strncmp(str, "exit", 5) == 0)
 	{
 		free(str);
-		bt_exit(master, cur->cmd, 0, 0);
+		bt_exit(master, cur->cmd, get_a(0, cur->cmd), 0);
 	}
 	if (str != NULL)
 		free(str);

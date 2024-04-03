@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:52:58 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/25 16:06:20 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:17:06 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	controll_file(char *file, int command)
 	return (fd);
 }
 
-void	ceck_pipe_fork(int *fd, pid_t *pid)
+void	check_pipe_fork(int *fd, pid_t *pid)
 {
 	if (pipe(fd) == -1)
 	{

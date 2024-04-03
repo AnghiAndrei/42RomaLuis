@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 08:46:41 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 00:58:38 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:14:33 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	void	expand(t_cmd *cmd, t_data *d)
 	while (cmd->cmd[++i] != '$')
 		d->temp[i] = cmd->cmd[i];
 	i2 = 0;
-	while (d->env_var[i2] != NULL && d->env_var[i2] != '\0')
+	while (d->env_var != NULL && d->env_var[i2] != '\0')
 	{
 		d->temp[i + i2] = d->env_var[i2];
 		i2++;
@@ -35,6 +35,7 @@ static	void	expand(t_cmd *cmd, t_data *d)
 	d->temp[i + i2] = '\0';
 	free(cmd->cmd);
 	free(d->env_name);
+	d->env_var = NULL;
 	cmd->cmd = d->temp;
 }
 

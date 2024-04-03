@@ -1,0 +1,3 @@
+signale ctr \
+quando scrivi nell 0 con ctr c e \ ti appare doppio:
+cat | cat | ls

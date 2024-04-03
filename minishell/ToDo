@@ -30,9 +30,9 @@ Builtins:
 		[X] echo '  testo  ' Stampa il testo con \n
 		[X] echo -n testo Stampa il testo senza il \n
     cd Ti cambia di directori del terminale
-		[-] cd  Ti porta all'inizio delle cartelle
-		[-] cd .. Ti porta alla cartella precedente
-		[-] cd cartella Ti porta alla cartella indicata
+		[X] cd  Ti porta all'inizio delle cartelle
+		[X] cd .. Ti porta alla cartella precedente
+		[X] cd cartella Ti porta alla cartella indicata
     export
 		[X] export Stampa tutte le variabili d'ambiente, in ordine alfabetico
 		[X] export var Aggiunge la variabile d'ambiente senza valore
@@ -40,10 +40,10 @@ Builtins:
 		[X] export var=val Assegna il valore, alla variabile esistente
 		[X] export var="gestisco i '"
 		[X] export var='gestisco i "'
-		[-] export var+=val Aggiunge la variabile d'ambiente con valore
-		[-] export var+=val Aggiunge il valore alla variabile d'ambiente
-		[-] export var+="gestisco i '"
-		[-] export var+='gestisco i "'
+		[X] export var+=val Aggiunge la variabile d'ambiente con valore
+		[X] export var+=val Aggiunge il valore alla variabile d'ambiente
+		[X] export var+="gestisco i '"
+		[X] export var+='gestisco i "'
     exit
 		[X] Esce dalla shell
 		[X] Non esce dalla shell se in una pipe

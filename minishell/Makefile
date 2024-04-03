@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/02 17:15:42 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/03 15:09:44 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,10 +61,10 @@ test: re
 test2: re
 	rm -f $(OBJ)
 	clear
-	echo valgrind --leak-check=full ./$(NAME)
-	valgrind --leak-check=full ./$(NAME)
-#echo valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-#valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+	echo valgrind ./$(NAME)
+	-valgrind --leak-check=full --track-origins=yes ./$(NAME)
+#-valgrind --leak-check=full --track-origins=yes ./$(NAME)
+#-valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 #echo Norminette error: 
 #norminette | grep Error! | wc -l

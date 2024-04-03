@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:55:20 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 14:59:27 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:19:24 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ char	*program_name(char *command, char *path)
 		free(temp);
 		i++;
 	}
-	write(2, "02: What command did you give me, darling\n", 42);
-	exit(EXIT_FAILURE);
+	g_code_exit = 127;
+	write(2, "02: What command did you give me, darling?\n", 42);
+	exit(127);
 	return (NULL);
 }

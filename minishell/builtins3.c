@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 19:40:38 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 15:05:15 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,31 +92,31 @@ static char	**bts3_export(t_master *master, t_cmd *cur, char *e, int i2)
 	return (m2);
 }
 
-int	bt_export(t_master *master, t_cmd *cur, int i2)
+int	bt_export(t_master *mast, t_cmd *cur, t_data2 d)
 {
-	char	**arg;
 	char	**m2;
-	char	*e;
 
-	arg = get_args(cur->cmd, master, cur);
-	e = extract_mane(cur, 0, 0);
-	if (cmmal(arg) != 0 && ft_mlen(arg) > 1 && search_env(master, e) == 0)
-		master->env = bts3_export(master, cur, e, i2);
-	else if (cmmal(arg) != 0 && ft_mlen(arg) == 1 && master->print == 1)
-		bt_env2(master, 0);
+	d.arg = get_args(cur->cmd, mast, cur);
+	if (cmmal(d.arg) != 0 && ft_mlen(d.arg) > 1 && search_env(mast, d.t1) == 0)
+		mast->env = bts3_export(mast, cur, d.t1, d.i);
+	else if (cmmal(d.arg) != 0 && ft_mlen(d.arg) == 1 && mast->print == 1)
+		bt_env2(mast, 0);
 	else
 	{
-		while (master->env[++i2] != NULL)
+		while (mast->env[++d.i] != NULL)
 		{
-			m2 = ft_split(master->env[i2], '=');
-			if (ft_strncmp(m2[0], e, ft_strlen(e) + 1) == 0
-				&& free_norm(master->env[i2]))
-				master->env[i2] = ft_strjoin12f(ft_strjoin(e, "="),
-						bts1_export(cur, e, get_a(0, cur->cmd), master));
+			m2 = ft_split(mast->env[d.i], '=');
+			if (ft_strncmp(m2[0], d.t1, ft_strlen(d.t1) + 1) == 0)
+			{
+				d.t2 = ft_strjoin12f(ft_strjoin(d.t1, "="),
+						bts1_export(cur, d.t1, get_a(0, cur->cmd), mast));
+				free(mast->env[d.i]);
+				mast->env[d.i] = ft_strjoin1f(d.t2, "\0");
+			}
 			free_matrix(m2);
 		}
 	}
-	free_matrix(arg);
-	free(e);
+	free_matrix(d.arg);
+	free(d.t1);
 	return (1);
 }

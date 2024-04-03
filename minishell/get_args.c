@@ -6,25 +6,24 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 02:43:16 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 14:47:26 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*clear_cmd(char *s, t_master *master, t_cmd *cmd)
+static char	*clear_cmd(t_master *master, t_cmd *cmd)
 {
 	t_data		d;
 
-	s = trim_cmd(s, master, cmd, 0);
+	trim_cmd(master, cmd, 0);
 	d.i = 0;
 	d.i2 = 0;
 	d.quote = 0;
 	d.dquote = 0;
 	d.env_var = NULL;
 	d.env_name = NULL;
-	s = expander(master, cmd, d);
-	return (s);
+	return (expander(master, cmd, d));
 }
 
 static int	count_arg(char *s)
@@ -38,7 +37,7 @@ static int	count_arg(char *s)
 	{
 		if (s[i] == '\'')
 			gu1(&word, s, &i, '\'');
-		else if (s[i] == '\'')
+		else if (s[i] == '\"')
 			gu1(&word, s, &i, '\"');
 		else if (s[i] != ' ')
 		{
@@ -46,7 +45,8 @@ static int	count_arg(char *s)
 			while (s[i] != '\0' && s[i] != ' ')
 				i++;
 		}
-		i++;
+		if (s[i] != '\0')
+			i++;
 	}
 	return (word);
 }
@@ -57,7 +57,7 @@ char	**get_args(char *s, t_master *master, t_cmd *cmd)
 	int					w;
 	int					i;
 
-	s = clear_cmd(s, master, cmd);
+	s = clear_cmd(master, cmd);
 	m = (char **)malloc((count_arg(s) + 1) * sizeof(char *));
 	cmmal(m);
 	w = 0;

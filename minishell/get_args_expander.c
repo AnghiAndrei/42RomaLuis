@@ -6,26 +6,27 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 08:46:41 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 15:15:44 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 16:04:06 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	void	expand(t_cmd *cmd, t_data *d)
+static	void	expand(t_cmd *cmd, t_data *d, int i)
 {
 	int		i2;
-	int		i;
 
-	if (d->env_var == NULL)
-		return ;
-	d->temp = malloc(ft_strlen(cmd->cmd) + ft_strlen(d->env_var));
-	i = -1;
+	d->temp = malloc(ft_strlen(cmd->cmd) + ft_strlen(d->env_var) + 1);
+	if (d->temp == NULL)
+		exit(write(2, "Marshal: Malloc error\n", 23));
 	while (cmd->cmd[++i] != '$')
 		d->temp[i] = cmd->cmd[i];
-	i2 = -1;
-	while (d->env_var != NULL && d->env_var[++i2] != '\0')
+	i2 = 0;
+	while (d->env_var[i2] != '\0')
+	{
 		d->temp[i + i2] = d->env_var[i2];
+		i2++;
+	}
 	while (cmd->cmd[i + ft_strlen(d->env_name) + 1] != '\0')
 	{
 		d->temp[i + i2] = cmd->cmd[i + ft_strlen(d->env_name) + 1];
@@ -46,11 +47,11 @@ static void	set_expand(t_master *master, t_cmd *cmd, t_data *d)
 		&& cmd->cmd[d->i] != '$')
 		d->i++;
 	if (cmd->cmd[d->i] == '\'' || cmd->cmd[d->i] == '\"'
-		|| cmd->cmd[d->i] == ' ' || cmd->cmd[d->i] == '$')
+		|| cmd->cmd[d->i] == ' ')
 		d->i--;
 	d->env_name = ft_substr(cmd->cmd, d->i2, d->i - d->i2 + 1);
 	d->env_var = get_env(master, d->env_name);
-	expand(cmd, d);
+	expand(cmd, d, -1);
 }
 
 char	*expander(t_master *master, t_cmd *cmd, t_data d)
@@ -70,9 +71,10 @@ char	*expander(t_master *master, t_cmd *cmd, t_data d)
 				d.env_name = ft_substr(cmd->cmd, d.i2, d.i - d.i2 + 1);
 				d.env_var = ft_itoa(g_code_exit);
 				if (d.env_var != NULL)
-					expand(cmd, &d);
+					expand(cmd, &d, -1);
 			}
-			set_expand(master, cmd, &d);
+			else
+				set_expand(master, cmd, &d);
 		}
 		if (cmd->cmd[d.i] != '\0')
 			d.i++;

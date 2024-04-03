@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/28 02:43:16 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/02 12:10:11 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*clear_cmd(char *s, t_master *master, t_cmd *cmd)
 	s = expander(master, cmd, d);
 	d.i = 0;
 	d.i2 = 0;
-	s = wildcard(master, cmd, -1);
+	//s = wildcard(cmd, d);
 	return (s);
 }
 

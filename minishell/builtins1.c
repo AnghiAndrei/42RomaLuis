@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/02 19:55:29 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:21:30 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ int	controll_builtins(t_master *master, t_cmd *cur)
 	char	*str;
 
 	str = clear_space(cur->cmd);
-	if (ft_strncmp(str, "exit", 5) == 0 && free_norm(str))
-		return (bt_exit(master, cur->cmd, 0, 0));
-	if (ft_strncmp(str, "env", 4) == 0 && free_norm(str))
+	if (ft_strncmp(str, "exit", 5) == 0 && free_n(str))
+		return (bt_exit(master, cur->cmd, get_a(0, cur->cmd), 0));
+	if (ft_strncmp(str, "env", 4) == 0 && free_n(str))
 		return (bt_env(master, cur));
-	if (ft_strncmp(str, "export", 7) == 0 && free_norm(str))
-		return (bt_export(master, cur, -1));
-	if (ft_strncmp(str, "unset", 6) == 0 && free_norm(str))
+	if (ft_strncmp(str, "export", 7) == 0 && free_n(str))
+		return (bt_export(master, cur,
+				(t_data2){NULL, extr_m(cur, 0, 0), NULL, -1}));
+	if (ft_strncmp(str, "unset", 6) == 0 && free_n(str))
 		return (1);
-	if (ft_strncmp(str, "echo", 5) == 0 && free_norm(str))
+	if (ft_strncmp(str, "echo", 5) == 0 && free_n(str))
 		return (bt_echo(master, cur, 0, 0));
-	if (ft_strncmp(str, "cd", 3) == 0 && free_norm(str))
+	if (ft_strncmp(str, "cd", 3) == 0 && free_n(str))
 		return (1);
-	if (ft_strncmp(str, "pwd", 4) == 0 && free_norm(str))
+	if (ft_strncmp(str, "pwd", 4) == 0 && free_n(str))
 		return (bt_pwd());
 	free(str);
 	return (0);
@@ -57,8 +58,8 @@ int	bt_unset(t_master *master, t_cmd *cur, int i2, char *b)
 		m2[++i] = NULL;
 		free_matrix(master->env);
 		master->env = m2;
-		free_matrix(arg);
 	}
+	free_matrix(arg);
 	free(b);
 	return (1);
 }
