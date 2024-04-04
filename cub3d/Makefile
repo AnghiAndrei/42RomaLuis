@@ -17,7 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC = ft_split.c ft_strlen.c ft_strncmp.c \
 	  get_next_line.c get_next_line_utils.c \
-	  main.c marshal.c
+	  main.c marshal.c utilitis.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

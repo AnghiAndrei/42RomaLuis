@@ -29,7 +29,7 @@ class Contact {
 	public:
 
 		void createContact();
-
+	
 		Contact();
 		Contact(const std::string first, const std::string last, const std::string nick, const std::string phone, const std::string secret);
 

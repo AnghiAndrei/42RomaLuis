@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = PhoneBook
+NAME = BraiiiiiiinnnzzzZ
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Contact.cpp PhoneBook.cpp
+SRC = main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

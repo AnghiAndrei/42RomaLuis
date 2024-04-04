@@ -1,4 +1,5 @@
 #include "PhoneBook.hpp"
+#include "Contract.hpp"
 #include <iostream>
 #include <string>
 
