@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:52:58 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/03 17:17:06 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/04 19:00:52 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,17 @@ int	controll_file(char *file, int command)
 	return (fd);
 }
 
-void	check_pipe_fork(int *fd, pid_t *pid)
+void	check_pipe_fork(t_master *master, t_cmd *cur, int *fd, pid_t *pid)
 {
 	if (pipe(fd) == -1)
 	{
 		perror("Marshal: Pipe error");
 		exit(EXIT_FAILURE);
 	}
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
+	if (cur->pipe == 2)
+		dup2(master->out, STDOUT_FILENO);
 	*pid = fork();
 	if (*pid == -1)
 	{

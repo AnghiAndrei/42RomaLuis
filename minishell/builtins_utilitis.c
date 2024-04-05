@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/03 11:30:45 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 02:03:11 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	search_env(t_master *master, char *rule)
 	{
 		s = ft_split(master->env[i], '=');
 		cmmal(s);
-		if (ft_strncmp(s[0], rule, ft_strlen(rule) + 1) == 0)
+		if (ft_mlen(s) >= 1
+			&& ft_strncmp(s[0], rule, ft_strlen(rule) + 1) == 0)
 			return (free_matrix(s), 1);
 		free_matrix(s);
 		i++;

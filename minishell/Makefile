@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/03 15:09:44 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/05 02:29:34 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,11 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = ft_atoi.c ft_strncmp.c ft_lstadd_back.c ft_isdigit.c ft_strjoin.c ft_itoa.c ft_strlen.c ft_split.c ft_substr.c \
 	  get_args.c get_args_utilis.c get_args_expander.c get_args_redirect.c \
-	  main.c u_input.c split_cmd.c marshal.c executor.c \
+	  main.c u_input.c split_cmd.c marshal.c \
 	  get_next_line.c get_next_line_utils.c \
 	  builtins1.c builtins2.c builtins3.c \
 	  utilitis.c utilitis1.c utilitis2.c \
+	  executor.c executor1.c \
 	  builtins_utilitis.c
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/03 17:23:13 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 02:33:23 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	bt_echo(t_master *master, t_cmd *cur, int i, int n)
 	{
 		cstr = clear_space(arg[i]);
 		cstr2 = clear_space(arg[i + 1]);
-		if (ft_strncmp(cstr, "-n", 3) == 0)
+		if (ft_strncmp(cstr, "-n", 3) == 0 && i == 1)
 			n++;
 		else
 		{
 			printf("%s", arg[i]);
-			if (arg[i + 1] != NULL && ft_strncmp(cstr2, "-n", 3) != 0)
+			if (arg[i + 1] != NULL)
 				printf(" ");
 		}
 		free(cstr);

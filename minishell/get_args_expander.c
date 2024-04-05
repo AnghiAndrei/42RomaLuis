@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 08:46:41 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/03 16:04:06 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 00:01:29 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	set_expand(t_master *master, t_cmd *cmd, t_data *d)
 		&& cmd->cmd[d->i] != '$')
 		d->i++;
 	if (cmd->cmd[d->i] == '\'' || cmd->cmd[d->i] == '\"'
-		|| cmd->cmd[d->i] == ' ')
+		|| cmd->cmd[d->i] == ' ' || cmd->cmd[d->i] == '$')
 		d->i--;
 	d->env_name = ft_substr(cmd->cmd, d->i2, d->i - d->i2 + 1);
 	d->env_var = get_env(master, d->env_name);
@@ -75,9 +75,9 @@ char	*expander(t_master *master, t_cmd *cmd, t_data d)
 			}
 			else
 				set_expand(master, cmd, &d);
+			d.i = 0;
 		}
-		if (cmd->cmd[d.i] != '\0')
-			d.i++;
+		d.i++;
 	}
 	return (cmd->cmd);
 }

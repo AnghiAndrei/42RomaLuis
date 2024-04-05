@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:57:21 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/03 17:17:06 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 02:32:26 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <sys/wait.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+
+# define STRERROR "02: What command did you give me, darling?\n"
 
 extern int		g_code_exit;
 
@@ -70,11 +72,13 @@ typedef struct s_master
 	int		out;
 }				t_master;
 
+void	check_pipe_fork(t_master *master, t_cmd *cur, int *fd, pid_t *pid);
 int		bt_cd(t_master *master, t_cmd *cur, char *home, char **arg);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		bt_unset(t_master *master, t_cmd *cur, int i2, char *str);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
 int		bt_echo(t_master *master, t_cmd *cur, int i, int n);
+void	bt4s_export(t_master *mast, t_cmd *cur, t_data2 *d);
 int		bt_exit(t_master *master, char *cmd, int i, int i2);
 int		bt_export(t_master *master, t_cmd *cur, t_data2 d);
 char	*expander(t_master *master, t_cmd *cmd, t_data d);
@@ -90,13 +94,13 @@ char	*program_name(char *command, char *path);
 int		search_env(t_master *master, char *rule);
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 int		controll_file(char *file, int command);
+void	child_op(t_master *master, t_cmd *cur);
 void	gu4(int *i, char *s, int *w, char **m);
 void	spik_duote(int *i, char *str, char c);
 char	*get_env(t_master *master, char *env);
 int		bt_env(t_master *master, t_cmd *cur);
 char	*get_command_f_histori(char *input);
-void	check_pipe_fork(int *fd, pid_t *pid);
-void	free_all_steoridi(t_master *master);
+int		free_all_steoridi(t_master *master);
 char	*extr_m(t_cmd *cur, int i, int i2);
 char	*ft_strjoin12f(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
@@ -114,13 +118,14 @@ int		get_a(int i, char *cmd);
 char	*clear_space(char *str);
 char	*get_next_line(int fd);
 char	*get_command_f_0(void);
-void	free_matrix(char **m);
+int		free_matrix(char **m);
 char	*gu3(int *i, char *s);
 void	here_doc(char *rule);
 int		skip(int i, char *s);
 char	**redirect(char **m);
-bool	free_n(char *str);
 char	**copy_m(char **m);
+bool	free_n(char *str);
+void	sigbs(int signum);
 int		ft_mlen(char **m);
 char	*get_path(void);
 int		cmmal(char **m);

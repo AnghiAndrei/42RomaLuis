@@ -31,7 +31,7 @@ static char	*get_file(t_data d)
 			if (ft_strncmp(entry->d_name, ".", 2) != 0
 				&& ft_strncmp(entry->d_name, "..", 3) != 0
 				&& ft_strnstr(entry->d_name, d.env_var,
-						ft_strlen(d.env_var)) != NULL)
+					ft_strlen(d.env_var)) != NULL)
 				d.env_name = ft_strjoin(d.env_name, entry->d_name);
 		}
 		entry = readdir(dir);
