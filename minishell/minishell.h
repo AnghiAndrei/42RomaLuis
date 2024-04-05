@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:57:21 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 12:19:58 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 15:02:25 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ char	**copy_m(char **m);
 bool	free_n(char *str);
 void	sigbs(int signum);
 int		ft_mlen(char **m);
-int		ceck_fork(void);
 char	*get_path(void);
+int		ceck_fork(void);
 int		cmmal(char **m);
 char	*ft_itoa(int n);
 int		bt_pwd(void);

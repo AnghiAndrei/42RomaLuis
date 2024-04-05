@@ -2,8 +2,9 @@
 # define PHONEBOOK_HPP
 #include "Contact.hpp"
 #include <iostream>
+#include <cstdlib> 
 class PhoneBook{
-    Contact list[9];
+    Contact list[10];
     int insert;
 
     public:

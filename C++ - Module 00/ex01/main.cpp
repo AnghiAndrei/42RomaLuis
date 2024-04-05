@@ -4,7 +4,7 @@ int main(){
     std::string  str;
     PhoneBook pb;
     while(1){
-        std::cout<<"PhoneBook>";
+        std::cout<<"PhoneBook>"<<std::endl;
         std::getline(std::cin, str);
         if (str=="EXIT")
             return 0;
