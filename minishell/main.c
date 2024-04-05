@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:09:24 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 07:58:36 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:48:00 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	main(int argc, char **argv, char **env)
 		}
 		if ((m.input[0] == ' ' || m.input[0] == '\0') && free_n(m.input))
 			continue ;
-		m.npipe = count_pipe(m.input, '|');
 		split_cmd(&m);
 		executor(&m, NULL, 0);
 		free_all(&m);

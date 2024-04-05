@@ -6,15 +6,15 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/05 09:23:15 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = PhoneBook
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Contact.cpp PhoneBook.cpp
-OBJ = $(SRC:.c=.o)
+SRC = main.cpp PhoneBook.cpp
+OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
@@ -34,8 +34,8 @@ git: fclean
 	@git commit -m "voglio mangiare il tuo pancreas"
 	@git push
 
-%.o: %.c
-	gcc $(CFLAGS) -c $< -o $@
+%.o: %.cpp
+	g++ $(CFLAGS) -c $< -o $@
 
 test: re
 	rm -f $(OBJ)

@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/05 02:29:34 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/05 14:49:54 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC = ft_atoi.c ft_strncmp.c ft_lstadd_back.c ft_isdigit.c ft_strjoin.c ft_itoa.
 	  builtins1.c builtins2.c builtins3.c \
 	  utilitis.c utilitis1.c utilitis2.c \
 	  executor.c executor1.c \
-	  builtins_utilitis.c
+	  builtins_utilitis.c \
+	  here_doc.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

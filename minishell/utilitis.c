@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:55:20 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/04 17:38:02 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 13:05:45 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ char	*program_name(char *command, char *path)
 		&& free_matrix(path_c) == 0)
 		return (temp);
 	free(temp);
-	i = 0;
-	while (path_c[i] != NULL)
+	i = -1;
+	while (path_c[++i] != NULL)
 	{
 		temp = ft_strjoin1f(ft_strjoin(path_c[i], "/"), c_c[0]);
-		if (access(temp, X_OK) == 0)
+		if (access(temp, X_OK) == 0 && free_matrix(c_c) == 0
+			&& free_matrix(path_c) == 0)
 			return (temp);
 		free(temp);
-		i++;
 	}
 	free_matrix(c_c);
 	free_matrix(path_c);

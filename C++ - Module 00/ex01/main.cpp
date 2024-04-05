@@ -1,23 +1,19 @@
 #include "PhoneBook.hpp"
-#include "Contract.hpp"
-#include <iostream>
-#include <string>
 
 int main(){
     std::string  str;
     PhoneBook pb;
     while(1){
         std::cout<<"PhoneBook>";
-        std::cin>>str;
+        std::getline(std::cin, str);
         if (str=="EXIT")
-            exit(0);
+            return 0;
         else if (str=="SEARCH")
             pb.search();
-        else if (str=="ADD"){
-            Contact new_c;
-            pb.add(new_c);
-        }else
-            std::cout<<"WTF?\n";
+        else if (str=="ADD")
+            pb.add_contact();
+        else
+            std::cout<<"WTF?"<<std::endl;
     }
     return 0;
 }

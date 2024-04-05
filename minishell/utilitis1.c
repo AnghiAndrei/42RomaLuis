@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/04 16:31:02 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 13:04:54 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,14 @@ int	free_matrix(char **m)
 		while (m[i] != NULL)
 		{
 			if (m[i] != NULL)
+			{
 				free(m[i]);
+				m[i] = NULL;
+			}
 			i++;
 		}
 		free(m);
+		m = NULL;
 	}
 	return (0);
 }

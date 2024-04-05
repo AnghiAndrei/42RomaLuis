@@ -6,35 +6,11 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 07:58:39 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 11:56:28 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	here_doc(char *rule)
-{
-	char	*line;
-	int		fd;
-
-	fd = open("aanghi_temp_file.txt", O_TRUNC | O_CREAT | O_WRONLY, 0777);
-	if (fd == -1)
-	{
-		perror("Marshal: Temp file error");
-		return ;
-	}
-	line = get_next_line(0);
-	while (line != NULL && ft_strncmp(line, rule, ft_strlen(rule)) != 0)
-	{
-		write(fd, line, ft_strlen(line));
-		free(line);
-		line = get_next_line(0);
-	}
-	close(fd);
-	dup2(controll_file("aanghi_temp_file.txt", 1), STDIN_FILENO);
-	if (access("aanghi_temp_file.txt", R_OK) == 0)
-		unlink("aanghi_temp_file.txt");
-}
 
 char	**copy_m(char **m)
 {

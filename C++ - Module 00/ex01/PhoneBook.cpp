@@ -1,21 +1,24 @@
-void PhoneBook::PhoneBook(){
+#include "PhoneBook.hpp"
+PhoneBook::PhoneBook(){
     insert=0;
-    list[0]=NULL;
-    list[1]=NULL;
-    list[2]=NULL;
-    list[3]=NULL;
-    list[4]=NULL;
-    list[5]=NULL;
-    list[6]=NULL;
-    list[7]=NULL;
-    list[8]=NULL;
 }
 
-void PhoneBook::add_contact(Contact cont)
+void PhoneBook::add_contact()
 {
     if (insert==9)
+	{
         insert=0;
-    list[insert]=cont;
+	}
+	std::cout<<"First name: ";
+    std::cin>>list[insert].name;
+    std::cout<<"Last name: ";
+    std::cin>>list[insert].name2;
+    std::cout<<"Surname: ";
+    std::cin>>list[insert].surname;
+    std::cout<<"Phone: ";
+    std::cin>>list[insert].tel;
+    std::cout<<"Darkest secret: ";
+    std::cin>>list[insert].dse;
     insert++;
 }
 
@@ -24,15 +27,15 @@ void PhoneBook::search(){
     std::cout << "---------------------------------------------" << std::endl;
     std::cout << "|    index |firstname | lastname | surname  |" << std::endl;
     std::cout << "---------------------------------------------" << std::endl;
-    while(i != 8){
-        std::cout<<i<<"|         | ";
+    while(i != 9){
+        std::cout<<"|        "<<i<<" |";
         i2=0;
-        while (list[insert].name[i2] != '\0' && i2 != 10)
+        while (list[i].name[i2] != '\0' && i2 != 9)
         {
-            if(i2 == 10 && list[insert].name[i2+1] != '\0')
+            if(i2 == 9 && list[i].name[i2+1] != '\0')
                 std::cout<<".";
             else
-                std::cout<<list[insert].name[i2];
+                std::cout<<list[i].name[i2];
             i2++;
         }
         while (i2 != 10)
@@ -40,14 +43,14 @@ void PhoneBook::search(){
             std::cout<<" ";
             i2++;
         }
-        std::cout<<"| ";
+        std::cout<<"|";
         i2=0;
-        while (list[insert].name2[i2] != '\0' && i2 != 10)
+        while (list[i].name2[i2] != '\0' && i2 != 9)
         {
-            if(i2 == 10 && list[insert].name2[i2+1] != '\0')
+            if(i2 == 9 && list[i].name2[i2+1] != '\0')
                 std::cout<<".";
             else
-                std::cout<<list[insert].name2[i2];
+                std::cout<<list[i].name2[i2];
             i2++;
         }
         while (i2 != 10)
@@ -55,14 +58,14 @@ void PhoneBook::search(){
             std::cout<<" ";
             i2++;
         }
-        std::cout<<"| ";
+        std::cout<<"|";
         i2=0;
-        while (list[insert].surname[i2] != '\0' && i2 != 10)
+        while (list[i].surname[i2] != '\0' && i2 != 9)
         {
-            if(i2 == 10 && list[insert].surname[i2+1] != '\0')
+            if(i2 == 9 && list[i].surname[i2+1] != '\0')
                 std::cout<<".";
             else
-                std::cout<<list[insert].surname[i2];
+                std::cout<<list[i].surname[i2];
             i2++;
         }
         while (i2 != 10)
@@ -73,9 +76,10 @@ void PhoneBook::search(){
         std::cout<<"|\n";
         i++;
     }
+	std::cout << "---------------------------------------------" << std::endl;
     do{
         std::cout<<"SEARCH>";
         std::cin>>i;
-    }while (!(i > 0 && i < 8) && list[i] != NULL);
-    std::cout<<"Index: "<<i<<"\nFirst name: "<<list[insert].name<<"\nLast name: "<<list[insert].name2<<"\nSurname: "<<list[insert].surname<<"\nPhone: "<<list[insert].tel<<"\nDarkest secret: "<<list[insert].dse;
+    }while (!(i > -1 && i < 8));
+    std::cout<<"Index: "<<i<<"\nFirst name: "<<list[i].name<<"\nLast name: "<<list[i].name2<<"\nSurname: "<<list[i].surname<<"\nPhone: "<<list[i].tel<<"\nDarkest secret: "<<list[i].dse<<std::endl;;
 }

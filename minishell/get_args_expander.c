@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 08:46:41 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 00:01:29 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:42:22 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ char	*expander(t_master *master, t_cmd *cmd, t_data d)
 				set_expand(master, cmd, &d);
 			d.i = 0;
 		}
-		d.i++;
+		if (cmd->cmd[d.i] != '\0')
+			d.i++;
 	}
 	return (cmd->cmd);
 }

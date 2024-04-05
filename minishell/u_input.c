@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:18:43 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 00:31:27 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:40:34 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static char	*controll_close_char(char *input, char c, int i, int i2)
 
 	while (input[i2] != '\0')
 	{
-		spik_duote(&i2, input, '\'');
-		spik_duote(&i2, input, '\"');
 		if (input[i2] == c && i == 0)
 			i = 1;
 		else if (input[i2] == c && i == 1)

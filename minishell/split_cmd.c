@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:27:25 by aanghi            #+#    #+#             */
-/*   Updated: 2024/03/20 15:10:25 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:49:41 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	sup1(t_master *master, t_data *d)
 		d->pipe_1 = 1;
 		d->pipe = 1;
 	}
+	add_cmd(master, *d);
 }
 
 void	split_cmd(t_master *master)
@@ -62,6 +63,7 @@ void	split_cmd(t_master *master)
 	d.pipe = 0;
 	d.pipe_1 = 0;
 	d.or_1 = 0;
+	master->npipe = count_pipe(master->input, '|');
 	while (master->input[d.i] != '\0')
 	{
 		d.i2 = d.i;
@@ -73,7 +75,6 @@ void	split_cmd(t_master *master)
 			d.i++;
 		}
 		sup1(master, &d);
-		add_cmd(master, d);
 		if ((master->input[d.i] == '&' && master->input[d.i + 1] == '&')
 			|| (master->input[d.i] == '|' && master->input[d.i + 1] == '|'))
 			d.i += 1;
