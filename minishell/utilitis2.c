@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:17 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/04 16:27:52 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 07:58:39 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	free_all_steoridi(t_master *master)
 	free_all(master);
 	rl_clear_history();
 	free_matrix(master->env);
+	close(master->out);
+	close(master->in);
 	return (0);
 }
 

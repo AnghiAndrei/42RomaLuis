@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 02:31:41 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 08:03:49 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	builtin_dad(t_master *master, t_cmd *cur, char *str)
 static int	pipe_cmd(t_master *master, t_cmd *cur)
 {
 	builtin_dad(master, cur, clear_space(cur->cmd));
-	if (!(cur->or == 1 && g_code_exit != 0))
+	if (!(cur->or == 1 && g_code_exit == 0))
 	{
 		child_pipe(master, cur, 0);
 	}
@@ -83,7 +83,7 @@ void	executor(t_master *master, char *str, int i)
 	while (master->npipe == 0 && master->ncmd != i++)
 	{
 		builtin_dad(master, cur, clear_space(cur->cmd));
-		if (!(cur->or == 1 && g_code_exit != 0))
+		if (!(cur->or == 1 && g_code_exit == 0))
 			child(master, cur);
 		cur = cur->next;
 		dup2(master->in, STDIN_FILENO);

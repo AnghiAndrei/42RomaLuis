@@ -71,6 +71,7 @@ Bonus:
 	[ ] Implementa: wildcard *
 
 Casi limite:
+	[ ] << fine Premere Ctr-C nell'here_doc
 	[ ] echo 1 2 > hola outfile
 	[ ] echo "'"$HOME"'"
 	[ ] "echo"

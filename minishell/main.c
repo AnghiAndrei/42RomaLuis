@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:09:24 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/04 21:34:00 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 07:58:36 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ int		g_code_exit = 0;
 static	void	sigc(int signum)
 {
 	(void)signum;
-	write(1, "\n", 1);
 	if (g_code_exit != 269)
 	{
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 		g_code_exit = 130;
 	}
 	else
+	{
 		g_code_exit = 1;
+		exit(g_code_exit);
+	}
 }
 
 static void	sigd(int signum)
@@ -39,6 +42,8 @@ static void	sigd(int signum)
 void	sigbs(int signum)
 {
 	(void)signum;
+	write(0, " 02: Close 0 input, darling\n", 27);
+	write(1, " 02: Close 0 input, darling\n", 27);
 	write(2, " 02: Close 0 input, darling\n", 27);
 	exit(131);
 }
