@@ -6,11 +6,11 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:25:59 by aanghi            #+#    #+#             */
-/*   Updated: 2024/01/23 15:25:59 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/10 17:17:28 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
 
 char	*str_ret(int n, char *buffer)
 {
@@ -44,7 +44,7 @@ char	*ret(int n, char *buffer, int fd)
 		free(p);
 		return (NULL);
 	}
-	return (ft_strjoin(p, get_next_line(fd)));
+	return (ft_strjoin12f(p, get_next_line(fd)));
 }
 
 char	*get_next_line(int fd)

@@ -1,9 +1,9 @@
-    NO ./textures/.xpm
-    SO ./textures/.xpm
-    WE ./textures/.xpm
-    EA ./textures/.xpm
-    F 220,100,0
-    C 225,30,0
+NO ./textures/NO.xpm
+SO ./textures/SO.xpm
+WE ./textures/WE.xpm
+EA ./textures/EA.xpm
+F 220,100,0
+C 225,30,0
 
         1111111111
         1000000001

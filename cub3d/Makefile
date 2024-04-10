@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/10 17:06:28 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,20 @@ MAKEFLAGS += -s
 
 NAME = cub3D
 CFLAGS = -Wall -Wextra -Werror
+ARG = maps/1.cub
 
-SRC = ft_split.c ft_strlen.c ft_strncmp.c \
+MINILIBX_PATH = ./mlx
+MINILIBX = $(MINILIBX_PATH)/libmlx.a
+
+SRC = ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c \
 	  get_next_line.c get_next_line_utils.c \
 	  main.c marshal.c utilitis.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ)
+$(NAME): $(OBJ) $(MINILIBX)
+	gcc $(OBJ) $(CFLAGS) $(MINILIBX) mlx/libmlx.a -L./mlx -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
@@ -39,7 +43,10 @@ git: fclean
 	@git push
 
 %.o: %.c
-	gcc $(CFLAGS) -c $< -o $@
+	gcc $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+
+$(MINILIBX):
+	make -C $(MINILIBX_PATH)
 
 test: re
 	rm -f $(OBJ)
@@ -47,15 +54,22 @@ test: re
 	echo /$(NAME)
 	-./$(NAME)
 	echo
-	echo /$(NAME) 1.cub 2.cub
-	-./$(NAME) 1.cub 2.cub
+	echo /$(NAME) maps/1.cub maps/2.cub
+	-./$(NAME) maps/1.cub maps/2.cub
+	echo
+	echo /$(NAME) maps/no_exist.cub
+	-./$(NAME) maps/no_exist.cub
+	echo
+	echo /$(NAME) maps/1.angly
+	-./$(NAME) maps/1.angly
 	@rm -f $(NAME)
 
 test2: re
 	rm -f $(OBJ)
 	clear
-	echo valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARG)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARG)
+	echo valgrind ./$(NAME) $(ARG)
+	valgrind --leak-check=full ./$(NAME) $(ARG)
+#valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARG)
 	@echo Norminette error: 
 	norminette | grep Error! | wc -l
 	@echo
@@ -70,5 +84,3 @@ test3: re
 	echo ./$(NAME) $(ARG)
 	./$(NAME) $(ARG)
 	@rm -f $(NAME)
-
-$(ARG) = 1.cub

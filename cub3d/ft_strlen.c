@@ -6,11 +6,11 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:29:29 by aanghi            #+#    #+#             */
-/*   Updated: 2024/02/07 17:56:04 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/10 12:51:01 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cub3d.h"
 
 int	ft_strlen(const char *string)
 {

@@ -6,11 +6,11 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 15:26:04 by aanghi            #+#    #+#             */
-/*   Updated: 2024/02/05 12:54:53 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:07:12 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
 
 void	ft_strcpy(char *dest, char *src)
 {
