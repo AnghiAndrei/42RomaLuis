@@ -14,13 +14,15 @@
 
 static void	game_init3(t_master *m){
 	m->mlx = mlx_init();
-	m->win = mlx_new_window(m->mlx, 999, 999, "Capodanno a Napoli");
+	m->win = mlx_new_window(m->mlx, 9 * 100, 9 * 100, "Quartieri spagnioli");
 	m->walln = NULL;
 	m->walls = NULL;
 	m->walle = NULL;
 	m->wallo = NULL;
 	m->floor = NULL;
 	m->cap = NULL;
+	m->yp = 0;
+	m->xp = 0;
 }
 
 static int	game_init2(t_master *m, char **t2)
@@ -62,19 +64,18 @@ static int	game_init(t_master *m, int fd, char *line, char *str)
 	free(line);
 	if (m->walln == NULL || m->walls == NULL || m->wallo == NULL
 			|| m->walle == NULL || m->floor == NULL || m->cap == NULL)
-		return (printf("Error\nMarshal: Missing input\n"));
+		return (close(fd), printf("Error\nMarshal: Missing input\n"));
 	line = get_next_line(fd);
-
 	//str mi rimane vuoto allínfinito
 	while (line != NULL)
 	{
 		str = ft_strjoin12f(str, line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	if (str == NULL)
 		return (printf("Error\nMarshal: No map found\n"));
 	m->map =ft_splitf(str, '\n');
-	return (free(str), 0);
 	return (0);
 }
 
@@ -85,8 +86,11 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (printf("Error\nMarshal: Input error\n"));
 	if (ceck_file(argv[1]) != 0 || game_init(&master,
-		open(argv[1], O_RDONLY), NULL, NULL) != 0)
+		open(argv[1], O_RDONLY), NULL, NULL) != 0
+		|| ceck_map(&master, -1, 0) != 0)
 		return (EXIT_FAILURE);
-	mlx_destroy_window(master.mlx, master.win);
+	mlx_hook(mlx.win, ON_DESTROY, 0, close_game, &master);
+	mlx_hook(mlx.win, 2, 0, controller, &master);
+	mlx_loop(mlx.mlx);
 	return (0);
 }

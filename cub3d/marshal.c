@@ -32,3 +32,48 @@ int	ceck_file(char *file)
 	free_matrix(p);
 	return (0);
 }
+
+int ceck_map1(t_master *master, int i, int i2)
+{
+	while (master->map[++i] != NULL)
+	{
+		i2 = -1;
+		while (master->map[++i2] != '\0')
+		{
+			if (master->map[i2] != ' ' || master->map[i2] != '1'
+				master->map[i2] != 'N' || master->map[i2] != 'E'
+				master->map[i2] != 'E' || master->map[i2] != 'O')
+				return (printf("Error\nMarshal: Found a stranghe char"));
+			if ((master->yp != 0 && master->xp != 0)
+				master->map[i2] == 'N' || master->map[i2] == 'E'
+				master->map[i2] == 'E' || master->map[i2] == 'O')
+				return (printf("Error\nMarshal: Found anather player char"));
+			if ((master->yp == 0 && master->xp == 0)
+				master->map[i2] == 'N' || master->map[i2] == 'E'
+				master->map[i2] == 'E' || master->map[i2] == 'O')
+			{
+				master->yp = i;
+				master->xp = i2;
+			}
+		}
+	}
+	return (0);
+}
+
+//possibili soluzioni:
+// flood fill su tutta la mappa fermato solo dai muri,
+// se pero si ritrova fuori dalla matrice vuol dire che
+// non circondato da muri la mappa
+int ceck_map(t_master *master, int i, int i2)
+{
+	if (ceck_map1(master, -1, 0) != 0)
+		return (1);
+	while (master->map[++i] != NULL)
+	{
+		i2 = -1;
+		while (master->map[++i2] != '\0')
+			printf("%c", master->map[i2]);
+		printf("\n");
+	}
+	return (0);
+}

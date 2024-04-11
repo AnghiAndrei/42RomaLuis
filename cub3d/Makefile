@@ -20,8 +20,8 @@ MINILIBX_PATH = ./mlx
 MINILIBX = $(MINILIBX_PATH)/libmlx.a
 
 SRC = ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c \
-	  get_next_line.c get_next_line_utils.c \
-	  main.c marshal.c utilitis.c
+	  main.c marshal.c utilitis.c controlls.c \
+	  get_next_line.c get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -62,6 +62,12 @@ test: re
 	echo
 	echo /$(NAME) maps/1.angly
 	-./$(NAME) maps/1.angly
+	echo
+	echo /$(NAME) maps/error1.cub
+	-./$(NAME) maps/error1.cub
+	echo
+	echo /$(NAME) maps/error2.cub
+	-./$(NAME) maps/error2.cub
 	@rm -f $(NAME)
 
 test2: re

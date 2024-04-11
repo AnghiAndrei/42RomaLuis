@@ -12,6 +12,15 @@
 #include <string.h>
 #include "mlx/mlx.h"
 
+#define W_KEY 13
+#define A_KEY 0
+#define D_KEY 2
+#define S_KEY 1
+#define LEFT_KEY 123
+#define RIGHT_KEY 124
+#define ESC_KEY 53
+#define ON_DESTROY 17
+
 typedef struct s_master
 {
 	char		**map;
@@ -26,10 +35,14 @@ typedef struct s_master
 	int			qi;
 	int			i;
 	int			j;
+	int			xp;
+	int			yp;
 }				t_master;
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
+int 	ceck_map1(t_master *master, int i, int i2);
+int 	ceck_map(t_master *master, int i, int i2);
 char	*ft_strjoin12f(char *s1, char *s2);
 char	*ft_strjoin1f(char *s1, char *s2);
 char	*ft_strjoin2f(char *s1, char *s2);
@@ -38,6 +51,8 @@ void	ft_strcpy(char *dest, char *src);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(const char *string);
 char	**ft_splitf(char *s, char c);
+int		close_game(t_master *master);
+void	free_all(t_master *master);
 char	*get_next_line(int fd);
 void	free_matrix(char **m);
 int		ceck_file(char *file);
