@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
+/*   Updated: 2024/04/11 15:52:06 by aanghi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include "mlx/mlx.h"
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 9999999
 # endif
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include "mlx/mlx.h"
-
-#define W_KEY 13
-#define A_KEY 0
-#define D_KEY 2
-#define S_KEY 1
-#define LEFT_KEY 123
-#define RIGHT_KEY 124
-#define ESC_KEY 53
-#define ON_DESTROY 17
+# define W_KEY 13
+# define A_KEY 0
+# define D_KEY 2
+# define S_KEY 1
+# define LEFT_KEY 123
+# define RIGHT_KEY 124
+# define ESC_KEY 53
+# define ON_DESTROY 17
 
 typedef struct s_master
 {
@@ -41,8 +53,9 @@ typedef struct s_master
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
-int 	ceck_map1(t_master *master, int i, int i2);
-int 	ceck_map(t_master *master, int i, int i2);
+int		ceck_map1(t_master *master, int i, int i2);
+int		ceck_map(t_master *master, int i, int i2);
+int		controller(int char_p, t_master *master);
 char	*ft_strjoin12f(char *s1, char *s2);
 char	*ft_strjoin1f(char *s1, char *s2);
 char	*ft_strjoin2f(char *s1, char *s2);

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 08:46:41 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 10:42:22 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/11 22:38:18 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	set_expand(t_master *master, t_cmd *cmd, t_data *d)
 		d->i--;
 	d->env_name = ft_substr(cmd->cmd, d->i2, d->i - d->i2 + 1);
 	d->env_var = get_env(master, d->env_name);
+	if (d->env_var == NULL)
+		d->env_var = ft_strjoin("\0", "\0");
 	expand(cmd, d, -1);
 }
 

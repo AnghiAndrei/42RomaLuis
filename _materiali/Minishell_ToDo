@@ -33,7 +33,9 @@ Builtins:
 	SE CANCELLA PATH QUESTI DEVONO CONTINUARE A FUNZIONARE
     [ ] env Mostra tutte le variabili d'ambiente con all'interno dei valori
     [ ] pwd Mostra in quale cartella ti trovi con il terminale
-    [ ] unset Rimuove una variabile d'ambiente
+	unset
+		[ ] unset a Rimuove la variabile d'ambiente
+		[ ] unset a b c Rimuove n variabile d'ambiente
     echo
 		[ ] echo testo Stampa il testo con \n
 		[ ] echo "  testo  " Stampa il testo con \n
@@ -57,7 +59,7 @@ Builtins:
 		[ ] export var+="gestisco i '"
 		[ ] export var+='gestisco i "'
 		[ ] export var= Quano viene stampato da export mostra: var=""
-		[ ] export a b c Export n parametri
+		[ ] export a b c Export n variabile d'ambiente
     exit
 		[ ] Esce dalla shell
 		[ ] Non esce dalla shell se in una pipe
@@ -86,3 +88,5 @@ Dare errore:
 Non fa nulla:
 	[ ] Nessun valore
 	[ ] Solo spazi
+Cose in piu:
+	[ ] aggiornare il SHLVL quando si avre una nuova shell

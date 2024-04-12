@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/10 17:06:28 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/11 11:16:31 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,10 +74,11 @@ test2: re
 	rm -f $(OBJ)
 	clear
 	echo valgrind ./$(NAME) $(ARG)
-	valgrind --leak-check=full ./$(NAME) $(ARG)
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) $(ARG)
 #valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARG)
+#valgrind --leak-check=full ./$(NAME) $(ARG)
 	@echo Norminette error: 
-	norminette | grep Error! | wc -l
+	norminette $(SRC) cub3d.h | grep Error! | wc -l
 	@echo
 # @leaks -atExit -- ./$(NAME) > temp.txt
 # cat temp.txt | grep "total leaked bytes."

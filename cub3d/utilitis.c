@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:18 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/10 17:14:25 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/11 11:14:51 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void	free_matrix(char **m)
 
 void	free_all(t_master *master)
 {
-	mlx_destroy_window(master.mlx, master.win);
-	free_matrix(master->maps);
+	mlx_destroy_window(master->mlx, master->win);
+	free_matrix(master->map);
 	free(master->cap);
 	free(master->floor);
 }
 
 int	close_game(t_master *master)
 {
-	printf(1, "	--GAME OVER--	");
+	printf("	--GAME OVER--	\n");
 	free_all(master);
 	exit(0);
 	return (1);

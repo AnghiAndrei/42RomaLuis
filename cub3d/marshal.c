@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/10 14:33:59 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/11 11:59:37 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,28 @@ int	ceck_file(char *file)
 	return (0);
 }
 
-int ceck_map1(t_master *master, int i, int i2)
+int	ceck_map1(t_master *m, int i, int i2)
 {
-	while (master->map[++i] != NULL)
+	while (m->map[++i] != NULL)
 	{
 		i2 = -1;
-		while (master->map[++i2] != '\0')
+		while (m->map[i][++i2] != '\0')
 		{
-			if (master->map[i2] != ' ' || master->map[i2] != '1'
-				master->map[i2] != 'N' || master->map[i2] != 'E'
-				master->map[i2] != 'E' || master->map[i2] != 'O')
-				return (printf("Error\nMarshal: Found a stranghe char"));
-			if ((master->yp != 0 && master->xp != 0)
-				master->map[i2] == 'N' || master->map[i2] == 'E'
-				master->map[i2] == 'E' || master->map[i2] == 'O')
+			if (m->map[i][i2] != ' ' && m->map[i][i2] != '1'
+				&& m->map[i][i2] != '0'
+				&& m->map[i][i2] != 'N' && m->map[i][i2] != 'S'
+				&& m->map[i][i2] != 'E' && m->map[i][i2] != 'O')
+				return (printf("Error\nMarshal: Found a stranghe char\n"));
+			if ((m->yp != 0 && m->xp != 0)
+				|| m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
+				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O')
 				return (printf("Error\nMarshal: Found anather player char"));
-			if ((master->yp == 0 && master->xp == 0)
-				master->map[i2] == 'N' || master->map[i2] == 'E'
-				master->map[i2] == 'E' || master->map[i2] == 'O')
+			if ((m->yp == 0 && m->xp == 0)
+				|| m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
+				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O')
 			{
-				master->yp = i;
-				master->xp = i2;
+				m->yp = i;
+				m->xp = i2;
 			}
 		}
 	}
@@ -64,15 +65,15 @@ int ceck_map1(t_master *master, int i, int i2)
 // flood fill su tutta la mappa fermato solo dai muri,
 // se pero si ritrova fuori dalla matrice vuol dire che
 // non circondato da muri la mappa
-int ceck_map(t_master *master, int i, int i2)
+int	ceck_map(t_master *master, int i, int i2)
 {
 	if (ceck_map1(master, -1, 0) != 0)
 		return (1);
 	while (master->map[++i] != NULL)
 	{
 		i2 = -1;
-		while (master->map[++i2] != '\0')
-			printf("%c", master->map[i2]);
+		while (master->map[i][++i2] != '\0')
+			printf("%c", master->map[i][i2]);
 		printf("\n");
 	}
 	return (0);

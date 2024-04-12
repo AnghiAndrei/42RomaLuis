@@ -8,6 +8,12 @@ Note:
 -Possiamo usare Libft
 -L'uso delle immagini della minilibX è fortemente consigliato
 -Il programma deve prendere in input un file: .cub
+-Posizioni:
+	N nord
+	S sud
+	E est
+	O ovest
+
 -Nel file .cub deve contenere:
 NO ./path_to_the_north_texture
 SO ./path_to_the_south_texture
