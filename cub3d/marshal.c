@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/11 11:59:37 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/12 11:15:53 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ceck_file(char *file)
 	return (0);
 }
 
-int	ceck_map1(t_master *m, int i, int i2)
+static int	ceck_map1(t_master *m, int i, int i2)
 {
 	while (m->map[++i] != NULL)
 	{
@@ -46,12 +46,12 @@ int	ceck_map1(t_master *m, int i, int i2)
 				&& m->map[i][i2] != 'E' && m->map[i][i2] != 'O')
 				return (printf("Error\nMarshal: Found a stranghe char\n"));
 			if ((m->yp != 0 && m->xp != 0)
-				|| m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
-				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O')
+				&& (m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
+				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O'))
 				return (printf("Error\nMarshal: Found anather player char"));
-			if ((m->yp == 0 && m->xp == 0)
-				|| m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
-				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O')
+			else if ((m->yp == 0 && m->xp == 0)
+				&& (m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
+				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O'))
 			{
 				m->yp = i;
 				m->xp = i2;
@@ -61,20 +61,26 @@ int	ceck_map1(t_master *m, int i, int i2)
 	return (0);
 }
 
+static int	ceck_map2(t_master *m)
+{
+	if (m->yp == 0 && m->xp == 0)
+		return (printf("Error\nMarshal: Player not found\n"));
+	return (0);
+}
+
 //possibili soluzioni:
 // flood fill su tutta la mappa fermato solo dai muri,
 // se pero si ritrova fuori dalla matrice vuol dire che
 // non circondato da muri la mappa
 int	ceck_map(t_master *master, int i, int i2)
 {
-	if (ceck_map1(master, -1, 0) != 0)
-		return (1);
+	if (ceck_map1(master, -1, 0) != 0 || ceck_map2(master) != 0)
+		return (close_game(master), 1);
 	while (master->map[++i] != NULL)
 	{
 		i2 = -1;
 		while (master->map[i][++i2] != '\0')
-			printf("%c", master->map[i][i2]);
-		printf("\n");
+			;
 	}
 	return (0);
 }

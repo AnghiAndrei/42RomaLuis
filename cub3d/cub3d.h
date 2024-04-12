@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/11 15:52:06 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/12 10:59:04 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_master
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strncmp(const char *str1, const char *str2, size_t n);
-int		ceck_map1(t_master *master, int i, int i2);
 int		ceck_map(t_master *master, int i, int i2);
 int		controller(int char_p, t_master *master);
 char	*ft_strjoin12f(char *s1, char *s2);

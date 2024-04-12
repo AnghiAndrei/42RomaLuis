@@ -22,13 +22,13 @@ OBJB = $(SRCB:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ) libft.h
+	ar rcs $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(OBJB)
 
 bonus: $(OBJB) $(OBJ)
-	ar rcs $(NAME) $(OBJB) $(OBJ) libft.h
+	ar rcs $(NAME) $(OBJB) $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)

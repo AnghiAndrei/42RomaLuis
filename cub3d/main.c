@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/11 11:07:34 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/12 10:38:41 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	game_init(t_master *m, int fd, char *line, char *str)
 	free(line);
 	if (m->walln == NULL || m->walls == NULL || m->wallo == NULL
 		|| m->walle == NULL || m->floor == NULL || m->cap == NULL)
-		return (close(fd), printf("Error\nMarshal: Missing input\n"));
+		return (close(fd), printf("Error\nMarshal: Input error\n"));
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
