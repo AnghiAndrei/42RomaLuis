@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/12 11:15:53 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/15 14:01:59 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ static int	ceck_map1(t_master *m, int i, int i2)
 			if (m->map[i][i2] != ' ' && m->map[i][i2] != '1'
 				&& m->map[i][i2] != '0'
 				&& m->map[i][i2] != 'N' && m->map[i][i2] != 'S'
-				&& m->map[i][i2] != 'E' && m->map[i][i2] != 'O')
-				return (printf("Error\nMarshal: Found a stranghe char\n"));
+				&& m->map[i][i2] != 'E' && m->map[i][i2] != 'W')
+				return (printf("Error\nMarshal: Found a strange character\n"));
 			if ((m->yp != 0 && m->xp != 0)
 				&& (m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
-				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O'))
-				return (printf("Error\nMarshal: Found anather player char"));
+				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'W'))
+				return (printf("Error\nMarshal: Found another char player\n"));
 			else if ((m->yp == 0 && m->xp == 0)
 				&& (m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
-				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'O'))
+				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'W'))
 			{
 				m->yp = i;
 				m->xp = i2;
@@ -61,26 +61,45 @@ static int	ceck_map1(t_master *m, int i, int i2)
 	return (0);
 }
 
-static int	ceck_map2(t_master *m)
+static void	blood_fill(char **map, int l, int c, t_point cur)
 {
-	if (m->yp == 0 && m->xp == 0)
-		return (printf("Error\nMarshal: Player not found\n"));
-	return (0);
+	if (cur.l < 0 || cur.l >= l || cur.c < 0 || cur.c >= c
+		|| map[cur.l][cur.c] == '1' || map[cur.l][cur.c] == '-')
+		return ;
+	if (map[cur.l][cur.c] == ' ')
+	{
+		map[cur.l][cur.c] = 'X';
+		return ;
+	}
+	if (map[cur.l][cur.c] == '\0')
+	{
+		map[cur.l][cur.c - 1] = 'X';
+		return ;
+	}
+	map[cur.l][cur.c] = '-';
+	blood_fill(map, l, c, (t_point){cur.l - 1, cur.c});
+	blood_fill(map, l, c, (t_point){cur.l + 1, cur.c});
+	blood_fill(map, l, c, (t_point){cur.l, cur.c - 1});
+	blood_fill(map, l, c, (t_point){cur.l, cur.c + 1});
 }
 
-//possibili soluzioni:
-// flood fill su tutta la mappa fermato solo dai muri,
-// se pero si ritrova fuori dalla matrice vuol dire che
-// non circondato da muri la mappa
-int	ceck_map(t_master *master, int i, int i2)
+int	ceck_map(t_master *m)
 {
-	if (ceck_map1(master, -1, 0) != 0 || ceck_map2(master) != 0)
-		return (close_game(master), 1);
-	while (master->map[++i] != NULL)
+	char	**mapc;
+	t_point	point;
+
+	if (ceck_map1(m, -1, 0) != 0)
+		return (free_all(m), 1);
+	if (m->yp == 0 && m->xp == 0)
+		return (free_all(m), printf("Error\nMarshal: Player not found\n"));
+	point.l = m->yp;
+	point.c = m->xp;
+	mapc = copy_m(m->map);
+	blood_fill(mapc, ft_mlen(mapc), ft_strlen(mapc[0]) - 1, point);
+	if (pos_line(mapc, 'X') == -1)
 	{
-		i2 = -1;
-		while (master->map[i][++i2] != '\0')
-			;
+		free_matrix(mapc);
+		return (free_all(m), printf("Error\nMarshal: Map not close\n"));
 	}
-	return (0);
+	return (free_matrix(mapc), 0);
 }

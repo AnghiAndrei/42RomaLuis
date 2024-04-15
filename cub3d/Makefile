@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/11 11:16:31 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/15 17:29:21 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,10 @@ MINILIBX_PATH = ./mlx
 MINILIBX = $(MINILIBX_PATH)/libmlx.a
 
 SRC = ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c \
-	  main.c marshal.c utilitis.c controlls.c \
-	  get_next_line.c get_next_line_utils.c
+	  get_next_line.c get_next_line_utils.c \
+	  main.c marshal.c controlls.c \
+	  utilitis.c utilitis1.c
+	  
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -68,6 +70,15 @@ test: re
 	echo
 	echo /$(NAME) maps/error2.cub
 	-./$(NAME) maps/error2.cub
+	echo
+	echo /$(NAME) maps/error3.cub
+	-./$(NAME) maps/error3.cub
+	echo
+	echo /$(NAME) maps/error4.cub
+	-./$(NAME) maps/error4.cub
+	echo
+	echo /$(NAME) maps/error5.cub
+	-./$(NAME) maps/error5.cub
 	@rm -f $(NAME)
 
 test2: re

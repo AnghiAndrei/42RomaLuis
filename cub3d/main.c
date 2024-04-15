@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/12 10:38:41 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/15 16:51:21 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	game_init3(t_master *m)
 {
 	m->mlx = mlx_init();
-	m->win = mlx_new_window(m->mlx, 9 * 100, 9 * 100, "Quartieri spagnioli");
+	m->win = mlx_new_window(m->mlx, 1920, 1080, "Quartieri spagnioli");
 	m->walln = NULL;
 	m->walls = NULL;
 	m->walle = NULL;
@@ -24,6 +24,9 @@ static void	game_init3(t_master *m)
 	m->cap = NULL;
 	m->yp = 0;
 	m->xp = 0;
+	m->mfloor = mlx_xpm_file_to_image(m->mlx, "textures/MF.xpm", &m->i, &m->j);
+	m->mplayer = mlx_xpm_file_to_image(m->mlx, "textures/MP.xpm", &m->i, &m->j);
+	m->mwall = mlx_xpm_file_to_image(m->mlx, "textures/MW.xpm", &m->i, &m->j);
 }
 
 static int	game_init2(t_master *m, char **t2)
@@ -87,10 +90,12 @@ int	main(int argc, char **argv)
 		return (printf("Error\nMarshal: Input error\n"));
 	if (ceck_file(argv[1]) != 0 || game_init(&master,
 			open(argv[1], O_RDONLY), NULL, ft_strjoin("\0", "\0")) != 0
-		|| ceck_map(&master, -1, 0) != 0)
+		|| ceck_map(&master) != 0)
 		return (EXIT_FAILURE);
-	mlx_hook(master.win, ON_DESTROY, 0, close_game, &master);
-	mlx_hook(master.win, 2, 0, controller, &master);
+	print_map(master.map, &master);
+	mlx_hook(master.win, 2, 1L << 0, &controller, &master);
+	mlx_hook(master.win, 3, 1L << 0, &controller, &master);
+	mlx_hook(master.win, 17, 0, close_game, &master);
 	mlx_loop(master.mlx);
 	return (0);
 }

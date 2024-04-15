@@ -1,5 +1,5 @@
 [ ] Mostrare diverse texture ad ogni faccia dei muri
-[ ] Impostare un colore differente al soffito e 
+[ ] Impostare un colore differente al soffito e pavimento
 Movimenti:
     [ ] Freccia sinistra: gira la visuale a sinistra
     [ ] Freccia destra: gira la visuale a destra
@@ -8,16 +8,16 @@ Movimenti:
     [ ] Tasto D: va a destra il giocatore
     [ ] Tasto A: va a sinistra il giocatore
 Uscire dal gioco:
-    [ ] Pulsante ESC
-    [ ] Crocetta
+    [X] Pulsante ESC
+    [X] Crocetta
 
 Controlli:
-    [ ] Caratteri ammessi: 0(spazi), 1(muro), N, A, S, D (posizioni iniziali del giocatore orientato nella direzione)
-    [ ] La mappa deve avere un perimetro di muri
+    [X] Caratteri ammessi: 0(spazi), 1(muro), N, A, S, D (posizioni iniziali del giocatore orientato nella direzione)
+    [X] La mappa deve avere un perimetro di muri
 
 Bonus:
     [ ] Collisioni con i muri
-    [ ] Una minimappa
+    [-] Una minimappa
     [ ] Porte chiudibili e apribili
     [ ] Animazioni
     [ ] Ruotare la view con il mause
