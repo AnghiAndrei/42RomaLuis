@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/15 17:27:40 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/16 11:32:34 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_master
 	int			qi;
 	int			i;
 	int			j;
+	int			ic;
 	float		xp;
 	float		yp;
 }				t_master;

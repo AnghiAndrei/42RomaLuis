@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:18 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/15 16:32:58 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/16 12:32:46 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,4 @@ int	close_game(t_master *master)
 	free_all(master);
 	exit(0);
 	return (1);
-}
-
-void	print_map(char **map, t_master *m)
-{
-	int		i;
-	int		b;
-
-	i = -1;
-	mlx_clear_window(m->mlx, m->win);
-	while (map[++i] != NULL)
-	{
-		b = -1;
-		while (map[i][++b] != '\0')
-		{
-			if (map[i][b] == '1')
-				mlx_put_image_to_window(m->mlx, m->win, m->mwall,
-					b * MG, i * MG);
-			if (map[i][b] == '0')
-				mlx_put_image_to_window(m->mlx, m->win, m->mfloor,
-					b * MG, i * MG);
-		}
-	}
-	mlx_put_image_to_window(m->mlx, m->win, m->mplayer, m->yp * MG, m->xp * MG);
 }

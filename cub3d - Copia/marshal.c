@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/15 14:01:59 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/16 11:00:06 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static int	ceck_map1(t_master *m, int i, int i2)
 		i2 = -1;
 		while (m->map[i][++i2] != '\0')
 		{
+			printf("%c", m->map[i][i2]);
 			if (m->map[i][i2] != ' ' && m->map[i][i2] != '1'
 				&& m->map[i][i2] != '0'
 				&& m->map[i][i2] != 'N' && m->map[i][i2] != 'S'
@@ -57,6 +58,7 @@ static int	ceck_map1(t_master *m, int i, int i2)
 				m->xp = i2;
 			}
 		}
+		printf("\n");
 	}
 	return (0);
 }

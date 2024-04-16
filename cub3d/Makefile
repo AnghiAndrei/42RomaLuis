@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/15 17:29:21 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/16 17:35:42 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,17 @@ MAKEFLAGS += -s
 
 NAME = cub3D
 CFLAGS = -Wall -Wextra -Werror
-ARG = maps/1.cub
+ARG = maps/2.cub
 
 MINILIBX_PATH = ./mlx
 MINILIBX = $(MINILIBX_PATH)/libmlx.a
 
-SRC = ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c \
+SRC = ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c ft_atoi.c \
+	  main.c marshal.c controlls.c print_minimap.c print_map.c \
 	  get_next_line.c get_next_line_utils.c \
-	  main.c marshal.c controlls.c \
+	  game_init.c \
 	  utilitis.c utilitis1.c
-	  
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -48,6 +49,7 @@ git: fclean
 	gcc $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(MINILIBX):
+	chmod 777 $(MINILIBX_PATH)/configure
 	make -C $(MINILIBX_PATH)
 
 test: re

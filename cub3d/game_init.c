@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/16 11:32:45 by aanghi           ###   ########.fr       */
+/*   Created: 2024/04/16 17:25:56 by aanghi            #+#    #+#             */
+/*   Updated: 2024/04/16 17:37:22 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 static void	game_init3(t_master *m)
 {
 	m->mlx = mlx_init();
-	m->win = mlx_new_window(m->mlx, 1920, 1080, "Quartieri spagnioli");
+	m->win = mlx_new_window(m->mlx, WIDTH, HEIGHT, "Quartieri spagnioli");
 	m->walln = NULL;
 	m->walls = NULL;
 	m->walle = NULL;
 	m->wallo = NULL;
 	m->floor = NULL;
 	m->cap = NULL;
+	m->minimapp = 1;
 	m->ic = 0;
 	m->yp = 0;
 	m->xp = 0;
 	m->mfloor = mlx_xpm_file_to_image(m->mlx, "textures/MF.xpm", &m->i, &m->j);
 	m->mplayer = mlx_xpm_file_to_image(m->mlx, "textures/MP.xpm", &m->i, &m->j);
 	m->mwall = mlx_xpm_file_to_image(m->mlx, "textures/MW.xpm", &m->i, &m->j);
-	m->mc = mlx_xpm_file_to_image(m->mlx, "textures/MC.xpm", &m->i, &m->j);
 }
 
 static int	game_init2(t_master *m, char **t2)
@@ -38,7 +38,7 @@ static int	game_init2(t_master *m, char **t2)
 	t = ft_split(t2[0], ' ');
 	free_matrix(t2);
 	if (ft_mlen(t) != 2)
-		return (free_matrix(t), 0);
+		return (printf("Error\nMarshal: Find space in heder input\n"));
 	else if (ft_strncmp(t[0], "NO", 2) == 0)
 		m->walln = mlx_xpm_file_to_image(m->mlx, t[1], &m->i, &m->j);
 	else if (ft_strncmp(t[0], "SO", 2) == 0)
@@ -53,24 +53,51 @@ static int	game_init2(t_master *m, char **t2)
 		m->cap = ft_strjoin(t[1], "\0");
 	else
 		return (free_matrix(t), printf("Error\nMarshal: Unreconigde input\n"));
-	m->ic++;
 	free_matrix(t);
+	m->ic++;
 	return (0);
 }
 
-static int	game_init(t_master *m, int fd, char *line, char *str)
+static void	game_init4(t_master *m, int fd, char *line)
 {
-	game_init3(m);
 	line = get_next_line(fd);
-	while (line != NULL && ft_strncmp(line, "\n", 1) != 0 && m->ic != 6)
+	while (line != NULL && ft_strncmp(line, "\n", 1) != 0)
 	{
 		if (game_init2(m, ft_splitf(line, '\n')) != 0)
 			break ;
 		line = get_next_line(fd);
 	}
-	if (line != NULL)
-		free(line);
-	if (m->walln == NULL || m->walls == NULL || m->wallo == NULL || m->ic != 6
+	free(line);
+}
+
+static int	get_color(t_master *m)
+{
+	char	**temp;
+
+	temp = ft_split(m->cap, ',');
+	if (ft_mlen(temp) != 3)
+		return (free_matrix(temp), printf("Error\nMarshal: Error input\n"));
+	m->colc = ft_atoi(temp[0]);
+	m->colc = (m->colc << 8) + ft_atoi(temp[1]);
+	m->colc = (m->colc << 8) + ft_atoi(temp[2]);
+	free_matrix(temp);
+	temp = ft_split(m->floor, ',');
+	if (ft_mlen(temp) != 3)
+		return (free_matrix(temp), printf("Error\nMarshal: Error input\n"));
+	m->colf = ft_atoi(temp[0]);
+	m->colf = (m->colf << 8) + ft_atoi(temp[1]);
+	m->colf = (m->colf << 8) + ft_atoi(temp[2]);
+	free_matrix(temp);
+	return (0);
+}
+
+int	game_init(t_master *m, int fd, char *line, char *str)
+{
+	game_init3(m);
+	game_init4(m, fd, NULL);
+	if (m->ic != 6)
+		game_init4(m, fd, NULL);
+	if (m->walln == NULL || m->walls == NULL || m->wallo == NULL
 		|| m->walle == NULL || m->floor == NULL || m->cap == NULL)
 		return (close(fd), printf("Error\nMarshal: Input error\n"));
 	line = get_next_line(fd);
@@ -83,23 +110,7 @@ static int	game_init(t_master *m, int fd, char *line, char *str)
 	if (str[0] == '\0')
 		return (printf("Error\nMarshal: No map found\n"));
 	m->map = ft_splitf(str, '\n');
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_master	master;
-
-	if (argc != 2)
-		return (printf("Error\nMarshal: Input error\n"));
-	if (ceck_file(argv[1]) != 0 || game_init(&master,
-			open(argv[1], O_RDONLY), NULL, ft_strjoin("\0", "\0")) != 0
-		|| ceck_map(&master) != 0)
-		return (free_all(&master), EXIT_FAILURE);
-	print_map(master.map, &master);
-	mlx_hook(master.win, 2, 1L << 0, &controller, &master);
-	mlx_hook(master.win, 3, 1L << 0, &controller, &master);
-	mlx_hook(master.win, 17, 0, close_game, &master);
-	mlx_loop(master.mlx);
+	if (get_color(m) != 0)
+		return(1);
 	return (0);
 }

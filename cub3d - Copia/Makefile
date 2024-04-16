@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/15 17:29:21 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/16 11:26:37 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ git: fclean
 	gcc $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(MINILIBX):
+	chmod 777 mlx/configure
 	make -C $(MINILIBX_PATH)
 
 test: re
@@ -79,9 +80,6 @@ test: re
 	echo
 	echo /$(NAME) maps/error5.cub
 	-./$(NAME) maps/error5.cub
-	echo
-	echo /$(NAME) maps/error6.cub
-	-./$(NAME) maps/error6.cub
 	@rm -f $(NAME)
 
 test2: re
@@ -105,3 +103,6 @@ test3: re
 	echo ./$(NAME) $(ARG)
 	./$(NAME) $(ARG)
 	@rm -f $(NAME)
+
+norma: 
+	norminette $(SRC) cub3d.h
