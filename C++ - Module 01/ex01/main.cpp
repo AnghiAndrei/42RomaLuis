@@ -1,12 +1,10 @@
-#include "Zombie.h"
+#include "Zombie.hpp"
 
 int main(){
-    Zombie z=Zombie("Sakura");
-    z.announce();
-    Zombie *z2=z.newZombie("Hishido");
-    *z2.announce();
-    randomChump("Aka");
-    delete z;
-    delete z2;
+    int n = 5;
+    Zombie *horde = zombieHorde(n, "Duplicate");
+    for(int i = 0; i != n; i++)
+        horde[i].announce();
+    delete [] horde;
     return 0;
 }

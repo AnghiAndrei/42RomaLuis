@@ -1,12 +1,12 @@
-#include "Zombie.h"
+#include "Zombie.hpp"
+
+Zombie* newZombie(std::string name);
+void randomChump(std::string name);
 
 int main(){
-    Zombie z=Zombie("Sakura");
-    z.announce();
-    Zombie *z2=z.newZombie("Hishido");
-    *z2.announce();
-    randomChump("Aka");
-    delete z;
-    delete z2;
+    Zombie* zombie = newZombie("Heap Sakura");
+    zombie->announce();
+    randomChump("Stack Hishido");
+    delete zombie;
     return 0;
 }
