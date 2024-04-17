@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:25:56 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/16 17:37:22 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 18:53:09 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,14 @@ static int	get_color(t_master *m)
 	temp = ft_split(m->cap, ',');
 	if (ft_mlen(temp) != 3)
 		return (free_matrix(temp), printf("Error\nMarshal: Error input\n"));
-	m->colc = ft_atoi(temp[0]);
-	m->colc = (m->colc << 8) + ft_atoi(temp[1]);
-	m->colc = (m->colc << 8) + ft_atoi(temp[2]);
+	m->colc = (0xFF << 24 | ft_atoi(temp[0]) << 16 | ft_atoi(temp[1]) << 8
+			| ft_atoi(temp[2]) << 8);
 	free_matrix(temp);
 	temp = ft_split(m->floor, ',');
 	if (ft_mlen(temp) != 3)
 		return (free_matrix(temp), printf("Error\nMarshal: Error input\n"));
-	m->colf = ft_atoi(temp[0]);
-	m->colf = (m->colf << 8) + ft_atoi(temp[1]);
-	m->colf = (m->colf << 8) + ft_atoi(temp[2]);
+	m->colf = (0xFF << 24 | ft_atoi(temp[0]) << 16 | ft_atoi(temp[1]) << 8
+			| ft_atoi(temp[2]) << 8);
 	free_matrix(temp);
 	return (0);
 }
@@ -111,6 +109,7 @@ int	game_init(t_master *m, int fd, char *line, char *str)
 		return (printf("Error\nMarshal: No map found\n"));
 	m->map = ft_splitf(str, '\n');
 	if (get_color(m) != 0)
-		return(1);
+		return (1);
+	set_background(m, 0, 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/17 13:28:22 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/17 18:52:41 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ MINILIBX = $(MINILIBX_PATH)/libmlx.a
 
 SRC = \
 	  ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c ft_atoi.c \
-	  main.c marshal.c controlls.c print_map.c game_init.c \
+	  main.c marshal.c controlls.c print_map.c print_minimap.c \
 	  get_next_line.c get_next_line_utils.c \
-	  print_minimap.c print_map_utilitis.c \
+	  game_init.c game_init1.c \
 	  utilitis.c utilitis1.c
 
 OBJ = $(SRC:.c=.o)
@@ -105,3 +105,6 @@ test3: re
 	echo ./$(NAME) $(ARG)
 	./$(NAME) $(ARG)
 	@rm -f $(NAME)
+
+norm:
+	norminette $(SRC) cub3d.h

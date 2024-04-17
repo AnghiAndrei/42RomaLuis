@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:28:34 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/16 17:24:25 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 18:49:39 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	controlli(int char_p, t_master *m)
 {
 	if (char_p == M_KEY)
 	{
-		printf("%d\n", char_p);
 		if (m->minimapp == 1)
 			m->minimapp = 0;
 		else
