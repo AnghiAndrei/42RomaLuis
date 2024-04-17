@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 11:49:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/15 13:56:49 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 11:16:24 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,4 @@ int	pos_line(char **map, char c)
 		i++;
 	}
 	return (0);
-}
-
-char	**copy_m(char **m)
-{
-	char	**cm;
-	int		i;
-
-	i = 0;
-	cm = malloc((ft_mlen(m) + 1) * sizeof(char *));
-	while (m[i] != NULL)
-	{
-		cm[i] = ft_strjoin(m[i], "\0");
-		i++;
-	}
-	cm[i] = NULL;
-	return (cm);
 }

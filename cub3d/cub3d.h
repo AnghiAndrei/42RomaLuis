@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/16 17:36:38 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 13:55:44 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define MG 20
 # define MD 4
 # define WS 0.10
-# define WSC 0.90
+# define WSC 0.40
 
 # define W_KEY 119
 # define A_KEY 97

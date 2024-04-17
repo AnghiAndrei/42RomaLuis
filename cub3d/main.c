@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/16 17:26:28 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 12:47:43 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		|| ceck_map(&master) != 0)
 		return (free_all(&master), EXIT_FAILURE);
 	master.map[(int)(master.yp)][(int)(master.xp)] = '0';
+	print_map(&master);
 	print_minimap(master.map, &master);
 	mlx_hook(master.win, 2, 1L << 0, &controller, &master);
 	mlx_hook(master.win, 3, 1L << 0, &controller, &master);
