@@ -6,12 +6,13 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 02:33:23 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:30:07 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* le altre builtin */
 int	bt_exit(t_master *master, char *cmd, int i, int i2)
 {
 	char	*str;

@@ -6,12 +6,13 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 02:31:14 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 12:17:11 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* controllo builtin e variabili d'ambiente */
 int	controll_builtins(t_master *master, t_cmd *cur)
 {
 	char	*str;

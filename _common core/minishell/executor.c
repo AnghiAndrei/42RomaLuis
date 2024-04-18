@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 08:03:49 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 12:14:27 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ static int	pipe_cmd(t_master *master, t_cmd *cur)
 	return (0);
 }
 
+/*
+	léxecutor lavora su 2 strade: input con pipe, input senza pipe.
+	quando non ci sono pipe va a eseguire tutti i comandi controllando
+	prima il g_code_exit, poi le builtin e se non e una builin esegue con execve
+	mentre con le pipe tramite la funzione pipe mette in collegamento i due comenti
+	comabiando i fd dello standart input e output
+*/
 void	executor(t_master *master, char *str, int i)
 {
 	t_cmd	*cur;

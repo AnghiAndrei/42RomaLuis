@@ -6,12 +6,13 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 02:29:20 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:12:15 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* export */
 static int	bts2_export(t_cmd *cur, int *i)
 {
 	int		i2;
@@ -57,6 +58,7 @@ static char	*bts1_export(t_cmd *cur, char *a, int i, t_master *m)
 	return (temp);
 }
 
+/* stampa di tutte le variabili dámbiente in ordine ascii */
 static void	bt_env2(t_master *master, int i)
 {
 	char	**s;
@@ -76,6 +78,7 @@ static void	bt_env2(t_master *master, int i)
 	free_matrix(mt);
 }
 
+/* riallo della matrice con tutte le variabili d'ambinete aggiungendo la nuova */
 static char	**bts3_export(t_master *master, t_cmd *cur, char *e, int i2)
 {
 	char	**m2;

@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/17 18:52:41 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/18 13:56:09 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAKEFLAGS += -s
 
 NAME = cub3D
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 ARG = maps/2.cub
 
 MINILIBX_PATH = ./mlx

@@ -6,13 +6,14 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/17 20:14:24 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/18 17:01:47 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -43,29 +44,70 @@
 
 typedef struct s_master
 {
-	char		**map;
-	void		*mlx;
-	void		*win;
-	void		*walln;
-	void		*walle;
-	void		*wallo;
-	void		*walls;
-	char		*floor;
-	char		*cap;
-	char		*mfloor;
-	char		*mplayer;
-	char		*mwall;
-	int			qi;
-	int			minimapp;
-	int			i;
-	int			j;
-	int			ic;
-	float		xp;
-	float		yp;
-	int			colc;
-	int			colf;
-	char		*backgroud;
-}				t_master;
+	char			**map;
+	void			*mlx;
+	void			*win;
+	void			*walln;
+	void			*walle;
+	void			*wallo;
+	void			*walls;
+	char			*floor;
+	char			*cap;
+	char			*mfloor;
+	char			*mplayer;
+	char			*mwall;
+	int				qi;
+	int				minimapp;
+	int				i;
+	int				j;
+	int				ic;
+	float			xp;
+	float			yp;
+	int				colc;
+	int				colf;
+	
+	char			*backgroud;
+	int				bits_per_pixel;
+	int				size_line;
+	int				endianimg;
+	char			*address;
+
+	char			*wall;
+	int				bits_per_pixel2;
+	int				size_line2;
+	int				endianimg2;
+	char			*address2;
+
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	int				map_x;
+	int				map_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_x;
+	double			delta_y;
+	double			w_dist;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	double			wall_x;
+	int				tex_x;
+	int				tex_y;
+	double			step;
+	double			tex_pos;
+
+	double			dir_x;
+	double			dir_y;
+	double			pos_x;
+	double			pos_y;
+	double			plane_x;
+	double			plane_y;
+}					t_master;
 
 typedef struct s_point
 {
@@ -86,14 +128,15 @@ char	**ft_split(char const *s, char c);
 void	ft_strcpy(char *dest, char *src);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(const char *string);
+void	print_map(t_master *m, int x);
 char	**ft_splitf(char *s, char c);
 int		close_game(t_master *master);
 int		pos_line(char **map, char c);
 int		ft_atoi(const char *string);
 int		ceck_map(t_master *master);
 void	free_all(t_master *master);
+void	game_init5(t_master *m);
 char	*get_next_line(int fd);
-void	print_map(t_master *m);
 void	free_matrix(char **m);
 int		ceck_file(char *file);
 int		ft_mlen(char **temp);

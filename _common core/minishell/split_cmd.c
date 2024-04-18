@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:27:25 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 15:03:05 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 11:59:25 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	add_cmd(t_master *master, t_data d)
 	master->ncmd++;
 }
 
+/*tokenizzare i vari pezzi del comando in input segnandomi in  quale 
+posizione delle pipe o delle or si trova*/
 static void	sup1(t_master *master, t_data *d)
 {
 	if (d->or_1 == 1)

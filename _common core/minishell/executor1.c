@@ -6,12 +6,16 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 15:11:16 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/17 12:06:33 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*sono le operazione del figlio che va asovrascrivere 
+il SIGQUIT PER L USCITA CON I CTRL + \ e poi controlla se il comando e'una builtin
+e se lo e' la esegue e poi esce, altrimenti esegue il comando 
+tramite execve(salva leaK)*/
 void	child_op(t_master *master, t_cmd *cur)
 {
 	char	*prog_n;
