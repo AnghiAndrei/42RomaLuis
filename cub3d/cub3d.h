@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/18 17:01:47 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/19 17:15:24 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@
 #  define BUFFER_SIZE 9999999
 # endif
 
-# define HEIGHT 1620
-# define WIDTH 3000
+// # define HEIGHT 1620
+// # define WIDTH 3000
+# define HEIGHT 900
+# define WIDTH 1600
+
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
 
 # define MG 15
 # define MD 4
@@ -42,15 +47,20 @@
 # define RIGHT_KEY 65363
 # define ESC_KEY 65307
 
+typedef struct s_img
+{
+	void			*img;
+	char			*addr;
+	int				bxp;
+	int				line_l;
+	int				endian;
+}				t_img;
+
 typedef struct s_master
 {
 	char			**map;
 	void			*mlx;
 	void			*win;
-	void			*walln;
-	void			*walle;
-	void			*wallo;
-	void			*walls;
 	char			*floor;
 	char			*cap;
 	char			*mfloor;
@@ -61,22 +71,20 @@ typedef struct s_master
 	int				i;
 	int				j;
 	int				ic;
-	float			xp;
-	float			yp;
+	double			xp;
+	double			yp;
+	double			mxp;
+	double			myp;
 	int				colc;
 	int				colf;
-	
-	char			*backgroud;
-	int				bits_per_pixel;
-	int				size_line;
-	int				endianimg;
-	char			*address;
 
-	char			*wall;
-	int				bits_per_pixel2;
-	int				size_line2;
-	int				endianimg2;
-	char			*address2;
+	struct s_img	wall;
+	struct s_img	bg;
+
+	struct s_img	no;
+	struct s_img	so;
+	struct s_img	we;
+	struct s_img	ea;
 
 	double			camera_x;
 	double			ray_dir_x;
@@ -115,31 +123,35 @@ typedef struct s_point
 	int			c;
 }				t_point;
 
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strncmp(const char *str1, const char *str2, size_t n);
-int		game_init(t_master *m, int fd, char *line, char *str);
-void	set_background(t_master *m, int y, int x);
-int		controller(int char_p, t_master *master);
-void	print_minimap(char **map, t_master *m);
-char	*ft_strjoin12f(char *s1, char *s2);
-char	*ft_strjoin1f(char *s1, char *s2);
-char	*ft_strjoin2f(char *s1, char *s2);
-char	**ft_split(char const *s, char c);
-void	ft_strcpy(char *dest, char *src);
-char	*ft_strjoin(char *s1, char *s2);
-int		ft_strlen(const char *string);
-void	print_map(t_master *m, int x);
-char	**ft_splitf(char *s, char c);
-int		close_game(t_master *master);
-int		pos_line(char **map, char c);
-int		ft_atoi(const char *string);
-int		ceck_map(t_master *master);
-void	free_all(t_master *master);
-void	game_init5(t_master *m);
-char	*get_next_line(int fd);
-void	free_matrix(char **m);
-int		ceck_file(char *file);
-int		ft_mlen(char **temp);
-int		findn(char *buffer);
-char	**copy_m(char **m);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
+int				ft_strncmp(const char *str1, const char *str2, size_t n);
+void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
+int				game_init(t_master *m, int fd, char *line, char *str);
+void			set_img(t_img *i, char *path, t_master *m);
+void			set_background(t_master *m, int y, int x);
+int				controller(int char_p, t_master *master);
+void			print_minimap(char **map, t_master *m);
+unsigned int	get_pixel(t_img *img, int x, int y);
+char			*ft_strjoin12f(char *s1, char *s2);
+double			ternals(int b, double t, double f);
+char			*ft_strjoin1f(char *s1, char *s2);
+char			*ft_strjoin2f(char *s1, char *s2);
+char			**ft_split(char const *s, char c);
+void			ft_strcpy(char *dest, char *src);
+char			*ft_strjoin(char *s1, char *s2);
+int				ft_strlen(const char *string);
+void			print_map(t_master *m, int x);
+char			**ft_splitf(char *s, char c);
+int				close_game(t_master *master);
+int				pos_line(char **map, char c);
+int				ft_atoi(const char *string);
+int				ceck_map(t_master *master);
+void			free_all(t_master *master);
+void			game_init5(t_master *m);
+char			*get_next_line(int fd);
+void			free_matrix(char **m);
+int				ceck_file(char *file);
+int				ft_mlen(char **temp);
+int				findn(char *buffer);
+char			**copy_m(char **m);
 #endif

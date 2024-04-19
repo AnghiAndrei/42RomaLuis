@@ -12,7 +12,7 @@ Note:
 	N nord
 	S sud
 	E est
-	O ovest
+	W ovest
 
 -Nel file .cub deve contenere:
 NO ./path_to_the_north_texture

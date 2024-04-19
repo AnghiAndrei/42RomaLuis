@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/18 13:56:09 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/19 12:16:09 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAKEFLAGS += -s
 
 NAME = cub3D
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 ARG = maps/2.cub
 
 MINILIBX_PATH = ./mlx
@@ -21,8 +21,9 @@ MINILIBX = $(MINILIBX_PATH)/libmlx.a
 
 SRC = \
 	  ft_split.c ft_strlen.c ft_strncmp.c ft_substr.c ft_strjoin.c ft_atoi.c \
-	  main.c marshal.c controlls.c print_map.c print_minimap.c \
+	  print_map_utilitis.c print_map.c print_minimap.c \
 	  get_next_line.c get_next_line_utils.c \
+	  main.c marshal.c controlls.c \
 	  game_init.c game_init1.c \
 	  utilitis.c utilitis1.c
 
