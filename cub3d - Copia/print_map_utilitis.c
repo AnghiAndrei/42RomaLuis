@@ -57,7 +57,7 @@ unsigned int	get_pixel(t_master *m, t_img *img, int x, int y)
 		return (1);
 	dest = img->addr + (y * img->line_l + x * (img->bxp / 8));
 	// printf("%c\n", *dest);
-	if (dest == NULL)
+	if (dest ft_strncmp(dest, "0xFF000000", 11) == 0)
 		return (*(unsigned int *)m->colf);
 	return (*(unsigned int *)dest);
 }

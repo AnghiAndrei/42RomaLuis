@@ -36,3 +36,7 @@ float toFloat() const{
 int toInt() const{
     return this.nbr >> bits;
 }
+
+Fixed Fixed::operator+(const Fixed &b){
+    return this.toFloat() + b.toFloat();
+}

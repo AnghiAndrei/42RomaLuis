@@ -36,6 +36,11 @@
 # define WS 0.10
 # define WSC 0.70
 
+# define COSP cos(0.05)
+# define SINP sin(0.05)
+# define COSN cos(-0.05)
+# define SINN sin(-0.05)
+
 # define W_KEY 119
 # define A_KEY 97
 # define M_KEY 109
@@ -69,6 +74,7 @@ typedef struct s_master
 	int				i;
 	int				j;
 	int				ic;
+	int				xmause;
 	double			xp;
 	double			yp;
 	double			mxp;
@@ -79,6 +85,7 @@ typedef struct s_master
 	struct s_img	wall;
 	struct s_img	bg;
 
+	struct s_img	no2;
 	struct s_img	no;
 	struct s_img	so;
 	struct s_img	we;

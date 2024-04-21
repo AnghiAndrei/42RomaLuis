@@ -31,6 +31,9 @@ static void	game_init3(t_master *m)
 	m->mfloor = mlx_xpm_file_to_image(m->mlx, "textures/MF.xpm", &m->i, &m->j);
 	m->mplayer = mlx_xpm_file_to_image(m->mlx, "textures/MP.xpm", &m->i, &m->j);
 	m->mwall = mlx_xpm_file_to_image(m->mlx, "textures/MW.xpm", &m->i, &m->j);
+	set_img(&m->no2, "textures/NO2.xpm", m);
+	m->a = 0;
+	m->xmause = 0;
 	m->plane_x = 0;
 	m->plane_y = 0;
 	m->dir_x = 0;

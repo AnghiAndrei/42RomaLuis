@@ -59,10 +59,8 @@ void	check_distance(t_master *m, char **map)
 		m->draw_end = HEIGHT - 1;
 }
 
-void	render_y(t_master *m, int x)
+void	render_y(t_master *m, int x, int y)
 {
-	int				y;
-
 	y = m->draw_start;
 	while (y < m->draw_end)
 	{
@@ -70,9 +68,12 @@ void	render_y(t_master *m, int x)
 		m->tex_pos += m->step;
 		if (m->hit == 1)
 		{
-			if (m->side != 0 && m->step_y == -1)
+			if (m->side != 0 && m->step_y == -1 && m->a == 0 && m->a++)
 				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
 					get_pixel(m, &m->no, m->tex_x, m->tex_y));
+			else if (m->side != 0 && m->step_y == -1 && m->a == 1 && m->a--)
+				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
+					get_pixel(m, &m->no2, m->tex_x, m->tex_y));
 			else if (m->side != 0 && m->step_y == 1)
 				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
 					get_pixel(m, &m->so, m->tex_x, m->tex_y));
@@ -109,7 +110,7 @@ void	print_map(t_master *m, int x)
 		m->step = 1.0 * TEXHEIGHT / m->line_height;
 		m->tex_pos = (m->draw_start - HEIGHT / 2 + m->line_height / 2)
 			* m->step;
-		render_y(m, x);
+		render_y(m, x, 0);
 		x++;
 	}
 	mlx_clear_window(m->mlx, m->win);
