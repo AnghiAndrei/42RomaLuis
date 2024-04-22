@@ -1,8 +1,8 @@
 #include "Zombie.hpp"
 
 Zombie  *zombieHorde(int N, std::string name){
-    Zombie *orgia[N+1];
+    Zombie *orgia=new Zombie[N];
     for(int i=0;i != N; i++)
-        orgia[i]= new Zombie(name);
-    return orgia
+        orgia[i].setZombieName(name);
+    return orgia;
 }

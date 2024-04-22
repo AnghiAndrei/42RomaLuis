@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/22 15:24:29 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = BraiiiiiiinnnzzzZ
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Zombie.cpp ZombieHorde.cpp
+SRC = main.cpp Zombie.cpp zombieHorde.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

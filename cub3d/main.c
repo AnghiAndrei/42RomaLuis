@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/19 17:17:13 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/22 17:21:24 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static int	game(t_master *master)
 {
-	print_map(master, 0);
 	print_minimap(master->map, master);
+	usleep(4000);
+	print_map(master, 0);
 	return (0);
 }
 
@@ -29,13 +30,16 @@ int	main(int argc, char **argv)
 			open(argv[1], O_RDONLY), NULL, ft_strjoin("\0", "\0")) != 0
 		|| ceck_map(&master) != 0)
 		return (free_all(&master), EXIT_FAILURE);
-	master.pos_x = master.mxp + 0.5;
-	master.pos_y = master.myp + 0.5;
 	game_init5(&master);
-	master.map[(int)(master.yp)][(int)(master.xp)] = '0';
+	master.sp = 1;
 	print_map(&master, 0);
 	print_minimap(master.map, &master);
+	if (master.map[(int)(master.yp)][(int)(master.xp)] == 'W'
+		|| master.map[(int)(master.yp)][(int)(master.xp)] == 'E')
+		master.sp = -1;
+	master.map[(int)(master.yp)][(int)(master.xp)] = '0';
 	mlx_hook(master.win, 2, 1L << 0, &controller, &master);
+	mlx_hook(master.win, 6, 1L << 6, mause_controll, &master);
 	mlx_hook(master.win, 17, 0, close_game, &master);
 	mlx_loop_hook(master.mlx, &game, &master);
 	mlx_loop(master.mlx);

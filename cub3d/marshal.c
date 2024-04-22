@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/19 17:17:53 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/22 16:46:08 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ int	ceck_file(char *file)
 	return (0);
 }
 
+static void	supp_marshal(t_master *m, int i, int i2)
+{
+	m->yp = i + 0.01;
+	m->xp = i2 + 0.01;
+	m->myp = i;
+	m->mxp = i2;
+}
+
 static int	ceck_map1(t_master *m, int i, int i2)
 {
 	while (m->map[++i] != NULL)
@@ -52,12 +60,7 @@ static int	ceck_map1(t_master *m, int i, int i2)
 			else if ((m->yp == 0 && m->xp == 0)
 				&& (m->map[i][i2] == 'N' || m->map[i][i2] == 'S'
 				|| m->map[i][i2] == 'E' || m->map[i][i2] == 'W'))
-			{
-				m->yp = i;
-				m->xp = i2;
-				m->myp = i;
-				m->mxp = i2;
-			}
+				supp_marshal(m, i, i2);
 		}
 	}
 	return (0);

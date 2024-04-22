@@ -1,7 +1,7 @@
 #ifndef HARL_HPP
 #define HARL_HPP
-#include <strign>
-#include <iostdlib>
+#include <string>
+#include <iostream>
 class Harl{
     void debug(void);
     void info(void);

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/19 17:15:24 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/22 17:14:16 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@
 #  define BUFFER_SIZE 9999999
 # endif
 
-// # define HEIGHT 1620
-// # define WIDTH 3000
-# define HEIGHT 900
-# define WIDTH 1600
+# define HEIGHT 1620
+# define WIDTH 3000
 
 # define TEXWIDTH 64
 # define TEXHEIGHT 64
 
+# define ANI 42
+# define ANIM 84
+
 # define MG 15
 # define MD 4
+
 # define WS 0.10
-# define WSC 0.70
+# define WC .05
+# define WC2 .01
 
 # define W_KEY 119
 # define A_KEY 97
@@ -63,39 +66,44 @@ typedef struct s_master
 	void			*win;
 	char			*floor;
 	char			*cap;
-	char			*mfloor;
-	char			*mplayer;
-	char			*mwall;
 	int				qi;
 	int				minimapp;
+	int				a;
 	int				i;
 	int				j;
 	int				ic;
-	double			xp;
-	double			yp;
-	double			mxp;
-	double			myp;
+	float			xp;
+	float			yp;
+	float			mxp;
+	float			myp;
 	int				colc;
 	int				colf;
+	int				sp;
+	int				xmause;
 
 	struct s_img	wall;
 	struct s_img	bg;
 
+	char			*mfloor;
+	char			*mplayer;
+	char			*mwall;
+
+	struct s_img	no2;
 	struct s_img	no;
 	struct s_img	so;
 	struct s_img	we;
 	struct s_img	ea;
 
-	double			camera_x;
-	double			ray_dir_x;
-	double			ray_dir_y;
+	float			camera_x;
+	float			ray_dir_x;
+	float			ray_dir_y;
 	int				map_x;
 	int				map_y;
-	double			side_dist_x;
-	double			side_dist_y;
-	double			delta_x;
-	double			delta_y;
-	double			w_dist;
+	float			side_dist_x;
+	float			side_dist_y;
+	float			delta_x;
+	float			delta_y;
+	float			w_dist;
 	int				step_x;
 	int				step_y;
 	int				hit;
@@ -103,18 +111,16 @@ typedef struct s_master
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
-	double			wall_x;
+	float			wall_x;
 	int				tex_x;
 	int				tex_y;
-	double			step;
-	double			tex_pos;
+	float			step;
+	float			tex_pos;
 
-	double			dir_x;
-	double			dir_y;
-	double			pos_x;
-	double			pos_y;
-	double			plane_x;
-	double			plane_y;
+	float			dir_x;
+	float			dir_y;
+	float			plane_x;
+	float			plane_y;
 }					t_master;
 
 typedef struct s_point
@@ -127,17 +133,19 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_strncmp(const char *str1, const char *str2, size_t n);
 void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
 int				game_init(t_master *m, int fd, char *line, char *str);
+unsigned int	get_pixel(t_master *m, t_img *img, int x, int y);
 void			set_img(t_img *i, char *path, t_master *m);
 void			set_background(t_master *m, int y, int x);
+int				mause_controll(int x, int y, t_master *m);
 int				controller(int char_p, t_master *master);
 void			print_minimap(char **map, t_master *m);
-unsigned int	get_pixel(t_img *img, int x, int y);
+void			render_y(t_master *m, int x, int y);
 char			*ft_strjoin12f(char *s1, char *s2);
-double			ternals(int b, double t, double f);
 char			*ft_strjoin1f(char *s1, char *s2);
 char			*ft_strjoin2f(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 void			ft_strcpy(char *dest, char *src);
+float			ternals(int b, float t, float f);
 char			*ft_strjoin(char *s1, char *s2);
 int				ft_strlen(const char *string);
 void			print_map(t_master *m, int x);

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:25:56 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/19 17:16:50 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/22 17:14:10 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static void	game_init3(t_master *m)
 	m->floor = NULL;
 	m->cap = NULL;
 	m->minimapp = 1;
+	m->a = 0;
 	m->ic = 0;
 	m->yp = 0;
+	m->map = NULL;
 	m->xp = 0;
-	m->myp = 0;
-	m->mxp = 0;
+	m->xmause = 42000;
 	m->mfloor = mlx_xpm_file_to_image(m->mlx, "textures/MF.xpm", &m->i, &m->j);
 	m->mplayer = mlx_xpm_file_to_image(m->mlx, "textures/MP.xpm", &m->i, &m->j);
 	m->mwall = mlx_xpm_file_to_image(m->mlx, "textures/MW.xpm", &m->i, &m->j);
@@ -87,13 +88,13 @@ static int	get_color(t_master *m)
 	if (ft_mlen(temp) != 3)
 		return (free_matrix(temp), printf("Error\nMarshal: Error input\n"));
 	m->colc = (0xFF << 24 | ft_atoi(temp[0]) << 16 | ft_atoi(temp[1]) << 8
-			| ft_atoi(temp[2]) << 8);
+			| ft_atoi(temp[2]) << 0);
 	free_matrix(temp);
 	temp = ft_split(m->floor, ',');
 	if (ft_mlen(temp) != 3)
 		return (free_matrix(temp), printf("Error\nMarshal: Error input\n"));
 	m->colf = (0xFF << 24 | ft_atoi(temp[0]) << 16 | ft_atoi(temp[1]) << 8
-			| ft_atoi(temp[2]) << 8);
+			| ft_atoi(temp[2]) << 0);
 	free_matrix(temp);
 	return (0);
 }
@@ -119,5 +120,7 @@ int	game_init(t_master *m, int fd, char *line, char *str)
 	m->map = ft_splitf(str, '\n');
 	if (get_color(m) != 0)
 		return (1);
+	game_init5(m);
+	set_img(&m->no2, "textures/NO2.xpm", m);
 	return (0);
 }

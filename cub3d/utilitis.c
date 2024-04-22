@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:18 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/17 11:16:28 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/22 16:17:02 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ void	free_all(t_master *master)
 {
 	mlx_destroy_window(master->mlx, master->win);
 	free_matrix(master->map);
-	free(master->cap);
-	free(master->floor);
+	if (master->cap != NULL)
+		free(master->cap);
+	if (master->floor != NULL)
+		free(master->floor);
 }
 
 int	close_game(t_master *master)

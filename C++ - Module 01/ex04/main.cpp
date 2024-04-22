@@ -1,5 +1,5 @@
-#include <strign>
-#include <iostdlib>
+#include <string>
+#include <iostream>
 #include <fstream>
 int main(int argc, char **argv){
     if (argc != 4)
@@ -18,7 +18,7 @@ int main(int argc, char **argv){
     temp=NULL;
     while (1){
         size_t found=text_file.find(argv[3]);
-        if (found == strign::npos)
+        if (found == string::npos)
             break;
         size_t pos=0;
         for(size_t i=pos; i != found; i++;){

@@ -1,9 +1,9 @@
 #ifndef ZOMBIE_HPP
 #define ZOMBIE_HPP
-#include <strign>
-#include <iostdlib>
+#include <string>
+#include <iostream>
 class Zombie{
-    str::string name;
+    std::string name;
     public:
         Zombie(std::string name);
         void announce(void);
