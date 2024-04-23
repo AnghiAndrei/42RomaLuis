@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 10:40:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/22 17:15:44 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/23 11:02:24 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,21 @@ void	render_y(t_master *m, int x, int y)
 		m->tex_pos += m->step;
 		if (m->hit == 1)
 		{
-			if (m->side != 0 && m->step_y == -1 && m->a < ANI)
-				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
-					get_pixel(m, &m->no, m->tex_x, m->tex_y));
-			else if (m->side != 0 && m->step_y == -1 && m->a < ANIM)
-				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
-					get_pixel(m, &m->no2, m->tex_x, m->tex_y));
-			else if (m->side != 0 && m->step_y == 1)
-				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
-					get_pixel(m, &m->so, m->tex_x, m->tex_y));
-			else if (m->step_x == -1)
+			if (m->side != 0 && m->step_y == -1)
 				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
 					get_pixel(m, &m->we, m->tex_x, m->tex_y));
-			else if (m->step_x == 1)
+			else if (m->side != 0 && m->step_y == 1)
 				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
 					get_pixel(m, &m->ea, m->tex_x, m->tex_y));
+			else if (m->step_x == -1)
+				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
+					get_pixel(m, &m->so, m->tex_x, m->tex_y));
+			else if (m->step_x == 1 && m->a < ANI)
+				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
+					get_pixel(m, &m->no, m->tex_x, m->tex_y));
+			else if (m->step_x == 1 && m->a < ANIM)
+				my_mlx_pixel_put(&m->bg, WIDTH - x, y,
+					get_pixel(m, &m->no2, m->tex_x, m->tex_y));
 		}
 		y++;
 	}

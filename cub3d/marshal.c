@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/22 16:46:08 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/23 13:36:19 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,14 @@ static void	blood_fill(char **map, int l, int c, t_point cur)
 		map[cur.l][cur.c] = 'X';
 		return ;
 	}
-	if (map[cur.l][cur.c] == '\0')
+	if (map[cur.l][cur.c] == '0' && (cur.l == 0 || cur.l == l - 1))
 	{
-		map[cur.l][cur.c - 1] = 'X';
+		map[cur.l][cur.c] = 'X';
+		return ;
+	}
+	if (map[cur.l][cur.c] != '1' && (cur.c == 0 || cur.c == c - 1))
+	{
+		map[cur.l][cur.c] = 'X';
 		return ;
 	}
 	map[cur.l][cur.c] = '-';

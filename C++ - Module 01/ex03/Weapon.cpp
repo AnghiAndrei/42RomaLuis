@@ -9,6 +9,7 @@ Weapon::Weapon(){
 }
 
 void Weapon::setType(std::string type2){
+	stdcout<<
     this->type=type2;
 }
 
