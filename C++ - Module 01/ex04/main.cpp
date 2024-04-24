@@ -12,12 +12,13 @@ int main(int argc, char **argv){
     std::string temp="";
     std::ifstream f(argv[1]);
     while(std::getline(f, temp)){
-		size_t pos;
-		while ((pos = text_file.find(argv[2], pos)) != std::string::npos){
+		size_t pos=0;
+		while ((pos = temp.find(argv[2], pos)) != std::string::npos){
 			text_file+=temp.substr(0, pos);
 			text_file+=argv[3];
-			text_file+=temp.substr(pos+strlen(argv[2]), temp.length());
+		    temp.substr(0, pos+strlen(argv[2]));
 		}
+        text_file+=temp;
     }
     f.close();
 	char fileout[strlen(argv[1]) + strlen(".replace") + 1];
