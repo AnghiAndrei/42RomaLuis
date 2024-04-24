@@ -6,11 +6,17 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:45:55 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/10 16:08:02 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/24 11:12:27 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static char	*fernull(char *str)
+{
+	free(str);
+	return (NULL);
+}
 
 static int	count_words(const char *s, char c)
 {
@@ -93,6 +99,6 @@ char	**ft_splitf(char *s, char c)
 		w++;
 	}
 	m[w] = NULL;
-	free(s);
+	s = fernull(s);
 	return (m);
 }

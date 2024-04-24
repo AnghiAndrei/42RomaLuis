@@ -6,11 +6,17 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 08:17:36 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/11 11:03:28 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/24 11:12:30 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static char	*fernull(char *str)
+{
+	free(str);
+	return (NULL);
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -63,8 +69,8 @@ char	*ft_strjoin12f(char *s1, char *s2)
 		i2++;
 	}
 	s3[i + i2] = '\0';
-	free(s1);
-	free(s2);
+	s1 = fernull(s1);
+	s2 = fernull(s2);
 	return (s3);
 }
 
@@ -92,7 +98,7 @@ char	*ft_strjoin1f(char *s1, char *s2)
 		i2++;
 	}
 	s3[i + i2] = '\0';
-	free(s1);
+	s1 = fernull(s1);
 	return (s3);
 }
 
@@ -120,6 +126,6 @@ char	*ft_strjoin2f(char *s1, char *s2)
 		i2++;
 	}
 	s3[i + i2] = '\0';
-	free(s2);
+	s2 = fernull(s2);
 	return (s3);
 }

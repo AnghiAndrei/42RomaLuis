@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/23 13:26:51 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/24 10:11:44 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ MAKEFLAGS += -s
 
 NAME = cub3D
 CFLAGS = -Wall -Wextra -Werror
-ARG = maps/2.cub
+ARG = maps/1.cub
 
 MINILIBX_PATH = ./mlx
 MINILIBX = $(MINILIBX_PATH)/libmlx.a

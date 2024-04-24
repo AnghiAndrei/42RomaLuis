@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:25:56 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/22 17:14:10 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/24 11:14:14 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ static void	game_init3(t_master *m)
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, WIDTH, HEIGHT, "Quartieri spagnioli");
 	m->no.img = NULL;
+	m->no2.img = NULL;
 	m->so.img = NULL;
 	m->we.img = NULL;
 	m->ea.img = NULL;
 	m->floor = NULL;
+	m->map = NULL;
 	m->cap = NULL;
-	m->minimapp = 1;
-	m->a = 0;
 	m->ic = 0;
 	m->yp = 0;
-	m->map = NULL;
 	m->xp = 0;
 	m->xmause = 42000;
 	m->mfloor = mlx_xpm_file_to_image(m->mlx, "textures/MF.xpm", &m->i, &m->j);
 	m->mplayer = mlx_xpm_file_to_image(m->mlx, "textures/MP.xpm", &m->i, &m->j);
 	m->mwall = mlx_xpm_file_to_image(m->mlx, "textures/MW.xpm", &m->i, &m->j);
+	set_img(&m->no2, "textures/NO2.xpm", m);
 	m->plane_x = 0;
 	m->plane_y = 0;
 	m->dir_x = 0;
@@ -96,6 +96,7 @@ static int	get_color(t_master *m)
 	m->colf = (0xFF << 24 | ft_atoi(temp[0]) << 16 | ft_atoi(temp[1]) << 8
 			| ft_atoi(temp[2]) << 0);
 	free_matrix(temp);
+	m->a = 0;
 	return (0);
 }
 
@@ -107,7 +108,10 @@ int	game_init(t_master *m, int fd, char *line, char *str)
 		game_init4(m, fd, NULL);
 	if (m->no.img == NULL || m->so.img == NULL || m->we.img == NULL
 		|| m->ea.img == NULL || m->floor == NULL || m->cap == NULL)
+	{
+		free(str);
 		return (close(fd), printf("Error\nMarshal: Input error\n"));
+	}
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -116,11 +120,11 @@ int	game_init(t_master *m, int fd, char *line, char *str)
 	}
 	close(fd);
 	if (str[0] == '\0')
-		return (printf("Error\nMarshal: No map found\n"));
+		return (free(str), printf("Error\nMarshal: No map found\n"));
 	m->map = ft_splitf(str, '\n');
 	if (get_color(m) != 0)
 		return (1);
 	game_init5(m);
-	set_img(&m->no2, "textures/NO2.xpm", m);
+	m->minimapp = 1;
 	return (0);
 }

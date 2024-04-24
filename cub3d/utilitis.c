@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:18 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/22 16:17:02 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/24 11:00:15 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,24 @@ void	free_matrix(char **m)
 	}
 }
 
-void	free_all(t_master *master)
+void	free_all(t_master *m)
 {
-	mlx_destroy_window(master->mlx, master->win);
-	free_matrix(master->map);
-	if (master->cap != NULL)
-		free(master->cap);
-	if (master->floor != NULL)
-		free(master->floor);
+	mlx_destroy_window(m->mlx, m->win);
+	mlx_destroy_image(m->mlx, m->no2.img);
+	mlx_destroy_image(m->mlx, m->no.img);
+	mlx_destroy_image(m->mlx, m->so.img);
+	mlx_destroy_image(m->mlx, m->we.img);
+	mlx_destroy_image(m->mlx, m->ea.img);
+	mlx_destroy_image(m->mlx, m->bg.img);
+	mlx_destroy_image(m->mlx, m->mwall);
+	mlx_destroy_image(m->mlx, m->mfloor);
+	mlx_destroy_image(m->mlx, m->mplayer);
+	free(m->mlx);
+	free_matrix(m->map);
+	if (m->cap != NULL)
+		free(m->cap);
+	if (m->floor != NULL)
+		free(m->floor);
 }
 
 int	close_game(t_master *master)

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/23 13:36:19 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/24 10:28:57 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int	ceck_map(t_master *m)
 	t_point	point;
 
 	if (ceck_map1(m, -1, 0) != 0)
-		return (free_all(m), 1);
+		return (1);
 	if (m->yp == 0 && m->xp == 0)
-		return (free_all(m), printf("Error\nMarshal: Player not found\n"));
+		return (printf("Error\nMarshal: Player not found\n"));
 	point.l = m->yp;
 	point.c = m->xp;
 	mapc = copy_m(m->map);
@@ -109,7 +109,7 @@ int	ceck_map(t_master *m)
 	if (pos_line(mapc, 'X') == -1)
 	{
 		free_matrix(mapc);
-		return (free_all(m), printf("Error\nMarshal: Map not close\n"));
+		return (printf("Error\nMarshal: Map not close\n"));
 	}
 	return (free_matrix(mapc), 0);
 }

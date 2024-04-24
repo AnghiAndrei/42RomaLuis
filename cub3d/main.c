@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/22 17:21:24 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/24 11:13:20 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (printf("Error\nMarshal: Input error\n"));
-	if (ceck_file(argv[1]) != 0 || game_init(&master,
+	if (ceck_file(argv[1]) != 0)
+		return (EXIT_FAILURE);
+	if (game_init(&master,
 			open(argv[1], O_RDONLY), NULL, ft_strjoin("\0", "\0")) != 0
 		|| ceck_map(&master) != 0)
 		return (free_all(&master), EXIT_FAILURE);
 	game_init5(&master);
 	master.sp = 1;
-	print_map(&master, 0);
-	print_minimap(master.map, &master);
 	if (master.map[(int)(master.yp)][(int)(master.xp)] == 'W'
 		|| master.map[(int)(master.yp)][(int)(master.xp)] == 'E')
 		master.sp = -1;
 	master.map[(int)(master.yp)][(int)(master.xp)] = '0';
+	print_map(&master, 0);
+	print_minimap(master.map, &master);
 	mlx_hook(master.win, 2, 1L << 0, &controller, &master);
 	mlx_hook(master.win, 6, 1L << 6, mause_controll, &master);
 	mlx_hook(master.win, 17, 0, close_game, &master);

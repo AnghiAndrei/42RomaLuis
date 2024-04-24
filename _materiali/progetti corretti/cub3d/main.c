@@ -11,7 +11,7 @@ void	close_all(t_game *game, int r)
 
 	if (r == 0)
 		cls(game);
-	free(game->path.east);
+	c
 	free(game->path.north);
 	free(game->path.west);
 	free(game->path.south);
