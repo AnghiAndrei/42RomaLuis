@@ -9,7 +9,7 @@ Weapon::Weapon(){
 }
 
 void Weapon::setType(std::string type2){
-	stdcout<<
+	std::cout<<tipey<<std::endl;
     this->type=type2;
 }
 
