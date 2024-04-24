@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/24 17:01:22 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,5 +35,5 @@ re: fclean all
 test: re
 	rm -f $(OBJ)
 	clear
-	./$(NAME)
+	./$(NAME) temp.txt hola "voglio mangiare il tuo pancreas"
 	@rm -f $(NAME)
