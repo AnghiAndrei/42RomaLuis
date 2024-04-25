@@ -1,7 +1,7 @@
 #ifndef CLAPTRAP_HPP
 #define CLAPTRAP_HPP
-#include <string>
 #include <iostream>
+#include <string.h>
 class ClapTrap{
     int Energy_points;
     int Attack_damage;
@@ -9,15 +9,13 @@ class ClapTrap{
     int Hit_points;
 
     public:
-        ClapTrap &operator=(const ClapTrap &copy);
+        ClapTrap &operator=(const ClapTrap &ncopy);
         void attack(const std::string& target);
         void takeDamage(unsigned int amount);
         void beRepaired(unsigned int amount);
+		ClapTrap(const ClapTrap &ncopy);
         ClapTrap(std::string Name2);
-        int get_Energy_points();
-        int get_Attack_damage();
-        std::string get_Name();
-        int get_Hit_points();
+		std::string getName();
         ~ClapTrap();
 };
 #endif

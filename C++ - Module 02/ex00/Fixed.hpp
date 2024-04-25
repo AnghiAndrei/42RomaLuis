@@ -6,9 +6,9 @@ class Fixed{
     static const int bits=8;
     int nbr;
     public:
-        Fixed &operator=(const Fixed &copy);
-        void setRawBits(int const raw)
-        Fixed(const Fixed &copy);
+        Fixed &operator=(const Fixed &ncopy);
+        void setRawBits(int const raw);
+        Fixed(const Fixed &ncopy);
         int getRawBits() const;
         ~Fixed();
         Fixed();

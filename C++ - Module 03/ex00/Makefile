@@ -6,20 +6,20 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/25 12:03:06 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Aaaaand..._OPEN!
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp ClapTrap.cpp
+SRC = ClapTrap.cpp main.cpp 
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CFLAGS) -o $(NAME) $(OBJ)
+	c++ $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
@@ -30,7 +30,7 @@ fclean: clean
 re: fclean all
 
 %.o: %.cpp
-	g++ $(CFLAGS) -c $< -o $@
+	c++ $(CFLAGS) -c $< -o $@
 
 test: re
 	rm -f $(OBJ)

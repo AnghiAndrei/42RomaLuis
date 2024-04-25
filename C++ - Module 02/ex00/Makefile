@@ -6,20 +6,20 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/03/05 17:00:26 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/25 12:02:49 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = My_First_Class_in_Orthodox_Canonical_Form
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Fixed.cpp
+SRC = Fixed.cpp main.cpp 
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	g++ $(CFLAGS) -o $(NAME) $(OBJ)
+	c++ $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
@@ -30,7 +30,7 @@ fclean: clean
 re: fclean all
 
 %.o: %.cpp
-	g++ $(CFLAGS) -c $< -o $@
+	c++ $(CFLAGS) -c $< -o $@
 
 test: re
 	rm -f $(OBJ)
