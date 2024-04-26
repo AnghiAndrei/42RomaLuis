@@ -3,7 +3,9 @@
 #include "AAnimal.hpp"
 class ADog : public AAnimal{
 	public:
+		ADog &operator=(ADog &ncopy);
 		void makeSound() const;
+		ADog(const ADog &ncopy);
 	    ~ADog();
     	ADog();
 };

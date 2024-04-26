@@ -17,5 +17,6 @@ class ClapTrap{
         ClapTrap(std::string Name2);
 		std::string getName();
         ~ClapTrap();
+        ClapTrap();
 };
 #endif

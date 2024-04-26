@@ -4,8 +4,20 @@ Cat::~Cat(){
 	std::cout<<"Cat destruction"<<std::endl;
 	delete this->microb;
 }
+
 Cat::Cat() : Animal(){
-	std::cout<<"Cat costruction"<<std::endl;
 	this->type="Cat";
 	this->microb=new Brain();
+	std::cout<<"Cat costruction"<<std::endl;
+}
+
+Cat &Cat::operator=(Cat &ncopy){
+    this->type=ncopy.type;
+    this->microb=ncopy.microb;
+    return *this;
+}
+
+Cat::Cat(const Cat &ncopy) : Animal(ncopy){
+	this->microb=ncopy.microb;
+	this->type=ncopy.type;
 }

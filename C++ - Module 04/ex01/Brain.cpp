@@ -3,6 +3,7 @@
 Brain::~Brain(){std::cout<<"Brain dead!"<<std::endl;}
 
 Brain::Brain(){
+	std::cout<<"Brain install!"<<std::endl;
 	for(int i=0; i!=100; i++){
 		this->ideas[i]="Food!";
 	}

@@ -10,6 +10,13 @@ ClapTrap::ClapTrap(std::string Name2){
     std::cout<<"ClapTrap "<<this->Name<<" is create!"<<std::endl;
 }
 
+ClapTrap::ClapTrap(){
+	this->Name="";
+	this->Hit_points=0;
+    this->Energy_points=0;
+    this->Attack_damage=0;
+}
+
 ClapTrap::ClapTrap(const ClapTrap &ncopy){
     this->Name=ncopy.Name;
     this->Hit_points=ncopy.Hit_points;
