@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/04/24 10:11:44 by aanghi           ###   ########.fr        #
+#    Updated: 2024/04/26 16:58:56 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,12 @@ test: re
 	echo
 	echo /$(NAME) maps/error6.cub
 	-./$(NAME) maps/error6.cub
+	echo
+	echo /$(NAME) maps/error7.cub
+	-./$(NAME) maps/error7.cub
+	echo
+	echo /$(NAME) maps/error8.cub
+	-./$(NAME) maps/error8.cub
 	@rm -f $(NAME)
 
 test2: re

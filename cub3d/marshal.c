@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:12 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/24 10:28:57 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/26 15:47:19 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,50 +66,46 @@ static int	ceck_map1(t_master *m, int i, int i2)
 	return (0);
 }
 
-static void	blood_fill(char **map, int l, int c, t_point cur)
+static int	close_map(t_master *m, int y, int x)
 {
-	if (cur.l < 0 || cur.l >= l || cur.c < 0 || cur.c >= c
-		|| map[cur.l][cur.c] == '1' || map[cur.l][cur.c] == '-')
-		return ;
-	if (map[cur.l][cur.c] == ' ')
+	while (m->map[y] != NULL)
 	{
-		map[cur.l][cur.c] = 'X';
-		return ;
+		x = 0;
+		while (m->map[y][x] != '\0')
+		{
+			if (m->map[y][x] == '0' && (y == 0 || x == 0 || y ==
+				ft_mlen(m->map) || x == ft_strlen(m->map[y]) - 1))
+				return (-1);
+			if (m->map[y][x] == '0' && (m->map[y - 1][x] == ' '
+				|| m->map[y + 1][x] == ' ' || m->map[y][x + 1] == ' '
+				|| m->map[y][x - 1] == ' '))
+				return (-1);
+			x++;
+		}
+		y++;
 	}
-	if (map[cur.l][cur.c] == '0' && (cur.l == 0 || cur.l == l - 1))
-	{
-		map[cur.l][cur.c] = 'X';
-		return ;
-	}
-	if (map[cur.l][cur.c] != '1' && (cur.c == 0 || cur.c == c - 1))
-	{
-		map[cur.l][cur.c] = 'X';
-		return ;
-	}
-	map[cur.l][cur.c] = '-';
-	blood_fill(map, l, c, (t_point){cur.l - 1, cur.c});
-	blood_fill(map, l, c, (t_point){cur.l + 1, cur.c});
-	blood_fill(map, l, c, (t_point){cur.l, cur.c - 1});
-	blood_fill(map, l, c, (t_point){cur.l, cur.c + 1});
+	return (1);
 }
 
 int	ceck_map(t_master *m)
 {
 	char	**mapc;
-	t_point	point;
 
 	if (ceck_map1(m, -1, 0) != 0)
 		return (1);
 	if (m->yp == 0 && m->xp == 0)
 		return (printf("Error\nMarshal: Player not found\n"));
-	point.l = m->yp;
-	point.c = m->xp;
+	game_init5(m);
+	m->sp = 1;
+	if (m->map[(int)(m->yp)][(int)(m->xp)] == 'W'
+		|| m->map[(int)(m->yp)][(int)(m->xp)] == 'E')
+		m->sp = -1;
+	m->map[(int)(m->yp)][(int)(m->xp)] = '0';
 	mapc = copy_m(m->map);
-	blood_fill(mapc, ft_mlen(mapc), ft_strlen(mapc[0]) - 1, point);
-	if (pos_line(mapc, 'X') == -1)
+	if (close_map(m, 0, 0) == -1)
 	{
 		free_matrix(mapc);
-		return (printf("Error\nMarshal: Map not close\n"));
+		return (printf("Error\nMarshal: Invalid map\n"));
 	}
 	return (free_matrix(mapc), 0);
 }

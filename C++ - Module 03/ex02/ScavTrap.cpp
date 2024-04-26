@@ -26,9 +26,9 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &ncopy){
 
 ScavTrap::ScavTrap() : ClapTrap(){
 	this->Name="";
-	this->Hit_points=0;
-    this->Energy_points=0;
-    this->Attack_damage=0;
+	this->Hit_points=100;
+    this->Energy_points=50;
+    this->Attack_damage=20;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &ncopy) : ClapTrap(ncopy.Name){

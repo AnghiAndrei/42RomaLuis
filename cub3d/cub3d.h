@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:44:28 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/22 17:14:16 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/26 17:07:59 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 9999999
 # endif
+
+# define ERT "Error\nMarshal: "
 
 # define HEIGHT 1620
 # define WIDTH 3000
@@ -122,12 +124,6 @@ typedef struct s_master
 	float			plane_x;
 	float			plane_y;
 }					t_master;
-
-typedef struct s_point
-{
-	int			l;
-	int			c;
-}				t_point;
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_strncmp(const char *str1, const char *str2, size_t n);

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:42:06 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/24 11:13:20 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/26 13:44:55 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@ int	main(int argc, char **argv)
 			open(argv[1], O_RDONLY), NULL, ft_strjoin("\0", "\0")) != 0
 		|| ceck_map(&master) != 0)
 		return (free_all(&master), EXIT_FAILURE);
-	game_init5(&master);
-	master.sp = 1;
-	if (master.map[(int)(master.yp)][(int)(master.xp)] == 'W'
-		|| master.map[(int)(master.yp)][(int)(master.xp)] == 'E')
-		master.sp = -1;
-	master.map[(int)(master.yp)][(int)(master.xp)] = '0';
 	print_map(&master, 0);
 	print_minimap(master.map, &master);
 	mlx_hook(master.win, 2, 1L << 0, &controller, &master);

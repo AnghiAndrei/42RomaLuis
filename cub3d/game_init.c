@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 17:25:56 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/24 11:14:14 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/26 17:07:50 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static int	game_init2(t_master *m, char **t2)
 
 	t = ft_split(t2[0], ' ');
 	free_matrix(t2);
-	if (ft_mlen(t) != 2)
-		return (printf("Error\nMarshal: Find space in heder input\n"));
+	if (ft_mlen(t) < 2)
+		return (free_matrix(t), printf("%sFind space in header input\n", ERT));
 	else if (ft_strncmp(t[0], "NO", 2) == 0)
 		set_img(&m->no, t[1], m);
 	else if (ft_strncmp(t[0], "SO", 2) == 0)
@@ -74,7 +74,7 @@ static void	game_init4(t_master *m, int fd, char *line)
 	while (line != NULL && ft_strncmp(line, "\n", 1) != 0)
 	{
 		if (game_init2(m, ft_splitf(line, '\n')) != 0)
-			break ;
+			return ;
 		line = get_next_line(fd);
 	}
 	free(line);

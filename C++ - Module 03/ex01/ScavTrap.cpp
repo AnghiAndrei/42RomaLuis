@@ -11,7 +11,7 @@ ScavTrap::ScavTrap(std::string Name2) : ClapTrap(Name2){
 void ScavTrap::attack(const std::string& target){
     if (this->Energy_points > 0 && this->Hit_points > 0)
     {
-        std::cout<<"ClapTrap "<<this->Name<<" attacks "<<target<<", causing "<<this->Attack_damage<<" points of damage!"<<std::endl;
+        std::cout<<"ScavTrap "<<this->Name<<" attacks "<<target<<", causing "<<this->Attack_damage<<" points of damage!"<<std::endl;
         this->Energy_points-=1;
     }
 }
@@ -26,9 +26,9 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &ncopy){
 
 ScavTrap::ScavTrap(){
 	this->Name="";
-	this->Hit_points=0;
-    this->Energy_points=0;
-    this->Attack_damage=0;
+	this->Hit_points=100;
+    this->Energy_points=50;
+    this->Attack_damage=20;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &ncopy) : ClapTrap(ncopy.Name){

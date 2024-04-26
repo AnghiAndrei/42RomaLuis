@@ -19,9 +19,9 @@ FragTrap &FragTrap::operator=(const FragTrap &ncopy){
 
 FragTrap::FragTrap() : ClapTrap(){
 	this->Name="";
-	this->Hit_points=0;
-    this->Energy_points=0;
-    this->Attack_damage=0;
+	this->Hit_points=100;
+    this->Energy_points=100;
+    this->Attack_damage=30;
 }
 
 FragTrap::FragTrap(const FragTrap &ncopy) : ClapTrap(ncopy.Name){
