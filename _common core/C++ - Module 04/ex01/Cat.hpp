@@ -2,6 +2,7 @@
 #define CAT_HPP
 #include "Animal.hpp"
 class Cat : public Animal{
+	Brain *microb;
 	public:
 		Cat &operator=(Cat &ncopy);
 		void makeSound() const;

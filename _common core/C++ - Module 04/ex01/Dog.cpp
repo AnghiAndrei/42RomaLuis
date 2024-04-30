@@ -13,11 +13,13 @@ Dog::Dog() : Animal(){
 
 Dog &Dog::operator=(Dog &ncopy){
     this->type=ncopy.type;
-    this->microb=ncopy.microb;
+    this->microb=new Brain();
+	this->microb=ncopy.microb;
     return *this;
 }
 
 Dog::Dog(const Dog &ncopy) : Animal(ncopy){
 	this->microb=ncopy.microb;
+	this->microb=new Brain();
 	this->type=ncopy.type;
 }

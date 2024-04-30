@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:18:43 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/12 11:42:07 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:29:56 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_command_f_0(void)
 	input = readline("02: Give me a command, darling: ");
 	if (input == NULL)
 		return (NULL);
-	if (strlen(input) > 0)
+	if (ft_strlen(input) > 0)
 		add_history(input);
 	input = get_command_f_histori(input);
 	input = controll_close_char(input, '\'', 0, 0);

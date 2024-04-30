@@ -6,7 +6,7 @@
 class Animal{
     protected:
         std::string type;
-		Brain *microb;
+		// Brain *microb;
     public:
         Animal &operator=(Animal &ncopy);
 		virtual void makeSound() const;
