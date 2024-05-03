@@ -18,6 +18,10 @@ int main(){
 	{
 		Bureaucrat berluscuni("Berluscuni", 10);
 		Form p1("Ponte sullo stretto di messina", 1, 1);
+		// Form p1("Ponte sullo stretto di messina", 1, 151);
+		// Form p1("Ponte sullo stretto di messina", 1, -151);
+		// Form p1("Ponte sullo stretto di messina", -151, 1);
+		// Form p1("Ponte sullo stretto di messina", 151, 1);
 		std::cout<<p1<<std::endl;
 		p1.beSigned(berluscuni);
 		std::cout<<p1<<std::endl;
