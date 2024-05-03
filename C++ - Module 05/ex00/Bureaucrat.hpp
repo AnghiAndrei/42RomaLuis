@@ -1,0 +1,32 @@
+#ifndef BUCEAUCRAT_HPP
+#define BUCEAUCRAT_HPP
+#include <string.h>
+#include <iostream>
+#include <exception>
+class Bureaucrat{
+	const std::string name;
+	int grade;
+
+	class GradeTooHighException : public std::exception{
+		public:
+			const char *what() const throw(){return "Grade too high\n";}
+	};
+
+	class GradeTooLowException : public std::exception{
+		public:
+			const char *what() const throw(){return "Grade too low\n";}
+	};
+
+	public:
+		friend std::ostream &operator<<(std::ostream &stream, const Bureaucrat &Bureaucrat);
+		Bureaucrat &operator=(const Bureaucrat &nccopy);
+		Bureaucrat(std::string name2, int grade2);
+		void setName(const Bureaucrat& ncopy);
+		Bureaucrat(const Bureaucrat &nccopy);
+		void check_grade(int grade);
+		void downGrade(int grade);
+		void upGrade(int grade);
+		~Bureaucrat();
+		Bureaucrat();
+};
+#endif
