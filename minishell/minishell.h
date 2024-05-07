@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:57:21 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 15:02:25 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:15:28 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-# define STRERROR "02: What command did you give me, darling?\n"
+# define STRERROR "Command not found\n"
 
 extern int		g_code_exit;
 
@@ -100,7 +100,6 @@ void	spik_duote(int *i, char *str, char c);
 char	*get_env(t_master *master, char *env);
 int		bt_env(t_master *master, t_cmd *cur);
 char	*get_command_f_histori(char *input);
-int		free_all_steoridi(t_master *master);
 char	*extr_m(t_cmd *cur, int i, int i2);
 char	*ft_strjoin12f(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
@@ -109,6 +108,7 @@ char	*ft_strjoin1f(char *s1, char *s2);
 char	*gu2(int *i, char *s, char ch);
 int		count_pipe(char *str, char c);
 int		ft_strlen(const char *string);
+int		free_all_2(t_master *master);
 char	**ft_splitf(char *s, char c);
 void	split_cmd(t_master *master);
 int		ft_atoi(const char *string);

@@ -3,8 +3,6 @@
 #include <string.h>
 #include <iostream>
 #include <exception>
-#include "Form.hpp"
-class Form;
 class Bureaucrat{
 	const std::string name;
 	int grade;
@@ -21,6 +19,7 @@ class Bureaucrat{
 
 	public:
 		friend std::ostream &operator<<(std::ostream &stream, const Bureaucrat &Bureaucrat);
+		void executeForm(const std::string &formn) const;
 		Bureaucrat &operator=(const Bureaucrat &nccopy);
 		void signForm(const std::string &formn) const;
 		Bureaucrat(std::string name2, int grade2);

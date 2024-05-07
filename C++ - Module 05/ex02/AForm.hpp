@@ -1,10 +1,10 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 #include "Bureaucrat.hpp"
 #include <string.h>
 #include <iostream>
 class Bureaucrat;
-class Form{
+class AForm{
 	const int grades;
 	const int gradee;
 	const std::string name;
@@ -21,17 +21,18 @@ class Form{
 	};
 
 	public:
-		friend std::ostream &operator<<(std::ostream &stream, const Form &f);
-		Form(std::string name2, int grades2, int gradee2);
+		friend std::ostream &operator<<(std::ostream &stream, const AForm &f);
+		virtual void execute(const Bureaucrat &pol) const = 0;
+		AForm(std::string name2, int grades2, int gradee2);
 		void beSigned(const Bureaucrat &pol);
-		Form &operator=(const Form &ncopy);
+		AForm &operator=(const AForm &ncopy);
 		std::string getName() const;
 		void check_grade(int grade);
-		Form(const Form &ncopy);
+		AForm(const AForm &ncopy);
 		bool getSignedf() const;
 		int getGrades() const;
 		int getGradee() const;
-		~Form();
-		Form();
+		~AForm();
+		AForm();
 };
 #endif

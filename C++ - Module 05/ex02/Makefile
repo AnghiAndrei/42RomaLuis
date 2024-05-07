@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/05/03 15:25:49 by aanghi           ###   ########.fr        #
+#    Updated: 2024/05/07 11:16:16 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = No,_you_need_form_28B,_not_28C...
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

@@ -29,6 +29,7 @@ class Form{
 		void check_grade(int grade);
 		Form(const Form &ncopy);
 		bool getSignedf() const;
+		Form(const std::string str);
 		int getGrades() const;
 		int getGradee() const;
 		~Form();

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:18:43 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/30 12:29:56 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:16:07 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_command_f_histori(char *input)
 			free(input);
 			input = hist_entry->line;
 			free(hist_entry->line);
-			printf("02: Give me a command, darling: %s\n", input);
+			printf("minishell: %s\n", input);
 		}
 	}
 	return (input);
@@ -47,7 +47,7 @@ static char	*controll_close_char(char *input, char c, int i, int i2)
 	}
 	if (i == 1)
 	{
-		printf("02: Close the \' or \", darling: %s", input);
+		printf("Close the \' or \": %s", input);
 		s = ft_strjoin12f(input, readline(""));
 		add_history(s);
 	}
@@ -62,7 +62,7 @@ char	*get_command_f_0(void)
 	char	*f;
 	int		i;
 
-	input = readline("02: Give me a command, darling: ");
+	input = readline("minishell: ");
 	if (input == NULL)
 		return (NULL);
 	if (ft_strlen(input) > 0)

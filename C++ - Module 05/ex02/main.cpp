@@ -1,30 +1,21 @@
+#include "PresidentialPardonForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
 
 int main(){
-	// try
-	// {
-	// 	Bureaucrat berluscuni("Berluscuni", 1);
-	// 	Form p1("Ponte sullo stretto di messina", 150, 150);
-	// 	std::cout<<p1<<std::endl;
-	// 	p1.beSigned(berluscuni);
-	// 	std::cout<<p1<<std::endl;
-	// }
-	// catch (const std::exception &e){
-	// 	std::cerr << "Exception caught: " << e.what() << std::endl;
-	// }
-
 	try
 	{
-		Bureaucrat berluscuni("Berluscuni", 10);
-		Form p1("Ponte sullo stretto di messina", 1, 1);
-		// Form p1("Ponte sullo stretto di messina", 1, 151);
-		// Form p1("Ponte sullo stretto di messina", 1, -151);
-		// Form p1("Ponte sullo stretto di messina", -151, 1);
-		// Form p1("Ponte sullo stretto di messina", 151, 1);
-		std::cout<<p1<<std::endl;
-		p1.beSigned(berluscuni);
-		std::cout<<p1<<std::endl;
+		Bureaucrat Mussolini("Mussolini", 1);
+		ShrubberyCreationForm p1("Ponte sullo stretto di messina");
+		p1.beSigned(Mussolini);
+		p1.execute(Mussolini);
+		RobotomyRequestForm p2("Supporto alla Ucraina");
+		p2.beSigned(Mussolini);
+		p2.execute(Mussolini);
+		PresidentialPardonForm p3("Invasione della palestina");
+		p3.beSigned(Mussolini);
+		p3.execute(Mussolini);
 	}
 	catch (const std::exception &e){
 		std::cerr << "Exception caught: " << e.what() << std::endl;

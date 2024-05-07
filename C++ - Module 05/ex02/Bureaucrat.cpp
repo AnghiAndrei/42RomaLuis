@@ -8,11 +8,12 @@ void Bureaucrat::check_grade(int grade){
 }
 
 std::ostream &operator<<(std::ostream &stream, const Bureaucrat &bc){return (stream << bc.name << ", bureaucrat grade "<<bc.grade<<std::endl);}
-Bureaucrat::Bureaucrat(const Bureaucrat &ncopy) : name(ncopy.name){this->grade=ncopy.grade;}
+void Bureaucrat::executeForm(const std::string &formn) const{std::cout<<this->name<<" execute "<<formn<<std::endl;}
 void Bureaucrat::signForm(const std::string &formn) const{std::cout<<this->name<<" signed "<<formn<<std::endl;}
+Bureaucrat::Bureaucrat(const Bureaucrat &ncopy) : name(ncopy.name){this->grade=ncopy.grade;}
+std::string Bureaucrat::getName() const{return this->name;}
 Bureaucrat::Bureaucrat() : name(NULL){this->grade=1;}
 int Bureaucrat::getGrade() const{return this->grade;}
-std::string Bureaucrat::getName() const{return this->name;}
 Bureaucrat::~Bureaucrat(){};
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &ncopy){

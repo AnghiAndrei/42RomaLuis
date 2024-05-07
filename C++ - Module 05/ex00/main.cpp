@@ -3,15 +3,15 @@
 int main(){
 	try
 	{
-		Bureaucrat berluscuni("Berluscuni", 5);
-		berluscuni.upGrade(2);
-		berluscuni.downGrade(1);
-		berluscuni.downGrade(7);
-		std::cout<<berluscuni;
-		// berluscuni.upGrade(152);
-		// berluscuni.upGrade(-152);
-		// Bureaucrat berluscuni2("Renzi", 152);
-		// Bureaucrat berluscuni3("Giorgia Meloni", -2);
+		Bureaucrat Mussolini("Mussolini", 5);
+		Mussolini.upGrade(2);
+		Mussolini.downGrade(1);
+		Mussolini.downGrade(7);
+		std::cout<<Mussolini;
+		// Mussolini.upGrade(152);
+		// Mussolini.upGrade(-152);
+		// Bureaucrat Mussolini2("Renzi", 152);
+		// Bureaucrat Mussolini3("Giorgia Meloni", -2);
 	}
 	catch (const std::exception &e){
 		std::cerr << "Exception caught: " << e.what() << std::endl;
