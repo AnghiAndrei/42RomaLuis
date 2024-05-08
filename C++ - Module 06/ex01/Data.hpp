@@ -1,13 +1,13 @@
-#ifndef SERIALIZATION_HPP
-#define SERIALIZATION_HPP
+#ifndef DATA_HPP
+#define DATA_HPP
 #include "iostream"
 #include "string.h"
-class Serialization{
-    Serialization &operator=(const Serialization &ncopy);
-	Serialization(const Serialization &ncopy);
+class Data{
+    Data &operator=(const Data &ncopy);
+	Data(const Data &ncopy);
 	static uintptr_t serialize(Data* ptr);
 	static Data* deserialize(uintptr_t raw);
-    ~Serialization();
-    Serialization();
+    ~Data();
+    Data();
 };
 #endif

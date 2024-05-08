@@ -1,6 +1,7 @@
 #include "Serializer.hpp"
+#include "Data.hpp"
 
 int main(){
-	Serializer serial;
+	Data dati;
 	return 0;
 }

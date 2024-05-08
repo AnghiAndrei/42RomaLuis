@@ -1,6 +1,6 @@
-#include "Serializer.hpp"
+#include "Data.hpp"
 
-Serializer &Serializer::operator=(const Serializer &ncopy){(void)ncopy;return *this;}
-Serializer::Serializer(const Serializer &ncopy){(*this) = ncopy;}
-Serializer::~Serializer(){}
-Serializer::Serializer(){}
+Data &Data::operator=(const Data &ncopy){(void)ncopy;return *this;}
+Data::Data(const Data &ncopy){(*this) = ncopy;}
+Data::~Data(){}
+Data::Data(){}
