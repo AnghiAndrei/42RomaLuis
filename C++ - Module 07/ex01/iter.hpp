@@ -1,5 +1,13 @@
-template<typename T, typename T2, typename T3>
-void iter(T &addr, T2 lent, T3 &func){
-    for(T2 i=0;i!=lent;i++)
-        func(addr[i]);
+#include <iostream>
+
+template <typename T, typename Func>
+void iter(T *addr, int lent, Func ft){
+    for(int i=0;i!=lent;i++)
+        ft(addr[i]);
+}
+
+template <typename T>
+void ft (T element)
+{
+	std::cout << "element--> "<< element << std::endl;
 }

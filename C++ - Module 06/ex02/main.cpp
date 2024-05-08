@@ -1,20 +1,25 @@
-#include "Date.hpp"
+#include <stdint.h>
+#include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
 
 Base *generate(void){
 	srand(time(NULL));
-	if(rand()%2==0)
-		return new A();
-	else if(rand()%3==0){
-		return new B();
+	Base *b;
+	if(rand()%2==0){
+		b=new A();
+		return b;
+	}else if(rand()%3==0){
+		b=new B();
+		return b;
 	}else{
-		return new C();
+		b=new C();
+		return b;
 	}
 }
 
-void identify(Base& p){
+void identify(Base *p){
 	if (dynamic_cast<A*>(p))
 		std::cout<<"A"<<std::endl;
 	else if (dynamic_cast<B*>(p))
@@ -25,9 +30,20 @@ void identify(Base& p){
 		std::cout<<"Marshal: Camm'ai dato"<<std::endl;
 }
 
+void identify(Base &p){
+	if (dynamic_cast<A*>(&p))
+		std::cout<<"&A"<<std::endl;
+	else if (dynamic_cast<B*>(&p))
+		std::cout<<"&B"<<std::endl;
+	else if(dynamic_cast<C*>(&p))
+		std::cout<<"&C"<<std::endl;
+	else
+		std::cout<<"Marshal: Camm'ai dato"<<std::endl;
+}
+
 int main(){
-	Base *r=generate();
-	identify(r);
-	delete r;
+	Base *b=generate();
+	identify(*b);
+	identify(b);
 	return 0;
 }

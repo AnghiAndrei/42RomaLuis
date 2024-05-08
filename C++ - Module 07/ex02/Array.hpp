@@ -1,6 +1,7 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 #include <string.h>
+#include <iostream>
 
 template<typename T, size_t Size>
 class Array{
@@ -17,7 +18,7 @@ class Array{
         T& operator[](size_t index) {
             if (index >= Size)
                 throw std::out_of_range("Index out of range");
-            return elements[index];
+            return array[index];
         }
         Array(const Array &ncopy){
             for(size_t i=0;i!=Size;i++)
