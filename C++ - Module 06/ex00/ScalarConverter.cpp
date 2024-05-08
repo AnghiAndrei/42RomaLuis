@@ -124,6 +124,23 @@ void ScalarConverter::convert_cifd(char *str){
 		}
 	}
 
+	int i5=0;
+	if (str[i5] == '+' || str[i5] == '-')
+		i5++;
+	while (str[i5] >= '0' && str[i5] <= '9')
+		i5++;
+	if(strlen(str)!=1 && str[i5]!='\0'){
+		std::cout<<"Marshal: Input error"<<std::endl;
+		return ;
+	}
+
+	if(!((str[0] >= '0' && str[0] <= '9') || str[0] == '-' || str[0] == '+')){
+		std::cout<<"char: '"<<str[0]<<"'"<<std::endl;
+		std::cout<<"int: "<<static_cast<int>(str[0])<<std::endl;
+		std::cout<<"float: "<<static_cast<float>(str[0] )<< ".0f"<<std::endl;
+		std::cout<<"double: "<<static_cast<double>(str[0])<<".0"<<std::endl;
+		return ;
+	}
 	if (this->ft_atoi(str) == 0 || this->ft_atof(str)!=(int)this->ft_atof(str))
 		std::cout<<"char: non displayable"<<std::endl;
 	else if (this->ft_atoi(str) < 0 || this->ft_atoi(str) >= 128)

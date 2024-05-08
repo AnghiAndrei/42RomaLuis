@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/05/08 14:07:16 by aanghi           ###   ########.fr        #
+#    Updated: 2024/05/08 17:30:21 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Conversion_of_scalar_types
+NAME = Serialization
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp ScalarConverter.cpp
+SRC = main.cpp Serializer.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -36,16 +36,4 @@ test: re
 	rm -f $(OBJ)
 	clear
 	-./$(NAME)
-	./$(NAME) 0
-	./$(NAME) 7
-	./$(NAME) 42
-	./$(NAME) -42
-	./$(NAME) 42.0f
-	./$(NAME) 42.7f
-	./$(NAME) nan
-	./$(NAME) nanf
-	./$(NAME) -inff
-	./$(NAME) +inff
-	./$(NAME) +inf
-	./$(NAME) -inf
 	@rm -f $(NAME)
