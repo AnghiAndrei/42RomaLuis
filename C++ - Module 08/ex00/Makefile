@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/05/08 17:30:21 by aanghi           ###   ########.fr        #
+#    Updated: 2024/05/08 17:16:28 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Identify_real_type
+NAME = Easy_find
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Base.cpp
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
