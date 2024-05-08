@@ -41,7 +41,7 @@ class PresidentialPardonForm : public Form{
 		virtual void execute(const Bureaucrat &pol) const;
 		PresidentialPardonForm(std::string name2);
 		void beSigned(const Bureaucrat &pol);
-		std::string getName() const;
+		virtual std::string getName() const;
 		~PresidentialPardonForm();
 		PresidentialPardonForm();
 		bool getSignedf() const;

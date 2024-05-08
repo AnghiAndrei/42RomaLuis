@@ -41,7 +41,7 @@ class RobotomyRequestForm : public Form{
 		virtual void execute(const Bureaucrat &pol) const;
 		RobotomyRequestForm(std::string name2);
 		void beSigned(const Bureaucrat &pol);
-		std::string getName() const;
+		virtual std::string getName() const;
 		~RobotomyRequestForm();
 		RobotomyRequestForm();
 		bool getSignedf() const;

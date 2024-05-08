@@ -33,6 +33,6 @@ Form *Intern::makeForm(std::string name, std::string targhet){
 			throw NoFormValid();
 			break;
 	}
-	std::cout<<"Intern creates "<<*nf<<std::endl;
+	std::cout<<"Intern creates "<<targhet<<std::endl;
 	return nf;
 }

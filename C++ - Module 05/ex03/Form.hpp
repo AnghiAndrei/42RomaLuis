@@ -22,14 +22,14 @@ class Form{
 
 	public:
 		friend std::ostream &operator<<(std::ostream &stream, const Form &f);
+		virtual void execute(const Bureaucrat &pol) const = 0;
 		Form(std::string name2, int grades2, int gradee2);
-		void beSigned(const Bureaucrat &pol);
+		virtual void beSigned(const Bureaucrat &pol);
+		virtual std::string getName() const;
 		Form &operator=(const Form &ncopy);
-		std::string getName() const;
 		void check_grade(int grade);
 		Form(const Form &ncopy);
 		bool getSignedf() const;
-		Form(const std::string str);
 		int getGrades() const;
 		int getGradee() const;
 		~Form();

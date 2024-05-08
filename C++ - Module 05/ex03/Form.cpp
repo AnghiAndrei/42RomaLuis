@@ -2,7 +2,6 @@
 
 std::ostream &operator<<(std::ostream &stream, const Form &f){return (stream<<"Name form: "<<f.getName()<<"\nSigned: "<<f.getSignedf()<<"\nGrade to sign: "<<f.getGrades()<<"\nGrade to execute: "<<f.getGradee()<<std::endl);}
 Form::Form(const Form &ncopy) : grades(ncopy.grades), gradee(ncopy.gradee), name(ncopy.name){this->signedf=ncopy.signedf;}
-Form::Form(const std::string str) : grades(1), gradee(1), name(str){this->signedf=false;}
 Form::Form() : grades(1), gradee(1), name("NULL"){this->signedf=false;}
 std::string Form::getName() const{return this->name;}
 bool Form::getSignedf() const{return this->signedf;}
@@ -23,8 +22,8 @@ void Form::beSigned(const Bureaucrat &pol){
 		if (this->signedf == false)
 		{
 			if (pol.getGrade() <= this->grades){
-				this->signedf=true;
 				pol.signForm(this->getName());
+				this->signedf=true;
 			}
 			else
 				throw GradeTooLowException();

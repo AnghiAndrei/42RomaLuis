@@ -39,7 +39,7 @@ class ShrubberyCreationForm : public Form{
 		virtual void execute(const Bureaucrat &pol) const;
 		ShrubberyCreationForm(std::string name2);
 		void beSigned(const Bureaucrat &pol);
-		std::string getName() const;
+		virtual std::string getName() const;
 		~ShrubberyCreationForm();
 		ShrubberyCreationForm();
 		bool getSignedf() const;
