@@ -7,8 +7,10 @@ void Bureaucrat::check_grade(int grade){
 		throw GradeTooHighException();
 }
 
-std::ostream &operator<<(std::ostream &stream, const Bureaucrat &bc){return (stream << bc.name << ", bureaucrat grade "<<bc.grade<<std::endl);}
+std::ostream &operator<<(std::ostream &stream, const Bureaucrat &bc){return (stream << bc.getName() << ", bureaucrat grade "<<bc.getGrade()<<std::endl);}
 Bureaucrat::Bureaucrat(const Bureaucrat &ncopy) : name(ncopy.name){this->grade=ncopy.grade;}
+std::string Bureaucrat::getName() const{return this->name;}
+int Bureaucrat::getGrade() const{return this->grade;}
 Bureaucrat::Bureaucrat() : name(NULL){this->grade=1;}
 Bureaucrat::~Bureaucrat(){};
 

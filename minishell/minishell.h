@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 16:57:21 by aanghi            #+#    #+#             */
-/*   Updated: 2024/05/07 14:15:28 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:03:27 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 
-# define STRERROR "Command not found\n"
+# define STRERROR "02: What command did you give me, darling?\n"
 
 extern int		g_code_exit;
 

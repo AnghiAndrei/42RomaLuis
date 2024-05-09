@@ -6,7 +6,6 @@ class Fixed{
     static const int bits=8;
     int nbr;
     public:
-		friend std::ostream &operator<<(std::ostream &stream, const Fixed &fixed);
 		static const Fixed& min(const Fixed &a, const Fixed &b);
 		static const Fixed& max(const Fixed &a, const Fixed &b);
         bool operator>=(const Fixed &ncopy) const;
@@ -36,4 +35,5 @@ class Fixed{
         ~Fixed();
         Fixed();
 };
+std::ostream &operator<<(std::ostream &stream, const Fixed &fixed);
 #endif

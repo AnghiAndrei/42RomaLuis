@@ -18,15 +18,17 @@ class Bureaucrat{
 	};
 
 	public:
-		friend std::ostream &operator<<(std::ostream &stream, const Bureaucrat &Bureaucrat);
 		Bureaucrat &operator=(const Bureaucrat &nccopy);
 		Bureaucrat(std::string name2, int grade2);
 		void setName(const Bureaucrat& ncopy);
 		Bureaucrat(const Bureaucrat &nccopy);
+		std::string getName() const;
 		void check_grade(int grade);
 		void downGrade(int grade);
 		void upGrade(int grade);
+		int getGrade() const;
 		~Bureaucrat();
 		Bureaucrat();
 };
+std::ostream &operator<<(std::ostream &stream, const Bureaucrat &Bureaucrat);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:09:24 by aanghi            #+#    #+#             */
-/*   Updated: 2024/05/07 14:17:13 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/04/05 15:01:25 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static void	sigd(int signum)
 void	sigbs(int signum)
 {
 	(void)signum;
-	write(0, " Close 0 input\n", 15);
-	write(1, " Close 0 input\n", 15);
-	write(2, " Close 0 input\n", 15);
+	write(0, " 02: Close 0 input, darling\n", 27);
+	write(1, " 02: Close 0 input, darling\n", 27);
+	write(2, " 02: Close 0 input, darling\n", 27);
 	exit(131);
 }
 

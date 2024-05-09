@@ -21,7 +21,6 @@ class Form{
 	};
 
 	public:
-		friend std::ostream &operator<<(std::ostream &stream, const Form &f);
 		Form(std::string name2, int grades2, int gradee2);
 		void beSigned(const Bureaucrat &pol);
 		Form &operator=(const Form &ncopy);
@@ -34,4 +33,5 @@ class Form{
 		~Form();
 		Form();
 };
+std::ostream &operator<<(std::ostream &stream, const Form &f);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:12:13 by aanghi            #+#    #+#             */
-/*   Updated: 2024/05/07 14:14:53 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/07 14:08:47 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	bt_exit(t_master *master, char *cmd, int i, int i2)
 	rl_clear_history();
 	if (cmd[i] == ' ' || cmd[i] == '\0')
 	{
-		printf("Exit\n");
+		printf("02: Sayōnara, darling\n");
 		str = ft_substr(cmd, i2, i - i2);
 		i = ft_atoi(str);
 		free(str);

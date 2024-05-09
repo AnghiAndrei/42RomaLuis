@@ -21,7 +21,6 @@ class AForm{
 	};
 
 	public:
-		friend std::ostream &operator<<(std::ostream &stream, const AForm &f);
 		virtual void execute(const Bureaucrat &pol) const = 0;
 		AForm(std::string name2, int grades2, int gradee2);
 		void beSigned(const Bureaucrat &pol);
@@ -35,4 +34,5 @@ class AForm{
 		~AForm();
 		AForm();
 };
+std::ostream &operator<<(std::ostream &stream, const AForm &f);
 #endif

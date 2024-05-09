@@ -6,7 +6,6 @@ class Fixed{
     static const int bits=8;
     int nbr;
     public:
-		friend std::ostream &operator << (std::ostream &stream, const Fixed &fixed);
         Fixed &operator=(const Fixed &ncopy);
         void setRawBits(int const raw);
         Fixed(const Fixed &ncopy);
@@ -18,4 +17,5 @@ class Fixed{
         ~Fixed();
         Fixed();
 };
+std::ostream &operator << (std::ostream &stream, const Fixed &fixed);
 #endif

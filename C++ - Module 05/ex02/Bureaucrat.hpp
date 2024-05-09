@@ -18,7 +18,6 @@ class Bureaucrat{
 	};
 
 	public:
-		friend std::ostream &operator<<(std::ostream &stream, const Bureaucrat &Bureaucrat);
 		void executeForm(const std::string &formn) const;
 		Bureaucrat &operator=(const Bureaucrat &nccopy);
 		void signForm(const std::string &formn) const;
@@ -33,4 +32,5 @@ class Bureaucrat{
 		~Bureaucrat();
 		Bureaucrat();
 };
+std::ostream &operator<<(std::ostream &stream, const Bureaucrat &Bureaucrat);
 #endif

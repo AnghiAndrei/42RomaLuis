@@ -32,6 +32,10 @@ int main(){
 		rrf1->execute(Mussolini);
 		rrf2->execute(Mussolini);
 		rrf3->execute(Mussolini);
+
+		delete rrf1;
+		delete rrf2;
+		delete rrf3;
 	}
 	catch (const std::exception &e){
 		std::cerr << "Exception caught: " << e.what() << std::endl;
