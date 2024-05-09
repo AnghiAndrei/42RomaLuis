@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:29:54 by aanghi            #+#    #+#             */
-/*   Updated: 2024/05/09 16:36:53 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/09 18:00:53 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*program_name(char *command, char *path)
 	int		i;
 
 	c_c = clear_red(ft_split((const char *)command, ' '));
-	if (c_c[0]==NULL && free_matrix(c_c) == 0 && free_n(path))
+	if (c_c[0] == NULL && free_matrix(c_c) == 0 && free_n(path))
 		return ("o red");
 	path_c = ft_split((const char *)path, ':');
 	free(path);

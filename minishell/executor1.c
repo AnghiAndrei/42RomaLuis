@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/05/09 16:30:46 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/09 17:59:53 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	child_op(t_master *master, t_cmd *cur)
 		prog_n = program_name(cur->cmd, get_env(master, "PATH"));
 		args = get_args(cur->cmd, master, cur);
 		g_code_exit = 269;
-		if (ft_strncmp(prog_n, "o red", 6) == 0 && free_matrix(args) == 0)
-			exit(0);
 		if (prog_n != NULL)
 		{
+			if (ft_strncmp(prog_n, "o red", 5) == 0 && free_matrix(args) == 0)
+				exit(0);
 			execve(prog_n, args, master->env);
 			free(prog_n);
 		}

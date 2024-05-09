@@ -6,11 +6,16 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:18:43 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/30 12:29:56 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/09 17:43:00 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*check_sintax(char *str)
+{
+	return (str);
+}
 
 char	*get_command_f_histori(char *input)
 {
@@ -80,5 +85,5 @@ char	*get_command_f_0(void)
 	}
 	f = ft_strjoin(input, " ");
 	free(input);
-	return (f);
+	return (check_sintax(f));
 }
