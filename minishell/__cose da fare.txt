@@ -1,2 +1,1 @@
-<< file (non fa nulla ma apre l'heredoc)
 | cat (sintax erro)

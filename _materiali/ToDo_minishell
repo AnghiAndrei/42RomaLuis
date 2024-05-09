@@ -74,6 +74,8 @@ Bonus:
 
 Casi limite:
 	[ ] << fine Premere Ctr-C nell'here_doc
+	[ ] < file (non deve fare nulla) x vale per tutte le redirection tranne <<
+	[ ] << file (deve farti nell'heroddoc)
 	[ ] echo 1 2 > hola outfile
 	[ ] echo "'"$HOME"'"
 	[ ] "echo"
