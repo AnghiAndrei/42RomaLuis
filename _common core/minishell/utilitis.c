@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:55:20 by aanghi            #+#    #+#             */
-/*   Updated: 2024/04/05 15:00:44 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/09 14:30:23 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,33 +76,4 @@ void	free_all(t_master *master)
 	master->lcmd = NULL;
 	free(master->input);
 	master->ncmd = 0;
-}
-
-char	*program_name(char *command, char *path)
-{
-	char	**c_c;
-	char	**path_c;
-	char	*temp;
-	int		i;
-
-	c_c = ft_split((const char *)command, ' ');
-	path_c = ft_split((const char *)path, ':');
-	free(path);
-	temp = ft_strjoin(c_c[0], "\0");
-	if (access(c_c[0], X_OK) == 0 && free_matrix(c_c) == 0
-		&& free_matrix(path_c) == 0)
-		return (temp);
-	free(temp);
-	i = -1;
-	while (path_c[++i] != NULL)
-	{
-		temp = ft_strjoin1f(ft_strjoin(path_c[i], "/"), c_c[0]);
-		if (access(temp, X_OK) == 0 && free_matrix(c_c) == 0
-			&& free_matrix(path_c) == 0)
-			return (temp);
-		free(temp);
-	}
-	free_matrix(c_c);
-	free_matrix(path_c);
-	return (NULL);
 }

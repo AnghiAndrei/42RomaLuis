@@ -6,7 +6,7 @@
 /*   By: aanghi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:42:45 by aanghi            #+#    #+#             */
-/*   Updated: 2024/05/07 14:09:16 by aanghi           ###   ########.fr       */
+/*   Updated: 2024/05/09 17:59:53 by aanghi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	child_op(t_master *master, t_cmd *cur)
 		g_code_exit = 269;
 		if (prog_n != NULL)
 		{
+			if (ft_strncmp(prog_n, "o red", 5) == 0 && free_matrix(args) == 0)
+				exit(0);
 			execve(prog_n, args, master->env);
 			free(prog_n);
 		}
