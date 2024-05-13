@@ -26,6 +26,8 @@ void identify(Base *p){
 		std::cout<<"B"<<std::endl;
 	else if(dynamic_cast<C*>(p))
 		std::cout<<"C"<<std::endl;
+	else if(p==NULL)
+		std::cout<<"NULL"<<std::endl;
 	else
 		std::cout<<"Marshal: Camm'ai dato"<<std::endl;
 }

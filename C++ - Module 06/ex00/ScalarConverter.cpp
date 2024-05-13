@@ -141,22 +141,23 @@ void ScalarConverter::convert_cifd(char *str){
 		std::cout<<"double: "<<static_cast<double>(str[0])<<".0"<<std::endl;
 		return ;
 	}
-	if (this->ft_atoi(str) == 0 || this->ft_atof(str)!=(int)this->ft_atof(str))
+	if (ScalarConverter::ft_atoi(str) == 0 || ScalarConverter::ft_atof(str)!=(int)ScalarConverter::ft_atof(str))
 		std::cout<<"char: non displayable"<<std::endl;
-	else if (this->ft_atoi(str) < 0 || this->ft_atoi(str) >= 128)
+	else if (ScalarConverter::ft_atoi(str) < 0 || ScalarConverter::ft_atoi(str) >= 128)
 		std::cout<<"char: impossible"<<std::endl;
-	else if (this->ft_atoi(str) < 32 || this->ft_atoi(str) == 127)
+	else if (ScalarConverter::ft_atoi(str) < 32 || ScalarConverter::ft_atoi(str) == 127)
 		std::cout<<"char: non displayable"<<std::endl;
 	else
-		std::cout<<"char: "<<"'" <<(char)this->ft_atoi(str)<<"'"<<std::endl;
-	std::cout<<"int: "<<this->ft_atoi(str)<<std::endl;
-	std::cout<<"float: "<<this->ft_atof(str);
-	if(this->ft_atof(str)==(int)this->ft_atof(str))
+		std::cout<<"char: "<<"'" <<(char)ScalarConverter::ft_atoi(str)<<"'"<<std::endl;
+	std::cout<<"int: "<<ScalarConverter::ft_atoi(str)<<std::endl;
+	std::cout<<"float: "<<ScalarConverter::ft_atof(str);
+	if(ScalarConverter::ft_atof(str)==(int)ScalarConverter::ft_atof(str))
 		std::cout<<".0f";
 	else
 		std::cout<<"f";
-	std::cout<<"\ndouble: "<<this->ft_atod(str);
-	if(this->ft_atod(str)==(int)this->ft_atod(str))
+	std::cout<<"\ndouble: "<<ScalarConverter::ft_atod(str);
+	if(ScalarConverter::ft_atod(str)==(int)ScalarConverter::ft_atod(str))
 		std::cout<<".0";
 	std::cout<<std::endl;
+	return ;
 }

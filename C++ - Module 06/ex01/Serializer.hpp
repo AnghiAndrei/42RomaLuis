@@ -9,13 +9,12 @@ typedef struct Data{
 }Data;
 
 class Serializer{
-
+	Serializer();
 	public:
 		Serializer &operator=(const Serializer &ncopy);
 		static Data* deserialize(uintptr_t raw);
 		static uintptr_t serialize(Data* ptr);
 		Serializer(const Serializer &ncopy);
 		~Serializer();
-		Serializer();
 };
 #endif

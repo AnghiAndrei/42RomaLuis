@@ -94,11 +94,11 @@ test3: re
 
 # ARGS = 200 800 200 200
 
-ARGS = 1 800 200 200 #no eat, dies
+#ARGS = 1 800 200 200 #no eat, dies
 # ARGS = 5 800 200 200 #no dies ever
 # ARGS = 5 800 200 200 7 #no dies, but finish at eat 7
 # ARGS = 4 410 200 200 #no dies ever
-# ARGS = 4 310 200 100 #one philo dies
+ARGS = 4 310 200 100 #one philo dies
 
 # ARGS = 2 800 200 200 #no dies ever
 # ARGS = 2 800 200 200 7 #no dies, but finish at eat 7

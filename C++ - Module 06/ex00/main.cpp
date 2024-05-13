@@ -5,7 +5,6 @@ int main(int argc, char **argv){
 		std::cout<<"Marshal: Input error"<<std::endl;
 		return -1;
 	}
-	ScalarConverter omniconverter;
-	omniconverter.convert_cifd(argv[1]);
+	ScalarConverter::convert_cifd(argv[1]);
 	return 0;
 }
