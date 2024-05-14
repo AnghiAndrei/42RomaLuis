@@ -129,10 +129,14 @@ void ScalarConverter::convert_cifd(char *str){
 		i5++;
 	while (str[i5] >= '0' && str[i5] <= '9')
 		i5++;
-	if(strlen(str)!=1 && str[i5]!='\0'){
-		std::cout<<"Marshal: Input error"<<std::endl;
-		return ;
-	}
+	if(str[i5]=='.' && i5++)
+		while (str[i5] >= '0' && str[i5] <= '9')
+			i5++;
+	if(str[i5]!='f')
+		if(strlen(str)!=1 && str[i5]!='\0'){
+			std::cout<<"Marshal: Input error"<<std::endl;
+			return ;
+		}
 
 	if(!((str[0] >= '0' && str[0] <= '9') || str[0] == '-' || str[0] == '+')){
 		std::cout<<"char: '"<<str[0]<<"'"<<std::endl;

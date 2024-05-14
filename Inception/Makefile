@@ -1,8 +1,15 @@
-all: nginx_build
-	sudo docker run -d -p 443:443 nginx
+MAKEFLAGS += -s
 
-mostra:
-	sudo docker ps
+all: start
 
-nginx_build:
-	make -C NGINX
+start:
+	clear
+	-docker compose up -d --remove-orphans
+
+show:
+	docker ps -as
+
+stop:
+	docker compose down
+
+test: start show stop
