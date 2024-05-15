@@ -1,49 +1,32 @@
 services:
   mariadb:
     build:
-      dockerfile: MariaDB/
-    container_name: MariaDB
+      context: MariaDB/
+      dockerfile: Dockerfile
+    container_name: mariadb
     restart: always
+    networks:
+      - inception
+    ports:
+      - "3306:3306"
     environment:
-      MYSQL_ROOT_PWD:   ${MYSQL_ROOT_PWD}
-      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR:  ${WP_DATABASE_USR}
-      WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
+      WP_DB_USR: ${WP_DB_USR}
+      WP_DB_PASS: ${WP_DB_PASS}
+      WP_DB: ${WP_DB}
 
   nginx:
     build:
-      dockerfile: NGINX/
+      context: NGINX/
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
     container_name: nginx
-    restart: always
+    networks:
+      - inception
     ports:
       - "443:443"
     depends_on:
-      - wordpress
-
-  wordpress:
-    build:
-      dockerfile: WordPress/
-    container_name: WordPress
-    restart: always
-    environment:
-      MYSQL_HOST:       ${MYSQL_HOST}
-      WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-      WP_DATABASE_USR:  ${WP_DATABASE_USR}
-      WP_DATABASE_PWD:  ${WP_DATABASE_PWD}
-      DOMAIN_NAME:      ${DOMAIN_NAME}
-      WP_TITLE:         ${WP_TITLE}
-      WP_ADMIN_USR:     ${WP_ADMIN_USR}
-      WP_ADMIN_PWD:     ${WP_ADMIN_PWD}
-      WP_ADMIN_EMAIL:   ${WP_ADMIN_EMAIL}
-      WP_USR:           ${WP_USR}
-      WP_PWD:           ${WP_PWD}
-      WP_EMAIL:         ${WP_EMAIL}
-    ports:
-      - "9000:9000"
-    volumes:
-      - wp_db:/var/www/html/wp-content
-    depends_on:
       - mariadb
 
-volumes:
-  wp_db:
+networks:
+  inception:
+    driver: bridge

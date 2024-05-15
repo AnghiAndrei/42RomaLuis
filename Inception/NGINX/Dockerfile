@@ -1,7 +1,7 @@
-FROM debian:latest
+FROM debian:buster
 
-RUN apt-get update \
-	apt-get install nginx
+RUN apt-get update && \
+	apt-get install -y nginx
 
 EXPOSE 443
-CMD ["bash"]
+CMD cat
