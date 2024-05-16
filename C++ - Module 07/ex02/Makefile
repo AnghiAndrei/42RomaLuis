@@ -6,12 +6,12 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/05/08 17:16:28 by aanghi           ###   ########.fr        #
+#    Updated: 2024/05/16 16:36:33 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Array
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
@@ -36,4 +36,5 @@ test: re
 	rm -f $(OBJ)
 	clear
 	-./$(NAME)
+	-valgrind ./$(NAME)
 	@rm -f $(NAME)

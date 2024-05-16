@@ -3,29 +3,38 @@
 #include <string.h>
 #include <iostream>
 
-template<typename T, size_t Size>
+template<typename T>
 class Array{
-    T array[Size];
+	unsigned int Size;
+    T *array;
     public:
-        size_t size() const{return Size;}
-        ~Array(){}
+        unsigned int size() const{return Size;}
+        ~Array(){delete [] this->array;}
+        Array(){}
 
         Array &operator=(const Array &ncopy){
-            for(size_t i=0;i!=Size;i++)
-                this->array[i]=ncopy->array[i];
+			if (this == &ncopy)
+				return (*this);
+			this->Size=ncopy.size();
+			this->array = new T[ncopy.size()];
+			for(unsigned int i=0;i!=this->Size;i++)
+				this->array[i]=ncopy.array[i];
             return *this;
         }
-        T& operator[](size_t index) {
-            if (index >= Size)
-                throw std::out_of_range("Index out of range");
+        T& operator[](unsigned int index) {
+            if (index>=this->Size)
+                throw std::out_of_range("segmentation fault (core dumped)");
             return array[index];
         }
         Array(const Array &ncopy){
-            for(size_t i=0;i!=Size;i++)
-                this->array[i]=ncopy->array[i];
+			this->array = 0;
+			this->Size = 0;
+			(*this) = ncopy;
         }
-        Array(){
-            for(size_t i=0;i!=Size;i++)
+		Array(unsigned int size2){
+			this->Size=size2;
+			this->array = new T[this->Size];
+            for(unsigned int i=0;i!=size2;i++)
                 this->array[i]=T();
         }
 };
