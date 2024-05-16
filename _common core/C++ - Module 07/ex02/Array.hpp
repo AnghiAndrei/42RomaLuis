@@ -9,8 +9,7 @@ class Array{
     T *array;
     public:
         unsigned int size() const{return Size;}
-        ~Array(){delete [] this->array;}
-        Array(){}
+        ~Array(){if(this->array!=NULL)delete [] this->array;}
 
         Array &operator=(const Array &ncopy){
 			if (this == &ncopy)
@@ -27,7 +26,7 @@ class Array{
             return array[index];
         }
         Array(const Array &ncopy){
-			this->array = 0;
+			this->array = NULL;
 			this->Size = 0;
 			(*this) = ncopy;
         }
@@ -37,5 +36,9 @@ class Array{
             for(unsigned int i=0;i!=size2;i++)
                 this->array[i]=T();
         }
+        Array(){
+			this->array = NULL;
+			this->Size = 0;
+		}
 };
 #endif
