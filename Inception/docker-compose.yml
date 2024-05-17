@@ -3,16 +3,43 @@ services:
     build:
       context: MariaDB/
       dockerfile: Dockerfile
+    command: sh configure.sh
     container_name: mariadb
     restart: always
     networks:
       - inception
     ports:
       - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - /home/aanghi/data/db:/var/lib/mysql
     environment:
-      WP_DB_USR: ${WP_DB_USR}
       WP_DB_PASS: ${WP_DB_PASS}
+      WP_DB_USR: ${WP_DB_USR}
       WP_DB: ${WP_DB}
+
+  wordpress:
+    build:
+      context: WordPress/
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
+    container_name: wordpress
+    restart: always
+    networks:
+      - inception
+    env_file:
+      - .env
+    environment:
+      WP_DB_PASS:  ${WP_DB_PASS}
+      WP_DB_USR:  ${WP_DB_USR}
+      WP_DB: ${WP_DB}
+    ports:
+      - "9000:9000"
+    volumes:
+      - /home/aanghi/data/wp:/var/www/html/wordpress
+    depends_on:
+      - mariadb
 
   nginx:
     build:
@@ -20,12 +47,15 @@ services:
       dockerfile: Dockerfile
     command: tail -f /dev/null
     container_name: nginx
+    restart: always
+    volumes:
+      - /home/aanghi/data/wp:/var/www/html/wordpress
     networks:
       - inception
     ports:
       - "443:443"
     depends_on:
-      - mariadb
+      - wordpress
 
 networks:
   inception:

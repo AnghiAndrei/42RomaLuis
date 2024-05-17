@@ -1,8 +1,7 @@
 FROM debian:buster
-COPY configure.sh /tmp/configure.sh
+COPY configure.sh configure.sh
 RUN apt-get update && \ 
 	apt-get install mariadb-server -y && \
-	service mysql start && \
-	sh /tmp/configure.sh
+	service mysql start
+
 EXPOSE 3306
-CMD /usr/bin/mysqld_safe
