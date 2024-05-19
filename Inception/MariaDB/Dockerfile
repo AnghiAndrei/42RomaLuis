@@ -1,6 +1,6 @@
-FROM debian:buster
+FROM alpine:3.13
 COPY configure.sh configure.sh
-RUN apt-get update && \ 
-	apt-get install mariadb-server -y
-
 EXPOSE 3306
+RUN	apk update && \
+	apk upgrade && \
+	apk add --no-cache mariadb mariadb-client openrc

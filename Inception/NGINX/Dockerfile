@@ -1,11 +1,5 @@
-FROM debian:buster
-
-RUN apt-get update && \
-    apt-get install -y nginx openssl && \
-	mkdir -p /etc/nginx/ssl/ && \
-	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=oid.ocrop"
-
-EXPOSE 443
+FROM alpine:3.13
+EXPOSE 443 80
 COPY configure.sh configure.sh
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY default.conf /etc/nginx/conf.d/default.conf
+RUN	apk update && apk upgrade && apk add --no-cache nginx && apk add openrc --no-cache
+COPY nginx.conf etc/nginx/conf.d/nginx.conf

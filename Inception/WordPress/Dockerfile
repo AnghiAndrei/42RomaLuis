@@ -1,9 +1,4 @@
-FROM debian:buster
-COPY configure.sh configure.sh
-RUN apt-get update && \
-	apt-get install -y wget && \
-	apt-get install -y php-fpm && \
-	wget https://wordpress.org/latest.tar.gz && \
-	tar -xzvf latest.tar.gz
-
+FROM alpine:3.13
 EXPOSE 9000
+COPY configure.sh configure.sh
+RUN	apk update && apk upgrade && apk add --no-cache php-fpm && apk add openrc --no-cache
