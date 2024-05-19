@@ -17,6 +17,10 @@ echo '$table_prefix = "wp_";' >> aanghi.temp
 echo 'define( "WP_DEBUG", false );' >> aanghi.temp
 echo 'if ( ! defined( "ABSPATH" ) ) {define( "ABSPATH", __DIR__ . "/" );}' >> aanghi.temp
 echo 'require_once ABSPATH . "wp-settings.php";' >> aanghi.temp
-cp -r wordpress/* /wordpress2/
-cp aanghi.temp /wordpress2/wp-config.php
+
+if [ ! -e "/wordpress2/wp-config.php" ]; then
+	cp -r wordpress/* /wordpress2/
+	cp aanghi.temp /wordpress2/wp-config.php
+fi
+
 tail -f /dev/null

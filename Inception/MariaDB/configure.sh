@@ -3,5 +3,6 @@ echo 'CREATE USER '\'$WP_DB_USR\''@'\''localhost'\'' IDENTIFIED BY '\'$WP_DB_PAS
 echo 'GRANT ALL PRIVILEGES ON '$WP_DB'.* TO '\'$WP_DB_USR\''@'\''localhost'\'';' >> aanghi.temp
 echo 'FLUSH PRIVILEGES;' >> aanghi.temp
 echo 'EXIT;' >> aanghi.temp
+service mysql start
 mysql < aanghi.temp
 tail -f /dev/null

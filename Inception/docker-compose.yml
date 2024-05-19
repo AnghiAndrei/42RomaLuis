@@ -13,7 +13,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /home/aanghi/data/db:/var/lib/mysql
+      - /home/aanghi/data/db:/var/lib/mysql2
     environment:
       WP_DB_PASS: ${WP_DB_PASS}
       WP_DB_USR: ${WP_DB_USR}
@@ -45,17 +45,20 @@ services:
     build:
       context: NGINX/
       dockerfile: Dockerfile
-    command: tail -f /dev/null
+    command: sh configure.sh
     container_name: nginx
     restart: always
     volumes:
-      - /home/aanghi/data/wp:/var/www/html/wordpress/
+      - /home/aanghi/data/wp:/var/www/html/wordpress
     networks:
       - inception
     ports:
       - "443:443"
+      - "80:80"
     depends_on:
       - wordpress
+    extra_hosts:
+      - "oid.ocrop:127.0.0.1"
 
 networks:
   inception:
