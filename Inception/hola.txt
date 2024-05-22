@@ -1,2 +1,0 @@
-https://github.com/Leofariasrj25/inception42/blob/master/srcs/requirements/mariadb/Dockerfile
-https://github.com/raccoman/inception/blob/main/srcs/requirements/mariadb/tools/configure.sh

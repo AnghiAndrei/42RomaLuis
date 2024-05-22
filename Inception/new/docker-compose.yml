@@ -1,0 +1,65 @@
+services:
+  mariadb:
+    build:
+      context: MariaDB/
+      dockerfile: Dockerfile
+    command: sh configure.sh
+    container_name: mariadb
+    restart: always
+    networks:
+      - inception
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - /home/aanghi/data/db:/var/lib/mysql
+    environment:
+      WP_DB_PASS: ${WP_DB_PASS}
+      WP_DB_USR: ${WP_DB_USR}
+      WP_DB: ${WP_DB}
+
+  wordpress:
+    build:
+      context: WordPress/
+      dockerfile: Dockerfile
+    command: sh configure.sh
+    container_name: wordpress
+    restart: always
+    networks:
+      - inception
+    env_file:
+      - .env
+    environment:
+      WP_DB_PASS: ${WP_DB_PASS}
+      WP_DB_USR: ${WP_DB_USR}
+      WP_DB: ${WP_DB}
+    ports:
+      - "9000:9000"
+    volumes:
+      - /home/aanghi/data/wp:/wordpress2
+    depends_on:
+      - mariadb
+
+  nginx:
+    build:
+      context: NGINX/
+      dockerfile: Dockerfile
+    command: sh configure.sh
+    container_name: nginx
+    restart: always
+    volumes:
+      - /home/aanghi/data/wp:/var/www/html/wordpress
+    networks:
+      - inception
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - wordpress
+    extra_hosts:
+      - "aanghi.42.fr:127.0.0.1"
+
+networks:
+  inception:
+    driver: bridge
