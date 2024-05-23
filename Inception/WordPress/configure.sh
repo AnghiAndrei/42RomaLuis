@@ -27,6 +27,9 @@ if [ ! -e "/wordpress2/wp-config.php" ]; then
 	cp aanghi.temp /wordpress2/wp-config.php
 fi
 
-PID=$(lsof -t -i :9000)
-kill -9 $PID
+if [ ! -e "/wordpress2/wp-config.php" ]; then
+	echo /tmp/stop > /tmp/stop
+	PID=$(lsof -t -i :9000)
+	kill -9 $PID
+fi
 php-fpm81 -F

@@ -1,6 +1,5 @@
 FROM alpine:3.20
-EXPOSE 443 80
-COPY configure.sh configure.sh
+EXPOSE 443
 RUN	apk update && \
 	apk add --no-cache nginx openssl && \
 	mkdir -p /etc/nginx/certs/ && \
@@ -8,3 +7,4 @@ RUN	apk update && \
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY default.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]
