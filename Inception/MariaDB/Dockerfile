@@ -1,4 +1,4 @@
-FROM alpine:3
+FROM alpine:3.20
 COPY configure.sh configure.sh
 COPY ./my.cnf /etc/my.cnf
 EXPOSE 3306

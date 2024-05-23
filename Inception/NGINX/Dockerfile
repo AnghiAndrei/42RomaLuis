@@ -1,5 +1,5 @@
-FROM alpine:3.13
-EXPOSE 443
+FROM alpine:3.20
+EXPOSE 443 80
 COPY configure.sh configure.sh
 RUN	apk update && \
 	apk add --no-cache nginx openssl && \
