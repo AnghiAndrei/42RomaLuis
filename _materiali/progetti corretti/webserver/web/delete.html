@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Request</title>
+</head>
+<body>
+    <h1>Delete Request Form</h1>
+    <form id="deleteForm">
+        <label for="resourceUrl">Resource URL:</label>
+        <input type="text" id="resourceUrl" name="resourceUrl" placeholder="Enter resource URL" required>
+        <button type="submit">Delete</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var url = document.getElementById('resourceUrl').value;
+
+            fetch(url, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('response').innerText = 'Resource deleted successfully.';
+                } else {
+                    document.getElementById('response').innerText = 'Error: ' + response.status + ' ' + response.statusText;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('response').innerText = 'An error occurred. Please try again.';
+            });
+        });
+    </script>
+	<br/><br/>
+
+	<a href="index.html">Torna alla home</a>
+</body>
+</html>

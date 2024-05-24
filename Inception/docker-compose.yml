@@ -10,10 +10,10 @@ services:
       - inception
     ports:
       - "3306:3306"
-    env_file:
-      - .env
     volumes:
       - /home/aanghi/data/db:/var/lib/mysql
+    env_file:
+      - .env
     environment:
       WP_DB_PASS: ${WP_DB_PASS}
       WP_DB_USR: ${WP_DB_USR}
@@ -28,18 +28,18 @@ services:
     restart: always
     networks:
       - inception
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mariadb
+    volumes:
+      - /home/aanghi/data/wp:/var/www/html/wordpress
     env_file:
       - .env
     environment:
       WP_DB_PASS: ${WP_DB_PASS}
       WP_DB_USR: ${WP_DB_USR}
       WP_DB: ${WP_DB}
-    ports:
-      - "9000:9000"
-    volumes:
-      - /home/aanghi/data/wp:/wordpress2
-    depends_on:
-      - mariadb
 
   nginx:
     build:

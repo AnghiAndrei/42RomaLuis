@@ -29,7 +29,8 @@ loop_command &
 sleep 10
 
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS $WP_DB;"
-mysql -u root -e "CREATE USER '$WP_DB_USR'@'localhost' IDENTIFIED BY '$WP_DB_PASS';"
+mysql -u root -e "DROP DATABASE IF EXISTS test;"
+mysql -u root -e "CREATE USER IF NOT EXISTS '$WP_DB_USR'@'localhost' IDENTIFIED BY '$WP_DB_PASS';"
 mysql -u root -e "GRANT ALL PRIVILEGES ON $WP_DB.* TO '$WP_DB_USR'@'localhost';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 

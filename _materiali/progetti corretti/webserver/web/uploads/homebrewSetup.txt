@@ -1,0 +1,71 @@
+Step 1: Choose an Installation Directory
+
+You can choose any directory within your home directory, for example, ~/homebrew.
+
+sh
+
+mkdir ~/homebrew
+
+Step 2: Clone the Homebrew Repository
+
+Clone the Homebrew repository into the directory you created:
+
+sh
+
+git clone https://github.com/Homebrew/brew.git ~/homebrew
+
+Step 3: Add Homebrew to Your PATH
+
+You need to add Homebrew to your PATH. Open your shell profile file (e.g., .bashrc or .zshrc) with a text editor:
+
+sh
+
+nano ~/.bashrc
+
+or for zsh:
+
+sh
+
+nano ~/.zshrc
+
+Add the following lines to the end of the file:
+
+sh
+
+# Homebrew configuration
+export PATH="$HOME/homebrew/bin:$PATH"
+eval "$($HOME/homebrew/bin/brew shellenv)"
+
+Save the file and exit the text editor.
+Step 4: Apply the Changes
+
+Source your shell profile to apply the changes:
+
+sh
+
+source ~/.bashrc
+
+or for zsh:
+
+sh
+
+source ~/.zshrc
+
+Step 5: Verify the Installation
+
+Check if Homebrew is installed correctly by running:
+
+sh
+
+brew --version
+
+You should see the Homebrew version output, indicating that the installation was successful.
+Step 6: Install Dependencies with Homebrew
+
+Now you can use Homebrew to install any dependencies you might need. For example, if build-essential is missing, you can try:
+
+sh
+
+brew install gcc
+
+By following these steps, you manually install Homebrew in a location where you have write permissions and configure your environment to use it. This method bypasses the need for sudo entirely.

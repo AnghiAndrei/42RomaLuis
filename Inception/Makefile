@@ -1,6 +1,6 @@
 MAKEFLAGS += -s
 
-all: start
+all: start show
 
 start: stop prune
 	clear

@@ -19,17 +19,18 @@ echo 'define( "WP_DEBUG", false );' >> aanghi.temp
 echo 'if ( ! defined( "ABSPATH" ) ) {define( "ABSPATH", __DIR__ . "/" );}' >> aanghi.temp
 echo 'require_once ABSPATH . "wp-settings.php";' >> aanghi.temp
 
-if [ ! -e "/wordpress2/wp-config.php" ]; then
+if [ ! -e "/var/www/html/wordpress/wp-config.php" ]; then
 	apk update && apk add --no-cache wget tar
 	wget https://wordpress.org/latest.tar.gz
 	tar -xzvf latest.tar.gz
-	cp -r wordpress/* /wordpress2/
-	cp aanghi.temp /wordpress2/wp-config.php
+	cp -r wordpress/* /var/www/html/wordpress/
+	cp aanghi.temp /var/www/html/wordpress/wp-config.php
 fi
 
-if [ ! -e "/wordpress2/wp-config.php" ]; then
-	echo /tmp/stop > /tmp/stop
-	PID=$(lsof -t -i :9000)
-	kill -9 $PID
-fi
+# killa qualsiasi processo che si trova ad ascoltare sulla porta 9000, non consigliato da usare
+# if [ ! -e "./stop.aanghi" ]; then
+# 	echo il cazzo di budda > ./stop.aanghi
+# 	PID=$(lsof -t -i :9000)
+# 	kill -9 $PID
+# fi
 php-fpm81 -F
