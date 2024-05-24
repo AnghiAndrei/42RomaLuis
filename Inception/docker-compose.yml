@@ -28,8 +28,6 @@ services:
     restart: always
     networks:
       - inception
-    ports:
-      - "9000:9000"
     depends_on:
       - mariadb
     volumes:
@@ -60,4 +58,3 @@ services:
 
 networks:
   inception:
-    driver: bridge

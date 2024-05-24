@@ -5,6 +5,7 @@ RUN	apk update && \
 	apk upgrade && \
 	apk add --no-cache php81 php81-fpm && \
 	adduser -S nginx &&	addgroup -S nginx && \
-	mkdir -p /var/www/html/wordpress
+	mkdir -p /var/www/html/wordpress && \
+	chmod -R 777 /var/www/html/wordpress
 COPY php-fpm.conf /etc/php81/php-fpm.conf
 COPY www.conf /etc/php81/php-fpm.d/www.conf
