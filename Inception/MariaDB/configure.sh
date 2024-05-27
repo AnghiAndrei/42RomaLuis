@@ -1,4 +1,4 @@
-#!/bin/sh
+# !/bin/sh
 
 chmod 770 /etc/my.cnf
 mkdir -p /run/mysql
@@ -11,8 +11,17 @@ mkdir -p /var/run/mysqld/
 touch /var/run/mysqld/mysqld.sock
 chmod 770 /var/run/mysqld/mysqld.sock
 
+mkdir -p /var/lib/mysql/
+chown -R mysql:mysql /var/lib/mysql
+chown mysql:mysql /var/lib/mysql
+chmod 777 /var/lib/mysql
+touch /var/lib/mysql/aria_log_control
+chown mysql:mysql /var/lib/mysql/aria_log_control
+chmod 777 /var/lib/mysql/aria_log_control
+
 mkdir -p /run/mysqld
 chown -R mysql:mysql /run/mysqld
+chmod 777 /run/mysqld
 
 mkdir -p /var/run/
 touch /var/run/mysqld
@@ -26,7 +35,8 @@ loop_command() {
 	/usr/bin/mysqld --user=root --datadir=/var/lib/mysql
 }
 loop_command &
-sleep 10
+mysqld_pid=$!
+sleep 15
 
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS $WP_DB;"
 mysql -u root -e "DROP DATABASE IF EXISTS test;"
@@ -34,4 +44,6 @@ mysql -u root -e "CREATE USER IF NOT EXISTS '$WP_DB_USR'@'localhost' IDENTIFIED 
 mysql -u root -e "GRANT ALL PRIVILEGES ON $WP_DB.* TO '$WP_DB_USR'@'localhost';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 
+kill $mysqld_pid
+sleep 15
 /usr/bin/mysqld --user=root --datadir=/var/lib/mysql
