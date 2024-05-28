@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.19.1
 EXPOSE 443
 RUN	apk update && \
 	apk add --no-cache nginx openssl && \

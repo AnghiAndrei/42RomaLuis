@@ -1,4 +1,4 @@
-FROM alpine:3.19
+FROM alpine:3.19.1
 EXPOSE 9000
 COPY configure.sh configure.sh
 RUN	apk update && \
