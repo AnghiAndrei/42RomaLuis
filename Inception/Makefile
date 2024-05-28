@@ -1,8 +1,8 @@
 MAKEFLAGS += -s
 
-all: start show
+all: stop prune canc start show
 
-start: stop prune
+start:
 	clear
 	-docker compose up -d --remove-orphans --build
 
@@ -19,4 +19,6 @@ prune:
 	-docker image prune --all --force
 	-docker system prune --all --force --volumes
 
-test: start show stop
+canc:
+	sudo rm -fr /home/aanghi/data/db
+	sudo rm -fr /home/aanghi/data/wp

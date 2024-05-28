@@ -55,8 +55,6 @@ services:
       - "443:443"
     depends_on:
       - wordpress
-    extra_hosts:
-      - "aanghi.42.fr:127.0.0.1"
 
 networks:
     inception:
