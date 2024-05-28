@@ -15,6 +15,8 @@ services:
     ports:
       - "3306:3306"
     environment:
+      WP_DB_PASS_A: ${WP_DB_PASS_A}
+      WP_DB_USR_A: ${WP_DB_USR_A}
       WP_DB_PASS: ${WP_DB_PASS}
       WP_DB_USR: ${WP_DB_USR}
       WP_DB: ${WP_DB}
@@ -37,6 +39,8 @@ services:
     ports:
       - "9000:9000"
     environment:
+      WP_DB_PASS_A: ${WP_DB_PASS_A}
+      WP_DB_USR_A: ${WP_DB_USR_A}
       WP_DB_PASS: ${WP_DB_PASS}
       WP_DB_USR: ${WP_DB_USR}
       WP_DB: ${WP_DB}
