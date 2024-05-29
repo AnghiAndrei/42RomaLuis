@@ -1,0 +1,9 @@
+# consigli in fase di test:
+#  -cancella i volumi
+#  -fare sempre il prune prima di compilare i conteneiner
+
+# aggiungi questa stringa in: /etc/hosts; per far trovare il server
+127.0.0.1	login.42.fr
+
+# comando per montare il volume nella macchina virtuale
+sudo mount -t vboxsf Inception ~/shared

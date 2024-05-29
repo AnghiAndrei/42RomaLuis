@@ -5,21 +5,16 @@ services:
       dockerfile: Dockerfile
     command: sh configure.sh
     container_name: mariadb
+    image: mariadb-aanghi:latest
     restart: always
     networks:
       - inception
     volumes:
-      - /home/aanghi/data/db:/var/lib/mysql
+      - mdb_vol:/var/lib/mysql
     env_file:
       - .env
     ports:
       - "3306:3306"
-    environment:
-      WP_DB_PASS_A: ${WP_DB_PASS_A}
-      WP_DB_USR_A: ${WP_DB_USR_A}
-      WP_DB_PASS: ${WP_DB_PASS}
-      WP_DB_USR: ${WP_DB_USR}
-      WP_DB: ${WP_DB}
 
   wordpress:
     build:
@@ -27,32 +22,28 @@ services:
       dockerfile: Dockerfile
     command: sh configure.sh
     container_name: wordpress
+    image: wordpress-aanghi:latest
     restart: always
     networks:
       - inception
     depends_on:
       - mariadb
     volumes:
-      - /home/aanghi/data/wp:/var/www/html/wordpress
+      - wp_vol:/var/www/html/wordpress
     env_file:
       - .env
     ports:
       - "9000:9000"
-    environment:
-      WP_DB_PASS_A: ${WP_DB_PASS_A}
-      WP_DB_USR_A: ${WP_DB_USR_A}
-      WP_DB_PASS: ${WP_DB_PASS}
-      WP_DB_USR: ${WP_DB_USR}
-      WP_DB: ${WP_DB}
 
   nginx:
     build:
       context: NGINX/
       dockerfile: Dockerfile
     container_name: nginx
+    image: nginx-aanghi:latest
     restart: always
     volumes:
-      - /home/aanghi/data/wp:/var/www/html/wordpress
+      - wp_vol:/var/www/html/wordpress
     networks:
       - inception
     ports:
@@ -60,6 +51,23 @@ services:
     depends_on:
       - wordpress
 
+volumes:
+  wp_vol:
+    name: wp_vol
+    driver: local
+    driver_opts:
+      device: /home/aanghi/data/wp_vol
+      o: bind
+      type: none
+  mdb_vol:
+    name: mdb_vol
+    driver: local
+    driver_opts:
+      device: /home/aanghi/data/mdb_vol
+      o: bind
+      type: none
+
 networks:
-    inception:
-        driver: bridge
+  inception:
+    name: inception
+    driver: bridge
