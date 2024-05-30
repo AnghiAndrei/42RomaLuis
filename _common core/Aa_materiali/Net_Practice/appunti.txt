@@ -1,0 +1,2 @@
+i seguenti indirizzi non si possono usare:
+-192.0.0.0
