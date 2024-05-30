@@ -12,29 +12,22 @@ echo 'if ( ! defined( "ABSPATH" ) ) {define( "ABSPATH", __DIR__ . "/" );}' >> aa
 echo 'require_once ABSPATH . "wp-settings.php";' >> aanghi.temp
 
 if [ ! -e "/var/www/html/wordpress/wp-config.php" ]; then
-	#wordpress
-	apk update && apk add --no-cache wget tar
-	wget https://wordpress.org/latest.tar.gz
-	tar -xzvf latest.tar.gz
-	cp -r wordpress/* /var/www/html/wordpress/
-	# cp aanghi.temp /var/www/html/wordpress/wp-config.php
+	cp ripasso.html /var/www/html/wordpress/ripasso.html #static site
 
+	#wordpress
+	apk update && apk add --no-cache wget
 	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 	chmod +x wp-cli.phar
-	cp wp-cli.phar /var/www/html/wordpress/wp-cli.phar
 	cp wp-cli.phar /usr/bin/wp
-
+	cd /var/www/html/wordpress/
     wp core download --allow-root 
-	sleep 5
-	wp config create --dbname=$WP_DB --dbuser=$WP_DB_USR --dbpass=$WP_DB_PASS --dbhost=mariadb --allow-root 
-    sleep 5
-	wp core install --url=aanghi.42.fr --title="PorcoDio!!" --admin_user=$WP_USR_A --admin_password=$WP_PAS_A --admin_email=$WP_EMAIL_A --allow-root  
-    wp user create $WP_USR $WP_EMAIL --user_pass=$WP_PAS --role=editor --porcelain --allow-root 
+	sleep 15
+	wp config create --dbname=$WP_DB --dbuser=$WP_DB_USR --dbpass=$WP_DB_PASS --dbhost="mariadb" --allow-root 
+    sleep 15
+	wp core install --url="aanghi.42.fr" --title="PorcoDio!!" --admin_user=$WP_USR_A --admin_password=$WP_PAS_A --admin_email=$WP_EMAIL_A --allow-root  
+    wp user create $WP_USR $WP_EMAIL --user_pass=$WP_PAS --role="editor" --porcelain --allow-root 
     wp theme install neve --activate --allow-root
 	wp plugin update --all --allow-root
-
-	#static site
-	cp ripasso.html /var/www/html/wordpress/ripasso.html
 fi
 
 # killa qualsiasi processo che si trova ad ascoltare sulla porta 9000, non consigliato da usare
@@ -43,4 +36,4 @@ fi
 # 	PID=$(lsof -t -i :9000)
 # 	kill -9 $PID
 # fi
-php-fpm81 -F
+php-fpm82 -F
