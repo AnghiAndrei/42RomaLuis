@@ -1,18 +1,11 @@
 #include "easyfind.hpp"
 
 int main(){
-	std::cout<<easyFind("hola", 'a')<<std::endl;
-	std::cout<<easyFind((char *)"hola", 'a')<<std::endl;
-	std::cout<<easyFind((const char *)"hola", 'a')<<std::endl;
-	std::cout<<easyFind((std::string)"hola", 'a')<<std::endl;
-	std::cout<<easyFind((const std::string)"hola", 'a')<<std::endl;
-	std::cout<<easyFind((const std::string)"hola", 'a')<<std::endl;
-
-	std::cout<<easyFind("hola", '!')<<std::endl;
-	std::cout<<easyFind((char *)"hola", '!')<<std::endl;
-	std::cout<<easyFind((const char *)"hola", '!')<<std::endl;
-	std::cout<<easyFind((std::string)"hola", '!')<<std::endl;
-	std::cout<<easyFind((const std::string)"hola", '!')<<std::endl;
-	std::cout<<easyFind((const std::string)"hola", '!')<<std::endl;
+	std::vector<int> lista;
+	lista.push_back(69);
+    lista.push_back(42);
+    lista.push_back(7);
+	std::cout<<easyFind(lista, 42)<<std::endl;
+	std::cout<<easyFind(lista, -42)<<std::endl;
 	return 0;
 }
