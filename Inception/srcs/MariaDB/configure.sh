@@ -9,4 +9,4 @@ mysql -u root -e "CREATE USER IF NOT EXISTS '$WP_DB_USR'@'%' IDENTIFIED BY '$WP_
 mysql -u root -e "GRANT ALL PRIVILEGES ON $WP_DB.* TO '$WP_DB_USR'@'%';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 kill $pid
-exec /usr/bin/mysqld --user=root --console
+exec /usr/bin/mysqld --user=root --datadir=/var/lib/mysql

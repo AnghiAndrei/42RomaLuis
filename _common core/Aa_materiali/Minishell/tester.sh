@@ -1,30 +1,28 @@
 echo '
 test-leaks: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	-valgrind ./minishell input
 	@echo
 	-valgrind ./minishell input input2
 	@echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	-./minishell input
 	@echo
 	-./minishell input input2
 	@echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
-    @echo Errori di norma:
-    norminette *.c *.h | grep Error! | wc -l
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo Errori di norma:
+	norminette *.c *.h | grep Error! | wc -l
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 ' >> Makefile
 
 clear

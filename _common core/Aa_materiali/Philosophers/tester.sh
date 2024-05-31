@@ -1,55 +1,57 @@
 echo '
 test-leaks: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
-	-valgrind ./philosofer
+	@clear
+	-valgrind ./philo
 	@echo
-	-valgrind ./philosofer 0 800 200 200
+	-valgrind ./philo 0 800 200
 	@echo
-	-valgrind ./philosofer 2 0 200 200
+	-valgrind ./philo 0 800 200 200
 	@echo
-	-valgrind ./philosofer 2 800 0 200
+	-valgrind ./philo 2 0 200 200
 	@echo
-	-valgrind ./philosofer 2 800 200 0
+	-valgrind ./philo 2 800 0 200
 	@echo
-	-valgrind ./philosofer 0 0 0 0
+	-valgrind ./philo 2 800 200 0
 	@echo
-	-valgrind ./philosofer 2 800 200 0
+	-valgrind ./philo 0 0 0 0
 	@echo
-	-valgrind ./philosofer 0 0 0 0 0
+	-valgrind ./philo 2 800 200 0
 	@echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	-valgrind ./philo 0 0 0 0 0
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
-	-./philosofer
+	@clear
+	-./philo
 	@echo
-	-./philosofer 0 800 200 200
+	-./philo 0 800 200
 	@echo
-	-./philosofer 2 0 200 200
+	-./philo 0 800 200 200
 	@echo
-	-./philosofer 2 800 0 200
+	-./philo 2 0 200 200
 	@echo
-	-./philosofer 2 800 200 0
+	-./philo 2 800 0 200
 	@echo
-	-./philosofer 0 0 0 0
+	-./philo 2 800 200 0
 	@echo
-	-./philosofer 2 800 200 0
+	-./philo 0 0 0 0
 	@echo
-	-./philosofer 0 0 0 0 0
+	-./philo 2 800 200 0
 	@echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	-./philo 0 0 0 0 0
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
-    @echo Errori di norma:
-    norminette *.c *.h | grep Error! | wc -l
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
-' >> Makefile
+	@echo Errori di norma:
+	norminette *.c *.h | grep Error! | wc -l
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
+' >> philo/Makefile
 
 clear
 echo "! Tester installato !"

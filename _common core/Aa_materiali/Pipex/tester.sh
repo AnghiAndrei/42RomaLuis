@@ -1,29 +1,28 @@
 echo '
 test-leaks-m: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Mandatori: input check =====
 	-valgrind ./pipex
-    @echo
+	@echo
 	-valgrind ./pipex infile
-    @echo
+	@echo
 	-valgrind ./pipex infile cmd1
-    @echo
+	@echo
 	-valgrind ./pipex infile cmd1 cmd2
-    @echo
+	@echo
 	-valgrind ./pipex infile ls cat outfile
-    @echo
-	@echo ===== File: infile; create from tester =====
+	@echo
+	@echo "===== File: infile; create from tester ====="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
 	-valgrind ./pipex infile aanghi cat outfile
-    @echo
+	@echo
 	-valgrind ./pipex infile ls aanghi outfile
-    @echo
+	@echo
 	@cat outfile
-	@echo ! Se il file: outfile; non e apribile, e considerato errore
+	@echo ! Se il file: outfile, non e apribile, e considerato errore
 	@echo ==================== Mandatori: function check ====================
 	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-valgrind ./pipex infile "ls -la" "grep .c" outfile
@@ -39,34 +38,33 @@ test-leaks-m: re
 	-< infile grep hola | cat -e > outfile
 	@cat outfile
 	@rm outfile
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-leaks-b: bonus
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Bonus: input check =====
 	-valgrind ./pipex
-    @echo
+	@echo
 	-valgrind ./pipex infile
-    @echo
+	@echo
 	-valgrind ./pipex infile cmd1
-    @echo
+	@echo
 	-valgrind ./pipex infile cmd1 cmd2
-    @echo
+	@echo
 	-valgrind ./pipex infile ls cat outfile
-    @echo
-	@echo ===== File: infile; create from tester =====
+	@echo
+	@echo "===== File: infile; create from tester ====="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
 	-valgrind ./pipex infile aanghi cat outfile
-    @echo
+	@echo
 	-valgrind ./pipex infile ls aanghi outfile
-    @echo
+	@echo
 	@cat outfile
-	@echo ! Se il file: outfile; non e apribile, e considerato errore
+	@echo "! Se il file: outfile; non e apribile, e considerato errore"
 	@echo ==================== Bonus: function check ====================
 	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-valgrind ./pipex infile "echo voglio mangiare il tuo pancreas" "grep pancreas" "tr a-z A-Z" "head -n 1" "cat -e" "wc -l" outfile
@@ -75,40 +73,39 @@ test-leaks-b: bonus
 	< infile echo 'voglio mangiare il tuo pancreas' | grep pancreas | tr a-z A-Z | head -n 1 | cat -e | wc -l > outfile
 	@cat outfile
 	@echo "===== CONTROLLO HERE_DOC ====="
-	@echo ! Il file: outfile; deve contenere l'output del pipex precedente con l'attuale !
+	@echo "! Il file: outfile; deve contenere l'output del pipex precedente con l'attuale !"
 	-valgrind ./pipex here_doc fine "grep 42" "cat -e" "wc" outfile
 	@cat outfile
 	-grep 42 << fine | cat -e | wc >> outfile
 	@cat outfile
 	@rm outfile
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks-m: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Mandatori: input check =====
 	-./pipex
-    @echo
+	@echo
 	-./pipex infile
-    @echo
+	@echo
 	-./pipex infile cmd1
-    @echo
+	@echo
 	-./pipex infile cmd1 cmd2
-    @echo
+	@echo
 	-./pipex infile ls cat outfile
-    @echo
-	@echo ===== File: infile; create from tester =====
+	@echo
+	@echo "===== File: infile; create from tester ====="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
 	-./pipex infile aanghi cat outfile
-    @echo
+	@echo
 	-./pipex infile ls aanghi outfile
-    @echo
+	@echo
 	@cat outfile
-	@echo ! Se il file: outfile; non e apribile, e considerato errore
+	@echo ! Se il file: outfile, non e apribile, e considerato errore
 	@echo ==================== Mandatori: function check ====================
 	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-./pipex infile "ls -la" "grep .c" outfile
@@ -124,34 +121,33 @@ test-nleaks-m: re
 	-< infile grep hola | cat -e > outfile
 	@cat outfile
 	@rm outfile
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks-b: bonus
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Bonus: input check =====
 	-./pipex
-    @echo
+	@echo
 	-./pipex infile
-    @echo
+	@echo
 	-./pipex infile cmd1
-    @echo
+	@echo
 	-./pipex infile cmd1 cmd2
-    @echo
+	@echo
 	-./pipex infile ls cat outfile
-    @echo
-	@echo ===== File: infile; create from tester =====
+	@echo
+	@echo "===== File: infile; create from tester ====="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
 	-./pipex infile aanghi cat outfile
-    @echo
+	@echo
 	-./pipex infile ls aanghi outfile
-    @echo
+	@echo
 	@cat outfile
-	@echo ! Se il file: outfile; non e apribile, e considerato errore
+	@echo "! Se il file: outfile; non e apribile, e considerato errore"
 	@echo ==================== Bonus: function check ====================
 	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-./pipex infile "echo voglio mangiare il tuo pancreas" "grep pancreas" "tr a-z A-Z" "head -n 1" "cat -e" "wc -l" outfile
@@ -160,21 +156,21 @@ test-nleaks-b: bonus
 	< infile echo 'voglio mangiare il tuo pancreas' | grep pancreas | tr a-z A-Z | head -n 1 | cat -e | wc -l > outfile
 	@cat outfile
 	@echo "===== CONTROLLO HERE_DOC ====="
-	@echo ! Il file: outfile; deve contenere l'output del pipex precedente con l'attuale !
+	@echo "! Il file: outfile; deve contenere l'output del pipex precedente con l'attuale !"
 	-./pipex here_doc fine "grep 42" "cat -e" "wc" outfile
 	@cat outfile
 	-grep 42 << fine | cat -e | wc >> outfile
 	@cat outfile
 	@rm outfile
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
-    @echo Errori di norma:
-    norminette *.c *.h | grep Error! | wc -l
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo Errori di norma:
+	norminette *.c *.h | grep Error! | wc -l
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 ' >> Makefile
 
 clear

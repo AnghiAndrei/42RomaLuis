@@ -1,81 +1,78 @@
 echo '
 test-leaks-m: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Mandatori =====
-	-valgridn ./push_swap
+	-valgrind ./push_swap
 	@echo
-	-valgridn ./push_swap ""
+	-valgrind ./push_swap ""
 	@echo
-	-valgridn ./push_swap ''
+	-valgrind ./push_swap ''
 	@echo
-	-valgridn ./push_swap "   "
+	-valgrind ./push_swap "   "
 	@echo
-	-valgridn ./push_swap 42 42
+	-valgrind ./push_swap 42 42
 	@echo
-	-valgridn ./push_swap Voglio mangiare il tuo pancreas
+	-valgrind ./push_swap Voglio mangiare il tuo pancreas
 	@echo
-	-valgridn ./push_swap "Voglio mangiare il tuo pancreas"
+	-valgrind ./push_swap "Voglio mangiare il tuo pancreas"
 	@echo
-	-valgridn ./push_swap "Voglio mangiare il tuo pancreas" 42
+	-valgrind ./push_swap "Voglio mangiare il tuo pancreas" 42
 	@echo
-	-valgridn ./push_swap "42" Voglio mangiare il tuo pancreas
+	-valgrind ./push_swap "42" Voglio mangiare il tuo pancreas
 	@echo
-	-valgridn ./push_swap "++42"
+	-valgrind ./push_swap "++42"
 	@echo
-	-valgridn ./push_swap "--42"
+	-valgrind ./push_swap "--42"
 	@echo
-	-valgridn ./push_swap 1 "2" 3
+	-valgrind ./push_swap 1 "2" 3
 	@echo
-	-valgridn ./push_swap 1 "2 3" 4
+	-valgrind ./push_swap 1 "2 3" 4
 	@echo
-	-valgridn ./push_swap 1 "2 3" 2
+	-valgrind ./push_swap 1 "2 3" 2
 	@echo
-	-valgridn ./push_swap "''"
+	-valgrind ./push_swap "''"
 	@echo
-	-valgridn ./push_swap '""'
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	-valgrind ./push_swap '""'
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-leaks-b: bonus
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Bonus =====
-	-valgridn ./checker
+	-valgrind ./checker
 	@echo
-	-valgridn ./checker ""
+	-valgrind ./checker ""
 	@echo
-	-valgridn ./checker ''
+	-valgrind ./checker ''
 	@echo
-	-valgridn ./checker "   "
+	-valgrind ./checker "   "
 	@echo
-	-valgridn ./checker 42 42
+	-valgrind ./checker 42 42
 	@echo
-	-valgridn ./checker Voglio mangiare il tuo pancreas
+	-valgrind ./checker Voglio mangiare il tuo pancreas
 	@echo
-	-valgridn ./checker "Voglio mangiare il tuo pancreas"
+	-valgrind ./checker "Voglio mangiare il tuo pancreas"
 	@echo
-	-valgridn ./checker "Voglio mangiare il tuo pancreas" 42
+	-valgrind ./checker "Voglio mangiare il tuo pancreas" 42
 	@echo
-	-valgridn ./checker "42" Voglio mangiare il tuo pancreas
+	-valgrind ./checker "42" Voglio mangiare il tuo pancreas
 	@echo
-	-valgridn ./checker "++42"
+	-valgrind ./checker "++42"
 	@echo
-	-valgridn ./checker "--42"
+	-valgrind ./checker "--42"
 	@echo
-	-valgridn ./checker 1 "2" 3
+	-valgrind ./checker 1 "2" 3
 	@echo
-	-valgridn ./checker 1 "2 3" 4
+	-valgrind ./checker 1 "2 3" 4
 	@echo
-	-valgridn ./checker 1 "2 3" 2
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	-valgrind ./checker 1 "2 3" 2
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks-m: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Mandatori =====
 	-./push_swap
 	@echo
@@ -108,13 +105,12 @@ test-nleaks-m: re
 	-./push_swap "''"
 	@echo
 	-./push_swap '""'
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks-b: bonus
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	@echo ===== Bonus =====
 	-./checker
 	@echo
@@ -143,16 +139,16 @@ test-nleaks-b: bonus
 	-./checker 1 "2 3" 4
 	@echo
 	-./checker 1 "2 3" 2
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
-    @echo Errori di norma:
-    norminette *.c *.h | grep Error! | wc -l
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo Errori di norma:
+	norminette *.c *.h | grep Error! | wc -l
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 ' >> Makefile
 
 clear

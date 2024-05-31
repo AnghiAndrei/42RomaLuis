@@ -176,8 +176,7 @@ echo "" > maps/error11.cub
 
 echo '
 test-leaks: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	-valgrind ./cub3D
 	@echo
 	-valgrind ./cub3D maps/1.cub maps/2.cub
@@ -205,15 +204,14 @@ test-leaks: re
 	-valgrind ./cub3D maps/error9.cub
 	@echo
 	-valgrind ./cub3D maps/error10.cub
-    @echo
-    -valgrind ./cub3D maps/error11.cub
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	-valgrind ./cub3D maps/error11.cub
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks: re
-    @-title TESTER AANGHI [Angly colui che regna]
-    @clear
+	@clear
 	-./cub3D
 	@echo
 	-./cub3D maps/1.cub maps/2.cub
@@ -241,18 +239,18 @@ test-nleaks: re
 	-./cub3D maps/error9.cub
 	@echo
 	-./cub3D maps/error10.cub
-    @echo
-    -./cub3D maps/error11.cub
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo
+	-./cub3D maps/error11.cub
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
-    @echo Errori di norma:
-    norminette *.c *.h | grep Error! | wc -l
-    @echo
-    @echo
-    @echo TESTER AANGHI [Angly colui che regna]
+	@echo Errori di norma:
+	norminette *.c *.h | grep Error! | wc -l
+	@echo
+	@echo
+	@echo TESTER AANGHI [Angly colui che regna]
 ' >> Makefile
 
 clear
