@@ -1,0 +1,71 @@
+<link href="/styles/settings.css" rel="stylesheet" />
+<strong class="mb-0" id="security-title">Security</strong>
+<p id="security-description">Enhance your account security.</p>
+<div class="list-group mb-5 shadow">
+  <div class="list-group-item">
+    <div class="row align-items-center">
+      <div class="col">
+        <strong class="mb-0" id="two-factor-title"
+          >Two-Factor Authentication</strong
+        >
+        <p class="text-muted mb-0" id="two-factor-description">
+          Enable or disable 2FA for additional security.
+        </p>
+      </div>
+      <div class="col-auto">
+        <input type="checkbox" class="custom-control-input" id="toggle2FA" />
+        <label class="custom-control-label" for="toggle2FA"></label>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="my-4" />
+<strong class="mb-0" id="language-title">Language Settings</strong>
+<p id="language-description">Choose your preferred language.</p>
+<div class="mb-5">
+  <select class="custom-select" id="language-select">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="de">Deutsch</option>
+    <option value="it">Italiano</option>
+  </select>
+</div>
+<div class="row align-items-center">
+  <button id="saveSettings" class="btn btn-secondary" disabled>
+    Save Changes
+  </button>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="confirmationModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message">
+          Please check your email, including the spam folder, for a confirmation
+          code.
+        </p>
+        <input
+          type="text"
+          id="confirmationCode"
+          placeholder="Enter confirmation code here"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cancelButton"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" id="confirmButton">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

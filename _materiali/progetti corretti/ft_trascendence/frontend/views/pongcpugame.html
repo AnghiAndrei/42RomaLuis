@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transcendence</title>
+    <link href="/styles/gamelobby.css" rel="stylesheet">
+    <script type="module" src="../src/playervsai.js" defer></script>
+</head>
+<body>
+    <div id="gameOverScreen" style="display: none; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #5a9eff;" id="winnerMessage"></h1>
+        <button id="goBackButton" class="btn btn-primary m-2">Go Back</button>
+        <button id="playAgainButton" class="btn btn-primary m-2">Play Again</button>
+    </div>
+    <div id="customizationContainer">
+      <h1 id="customizeMessage">Customize Your Game</h1>
+      <div class="customization-row">
+        <div class="customization-section">
+          <label for="ballType" id="selectBall">Select Ball:</label>
+          <select id="ballType">
+            <option value="default">Default</option>
+            <option value="pong_ball.png" id="pingPongBall">Ping Pong Ball</option>
+            <option value="tennis_ball.png" id="tennisBall">Tennis Ball</option>
+            <option value="hockey_ball.png" id="hockeyBall">Hockey Puck</option>
+          </select>
+          <canvas id="ballImagePreview" width="100" height="100"></canvas>
+        </div>
+  
+        <div class="customization-section">
+          <label for="fieldType" id="selectField">Select Field:</label>
+          <select id="fieldType">
+            <option value="default">Default</option>
+            <option value="ping_pong" id="pingPongField">Ping Pong Field</option>
+            <option value="tennis" id="tennisField">Tennis Court</option>
+            <option value="hockey" id="hockeyField">Hockey Rink</option>
+          </select>
+          <canvas id="fieldImagePreview" width="100" height="100"></canvas>
+        </div>
+  
+        <div class="customization-section">
+          <label for="paddleType" id="selectPaddle">Select Paddle:</label>
+          <select id="paddleType">
+            <option value="default">Default</option>
+            <option value="pong_racket.png" id="pingPongPaddle">Ping Pong Paddle</option>
+            <option value="tennis_racket.png" id="tennisPaddle">Tennis Racket</option>
+            <option value="hockey_racket.png" id="hockeyPaddle">Hockey Stick</option>
+          </select>
+          <canvas id="paddleImagePreview" width="100" height="100"></canvas>
+        </div>
+      </div>
+      
+        <div id="startGameButtonContainer">
+          <button id="startGameButton" class="btn btn-primary m-2">Start Game</button>
+        </div>
+      </div>
+    <canvas id="pongCPUGameCanvas"></canvas>
+</body>
+</html>

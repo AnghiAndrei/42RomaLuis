@@ -1,0 +1,93 @@
+.widget-author {
+  margin-bottom: 58px;
+}
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.author-card {
+  padding-bottom: 48px;
+  background-color: #fff;
+  box-shadow: 0 12px 20px 1px rgba(64, 64, 64, 0.09);
+}
+
+.author-card-cover {
+  background-color: #f9c000;
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+
+.author-card-cover > .btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 0 10px;
+}
+
+.author-card-profile {
+  background-color: #fff;
+  display: table;
+  position: relative;
+  margin-top: -22px;
+  padding-right: 15px;
+  padding-bottom: 16px;
+  padding-left: 20px;
+}
+
+.author-card-avatar {
+  display: table-cell;
+  vertical-align: middle;
+  width: 85px;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.author-card-avatar > img {
+  display: block;
+  width: 100%;
+}
+
+.author-card-details {
+  display: table-cell;
+  vertical-align: middle;
+  padding-top: 20px;
+  padding-left: 15px;
+}
+
+.author-card-name {
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.author-card-position {
+  display: block;
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btn-style-1.btn-white {
+  background-color: #fff;
+}
+
+.form-group label {
+  color: #8c8c8c; /* Example color: blue */
+}
+
+/*.userinfo {*/
+/*  margin-top: 20px;*/
+/*}*/
+
+.modal-content.bg-dark {
+  background-color: #343a40; /* Dark grey background */
+  color: #fff; /* White text color */
+}
+
+.btn-close-white::after {
+  filter: invert(1); /* Makes the close button white */
+}

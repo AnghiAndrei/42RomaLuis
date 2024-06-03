@@ -1,0 +1,57 @@
+{
+	"it":{
+			"security-title": "Sicurezza",
+			"security-description": "Migliora la sicurezza del tuo account.",
+			"two-factor-title": "Autenticazione a Due Fattori",
+			"two-factor-description": "Attiva o disattiva l'autenticazione a due fattori per una sicurezza aggiuntiva.",
+			"language-title": "Impostazioni Lingua",
+			"language-description": "Scegli la tua lingua preferita.",
+			"confirm-message": "Controlla la tua email, inclusa la cartella dello spam, per un codice di conferma.",
+			"cancelButton": "Annulla",
+			"confirmButton": "Conferma"
+		},
+	"en":{
+			"security-title": "Security",
+			"security-description": "Improve the security of your account.",
+			"two-factor-title": "Two-Factor Authentication",
+			"two-factor-description": "Enable or disable two-factor authentication for added security.",
+			"language-title": "Language Settings",
+			"language-description": "Choose your preferred language.",
+			"confirm-message": "Check your email, including your spam folder, for a confirmation code.",
+			"cancelButton": "Cancel",
+			"confirmButton": "Confirm"
+		},
+	"fr":{
+		"security-title": "Sécurité",
+		"security-description": "Améliorez la sécurité de votre compte.",
+		"two-factor-title": "Authentification à deux facteurs",
+		"two-factor-description": "Activez ou désactivez l'authentification à deux facteurs pour une sécurité accrue.",
+		"language-title": "Paramètres de langue",
+		"language-description": "Choisissez votre langue préférée.",
+		"confirm-message": "Vérifiez votre e-mail, y compris votre dossier de spam, pour un code de confirmation.",
+		"cancelButton": "Annuler",
+		"confirmButton": "Confirmer"
+	},
+	"es":{
+		"security-title": "Seguridad",
+		"security-description": "Mejora la seguridad de tu cuenta.",
+		"two-factor-title": "Autenticación de dos factores",
+		"two-factor-description": "Habilita o deshabilita la autenticación de dos factores para una mayor seguridad.",
+		"language-title": "Configuración de idioma",
+		"language-description": "Elige tu idioma preferido.",
+		"confirm-message": "Revise su correo electrónico, incluida la carpeta de spam, para obtener un código de confirmación.",
+		"cancelButton": "Cancelar",
+		"confirmButton": "Confirmar"
+	},
+	"de":{
+		"security-title": "Sicherheit",
+		"security-description": "Verbessern Sie die Sicherheit Ihres Kontos.",
+		"two-factor-title": "Zwei-Faktor-Authentifizierung",
+		"two-factor-description": "Aktivieren oder deaktivieren Sie die Zwei-Faktor-Authentifizierung für zusätzliche Sicherheit.",
+		"language-title": "Spracheinstellungen",
+		"language-description": "Wählen Sie Ihre bevorzugte Sprache.",
+		"confirm-message": "Überprüfen Sie Ihre E-Mails, einschließlich Ihres Spam-Ordners, auf einen Bestätigungscode.",
+		"cancelButton": "Stornieren",
+		"confirmButton": "Bestätigen"
+	}
+}

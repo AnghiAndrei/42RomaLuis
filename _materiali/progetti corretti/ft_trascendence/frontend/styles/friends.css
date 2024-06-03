@@ -1,0 +1,176 @@
+.header-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-item {
+  color: #ffffff;
+}
+
+.col-6 {
+  border-width: thick;
+  border-color: #5e12e6;
+  border-style: solid;
+}
+
+#friendsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.more-button {
+  background-color: transparent;
+  border: none;
+  font-size: large;
+  padding: 0;
+  width: auto;
+  height: auto;
+  color: #f4f4f4;
+}
+
+.more-button::after {
+  content: "\2807";
+}
+
+#friend-container,
+#available-container {
+  flex: 1;
+}
+
+.item-name {
+  width: 50%; /* Adjust as needed */
+  color: #ffffff;
+  max-height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-message {
+  color: #ffffff;
+  width: 33%;
+  font-size: x-small;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-content-left {
+  position: fixed;
+  /* top: 100%; */
+  /* left: 0; */
+  /* padding: 0; */
+  /* margin: 0; */
+  border: 2px solid #fa4a68;
+  display: none;
+  /* right: 2%; */
+  /* background-color: #f9f9f9; */
+  width: 100px; /* Adjust as needed */
+  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+  /* z-index: 1; */
+  /* margin: auto; */
+}
+
+.dropdown-content-right {
+  position: fixed;
+  border: 2px solid #fa4a68;
+  display: none;
+  right: 2%;
+  width: 100px; /* Adjust as needed */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.show {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-wrapper {
+  width: auto;
+  position: relative;
+}
+
+.button-style {
+  border: none;
+  background: none;
+  color: white;
+  padding: 0;
+  margin: 0;
+  width: 90%;
+}
+
+.custom-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1050; /* Same as Bootstrap's modal */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.custom-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* Adjusted for better positioning */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  width: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+}
+
+.custom-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.custom-close:hover,
+.custom-close:focus {
+  color: #000; /* Black on hover/focus */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.custom-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* Gap between columns */
+}
+
+.custom-column {
+  flex: 1;
+  padding: 10px;
+}
+
+.custom-column p {
+  margin: 10px 0;
+  font-size: 16px; /* Increased font size for readability */
+  line-height: 1.5; /* Better line spacing */
+}
+
+.custom-profile-image-container {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.custom-profile-image-container img {
+  max-width: 100px; /* Adjust the size of the profile image */
+  height: auto;
+  border-radius: 50%; /* Make the image round */
+  border: 2px solid #ddd; /* Add a border to the image */
+}

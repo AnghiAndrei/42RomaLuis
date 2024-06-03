@@ -1,0 +1,117 @@
+
+services:
+  postgres:
+    image: postgres
+    networks:
+      - transcendence_network
+    volumes:
+      - db:/var/lib/postgresql/data
+    env_file: ./back/.env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U pguser -d dbname" ]
+      interval: 5s
+      timeout: 5s
+      retries: 100
+    restart: on-failure
+
+  friends:
+    build:
+      context: ./back/friendRequests
+    ports:
+      - "8004:4000"
+    networks:
+      - transcendence_network
+    env_file: ./back/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./ssl:/usr/src/app/ssl
+    restart: on-failure
+
+  auth:
+    build:
+      context: ./back/authentication
+    ports:
+      - "8003:4000"
+    networks:
+      - transcendence_network
+    env_file: ./back/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./ssl:/usr/src/app/ssl
+    restart: on-failure
+
+  user:
+    build:
+      context: ./back/user
+    ports:
+      - "8002:4000"
+    networks:
+      - transcendence_network
+    env_file: ./back/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./ssl:/usr/src/app/ssl
+    restart: on-failure
+
+  game:
+    build:
+      context: ./back/game
+    ports:
+      - "8001:4000"
+    networks:
+      - transcendence_network
+    env_file: ./back/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./ssl:/usr/src/app/ssl
+    restart: on-failure
+
+#  redis:
+#    build:
+#      context: ./redis
+#    networks:
+#      - transcendence_network
+#
+#  daphne:
+#    depends_on:
+#      - redis
+#    build:
+#      context: ./daphne
+#    command: bash -c "cd  && daphne -e ssl:8000:privateKey=../ssl/cert-key.pem:certKey=../ssl/fullchain.pem .asgi:application"
+#    volumes:
+#      - ./back:/usr/src/app
+#    ports:
+#      - 8000:8000
+#    networks:
+#      - transcendence_network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    env_file: ./frontend/.env
+    networks:
+      - transcendence_network
+    depends_on:
+      - user
+      - game
+      - auth
+      - friends
+    restart: on-failure
+
+volumes:
+    db:
+    ssl:
+
+networks:
+  transcendence_network:
+    driver: bridge
