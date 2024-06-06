@@ -7,30 +7,50 @@
 #include <ctime>
 #include <deque>
 
+// int dimenzione_rimanenti((*list).size()/pend)*pend-(*list).size()
+
 template<typename T>
 void sort(T *list){
 	std::cout<<std::endl;
-	for (size_t pend=2;pend<=(*list).size();pend=pend*2){
-		int npend=1;
-		if(pend!=2)npend=pend/2;
-		for (size_t i=0; i<(*list).size();i+=pend){
-			if((*list).size()-i<pend)break;
-			std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+pend-npend<<"["<<(*list)[i+pend-npend]<<"]"<<" | "<<"pend: "<<pend<<std::endl;
-			if((*list)[i] < (*list)[i+pend-npend]){
-				for (size_t v=0;v!=pend-npend;v++){
-					int temp=(*list)[i+pend-npend+v];
-					(*list)[i+pend-npend+v]=(*list)[i+v];
-					(*list)[i+v]=temp;
-				}
-			}
+	for (size_t i=0;(*list).size()>i;i+=2){
+		// std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+1<<"["<<(*list)[i+1]<<"]"<<" | "<<"pend: 2"<<std::endl;
+		if((*list)[i] > (*list)[i+1] && i+1<(*list).size()){
+			// std::cout<<"Swap coppie: "<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+1<<"["<<(*list)[i+1]<<"]"<<std::endl;
+			int temp=(*list)[i+1];
+			(*list)[i+1]=(*list)[i];
+			(*list)[i]=temp;
 		}
-		std::cout<<"Pend "<<pend<<": ";
-		for (size_t i=0;(*list).size()!=i;i++){
-			if(i%pend==0)std::cout<<"| ";
-			std::cout<<(*list)[i]<<" ";
-		}
-		std::cout<<"|"<<std::endl<<std::endl;
 	}
+	std::cout<<"Pend 2: ";
+	for (size_t i=0;(*list).size()!=i;i++){
+		if(i%2==0)std::cout<<"| ";
+		std::cout<<(*list)[i]<<" ";
+	}
+	std::cout<<"|"<<std::endl<<std::endl;
+
+	for (size_t i=1;(*list).size()>i;i+=2){
+		std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+2<<"["<<(*list)[i+2]<<"]"<<" | "<<"pend: 2"<<std::endl;
+		if((*list)[i] > (*list)[i+2] && i+2<(*list).size()){
+			std::cout<<"Swap coppie: "<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+2<<"["<<(*list)[i+2]<<"]"<<std::endl;
+			int temp=(*list)[i+2];
+			(*list)[i+2]=(*list)[i];
+			(*list)[i]=temp;
+		}
+	}
+	std::cout<<"Pend 4: ";
+	for (size_t i=0;(*list).size()!=i;i++){
+		if(i%4==0)std::cout<<"| ";
+		std::cout<<(*list)[i]<<" ";
+	}
+	std::cout<<"|"<<std::endl<<std::endl;
+
+
+
+	std::cout<<std::endl;
+	std::cout<<"Lista pesi m.: ";
+	for (size_t i=0;(*list).size()>i;i+=2)
+		std::cout<<(*list)[i]<<" ";
+	std::cout<<std::endl<<std::endl;
 }
 
 #endif

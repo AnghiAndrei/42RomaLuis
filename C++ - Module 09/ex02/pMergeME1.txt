@@ -1,0 +1,57 @@
+#ifndef PMERGEME_HPP
+#define PMERGEME_HPP
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
+#include <vector>
+#include <ctime>
+#include <deque>
+
+// int dimenzione_rimanenti((*list).size()/pend)*pend-(*list).size()
+
+template<typename T>
+void sort(T *list){
+	std::cout<<std::endl;
+	int npend=1;
+	for (size_t pend=2;pend<=(*list).size()+pend-npend;pend=pend*2){
+		if(pend!=2)npend=pend/2;
+		for (size_t i=0; i<=(*list).size();i+=pend){
+			std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+pend-npend<<"["<<(*list)[i+pend-npend]<<"]"<<" | "<<"pend: "<<pend<<std::endl;
+			if((*list)[i] > (*list)[i+pend-npend]){
+				size_t cswap=0;
+				for (size_t v=0;v!=pend-npend;v++){
+					if(i+pend-npend+v<(*list).size()){
+						// std::cout<<"Swap coppie: "<<i+pend-npend+v<<"["<<(*list)[i+pend-npend+v]<<"]"<<" | "<<"i2:"<<i+v<<"["<<(*list)[i+v]<<"]"<<std::endl;
+						int temp=(*list)[i+pend-npend+v];
+						(*list)[i+pend-npend+v]=(*list)[i+v];
+						(*list)[i+v]=temp;
+						cswap++;
+					}
+				}
+				if(cswap!=pend/2){
+					int inizio=((*list).size()/pend)*pend+cswap;
+					for (size_t i2=inizio;i2<(*list).size()-1;i2++){
+						// std::cout<<"Swap singolo: "<<i+pend-npend+i2<<"["<<(*list)[i+pend-npend+i2]<<"]"<<" | "<<"i2:"<<i+i2<<"["<<(*list)[i+i2]<<"]"<<std::endl;
+						int temp=(*list)[i2];
+						(*list)[i2]=(*list)[i2+1];
+						(*list)[i2+1]=temp;
+					}
+				}
+			}
+		}
+		std::cout<<"Pend "<<pend<<": ";
+		for (size_t i=0;(*list).size()!=i;i++){
+			if(i%pend==0)std::cout<<"| ";
+			std::cout<<(*list)[i]<<" ";
+		}
+		std::cout<<"|"<<std::endl<<std::endl;
+	}
+
+	std::cout<<std::endl;
+	std::cout<<"Lista pesi m.: ";
+	for (size_t i=0;(*list).size()>i;i+=2)
+		std::cout<<(*list)[i]<<" ";
+	std::cout<<std::endl<<std::endl;
+}
+
+#endif

@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/05 21:21:08 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/06 12:26:46 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ re: fclean all
 
 ARG5=$$(shuf -i 1-100 -n 5 | tr "\n" " ")
 ARG10=$$(shuf -i 1-100 -n 10 | tr "\n" " ")
+ARG100=$$(shuf -i 1-100 -n 100 | tr "\n" " ")
 ARG3000=$$(shuf -i 1-100000 -n 3000 | tr "\n" " ")
 test: re
 	rm -f $(OBJ)
@@ -56,7 +57,10 @@ test: re
 	@echo
 	@rm -f $(NAME)
 
-ARGS=$$(shuf -i 1-100 -n 15 | tr "\n" " ")
+# ARGS=1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+# ARGS=7 5 2 11 9 12 4 6 8 10 13 3 14 1 15
+# ARGS=6 7 8 5 3 1 2 4
+ARGS=$$(shuf -i 1-9 -n 8 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear
