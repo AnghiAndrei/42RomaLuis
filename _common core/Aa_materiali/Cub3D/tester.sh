@@ -173,6 +173,20 @@ C 43156,156,156
    1000000000000000000000000000000000000000000001
    1111111111111111111111111111111111111111111111" > maps/error10.cub
 echo "" > maps/error11.cub
+echo "NO
+SO ./textures/SO.xpm
+WE ./textures/WE.xpm
+EA ./textures/EA.xpm
+
+F 220,100,0
+C 225,30,0
+
+        1111111111
+        1000000001
+111111111000000001
+100000000000000001
+100000N00000000001
+111111111111111111" > maps/error12.cub
 
 echo '
 test-leaks: re
@@ -206,6 +220,8 @@ test-leaks: re
 	-valgrind ./cub3D maps/error10.cub
 	@echo
 	-valgrind ./cub3D maps/error11.cub
+	@echo
+	-valgrind ./cub3D maps/error12.cub
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
@@ -242,6 +258,8 @@ test-nleaks: re
 	@echo
 	-./cub3D maps/error11.cub
 	@echo
+	@echo
+	-valgrind ./cub3D maps/error12.cub
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 

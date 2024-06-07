@@ -12,45 +12,36 @@
 template<typename T>
 void sort(T *list){
 	std::cout<<std::endl;
-	for (size_t i=0;(*list).size()>i;i+=2){
-		// std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+1<<"["<<(*list)[i+1]<<"]"<<" | "<<"pend: 2"<<std::endl;
-		if((*list)[i] > (*list)[i+1] && i+1<(*list).size()){
-			// std::cout<<"Swap coppie: "<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+1<<"["<<(*list)[i+1]<<"]"<<std::endl;
-			int temp=(*list)[i+1];
-			(*list)[i+1]=(*list)[i];
-			(*list)[i]=temp;
+	int npend=1;
+	size_t pend=2;
+	for (pend=2;pend<(*list).size()+1;pend=pend*2){
+		if(pend!=2)npend=pend/2;
+		for (size_t i=0; i<=(*list).size();i+=pend){
+			std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+pend-npend<<"["<<(*list)[i+pend-npend]<<"]"<<" | "<<"pend: "<<pend<<std::endl;
+			if((*list)[i] < (*list)[i+pend-npend]){
+				for (size_t v=0;v!=pend-npend;v++){
+					if(i+pend-npend+v<(*list).size()){
+						// std::cout<<"Swap coppie: "<<i+pend-npend+v<<"["<<(*list)[i+pend-npend+v]<<"]"<<" | "<<"i2:"<<i+v<<"["<<(*list)[i+v]<<"]"<<std::endl;
+						int temp=(*list)[i+pend-npend+v];
+						(*list)[i+pend-npend+v]=(*list)[i+v];
+						(*list)[i+v]=temp;
+					}
+				}
+			}
 		}
-	}
-	std::cout<<"Pend 2: ";
-	for (size_t i=0;(*list).size()!=i;i++){
-		if(i%2==0)std::cout<<"| ";
-		std::cout<<(*list)[i]<<" ";
-	}
-	std::cout<<"|"<<std::endl<<std::endl;
-
-	for (size_t i=1;(*list).size()>i;i+=2){
-		std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+2<<"["<<(*list)[i+2]<<"]"<<" | "<<"pend: 2"<<std::endl;
-		if((*list)[i] > (*list)[i+2] && i+2<(*list).size()){
-			std::cout<<"Swap coppie: "<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+2<<"["<<(*list)[i+2]<<"]"<<std::endl;
-			int temp=(*list)[i+2];
-			(*list)[i+2]=(*list)[i];
-			(*list)[i]=temp;
+		std::cout<<"Pend "<<pend<<": ";
+		for (size_t i=0;(*list).size()!=i;i++){
+			if(i%pend==0)std::cout<<"| ";
+			std::cout<<(*list)[i]<<" ";
 		}
+		std::cout<<"|"<<std::endl<<std::endl;
 	}
-	std::cout<<"Pend 4: ";
-	for (size_t i=0;(*list).size()!=i;i++){
-		if(i%4==0)std::cout<<"| ";
-		std::cout<<(*list)[i]<<" ";
-	}
-	std::cout<<"|"<<std::endl<<std::endl;
-
-
-
-	std::cout<<std::endl;
+	pend=pend/4;
 	std::cout<<"Lista pesi m.: ";
-	for (size_t i=0;(*list).size()>i;i+=2)
+	for (size_t i=0;(*list).size()>i;i+=pend)
 		std::cout<<(*list)[i]<<" ";
 	std::cout<<std::endl<<std::endl;
+	//ogni mimino di ogni coppia deve essere messo nella lista cercardo il suo spazio per ogni meta
 }
 
 #endif
