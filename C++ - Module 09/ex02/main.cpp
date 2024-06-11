@@ -26,8 +26,13 @@ int main(int argc, char **argv){
 			std::cout<<"Error"<<std::endl;
 			return -1;
 		}
-		listan.push_back(atoi(temp.c_str()));
-		dequen.push_back(atoi(temp.c_str()));
+		if(easyFind(listan, atoi(temp.c_str()))==-1){
+			listan.push_back(atoi(temp.c_str()));
+			dequen.push_back(atoi(temp.c_str()));
+		}else{
+			std::cout<<"Error"<<std::endl;
+			return -1;
+		} 
 	}
 
 	std::cout<<"Before:  ";

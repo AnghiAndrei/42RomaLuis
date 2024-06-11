@@ -26,4 +26,10 @@ void sort(T *list){
 		std::cout<<(*list)[i]<<" ";
 	std::cout<<std::endl<<std::endl;
 }
+
+std::cout<<"Lista swap: ";
+for (size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=pend)
+	std::cout<<(*list)[i]<<" ";
+std::cout<<std::endl<<std::endl;
+
 */

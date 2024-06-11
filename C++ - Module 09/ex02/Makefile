@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/07 15:48:23 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/11 16:13:49 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ re: fclean all
 	c++ $(CFLAGS) -c $< -o $@
 
 ARG5=$$(shuf -i 1-100 -n 5 | tr "\n" " ")
-ARG10=$$(shuf -i 1-100 -n 10 | tr "\n" " ")
-ARG100=$$(shuf -i 1-100 -n 100 | tr "\n" " ")
 ARG3000=$$(shuf -i 1-100000 -n 3000 | tr "\n" " ")
 test: re
 	rm -f $(OBJ)
@@ -45,22 +43,22 @@ test: re
 	@echo
 	-./$(NAME) "-43"
 	@echo
+	-./$(NAME) "42 42"
+	@echo
 	-./$(NAME) "voglio mangiare il tuo pancreas"
 	@echo
 	-./$(NAME) ""
 	@echo
 	-./$(NAME) "$(ARG5)"
 	@echo
-	-./$(NAME) "$(ARG10)"
-	@echo
-	-./$(NAME) "$(ARG3000)"
+# -./$(NAME) "$(ARG3000)"
 	@echo
 	@rm -f $(NAME)
 
 # ARGS=1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 # ARGS=7 5 2 11 9 12 4 6 8 10 13 3 14 1 15
 # ARGS=6 7 8 5 3 1 2 4
-ARGS=$$(shuf -i 1-9 -n 9 | tr "\n" " ")
+ARGS=$$(shuf -i 1-9 -n 8 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear
