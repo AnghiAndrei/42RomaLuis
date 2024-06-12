@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:15
+    container_name: postgresql
+    restart: always
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    networks:
+      - django-postgre
+
+  redis:
+    image: redis:5
+    container_name: redis
+    restart: always
+    ports:
+      - "2000:6379"
+    networks:
+      - django-postgre
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: study/Dockerfile
+    container_name: django
+    volumes:
+      - ./study:/app/backend
+      - ./study/media:/app/backend/study/media
+      - ./tls-certificates:/app/backend/certificate
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - django-postgre
+      - inception
+
+volumes:
+  data:
+
+networks:
+  inception:
+  django-postgre:

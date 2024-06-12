@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/11 16:13:49 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/12 16:49:50 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,16 +51,22 @@ test: re
 	@echo
 	-./$(NAME) "$(ARG5)"
 	@echo
-# -./$(NAME) "$(ARG3000)"
+	-./$(NAME) "$(ARG3000)"
 	@echo
 	@rm -f $(NAME)
 
 # ARGS=1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 # ARGS=7 5 2 11 9 12 4 6 8 10 13 3 14 1 15
 # ARGS=6 7 8 5 3 1 2 4
-ARGS=$$(shuf -i 1-9 -n 8 | tr "\n" " ")
+ARGS=$$(shuf -i 1-8 -n 8 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear
 	-./$(NAME) "$(ARGS)"
+	@rm -f $(NAME)
+
+test3: re
+	rm -f $(OBJ)
+	clear
+	-valgrind --leak-check=full ./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
