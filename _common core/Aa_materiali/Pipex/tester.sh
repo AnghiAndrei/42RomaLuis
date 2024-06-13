@@ -147,8 +147,8 @@ test-nleaks-b: bonus
 	-./pipex infile ls aanghi outfile
 	@echo
 	@cat outfile
-	@echo "! Se il file: outfile; non e apribile, e considerato errore"
 	@echo ==================== Bonus: function check ====================
+	@echo "! Se il file: outfile; non e apribile, e considerato errore"
 	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-./pipex infile "echo voglio mangiare il tuo pancreas" "grep pancreas" "tr a-z A-Z" "head -n 1" "cat -e" "wc -l" outfile
 	@cat outfile
@@ -162,12 +162,13 @@ test-nleaks-b: bonus
 	-grep 42 << fine | cat -e | wc >> outfile
 	@cat outfile
 	@rm outfile
+	@rm infile
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
 	@echo Errori di norma:
-	norminette *.c *.h | grep Error! | wc -l
+	@norminette *.c *.h | grep Error! | wc -l
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

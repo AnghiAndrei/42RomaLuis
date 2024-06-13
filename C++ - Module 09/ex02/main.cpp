@@ -38,10 +38,10 @@ int main(int argc, char **argv){
 	std::cout<<"Before:  ";
 	for (size_t i=0;listan.size()!=i;i++)
 	{
-		if(i==5){
-			std::cout<<"[...]";
-			break;
-		}
+		// if(i==5){
+		// 	std::cout<<"[...]";
+		// 	break;
+		// }
 		std::cout<<listan[i]<<" ";
 	}
 	std::cout<<std::endl;
@@ -51,7 +51,7 @@ int main(int argc, char **argv){
 	std::clock_t end = std::clock();
 	double listat = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 	start = std::clock();
-	sort(&dequen);
+	// sort(&dequen);
 	end = std::clock();
 	double dequet = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 

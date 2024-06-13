@@ -6,12 +6,12 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/12 16:49:50 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/13 14:49:49 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = PmergeMe
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
+CFLAGS = #-Wall -Wextra -Werror -std=c++98 -g
 
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
@@ -55,10 +55,8 @@ test: re
 	@echo
 	@rm -f $(NAME)
 
-# ARGS=1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
-# ARGS=7 5 2 11 9 12 4 6 8 10 13 3 14 1 15
-# ARGS=6 7 8 5 3 1 2 4
-ARGS=$$(shuf -i 1-8 -n 8 | tr "\n" " ")
+# ARGS=5 8 6 2 7 4 1 3
+ARGS=$$(shuf -i 1-8 -n 9 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear
@@ -69,4 +67,10 @@ test3: re
 	rm -f $(OBJ)
 	clear
 	-valgrind --leak-check=full ./$(NAME) "$(ARG3000)"
+	@rm -f $(NAME)
+
+test4: re
+	rm -f $(OBJ)
+	clear
+	-./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
