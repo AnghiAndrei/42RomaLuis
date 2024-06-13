@@ -1,35 +1,16 @@
 #include "PmergeMe.hpp"
 
-/*
-template<typename T>
-void sort(T *list){
-	std::cout<<std::endl;
-	for (size_t i=0;(*list).size()>i;i+=2){
-		std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+1<<"["<<(*list)[i+1]<<"]"<<" | "<<"pend: 2"<<std::endl;
-		if((*list)[i] > (*list)[i+1] && i+1<(*list).size()){
-			// std::cout<<"Swap coppie: "<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+1<<"["<<(*list)[i+1]<<"]"<<std::endl;
-			int temp=(*list)[i+1];
-			(*list)[i+1]=(*list)[i];
-			(*list)[i]=temp;
-		}
-	}
-	std::cout<<"Pend 2: ";
-	for (size_t i=0;(*list).size()!=i;i++){
-		if(i%2==0)std::cout<<"| ";
-		std::cout<<(*list)[i]<<" ";
-	}
-	std::cout<<"|"<<std::endl<<std::endl;
+int calculateJacobs(int n){
+    if(n==0)return 1;
+    if(n==1)return 2;
+    if(n==2)return 3;
 
-	std::cout<<std::endl;
-	std::cout<<"Lista pesi m.: ";
-	for (size_t i=0;(*list).size()>i;i+=2)
-		std::cout<<(*list)[i]<<" ";
-	std::cout<<std::endl<<std::endl;
+    int J0=1, J1=2, J2=3, Jn;
+    for (int i=3;i<=n;++i){
+        Jn=J2+J1+J0;
+        J0=J1;
+        J1=J2;
+        J2=Jn;
+    }
+    return Jn;
 }
-
-std::cout<<"Lista swap: ";
-for (size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=pend)
-	std::cout<<(*list)[i]<<" ";
-std::cout<<std::endl<<std::endl;
-
-*/

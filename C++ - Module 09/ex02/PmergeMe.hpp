@@ -8,6 +8,7 @@
 #include <ctime>
 #include <deque>
 
+int calculateJacobs(int n);
 // int dimenzione_rimanenti((*list).size()/pend)*pend-(*list).size()
 
 template<typename T>
@@ -82,7 +83,29 @@ void sort(T *list){
 				iorder++;
 			}
 		}else{
-			for (size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=(pend/2)){
+			size_t n_cicle=0;
+			for(size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=(pend/2))
+				n_cicle++;
+
+			size_t jacobs=calculateJacobs(0);
+			size_t mjacobs=jacobs;
+			size_t njacobs=1;
+			for (size_t ncicle=0;ncicle!=n_cicle;ncicle++){
+				size_t i=0;
+				if(jacobs==mjacobs && jacob!=1){
+					jacobs=calculateJacobs(njacobs);
+					njacobs++;
+				}
+				//diminuisci il jacobs
+				
+				for(size_t i3=0;jacobs!=i3 && (*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i3++){
+					i+=(pend/2);
+				}
+				if(i==(*list).size())
+					continue;
+				std::cout<<"i: "<<i<<std::endl;
+				std::cout<<"Jacobs: "<<jacobs<<std::endl;
+
 				size_t i3=iorder/2;
 				bool flagp=false, flagg=false, zero=false, max=false, inversione=false;
 
@@ -97,7 +120,7 @@ void sort(T *list){
 				while(1){
 					if(easyFind(order, (*list)[i])==1)
 						break;
-					std::cout<<"i3 pre-insert: "<<i3<<std::endl;
+					// std::cout<<"i3 pre-insert: "<<i3<<std::endl;
 					if(i3!=iorder){
 						if(inversione==true || i3==0){
 							if(flagg==false && (*list)[i]<order[i3]){
@@ -157,7 +180,7 @@ void sort(T *list){
 					}
 					order[i3]=(*list)[i];
 					iorder++;
-					std::cout<<"i3: "<<i3<<std::endl;
+					// std::cout<<"i3: "<<i3<<std::endl;
 					break;
 				}
 			}

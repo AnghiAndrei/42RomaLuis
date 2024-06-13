@@ -82,7 +82,12 @@ void sort(T *list){
 				iorder++;
 			}
 		}else{
-			for (size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=(pend/2)){
+			size_t n_cicle=0;
+			for(size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=(pend/2))
+				n_cicle++;
+
+			size_t i=0;
+			for (size_t ncicle=0;ncicle!=n_cicle;ncicle++){
 				size_t i3=iorder/2;
 				bool flagp=false, flagg=false, zero=false, max=false, inversione=false;
 
@@ -101,7 +106,6 @@ void sort(T *list){
 					if(i3!=iorder){
 						if(inversione==true || i3==0){
 							if(flagg==false && (*list)[i]<order[i3]){
-								std::cout<<"Piu piccolo_reverse"<<std::endl;
 								flagp=true;
 								if(i3==0)
 									zero=false;
@@ -111,7 +115,6 @@ void sort(T *list){
 									continue;
 								}
 							}else if (flagp==false && (*list)[i]>order[i3]){
-								std::cout<<"Piu grande_reverse"<<std::endl;
 								flagg=true;
 								if(i3==iorder)
 									max=false;
@@ -123,17 +126,14 @@ void sort(T *list){
 							}
 						}else{
 							if(flagg==false && (*list)[i]<order[i3]){
-								std::cout<<"Piu piccolo"<<std::endl;
 								flagp=true;
 									zero=true;
 									i3=(i3/2);
 									continue;
 							}else if (flagp==false && (*list)[i]>order[i3]){
-								std::cout<<"Piu grande"<<std::endl;
 								flagg=true;
 								max=true;
 								if(i3==2){
-									std::cout<<"Cambia marcia"<<std::endl;
 									inversione=true;
 									flagp=false;
 									flagg=false;
@@ -144,7 +144,6 @@ void sort(T *list){
 									i3=i3+(iorder-i3)/2;
 								continue;
 							}else{
-								std::cout<<"Cambia marcia"<<std::endl;
 								inversione=true;
 								flagp=false;
 								flagg=false;
@@ -166,6 +165,7 @@ void sort(T *list){
 					std::cout<<"i3: "<<i3<<std::endl;
 					break;
 				}
+				i+=(pend/2);
 			}
 		}
 		// std::cout<<"Lista order: ";
