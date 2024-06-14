@@ -4,7 +4,7 @@ all:
 	git push
 
 MSG=$$(read var; echo var)
--m:
+-m: $(MSG)
 	git add .
 	git commit -m "$(MSG)"
 	git push
