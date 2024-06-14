@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/14 15:42:10 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/14 17:23:58 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,8 +81,8 @@ test: re
 	@echo
 	@rm -f $(NAME)
 
-ARGS=1 3 2 9 6 8 4 7 5
-# ARGS=$$(shuf -i 1-8 -n 9 | tr "\n" " ")
+# ARGS=1 3 2 9 6 8 4 7 5
+ARGS=$$(shuf -i 1-8 -n 9 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear

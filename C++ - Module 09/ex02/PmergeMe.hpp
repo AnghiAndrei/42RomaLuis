@@ -109,22 +109,25 @@ void sort(T *list){
 			if(status==true)
 				pend=1;
 			for (size_t ncicle=0;ncicle<=n_cicle;ncicle++){
-				// std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<" | n_cicle: "<<n_cicle<<std::endl;
 				size_t i=0;
 				while(1){
-					//loop infinito
-					if(jacobs<ncicle){
-						jacobs=calculateJacobs(njacobs);
-						njacobs++;
-					}
-					while(jacobs>=n_cicle)
-						jacobs--;
+					//loop qui
+					std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<" | n_cicle: "<<n_cicle<<std::endl;
+					if((*list).size()==2)
+						while(jacobs>n_cicle)
+							jacobs--;
+					else
+						while(jacobs>n_cicle)
+							jacobs--;
+					std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<" | n_cicle: "<<n_cicle<<std::endl;
+					//loop qui
 					size_t i3=0;
 					if(pend==1){
 						status=true;
 						pend=2;
 					}else status=false;
 					for(i3=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i3++){
+						std::cout<<"\\jacobs: "<<jacobs-1<<" | i: "<<i<<std::endl;
 						if(easyFind(order, (*list)[i])==1)
 							i3--;
 						if(jacobs-1==i3)
@@ -137,8 +140,12 @@ void sort(T *list){
 						break;
 					else
 						jacobs--;
+					if(jacobs<ncicle){
+						jacobs=calculateJacobs(njacobs);
+						njacobs++;
+					}
 				}
-				// std::cout<<"pend: "<<pend<<std::endl;
+				std::cout<<"pend: "<<pend<<std::endl;
 				// std::cout<<"n_cicle: "<<n_cicle<<std::endl;
 				// std::cout<<"ncicle: "<<ncicle<<std::endl;
 				// std::cout<<"Lista: ";
