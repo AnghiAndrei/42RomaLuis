@@ -1,6 +1,6 @@
 all:
 	git add .
-	git commit -m "hola"
+	git commit -m "voglio mangiare il tuo pancreas"
 	git push
 
 MSG=$$(read var; echo var)
