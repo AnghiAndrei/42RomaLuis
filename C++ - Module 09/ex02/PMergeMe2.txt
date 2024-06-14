@@ -92,21 +92,15 @@ void sort(T *list){
 			size_t njacobs=1;
 			for (size_t ncicle=0;ncicle!=n_cicle;ncicle++){
 				size_t i=0;
-				jacobs++;
-				ncicle--;
-				do{
-					jacobs--;
-					ncicle++;
-					if(jacobs==mjacobs && mjacobs!=1){
-						mjacobs=calculateJacobs(njacobs-1);
-						jacobs=calculateJacobs(njacobs);
-						njacobs++;
-					}
-					while(jacobs<=(*list).size())
-						jacobs--;
-					for(size_t i3=0;jacobs!=i3 && (*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i3++)
-						i+=(pend/2);
-				}while(easyFind(order, (*list)[i])==-1);
+				if(jacobs==mjacobs && jacob!=1){
+					jacobs=calculateJacobs(njacobs);
+					njacobs++;
+				}
+				//diminuisci il jacobs
+				
+				for(size_t i3=0;jacobs!=i3 && (*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i3++){
+					i+=(pend/2);
+				}
 				if(i==(*list).size())
 					continue;
 				std::cout<<"i: "<<i<<std::endl;
@@ -124,6 +118,8 @@ void sort(T *list){
 				}
 
 				while(1){
+					if(easyFind(order, (*list)[i])==1)
+						break;
 					// std::cout<<"i3 pre-insert: "<<i3<<std::endl;
 					if(i3!=iorder){
 						if(inversione==true || i3==0){
@@ -187,7 +183,6 @@ void sort(T *list){
 					// std::cout<<"i3: "<<i3<<std::endl;
 					break;
 				}
-				jacobs--;
 			}
 		}
 		// std::cout<<"Lista order: ";

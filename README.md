@@ -9,9 +9,10 @@ Common Core
 # FAQ
 How to use testers:
 1. Create a .sh file in the root of the project
-2. Paste the contents of the tester.sh file into the newly created file
-3. run the .sh file. [sh name_file.sh]
-4. Enjoy your project without segmentation faults and nasty surprises.
+2. copy the contents of the tester.sh of the affected project into the .sh file
+3. run the .sh file [sh name_file.sh]
+4. Resolve segmentation faults, memory errors, memory errors, and other errors
+5. Take that 125/100
 
 # Contact me
 - [Portfolio](https://andreianghi.ddns.net)
