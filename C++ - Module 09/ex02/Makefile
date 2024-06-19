@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/19 15:05:02 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/19 17:13:28 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,12 +77,12 @@ test: re
 	-./$(NAME) "$(ARG9)"
 	@echo
 	-./$(NAME) "$(ARG10)"
-# @echo
-# -./$(NAME) "$(ARG3000)"
+	@echo
+	-./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
 
-ARGS=4 3 5
-# ARGS=$$(shuf -i 1-8 -n 3 | tr "\n" " ")
+# ARGS=4 3 5
+ARGS=$$(shuf -i 1-9 -n 8 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear

@@ -92,6 +92,63 @@ void sort(T *list){
 				size_t i3=iorder/2;
 				bool flagp=false, flagg=false, zero=false, max=false, inversione=false;
 
+				while(1){
+					// std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<std::endl;
+					size_t i3=0;
+					// std::cout<<"\n\nPrima: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
+					while((*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i){
+						// std::cout<<"Nel  : jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
+						if(easyFind(order, (*list)[i])==1){
+							i+=pend;
+							continue;
+						}
+						if(jacobs-1==i3)
+							break;
+						i+=pend;
+					}
+					// std::cout<<"Fuori: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
+					if(jacobs-1==i3 || (*list).size()==2)
+						break;
+					else if(jacobs!=0)
+						jacobs--;
+					if(jacobs<=ncicle || jacobs==0){
+						jacobs=calculateJacobs(njacobs);
+						njacobs++;
+					}
+					while(jacobs>n_cicle)
+						jacobs--;
+				}
+				if(i==(*list).size())
+					continue;
+
+				// while(1){
+				// 	std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<std::endl;
+				// 	while(jacobs>n_cicle)
+				// 		jacobs--;
+				// 	size_t i3=0;
+				// 	std::cout<<"Prima: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
+				// 	while((*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i){
+				// 		std::cout<<"Nel  : jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
+				// 		if(easyFind(order, (*list)[i])==1){
+				// 			i3++;
+				// 			continue;
+				// 		}
+				// 		if(jacobs==i3)
+				// 			break;
+				// 		i+=pend;
+				// 	}
+				// 	std::cout<<"Fuori: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
+				// 	if(jacobs==i3 || (*list).size()==2)
+				// 		break;
+				// 	else if(jacobs!=0)
+				// 		jacobs--;
+				// 	if(jacobs<=ncicle || jacobs==0){
+				// 		jacobs=calculateJacobs(njacobs);
+				// 		njacobs++;
+				// 	}
+				// }
+
+
 				// if(easyFind(order, (*list)[i])!=1){
 				// 	std::cout<<std::endl<<"Lista order: ";
 				// 	for (size_t i5=0;order.size()!=i5;i5++)
@@ -165,10 +222,10 @@ void sort(T *list){
 					iorder++;
 					break;
 				}
-				if(pend==1)
-					i++;
-				else
-					i+=(pend/2);
+				// if(pend==1)
+				// 	i++;
+				// else
+				// 	i+=(pend/2);
 			}
 		}
 		// std::cout<<"Lista order: ";
