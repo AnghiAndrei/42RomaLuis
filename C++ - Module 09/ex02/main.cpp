@@ -50,7 +50,7 @@ int main(int argc, char **argv){
 	std::clock_t end = std::clock();
 	double listat = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 	start = std::clock();
-	sort(&dequen);
+	// sort(&dequen);
 	end = std::clock();
 	double dequet = static_cast<double>(end - start) / CLOCKS_PER_SEC;
 

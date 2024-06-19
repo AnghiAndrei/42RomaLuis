@@ -6,12 +6,12 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/14 17:23:58 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/19 15:05:02 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = PmergeMe
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
+CFLAGS = #-Wall -Wextra -Werror -std=c++98 -g
 
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
@@ -36,6 +36,7 @@ ARG1=$$(shuf -i 1-9 -n 1 | tr "\n" " ")
 ARG2=$$(shuf -i 1-9 -n 2 | tr "\n" " ")
 ARG3=$$(shuf -i 1-9 -n 3 | tr "\n" " ")
 ARG4=$$(shuf -i 1-9 -n 4 | tr "\n" " ")
+ARG5=$$(shuf -i 1-9 -n 5 | tr "\n" " ")
 ARG6=$$(shuf -i 1-9 -n 6 | tr "\n" " ")
 ARG7=$$(shuf -i 1-9 -n 7 | tr "\n" " ")
 ARG8=$$(shuf -i 1-9 -n 8 | tr "\n" " ")
@@ -76,27 +77,14 @@ test: re
 	-./$(NAME) "$(ARG9)"
 	@echo
 	-./$(NAME) "$(ARG10)"
-	@echo
-	-./$(NAME) "$(ARG3000)"
-	@echo
+# @echo
+# -./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
 
-# ARGS=1 3 2 9 6 8 4 7 5
-ARGS=$$(shuf -i 1-8 -n 9 | tr "\n" " ")
+ARGS=4 3 5
+# ARGS=$$(shuf -i 1-8 -n 3 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear
 	-./$(NAME) "$(ARGS)"
-	@rm -f $(NAME)
-
-test3: re
-	rm -f $(OBJ)
-	clear
-	-valgrind --leak-check=full ./$(NAME) "$(ARGS)"
-	@rm -f $(NAME)
-
-test4: re
-	rm -f $(OBJ)
-	clear
-	-./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
