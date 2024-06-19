@@ -9,7 +9,6 @@
 #include <deque>
 
 int calculateJacobs(int n);
-// int dimenzione_rimanenti((*list).size()/pend)*pend-(*list).size()
 
 template<typename T>
 int easyFind(T& vec, int ago){
@@ -32,7 +31,6 @@ void sort(T *list){
 		for (size_t i=0; i<=(*list).size();i+=pend){
 			if((*list).size()<=i+pend-npend)
 				break;
-			// std::cout<<"i:"<<i<<"["<<(*list)[i]<<"]"<<" | "<<"i2:"<<i+pend-npend<<"["<<(*list)[i+pend-npend]<<"]"<<" | "<<"pend: "<<pend<<std::endl;
 			if((*list)[i] < (*list)[i+pend-npend]){
 				for (size_t v=0;v!=pend-npend;v++){
 					if(i+pend-npend+v<(*list).size()){
@@ -43,12 +41,6 @@ void sort(T *list){
 				}
 			}
 		}
-		// std::cout<<"Pend "<<pend<<": ";
-		// for (size_t i=0;(*list).size()!=i;i++){
-		// 	if(i%pend==0)std::cout<<"| ";
-		// 	std::cout<<(*list)[i]<<" ";
-		// }
-		// std::cout<<"|"<<std::endl<<std::endl;
 	}
 	pend=pend/2;
 	size_t pendm=pend;
@@ -73,7 +65,6 @@ void sort(T *list){
 			}
 		}
 		if(pend==pendm){
-			// std::cout<<"! Inserimento primi numeri in lista ordinata !"<<std::endl;
 			for (size_t i=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i+=(pend/2)){
 				order[iorder]=(*list)[i];
 				iorder++;
@@ -93,11 +84,8 @@ void sort(T *list){
 				bool flagp=false, flagg=false, zero=false, max=false, inversione=false;
 
 				while(1){
-					// std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<std::endl;
 					size_t i3=0;
-					// std::cout<<"\n\nPrima: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
 					while((*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i){
-						// std::cout<<"Nel  : jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
 						if(easyFind(order, (*list)[i])==1){
 							i+=pend;
 							continue;
@@ -106,7 +94,6 @@ void sort(T *list){
 							break;
 						i+=pend;
 					}
-					// std::cout<<"Fuori: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
 					if(jacobs-1==i3 || (*list).size()==2)
 						break;
 					else if(jacobs!=0)
@@ -120,43 +107,6 @@ void sort(T *list){
 				}
 				if(i==(*list).size())
 					continue;
-
-				// while(1){
-				// 	std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<std::endl;
-				// 	while(jacobs>n_cicle)
-				// 		jacobs--;
-				// 	size_t i3=0;
-				// 	std::cout<<"Prima: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
-				// 	while((*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i){
-				// 		std::cout<<"Nel  : jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
-				// 		if(easyFind(order, (*list)[i])==1){
-				// 			i3++;
-				// 			continue;
-				// 		}
-				// 		if(jacobs==i3)
-				// 			break;
-				// 		i+=pend;
-				// 	}
-				// 	std::cout<<"Fuori: jacobs: "<<jacobs<<" | i3: "<<i3<<" | i: "<<i<<" | val: "<<(*list)[i]<<std::endl;
-				// 	if(jacobs==i3 || (*list).size()==2)
-				// 		break;
-				// 	else if(jacobs!=0)
-				// 		jacobs--;
-				// 	if(jacobs<=ncicle || jacobs==0){
-				// 		jacobs=calculateJacobs(njacobs);
-				// 		njacobs++;
-				// 	}
-				// }
-
-
-				// if(easyFind(order, (*list)[i])!=1){
-				// 	std::cout<<std::endl<<"Lista order: ";
-				// 	for (size_t i5=0;order.size()!=i5;i5++)
-				// 		std::cout<<order[i5]<<" ";
-				// 	std::cout<<std::endl;
-				// 	std::cout<<"Da inserire: "<<(*list)[i]<<std::endl;
-				// }
-
 				while(1){
 					if(easyFind(order, (*list)[i])==1)
 						break;
@@ -222,23 +172,8 @@ void sort(T *list){
 					iorder++;
 					break;
 				}
-				// if(pend==1)
-				// 	i++;
-				// else
-				// 	i+=(pend/2);
 			}
 		}
-		// std::cout<<"Lista order: ";
-		// for (size_t i5=0;order.size()!=i5;i5++)
-		// 	std::cout<<order[i5]<<" ";
-		// std::cout<<std::endl;
-
-		// std::cout<<"Lista swap: ";
-		// for (size_t i=0;(*list).size()!=i;i++){
-		// 	if(i%pend==0)std::cout<<"| ";
-		// 	std::cout<<(*list)[i]<<" ";
-		// }
-		// std::cout<<std::endl<<std::endl;
 	}
 	for (size_t i=0;(*list).size()+1!=i;i++)
 		(*list)[i]=order[i];
