@@ -37,8 +37,3 @@ Memoria dinamica: malloc, free
 Errori: perror, strerror
 Uscire: exit
 L'intere librerie: math, MinilibX
-
-Da approfondire:
-Except for the map content, each type of element can be separated by one or more empty line(s).
-Except for the map content which always has to be the last, each type of element can be set in any order in the file.
-Except for the map, each type of information from an element can be separated by one or more space(s).

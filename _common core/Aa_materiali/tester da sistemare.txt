@@ -1,0 +1,5 @@
+! I tester sono funzionanti ma devo rivederli per farli piu carini !
+
+Pipex [Sistema tutto]
+Push_Swap [Aggiungere Tester funzionalita]
+So_Logn [Spiegazione di ogni mappa]

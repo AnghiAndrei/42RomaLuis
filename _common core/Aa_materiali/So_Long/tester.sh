@@ -119,7 +119,7 @@ test-nleaks: re
 
 test-norm:
 	@echo Errori di norma:
-	norminette *.c *.h | grep Error! | wc -l
+	@norminette *.c *.h | grep Error! | wc -l
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

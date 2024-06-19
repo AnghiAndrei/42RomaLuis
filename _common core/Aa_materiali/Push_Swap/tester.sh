@@ -1,5 +1,5 @@
 echo '
-test-leaks-m: re
+test-i-leaks-m: re
 	@clear
 	@echo ===== Mandatori =====
 	-valgrind ./push_swap
@@ -37,7 +37,7 @@ test-leaks-m: re
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
-test-leaks-b: bonus
+test-i-leaks-b: bonus
 	@clear
 	@echo ===== Bonus =====
 	-valgrind ./checker
@@ -71,7 +71,7 @@ test-leaks-b: bonus
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
-test-nleaks-m: re
+test-i-nleaks-m: re
 	@clear
 	@echo ===== Mandatori =====
 	-./push_swap
@@ -109,7 +109,7 @@ test-nleaks-m: re
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
-test-nleaks-b: bonus
+test-i-nleaks-b: bonus
 	@clear
 	@echo ===== Bonus =====
 	-./checker
@@ -143,9 +143,12 @@ test-nleaks-b: bonus
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
+ARG_TESTER_100=$$(shuf -i 1-100 -n 100 | tr "\n" " ") #genera 100 numeri random da 1 a 100
+ARG_TESTER_100=$$(shuf -i 1-500 -n 500 | tr "\n" " ") #genera 500 numeri random da 1 a 500
+
 test-norm:
 	@echo Errori di norma:
-	norminette *.c *.h | grep Error! | wc -l
+	@norminette *.c *.h | grep Error! | wc -l
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
@@ -155,8 +158,8 @@ clear
 echo "! Tester installato !"
 echo
 echo "Istruzioni:"
-echo "make test-leaks-m: per testare l'input della parte mandatori con controllo leaks"
-echo "make test-nleaks-m: per testare l'input della parte mandatori senza controllo leaks"
-echo "make test-leaks-b: per testare l'input della parte bonus con controllo leaks"
-echo "make test-nleaks-b: per testare l'input della parte bonus senza controllo leaks"
+echo "make test-i-leaks-m: per testare l'input della parte mandatori con controllo leaks"
+echo "make test-i-nleaks-m: per testare l'input della parte mandatori senza controllo leaks"
+echo "make test-i-leaks-b: per testare l'input della parte bonus con controllo leaks"
+echo "make test-i-nleaks-b: per testare l'input della parte bonus senza controllo leaks"
 echo "make test-norm: per testare la norma"

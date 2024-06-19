@@ -15,7 +15,7 @@ test-leaks: re
 	@echo
 	-valgrind ./philo 0 0 0 0
 	@echo
-	-valgrind ./philo 2 800 200 0
+	-valgrind ./philo 2 800 200 200 0
 	@echo
 	-valgrind ./philo 0 0 0 0 0
 	@echo
@@ -38,7 +38,7 @@ test-nleaks: re
 	@echo
 	-./philo 0 0 0 0
 	@echo
-	-./philo 2 800 200 0
+	-./philo 2 800 200 200 0
 	@echo
 	-./philo 0 0 0 0 0
 	@echo
@@ -47,7 +47,7 @@ test-nleaks: re
 
 test-norm:
 	@echo Errori di norma:
-	norminette *.c *.h | grep Error! | wc -l
+	@norminette *.c *.h | grep Error! | wc -l
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

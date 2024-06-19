@@ -87,8 +87,8 @@ void sort(T *list){
 			}
 		}else{
 			size_t n_cicle=0;
-			size_t jacobs=calculateJacobs(3);
-			size_t njacobs=4;
+			size_t jacobs=calculateJacobs(1);
+			size_t njacobs=2;
 			if(pend==1){
 				status=true;
 				pend=2;
@@ -111,32 +111,27 @@ void sort(T *list){
 			for (size_t ncicle=0;ncicle<=n_cicle;ncicle++){
 				size_t i=0;
 				while(1){
-					//loop qui
 					std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<" | n_cicle: "<<n_cicle<<std::endl;
-					if((*list).size()==2)
-						while(jacobs>n_cicle)
-							jacobs--;
-					else
-						while(jacobs>n_cicle)
-							jacobs--;
-					std::cout<<"jacobs: "<<jacobs<<" | njacobs: "<<njacobs<<" | n_cicle: "<<n_cicle<<std::endl;
-					//loop qui
-					size_t i3=0;
+					while(jacobs>n_cicle)
+						jacobs--;
+					size_t i3=1;
 					if(pend==1){
 						status=true;
 						pend=2;
 					}else status=false;
-					for(i3=0;(*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i;i3++){
+					if(easyFind(order, (*list)[i])==-1)
+						i3++;
+					while((*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i){
 						std::cout<<"\\jacobs: "<<jacobs-1<<" | i: "<<i<<std::endl;
-						if(easyFind(order, (*list)[i])==1)
-							i3--;
-						if(jacobs-1==i3)
+						if(jacobs==i3)
 							break;
 						i+=(pend/2);
+						if(easyFind(order, (*list)[i])==-1)
+							i3++;
 					}
 					if(status==true)
 						pend=1;
-					if(jacobs-1==i3)
+					if(jacobs==i3)
 						break;
 					else
 						jacobs--;

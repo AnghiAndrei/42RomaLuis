@@ -1,2 +1,5 @@
-i seguenti indirizzi non si possono usare:
--192.0.0.0
+i seguenti indirizzi non si possono usare, perche indirizzi privati:
+192.X.X.X
+92.X.X.X
+
+tutte le reti: X.0.0.0 non possono essere utilizzate, perche indirizzi privati

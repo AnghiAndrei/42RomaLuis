@@ -9,7 +9,7 @@ Movimenti:
     [ ] Tasto A: va a sinistra il giocatore
 Uscire dal gioco:
     [ ] Pulsante ESC
-    [ ] Crocetta
+    [ ] Crocetta della finestra
 
 Controlli:
     [ ] Caratteri ammessi: 0(spazi), 1(muro), N, A, S, D (posizioni iniziali del giocatore orientato nella direzione)
