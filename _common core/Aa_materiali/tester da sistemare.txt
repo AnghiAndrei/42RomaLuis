@@ -1,5 +1,4 @@
-! I tester sono funzionanti ma devo rivederli per farli piu carini !
-
-Pipex [Sistema tutto]
-Push_Swap [Aggiungere Tester funzionalita]
-So_Logn [Spiegazione di ogni mappa]
+! I tester sono funzionanti ma gli ho rivisti per farli piu carini !
+Pipex [Testare: test-leaks-m; if == OK then modifica resto]
+Push_Swap
+So_Logn

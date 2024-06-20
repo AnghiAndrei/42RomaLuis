@@ -1,0 +1,20 @@
+Mandatori:
+    Funzionamento:
+        [ ] Hostare un sito web statico
+        [ ] Gli utenti possono caricare immagini
+        [ ] Implementare metodi: GET, POST, DELETE
+        [ ] Deve potere ascoltare da piu porte
+        [ ] Eseguire codice Php o Python
+    File di configurazione:
+        *Parametro obbligatorio nella configurazione
+        [ ] • Il primo server per un host:porta sarà quello predefinito per questo host:porta (ciò significa risponderà a tutte le richieste che non appartengono ad un altro server).?
+        [ ] ? Setup routes with one or multiple of the following rules/configuration (routes wont be using regexp):
+            ◦ Define a list of accepted HTTP methods for the route.
+            ◦ Define a HTTP redirection.
+            ◦ Define a directory or a file from where the file should be searched (for example, if url /kapouet is rooted to /tmp/www, url /kapouet/pouic/toto/pouet is /tmp/www/pouic/toto/pouet).
+            ◦ Turn on or off directory listin
+        [ ] *Numero di porta
+        [ ] *Indirizzo ip
+        [ ] Nome del server
+        [ ] Pagine di errore
+        [ ] Limitatura del client body size

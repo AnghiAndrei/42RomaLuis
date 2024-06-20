@@ -1,5 +1,4 @@
 mkdir maps
-
 echo "" > maps/error1.ber
 echo "
 11111
@@ -45,74 +44,147 @@ echo "
 1ECP1
 10P01
 11111" > maps/error11.ber
+echo "
+11111
+1ECP1
+
+11111" > maps/error12.ber
+echo "
+111111
+1E1CP1
+111111" > maps/error13.ber
+echo "
+111111
+1EC1P1
+111111" > maps/error14.ber
+echo "
+
+
+111111
+1EC1P1
+111111" > maps/error15.ber
 
 echo '
 test-leaks: re
 	@clear
+	@echo Senza parametri
 	-valgrind ./so_long
 	@echo
+	@echo Piu parametri
 	-valgrind ./so_long maps/1.ber maps/2.ber
 	@echo
+	@echo File inesistente
 	-valgrind ./so_long maps/no_exist.ber
 	@echo
+	@echo File con estenzione non .ber
 	-valgrind ./so_long maps/1.aanghi
 	@echo
+	@echo File vuoto
 	-valgrind ./so_long maps/error1.ber
 	@echo
+	@echo Nessuna uscita nella mappa
 	-valgrind ./so_long maps/error2.ber
 	@echo
+	@echo Nessun collezionabile nella mappa
 	-valgrind ./so_long maps/error3.ber
 	@echo
+	@echo Nessun player nella mappa
 	-valgrind ./so_long maps/error4.ber
 	@echo
+	@echo Carattere estraneo nella mappa
 	-valgrind ./so_long maps/error5.ber
 	@echo
+	@echo Mappa aperta con lo ' '
 	-valgrind ./so_long maps/error6.ber
 	@echo
+	@echo Mappa aperta con lo 0
 	-valgrind ./so_long maps/error7.ber
 	@echo
+	@echo Mappa incompletabile [Nota se non da errore va bene lo stesso]
 	-valgrind ./so_long maps/error8.ber
 	@echo
+	@echo Mappa quadrata
 	-valgrind ./so_long maps/error9.ber
 	@echo
+	@echo Piu uscite nella mappa
 	-valgrind ./so_long maps/error10.ber
 	@echo
+	@echo Piu player nella mappa
 	-valgrind ./so_long maps/error11.ber
+	@echo
+	@echo Linea vuota nella mappa
+	-valgrind ./so_long maps/error12.ber
+	@echo
+	@echo Mappa incompletabile, uscita irraggiungibile
+	-valgrind ./so_long maps/error13.ber
+	@echo
+	@echo Mappa incompletabile, moneta irraggiungibile
+	-valgrind ./so_long maps/error14.ber
+	@echo
+	@echo Righe vuote sopra la mappa
+	-valgrind ./so_long maps/error15.ber
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks: re
 	@clear
-	- ./so_long
+	@echo Senza parametri
+	-./so_long
 	@echo
-	- ./so_long maps/1.ber maps/2.ber
+	@echo Piu parametri
+	-./so_long maps/1.ber maps/2.ber
 	@echo
-	- ./so_long maps/no_exist.ber
+	@echo File inesistente
+	-./so_long maps/no_exist.ber
 	@echo
-	- ./so_long maps/1.aanghi
+	@echo File con estenzione non .ber
+	-./so_long maps/1.aanghi
 	@echo
-	- ./so_long maps/error1.ber
+	@echo File vuoto
+	-./so_long maps/error1.ber
 	@echo
-	- ./so_long maps/error2.ber
+	@echo Nessuna uscita nella mappa
+	-./so_long maps/error2.ber
 	@echo
-	- ./so_long maps/error3.ber
+	@echo Nessun collezionabile nella mappa
+	-./so_long maps/error3.ber
 	@echo
-	- ./so_long maps/error4.ber
+	@echo Nessun player nella mappa
+	-./so_long maps/error4.ber
 	@echo
-	- ./so_long maps/error5.ber
+	@echo Carattere estraneo nella mappa
+	-./so_long maps/error5.ber
 	@echo
-	- ./so_long maps/error6.ber
+	@echo Mappa aperta con lo ' '
+	-./so_long maps/error6.ber
 	@echo
-	- ./so_long maps/error7.ber
+	@echo Mappa aperta con lo 0
+	-./so_long maps/error7.ber
 	@echo
-	- ./so_long maps/error8.ber
+	@echo Mappa incompletabile [Nota se non da errore va bene lo stesso]
+	-./so_long maps/error8.ber
 	@echo
-	- ./so_long maps/error9.ber
+	@echo Mappa quadrata
+	-./so_long maps/error9.ber
 	@echo
-	- ./so_long maps/error10.ber
+	@echo Piu uscite nella mappa
+	-./so_long maps/error10.ber
 	@echo
-	- ./so_long maps/error11.ber
+	@echo Piu player nella mappa
+	-./so_long maps/error11.ber
+	@echo
+	@echo Linea vuota nella mappa
+	-./so_long maps/error12.ber
+	@echo
+	@echo Mappa incompletabile, uscita irraggiungibile
+	-./so_long maps/error13.ber
+	@echo
+	@echo Mappa incompletabile, moneta irraggiungibile
+	-./so_long maps/error14.ber
+	@echo
+	@echo Righe vuote sopra la mappa
+	-./so_long maps/error15.ber
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

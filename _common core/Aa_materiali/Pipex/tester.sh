@@ -1,43 +1,55 @@
 echo '
 test-leaks-m: re
+	@rm -f infile
 	@clear
-	@echo ===== Mandatori: input check =====
+	@echo ================= Mandatori: controllo dell input =================
 	-valgrind ./pipex
 	@echo
 	-valgrind ./pipex infile
 	@echo
-	-valgrind ./pipex infile cmd1
+	-valgrind ./pipex infile ls
 	@echo
-	-valgrind ./pipex infile cmd1 cmd2
+	-valgrind ./pipex infile ls wc
 	@echo
+	@echo "! Nota: Deve dare errore perche il file: infile; non esiste !"
 	-valgrind ./pipex infile ls cat outfile
 	@echo
-	@echo "===== File: infile; create from tester ====="
+	@echo "                 ==== Creazione file: infile ===="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
+	@echo "             ==== Controllo esistenza dei comandi ===="
 	-valgrind ./pipex infile aanghi cat outfile
 	@echo
 	-valgrind ./pipex infile ls aanghi outfile
-	@echo
-	@cat outfile
-	@echo ! Se il file: outfile, non e apribile, e considerato errore
 	@echo ==================== Mandatori: function check ====================
-	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-valgrind ./pipex infile "ls -la" "grep .c" outfile
+	@echo ! E errore se il file: outfile, non ha i permessi di lettura/scrittura !
 	@cat outfile
+	@-< infile ls -la | grep .c > outfile2
+	@echo ! Se i 2 output non sono uguali e considerato errore !
+	diff outfile outfile2
 	@rm outfile
-	-< infile ls -la | grep .c > outfile
-	@cat outfile
-	@rm outfile
+	@rm outfile2
 	@echo ---------------------------------
 	-valgrind ./pipex infile "grep hola" "cat -e" outfile
-	@cat outfile
+	@-< infile grep hola | cat -e > outfile2
+	diff outfile outfile2
 	@rm outfile
-	-< infile grep hola | cat -e > outfile
-	@cat outfile
+	@rm outfile2
+	@echo "             ==== Controllo delle \' ===="
+	-valgrind ./pipex infile "grep \'hola\'" "cat -e" outfile
+	@-< infile grep \'hola\' | cat -e > outfile2
+	diff outfile outfile2
 	@rm outfile
+	@rm outfile2
+	@echo "             ==== Controllo delle \" ===="
+	-valgrind ./pipex infile "grep \"hola\"" "cat -e" outfile
+	@-< infile grep \"hola\" | cat -e > outfile2
+	diff outfile outfile2
+	@rm outfile
+	@rm outfile2
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 

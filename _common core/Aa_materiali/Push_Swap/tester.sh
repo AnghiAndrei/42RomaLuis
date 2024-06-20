@@ -144,7 +144,51 @@ test-i-nleaks-b: bonus
 	@echo TESTER AANGHI [Angly colui che regna]
 
 ARG_TESTER_100=$$(shuf -i 1-100 -n 100 | tr "\n" " ") #genera 100 numeri random da 1 a 100
-ARG_TESTER_100=$$(shuf -i 1-500 -n 500 | tr "\n" " ") #genera 500 numeri random da 1 a 500
+ARG_TESTER_500=$$(shuf -i 1-500 -n 500 | tr "\n" " ") #genera 500 numeri random da 1 a 500
+
+test-f100-nleaks-m: re
+	@clear
+	@wget link_tester || echo Errore nel scaricare il tester
+	@echo "Lista ordinata: "
+	@./$(NAME) $(ARG_TESTER_100) | tester_aanghi
+	@echo "N. mosse: "
+	@./$(NAME) $(ARG_TESTER_100) | wc -l
+	@echo
+	@rm -f tester_aanghi
+	@echo TESTER AANGHI [Angly colui che regna]
+
+test-f500-nleaks-m: re
+	@clear
+	@wget link_tester || echo Errore nel scaricare il tester
+	@echo "Lista ordinata: "
+	@./$(NAME) $(ARG_TESTER_500) | tester_aanghi
+	@echo "N. mosse: "
+	@./$(NAME) $(ARG_TESTER_500) | wc -l
+	@echo
+	@rm -f tester_aanghi
+	@echo TESTER AANGHI [Angly colui che regna]
+
+test-f100-leaks-m: re
+	@clear
+	@wget link_tester || echo Errore nel scaricare il tester
+	@echo "Lista ordinata: "
+	@valgrind ./$(NAME) $(ARG_TESTER_100) | tester_aanghi
+	@echo "N. mosse: "
+	@valgrind ./$(NAME) $(ARG_TESTER_100) | wc -l
+	@echo
+	@rm -f tester_aanghi
+	@echo TESTER AANGHI [Angly colui che regna]
+
+test-f500-leaks-m: re
+	@clear
+	@wget link_tester || echo Errore nel scaricare il tester
+	@echo "Lista ordinata: "
+	@valgrind ./$(NAME) $(ARG_TESTER_500) | tester_aanghi
+	@echo "N. mosse: "
+	@valgrind ./$(NAME) $(ARG_TESTER_500) | wc -l
+	@echo
+	@rm -f tester_aanghi
+	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:
 	@echo Errori di norma:
@@ -162,4 +206,10 @@ echo "make test-i-leaks-m: per testare l'input della parte mandatori con control
 echo "make test-i-nleaks-m: per testare l'input della parte mandatori senza controllo leaks"
 echo "make test-i-leaks-b: per testare l'input della parte bonus con controllo leaks"
 echo "make test-i-nleaks-b: per testare l'input della parte bonus senza controllo leaks"
+echo
+echo "test-f100-nleaks-m: per testare il funzionamento della parte mandatori con 100 numeri senza controllo leaks"
+echo "test-f500-nleaks-m: per testare il funzionamento della parte mandatori con 500 numeri senza controllo leaks"
+echo "test-f100-leaks-m: per testare il funzionamento della parte mandatori con 100 numeri con il controllo leaks"
+echo "test-f500-leaks-m: per testare il funzionamento della parte mandatori con 500 numeri con il controllo leaks"
+echo
 echo "make test-norm: per testare la norma"
