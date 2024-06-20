@@ -57,8 +57,7 @@ int main(int argc, char **argv){
 			i2++;
 			for(i2=i2;temp2.size()!=i2; i2++)
 				day+=temp2[i2];
-			size_t size_diz=0;
-			while (diz.find(year+"-"+mont+"-"+day) == diz.end() && size_diz!=diz.size()){
+			while (diz.find(year+"-"+mont+"-"+day) == diz.end()){
 				std::ostringstream convertitore;
 				convertitore << atoi(day.c_str())-1;
 				day=convertitore.str();
@@ -72,68 +71,46 @@ int main(int argc, char **argv){
 							day="31";
 							break;
 						case 2:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="1";
+							mont="01";
 							day="31";
 							break;
 						case 3:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="2";
+							mont="02";
 							day="28";
 							break;
 						case 4:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="3";
+							mont="03";
 							day="31";
 							break;
 						case 5:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="4";
+							mont="04";
 							day="30";
 							break;
 						case 6:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="5";
+							mont="05";
 							day="31";
 							break;
 						case 7:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="6";
+							mont="06";
 							day="30";
 							break;
 						case 8:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="7";
+							mont="07";
 							day="31";
 							break;
 						case 9:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="8";
+							mont="08";
 							day="31";
 							break;
 						case 10:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
-							mont="9";
+							mont="09";
 							day="30";
 							break;
 						case 11:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
 							mont="10";
 							day="31";
 							break;
 						case 12:
-							cy << atoi(year.c_str())-1;
-							year=cy.str();
 							mont="11";
 							day="30";
 							break;
@@ -168,7 +145,8 @@ int main(int argc, char **argv){
 						day="09";
 						break;
 				}
-				size_diz++;
+				if(atoi(year.c_str())<0)
+					break;
 			}
 			std::cout<<temp2<<" => "<<temp3<<" = "<<diz[year+"-"+mont+"-"+day]*atof(temp3.c_str())<<std::endl;
 		}
