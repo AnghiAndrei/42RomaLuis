@@ -143,8 +143,8 @@ test-i-nleaks-b: bonus
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
-ARG_TESTER_100=$$(shuf -i 1-100 -n 100 | tr "\n" " ") #genera 100 numeri random da 1 a 100
-ARG_TESTER_500=$$(shuf -i 1-500 -n 500 | tr "\n" " ") #genera 500 numeri random da 1 a 500
+ARG_TESTER_100=$$(shuf -i 1-100 -n 100 | tr "\\n" " ") #genera 100 numeri random da 1 a 100
+ARG_TESTER_500=$$(shuf -i 1-500 -n 500 | tr "\\n" " ") #genera 500 numeri random da 1 a 500
 
 test-f100-nleaks-m: re
 	@clear
