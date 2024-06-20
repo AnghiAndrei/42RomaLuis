@@ -38,142 +38,161 @@ test-leaks-m: re
 	diff outfile outfile2
 	@rm outfile
 	@rm outfile2
-	@echo "             ==== Controllo delle \' ===="
-	-valgrind ./pipex infile "grep \'hola\'" "cat -e" outfile
-	@-< infile grep \'hola\' | cat -e > outfile2
-	diff outfile outfile2
-	@rm outfile
-	@rm outfile2
-	@echo "             ==== Controllo delle \" ===="
-	-valgrind ./pipex infile "grep \"hola\"" "cat -e" outfile
-	@-< infile grep \"hola\" | cat -e > outfile2
-	diff outfile outfile2
-	@rm outfile
-	@rm outfile2
+	@rm infile
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-leaks-b: bonus
+	@rm -f infile
 	@clear
-	@echo ===== Bonus: input check =====
-	-valgrind ./pipex
+	@echo ================= Bonus: controllo dell input =================
+	-valgrind ./pipex_bonus
 	@echo
-	-valgrind ./pipex infile
+	-valgrind ./pipex_bonus infile
 	@echo
-	-valgrind ./pipex infile cmd1
+	-valgrind ./pipex_bonus infile ls
 	@echo
-	-valgrind ./pipex infile cmd1 cmd2
+	-valgrind ./pipex_bonus infile ls wc
 	@echo
-	-valgrind ./pipex infile ls cat outfile
+	@echo "! Nota: Deve dare errore perche il file: infile; non esiste !"
+	-valgrind ./pipex_bonus infile ls cat outfile
 	@echo
-	@echo "===== File: infile; create from tester ====="
+	@echo "                 ==== Creazione file: infile ===="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
-	-valgrind ./pipex infile aanghi cat outfile
+	@echo "             ==== Controllo esistenza dei comandi ===="
+	-valgrind ./pipex_bonus infile aanghi cat outfile
 	@echo
-	-valgrind ./pipex infile ls aanghi outfile
-	@echo
-	@cat outfile
-	@echo "! Se il file: outfile; non e apribile, e considerato errore"
+	-valgrind ./pipex_bonus infile ls aanghi outfile
 	@echo ==================== Bonus: function check ====================
+	-valgrind ./pipex_bonus infile "ls -la" "grep .c" outfile
+	@echo ! E errore se il file: outfile, non ha i permessi di lettura/scrittura !
+	@cat outfile
+	@-< infile ls -la | grep .c > outfile2
 	@echo ! Se i 2 output non sono uguali e considerato errore !
+	diff outfile outfile2
+	@rm outfile
+	@rm outfile2
+	@echo ---------------------------------
+	-valgrind ./pipex_bonus infile "grep hola" "cat -e" outfile
+	@-< infile grep hola | cat -e > outfile2
+	diff outfile outfile2
+	@rm outfile
+	@rm outfile2
+	@echo ---------------------------------
 	-valgrind ./pipex infile "echo voglio mangiare il tuo pancreas" "grep pancreas" "tr a-z A-Z" "head -n 1" "cat -e" "wc -l" outfile
-	@cat outfile
+	< infile echo 'voglio mangiare il tuo pancreas' | grep pancreas | tr a-z A-Z | head -n 1 | cat -e | wc -l > outfile2
+	diff outfile outfile2
 	@rm outfile
-	< infile echo 'voglio mangiare il tuo pancreas' | grep pancreas | tr a-z A-Z | head -n 1 | cat -e | wc -l > outfile
-	@cat outfile
-	@echo "===== CONTROLLO HERE_DOC ====="
-	@echo "! Il file: outfile; deve contenere l'output del pipex precedente con l'attuale !"
+	@rm outfile2
+	@echo "                ===== CONTROLLO HERE_DOC ====="
+	@echo "! Il file: outfile; deve contenere una righa vuota all inizio !"
 	-valgrind ./pipex here_doc fine "grep 42" "cat -e" "wc" outfile
-	@cat outfile
-	-grep 42 << fine | cat -e | wc >> outfile
-	@cat outfile
+	-grep 42 << fine | cat -e | wc >> outfile2
+	diff outfile outfile2
 	@rm outfile
+	@rm outfile2
+	@rm infile
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks-m: re
+	@rm -f infile
 	@clear
-	@echo ===== Mandatori: input check =====
+	@echo ================= Mandatori: controllo dell input =================
 	-./pipex
 	@echo
 	-./pipex infile
 	@echo
-	-./pipex infile cmd1
+	-./pipex infile ls
 	@echo
-	-./pipex infile cmd1 cmd2
+	-./pipex infile ls wc
 	@echo
+	@echo "! Nota: Deve dare errore perche il file: infile; non esiste !"
 	-./pipex infile ls cat outfile
 	@echo
-	@echo "===== File: infile; create from tester ====="
+	@echo "                 ==== Creazione file: infile ===="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
+	@echo "             ==== Controllo esistenza dei comandi ===="
 	-./pipex infile aanghi cat outfile
 	@echo
 	-./pipex infile ls aanghi outfile
-	@echo
-	@cat outfile
-	@echo ! Se il file: outfile, non e apribile, e considerato errore
 	@echo ==================== Mandatori: function check ====================
-	@echo ! Se i 2 output non sono uguali e considerato errore !
 	-./pipex infile "ls -la" "grep .c" outfile
+	@echo ! E errore se il file: outfile, non ha i permessi di lettura/scrittura !
 	@cat outfile
+	@-< infile ls -la | grep .c > outfile2
+	@echo ! Se i 2 output non sono uguali e considerato errore !
+	diff outfile outfile2
 	@rm outfile
-	-< infile ls -la | grep .c > outfile
-	@cat outfile
-	@rm outfile
+	@rm outfile2
 	@echo ---------------------------------
 	-./pipex infile "grep hola" "cat -e" outfile
-	@cat outfile
+	@-< infile grep hola | cat -e > outfile2
+	diff outfile outfile2
 	@rm outfile
-	-< infile grep hola | cat -e > outfile
-	@cat outfile
-	@rm outfile
+	@rm outfile2
+	@rm infile
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks-b: bonus
+	@rm -f infile
 	@clear
-	@echo ===== Bonus: input check =====
-	-./pipex
+	@echo ================= Bonus: controllo dell input =================
+	-./pipex_bonus
 	@echo
-	-./pipex infile
+	-./pipex_bonus infile
 	@echo
-	-./pipex infile cmd1
+	-./pipex_bonus infile ls
 	@echo
-	-./pipex infile cmd1 cmd2
+	-./pipex_bonus infile ls wc
 	@echo
-	-./pipex infile ls cat outfile
+	@echo "! Nota: Deve dare errore perche il file: infile; non esiste !"
+	-./pipex_bonus infile ls cat outfile
 	@echo
-	@echo "===== File: infile; create from tester ====="
+	@echo "                 ==== Creazione file: infile ===="
 	@echo hola > infile
 	@echo hola42 >> infile
 	@echo ciao42 >> infile
 	@echo ciao >> infile
-	-./pipex infile aanghi cat outfile
+	@echo "             ==== Controllo esistenza dei comandi ===="
+	-./pipex_bonus infile aanghi cat outfile
 	@echo
-	-./pipex infile ls aanghi outfile
-	@echo
-	@cat outfile
+	-./pipex_bonus infile ls aanghi outfile
 	@echo ==================== Bonus: function check ====================
-	@echo "! Se il file: outfile; non e apribile, e considerato errore"
+	-./pipex_bonus infile "ls -la" "grep .c" outfile
+	@echo ! E errore se il file: outfile, non ha i permessi di lettura/scrittura !
+	@cat outfile
+	@-< infile ls -la | grep .c > outfile2
 	@echo ! Se i 2 output non sono uguali e considerato errore !
+	diff outfile outfile2
+	@rm outfile
+	@rm outfile2
+	@echo ---------------------------------
+	-./pipex_bonus infile "grep hola" "cat -e" outfile
+	@-< infile grep hola | cat -e > outfile2
+	diff outfile outfile2
+	@rm outfile
+	@rm outfile2
+	@echo ---------------------------------
 	-./pipex infile "echo voglio mangiare il tuo pancreas" "grep pancreas" "tr a-z A-Z" "head -n 1" "cat -e" "wc -l" outfile
-	@cat outfile
+	< infile echo 'voglio mangiare il tuo pancreas' | grep pancreas | tr a-z A-Z | head -n 1 | cat -e | wc -l > outfile2
+	diff outfile outfile2
 	@rm outfile
-	< infile echo 'voglio mangiare il tuo pancreas' | grep pancreas | tr a-z A-Z | head -n 1 | cat -e | wc -l > outfile
-	@cat outfile
-	@echo "===== CONTROLLO HERE_DOC ====="
-	@echo "! Il file: outfile; deve contenere l'output del pipex precedente con l'attuale !"
+	@rm outfile2
+	@echo "                ===== CONTROLLO HERE_DOC ====="
+	@echo "! Il file: outfile; deve contenere una righa vuota all inizio !"
 	-./pipex here_doc fine "grep 42" "cat -e" "wc" outfile
-	@cat outfile
-	-grep 42 << fine | cat -e | wc >> outfile
-	@cat outfile
+	-grep 42 << fine | cat -e | wc >> outfile2
+	diff outfile outfile2
 	@rm outfile
+	@rm outfile2
 	@rm infile
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

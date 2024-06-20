@@ -143,14 +143,14 @@ test-i-nleaks-b: bonus
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
-ARG_TESTER_100=$$(shuf -i 1-100 -n 100 | tr "\\n" " " | head -c -1) #genera 100 numeri random da 1 a 100
-ARG_TESTER_500=$$(shuf -i 1-500 -n 500 | tr "\\n" " " | head -c -1) #genera 500 numeri random da 1 a 500
+ARG_TESTER_100=$$(shuf -i 1-100 -n 100 | tr "\\n" " " | head -c -2) #genera 100 numeri random da 1 a 100
+ARG_TESTER_500=$$(shuf -i 1-500 -n 500 | tr "\\n" " " | head -c -2) #genera 500 numeri random da 1 a 500
 
 test-f100-nleaks-m: re
 	@wget https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Push_Swap/checker_aanghi.out || echo Errore nel scaricare il tester
 	@clear
 	@echo "Lista ordinata: "
-	@-./$(NAME) $(ARG_TESTER_100) | checker_aanghi.out
+	@-./$(NAME) $(ARG_TESTER_100) | checker_aanghi.out $(ARG_TESTER_100)
 	@echo "N. mosse: "
 	@-./$(NAME) $(ARG_TESTER_100) | wc -l
 	@echo
@@ -161,7 +161,7 @@ test-f500-nleaks-m: re
 	@wget https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Push_Swap/checker_aanghi.out || echo Errore nel scaricare il tester
 	@clear
 	@echo "Lista ordinata: "
-	@-./$(NAME) $(ARG_TESTER_500) | checker_aanghi.out
+	@-./$(NAME) $(ARG_TESTER_500) | checker_aanghi.out $(ARG_TESTER_500)
 	@echo "N. mosse: "
 	@-./$(NAME) $(ARG_TESTER_500) | wc -l
 	@echo
@@ -172,7 +172,7 @@ test-f100-leaks-m: re
 	@wget https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Push_Swap/checker_aanghi.out || echo Errore nel scaricare il tester
 	@clear
 	@echo "Lista ordinata: "
-	@-valgrind ./$(NAME) $(ARG_TESTER_100) | checker_aanghi.out
+	@-valgrind ./$(NAME) $(ARG_TESTER_100) | checker_aanghi.out $(ARG_TESTER_100)
 	@echo "N. mosse: "
 	@-valgrind ./$(NAME) $(ARG_TESTER_100) | wc -l
 	@echo
@@ -183,11 +183,11 @@ test-f500-leaks-m: re
 	@wget https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Push_Swap/checker_aanghi.out || echo Errore nel scaricare il tester
 	@clear
 	@echo "Lista ordinata: "
-	@-valgrind ./$(NAME) $(ARG_TESTER_500) | checker_aanghi.out
+	@-valgrind ./$(NAME) $(ARG_TESTER_500) | checker_aanghi.out $(ARG_TESTER_500)
 	@echo "N. mosse: "
 	@-valgrind ./$(NAME) $(ARG_TESTER_500) | wc -l
 	@echo
-#@rm -f checker_aanghi.out
+	@rm -f checker_aanghi.out
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-norm:

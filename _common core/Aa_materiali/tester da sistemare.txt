@@ -1,4 +1,8 @@
-! I tester sono funzionanti ma gli ho rivisti per farli piu carini !
-Pipex [Testare: test-leaks-m; if == OK then modifica resto]
-Push_Swap
 So_Logn
+
+Cose da sistemare:
+-Push_Swap
+	test-f100-nleaks-m
+	test-f500-nleaks-m
+	test-f100-leaks-m
+	test-f500-leaks-m
