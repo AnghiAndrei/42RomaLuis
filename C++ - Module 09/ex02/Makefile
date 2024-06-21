@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/21 11:43:07 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/21 16:17:45 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ test: re
 	@echo
 	-./$(NAME) ""
 	@echo
+	-./$(NAME) $(ARG10)
+	@echo
 	-./$(NAME) "$(ARG1)"
 	@echo
 	-./$(NAME) "$(ARG2)"
@@ -84,5 +86,5 @@ test: re
 test2: re
 	rm -f $(OBJ)
 	clear
-	-valgrind ./$(NAME) "$(ARG3000)"
+	-valgrind ./$(NAME) $(ARG10)
 	@rm -f $(NAME)
