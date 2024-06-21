@@ -80,6 +80,9 @@ test-leaks: re
 	@echo Configurazione delle texture in piu. Ex ./NO.xmp ./NO2.xpm
 	-valgrind ./cub3D Assets_tester/cub3D/maps/error21.cub
 	@echo
+	@echo File .xmp invalido
+	-valgrind ./cub3D Assets_tester/cub3D/maps/error22.cub
+	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
@@ -159,6 +162,9 @@ test-nleaks: re
 	@echo
 	@echo Configurazione delle texture in piu. Ex ./NO.xmp ./NO2.xpm
 	-./cub3D Assets_tester/cub3D/maps/error21.cub
+	@echo
+	@echo File .xmp invalido
+	-./cub3D Assets_tester/cub3D/maps/error22.cub
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
