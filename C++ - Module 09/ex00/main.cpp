@@ -147,6 +147,12 @@ int main(int argc, char **argv){
 				}
 				if(atoi(year.c_str())<0)
 					break;
+				if(year.size()==3)
+					year="0"+year;
+				if(year.size()==2)
+					year="00"+year;
+				if(year.size()==1)
+					year="000"+year;
 			}
 			std::cout<<temp2<<" => "<<temp3<<" = "<<diz[year+"-"+mont+"-"+day]*atof(temp3.c_str())<<std::endl;
 		}
