@@ -238,10 +238,8 @@ C 225,30,0
 111111111111111111" > maps/error21.cub
 
 echo '
-make-texture:
-	wget 
-
-test-leaks: re make-texture
+test-leaks: re
+	@wget https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Cub3D/textures_aanghi || curl https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Cub3D/textures_aanghi
 	@clear
 	@echo Senza parametri
 	-valgrind ./cub3D
@@ -322,6 +320,7 @@ test-leaks: re make-texture
 	@echo TESTER AANGHI [Angly colui che regna]
 
 test-nleaks: re make-texture
+	@wget https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Cub3D/textures_aanghi || curl https://github.com/AnghiAndrei/42RomaLuis/tree/main/_common%20core/Aa_materiali/Cub3D/textures_aanghi
 	@clear
 	@echo Senza parametri
 	-./cub3D
