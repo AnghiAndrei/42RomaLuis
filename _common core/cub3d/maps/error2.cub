@@ -1,7 +1,7 @@
-NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0

@@ -1,3 +1,8 @@
+        1111111111
+111111111000000001
+1000000000000000S1
+111111111111111111
+
 NO ./textures_aanghi/NO.xpm
 SO ./textures_aanghi/SO.xpm
 WE ./textures_aanghi/WE.xpm
@@ -5,8 +10,3 @@ EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
-
-        1111111111
-111111111000000001
-1S0N00000000000001
-111111111111111111

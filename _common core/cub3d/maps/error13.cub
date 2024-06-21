@@ -1,0 +1,12 @@
+NO ./textures_aanghi/not_exist.xpm
+SO ./textures_aanghi/not_exist.xpm
+WE ./textures_aanghi/not_exist.xpm
+EA ./textures_aanghi/not_exist.xpm
+
+F 220,100,0
+C 225,30,0
+
+        1111111111
+111111111000000001
+1S0000000000000001
+111111111111111111
