@@ -1,9 +1,9 @@
 mkdir maps
 
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 
@@ -11,17 +11,17 @@ F 220,100,0
 111111111000000001
 1N0000000000000001
 111111111111111111" > maps/error1.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0" > maps/error2.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -30,10 +30,10 @@ C 225,30,0
 111111111000000001
 100000000000000001
 111111111111111111" > maps/error3.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -42,10 +42,10 @@ C 225,30,0
 111111111000000001
 1S0N00000000000001
 111111111111111111" > maps/error4.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -54,10 +54,10 @@ C 225,30,0
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error5.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 F 220,100,0
 C 225,30,0
 
@@ -65,10 +65,10 @@ C 225,30,0
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error6.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 156,156,156
 C 37,  40,  80
@@ -77,10 +77,10 @@ C 37,  40,  80
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error7.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 156,156,156
 C 
@@ -89,10 +89,10 @@ C
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error8.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 156,156,156
 C -156,156,156
@@ -101,10 +101,10 @@ C -156,156,156
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error9.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 156,156,156
 C 43156,156,156
@@ -115,9 +115,9 @@ C 43156,156,156
 111111111111111111" > maps/error10.cub
 echo "" > maps/error11.cub
 echo "NO
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -126,10 +126,10 @@ C 225,30,0
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error12.cub
-echo "NO ./textures/not_exist.xpm
-SO ./textures/not_exist.xpm
-WE ./textures/not_exist.xpm
-EA ./textures/not_exist.xpm
+echo "NO ./textures_aanghi/not_exist.xpm
+SO ./textures_aanghi/not_exist.xpm
+WE ./textures_aanghi/not_exist.xpm
+EA ./textures_aanghi/not_exist.xpm
 
 F 220,100,0
 C 225,30,0
@@ -138,10 +138,10 @@ C 225,30,0
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error13.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -151,11 +151,11 @@ C 225,30,0
 
 1S0000000000000001
 111111111111111111" > maps/error14.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
 
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -164,10 +164,10 @@ C 225,30,0
 111111111000000001
 1S0000000000000001
 111111111111111111" > maps/error15.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -181,17 +181,17 @@ echo "        1111111111
 1000000000000000S1
 111111111111111111
 
-NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0" > maps/error17.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -200,10 +200,10 @@ C 225,30,0
 111111111000000001
 100   000000S00001
 111111111111111111" > maps/error18.cub
-echo "NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
 
 F 220,100,0
 C 225,30,0
@@ -212,9 +212,36 @@ C 225,30,0
 111111111000000001
 100f00000000S00001
 111111111111111111" > maps/error19.cub
+echo "NO ./textures_aanghi/NO.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
+
+F 220,100,0
+C 225,30,0,43
+
+        1111111111
+111111111000000001
+100000000000S00001
+111111111111111111" > maps/error20.cub
+echo "NO ./textures_aanghi/NO.xpm ./texture/NO2.xpm
+SO ./textures_aanghi/SO.xpm
+WE ./textures_aanghi/WE.xpm
+EA ./textures_aanghi/EA.xpm
+
+F 220,100,0
+C 225,30,0
+
+        1111111111
+111111111000000001
+100000000000S00001
+111111111111111111" > maps/error21.cub
 
 echo '
-test-leaks: re
+make-texture:
+	wget 
+
+test-leaks: re make-texture
 	@clear
 	@echo Senza parametri
 	-valgrind ./cub3D
@@ -285,10 +312,16 @@ test-leaks: re
 	@echo Carattere inaspettato
 	-valgrind ./cub3D maps/error19.cub
 	@echo
+	@echo Configurazione dei colori in piu. Ex 1,1,1,1
+	-valgrind ./cub3D maps/error20.cub
+	@echo
+	@echo Configurazione delle texture in piu. Ex ./NO.xmp ./NO2.xpm
+	-valgrind ./cub3D maps/error21.cub
+	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
-test-nleaks: re
+test-nleaks: re make-texture
 	@clear
 	@echo Senza parametri
 	-./cub3D
@@ -358,6 +391,12 @@ test-nleaks: re
 	@echo
 	@echo Carattere inaspettato
 	-./cub3D maps/error19.cub
+	@echo
+	@echo Configurazione dei colori in piu. Ex 1,1,1,1
+	-./cub3D maps/error20.cub
+	@echo
+	@echo Configurazione delle texture in piu. Ex ./NO.xmp ./NO2.xpm
+	-./cub3D maps/error21.cub
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

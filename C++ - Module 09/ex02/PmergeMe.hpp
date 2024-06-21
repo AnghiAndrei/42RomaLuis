@@ -10,15 +10,43 @@
 
 int calculateJacobs(int n);
 
+/* easyFind */
 template<typename T>
-int easyFind(T& vec, int ago){
-	for (size_t i=0;i!=vec.size();i++){
+int easyFind(std::vector<T>& vec, int ago){
+	for (size_t i=0;i!=vec.size();i++)
 		if(vec[i]==ago)
 			return 1;
-	}
 	return -1;
 }
+template<typename T>
+int easyFind(std::deque<T>& deq, int ago){
+    typename std::deque<T>::iterator it = deq.begin();
+    typename std::deque<T>::iterator end = deq.end();
+    for (; it != end; ++it)
+        if (*it == ago)
+            return 1;
+    return -1;
+}
 
+/* dimenzione */
+template<typename T>
+int dimenzione(std::vector<T>& vec, int ago){
+	for (size_t i=0;i!=vec.size();i++)
+		if(vec[i]==ago)
+			return i;
+	return 0;
+}
+template<typename T>
+int dimenzione(std::deque<T>& deq, int ago){
+    typename std::deque<T>::iterator it = deq.begin();
+    typename std::deque<T>::iterator end = deq.end();
+    	for (; it != end; ++it)
+        	if (*it == ago)
+            	return std::distance(deq.begin(), it);
+    return 0;
+}
+
+/* Sort */
 template<typename T>
 void sort(T *list){
 	if((*list).size()==1)
@@ -77,12 +105,8 @@ void sort(T *list){
 					n_cicle++;
 			else
 				n_cicle=(*list).size();
-
 			size_t i=0;
 			for (size_t ncicle=0;ncicle!=n_cicle;ncicle++){
-				size_t i3=iorder/2;
-				bool flagp=false, flagg=false, zero=false, max=false, inversione=false;
-
 				while(1){
 					size_t i3=0;
 					while((*list).size()-((*list).size()-(((*list).size()/pend)*pend))>i){
@@ -107,6 +131,11 @@ void sort(T *list){
 				}
 				if(i==(*list).size())
 					continue;
+				bool flagp=false, flagg=false, zero=false, max=false, inversione=false;
+				size_t i6=0;
+				if(i-pend<(*list).size())
+					i6=dimenzione(order, (*list)[i-pend]);
+				size_t i3=i6/2;
 				while(1){
 					if(easyFind(order, (*list)[i])==1)
 						break;

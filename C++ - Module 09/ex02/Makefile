@@ -6,12 +6,12 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/20 11:43:01 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/21 11:43:07 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = PmergeMe
-CFLAGS = #-Wall -Wextra -Werror -std=c++98 -g
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
@@ -81,10 +81,8 @@ test: re
 	-./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
 
-# ARGS=4 3 5
-ARGS=$$(shuf -i 1-9 -n 8 | tr "\n" " ")
 test2: re
 	rm -f $(OBJ)
 	clear
-	-./$(NAME) "$(ARGS)"
+	-valgrind ./$(NAME) "$(ARG3000)"
 	@rm -f $(NAME)
