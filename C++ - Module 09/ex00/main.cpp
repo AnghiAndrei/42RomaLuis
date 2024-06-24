@@ -1,5 +1,21 @@
 #include "BitcoinExchange.hpp"
 
+bool bisestile(int year) {
+    if (year % 4 != 0) return false;
+    if (year % 100 == 0 && year % 400 != 0) return false;
+    return true;
+}
+
+bool isValidDate(int day, int month, int year) {
+    if (year < 1) return false;
+    if (month < 1 || month > 12) return false;
+    int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if(bisestile(year))
+        daysInMonth[1]=29;
+    if (day < 1 || day > daysInMonth[month - 1]) return false;
+    return true;
+}
+
 int main(int argc, char **argv){
 	if(argc!=2){
 		std::cout<<"Error: could not open file."<<std::endl;
@@ -57,7 +73,13 @@ int main(int argc, char **argv){
 			i2++;
 			for(i2=i2;temp2.size()!=i2; i2++)
 				day+=temp2[i2];
+			bool stampa=true;
 			while (diz.find(year+"-"+mont+"-"+day) == diz.end()){
+				if(isValidDate(atoi(day.c_str()), atoi(mont.c_str()),atoi(year.c_str()))==false){
+					std::cout<<"Error: bad input => "<<temp2<<std::endl;
+					stampa=false;
+					break;
+				}
 				std::ostringstream convertitore;
 				convertitore << atoi(day.c_str())-1;
 				day=convertitore.str();
@@ -77,6 +99,8 @@ int main(int argc, char **argv){
 						case 3:
 							mont="02";
 							day="28";
+							if(bisestile(atoi(year.c_str())))
+								day="29";
 							break;
 						case 4:
 							mont="03";
@@ -154,7 +178,8 @@ int main(int argc, char **argv){
 				if(year.size()==1)
 					year="000"+year;
 			}
-			std::cout<<temp2<<" => "<<temp3<<" = "<<diz[year+"-"+mont+"-"+day]*atof(temp3.c_str())<<std::endl;
+			if(stampa==true)
+				std::cout<<temp2<<" => "<<temp3<<" = "<<diz[year+"-"+mont+"-"+day]*atof(temp3.c_str())<<std::endl;
 		}
     }
 	return 0;

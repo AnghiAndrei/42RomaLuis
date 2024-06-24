@@ -104,3 +104,4 @@ ARGS = 4 310 200 100 #one philo dies
 # ARGS = 2 800 200 200 7 #no dies, but finish at eat 7
 # ARGS = 2 410 200 200 #no dies ever
 # ARGS = 2 310 200 100 #uno philo dies
+

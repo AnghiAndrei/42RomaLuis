@@ -1,8 +1,2 @@
-So_Logn
+[Migliorare con + test] Minishell
 
-Cose da sistemare:
--Push_Swap
-	test-f100-nleaks-m
-	test-f500-nleaks-m
-	test-f100-leaks-m
-	test-f500-leaks-m

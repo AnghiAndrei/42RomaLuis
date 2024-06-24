@@ -14,7 +14,7 @@ test-leaks: re
 	@echo Mappa inesistente
 	-valgrind ./cub3D Assets_tester/cub3D/maps/no_exist.cub
 	@echo
-	@echo Mappa non .aanghi
+	@echo Mappa non .cub
 	-valgrind ./cub3D Assets_tester/cub3D/maps/1.aanghi
 	@echo
 	@echo Manca la configurazione del soffitto
@@ -97,7 +97,7 @@ test-nleaks: re
 	@echo Mappa inesistente
 	-./cub3D Assets_tester/cub3D/maps/no_exist.cub
 	@echo
-	@echo Mappa non .aanghi
+	@echo Mappa non .cub
 	-./cub3D Assets_tester/cub3D/maps/1.aanghi
 	@echo
 	@echo Manca la configurazione del soffitto

@@ -124,3 +124,4 @@ test3: re
 
 norm:
 	norminette $(SRC) cub3d.h
+
