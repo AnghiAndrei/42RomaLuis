@@ -1,20 +1,26 @@
 Mandatori:
     Funzionamento:
+		[ ] Se non specificato la porta, la richiesta verra servita dal primo server
         [ ] Hostare un sito web statico
         [ ] Gli utenti possono caricare immagini
         [ ] Implementare metodi: GET, POST, DELETE
         [ ] Deve potere ascoltare da piu porte
-        [ ] Eseguire codice Php o Python
+        [ ] Eseguire codice Php o Python tramite CGI
     File di configurazione:
         *Parametro obbligatorio nella configurazione
-        [ ] • Il primo server per un host:porta sarà quello predefinito per questo host:porta (ciò significa risponderà a tutte le richieste che non appartengono ad un altro server).?
-        [ ] ? Setup routes with one or multiple of the following rules/configuration (routes wont be using regexp):
-            ◦ Define a list of accepted HTTP methods for the route.
-            ◦ Define a HTTP redirection.
-            ◦ Define a directory or a file from where the file should be searched (for example, if url /kapouet is rooted to /tmp/www, url /kapouet/pouic/toto/pouet is /tmp/www/pouic/toto/pouet).
-            ◦ Turn on or off directory listin
         [ ] *Numero di porta
         [ ] *Indirizzo ip
         [ ] Nome del server
-        [ ] Pagine di errore
+        [ ] Configurare Pagine di errore [se non ci sono, prendi quelle predefinite]
         [ ] Limitatura del client body size
+		* ! Nota: non puoi usare regexp ! *
+		[ ] Definire un elenco di metodi HTTP accettati
+		[ ] Definire un riindirizzamento
+		[ ] Definire una directory o un file da cui il file deve essere cercato (URL /kapouet/pouic/toto/pouet è /tmp/www/pouic/toto/pouet)
+		[ ] Attivare o disattivare l'elenco delle directory
+		[ ] Impostare un file predefinito per rispondere se la richiesta è una directory
+
+Bonus:
+	[ ] Gestire piu CGI
+	[ ] Supportare: Coookie
+	[ ] Supportare: Sessioni

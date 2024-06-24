@@ -10,7 +10,7 @@ RFC di telnet e NGINX [consigliato, ma non obbligatorio]
 
 Note:
 -il web server deve prendere un file di configurazione, altrimenti ne prende uno di base
--non deve essere possibile eseguire piu webserver
+-non puoi eseguire un altro server con execve
 -deve avere solo un poll per I/O e non deve essere bloccante
 -poll deve controllare la lettura e la scrittura allo stesso tempo
 -si deve leggere e scrivere solo attraverso la poll
@@ -20,7 +20,3 @@ Note:
 -i codici di stato http devono essere accurati (100-500)
 -deve avere una pagina di errore predefinita
 -puoi usare fork solo per CGI
-
-
-? Considereremo che NGINX è conforme a HTTP 1.1 e può essere utilizzato per effettuare confronti
-intestazioni e comportamenti di risposta.

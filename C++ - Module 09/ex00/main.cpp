@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 	}
 	std::ifstream dataf("data.csv");
 	if (!dataf.is_open())
-        return (std::cout<<"Error: could not open file."<<std::endl, 1);
+        return (std::cout<<"Error: could not open: data.csv."<<std::endl, 1);
 	std::string temp;
 	std::map<std::string, float> diz;
 	while(std::getline(dataf, temp)){
@@ -47,10 +47,15 @@ int main(int argc, char **argv){
 		size_t i=0;
 		for(i=0;temp[i]!=' ' && temp.size()!=i; i++)
 			temp2+=temp[i];
-		if (temp.size()>=i+3)
-			for(size_t i2=i+3;temp.size()!=i2; i2++)
-				temp3+=temp[i2];
-		else{
+		if (temp.size()>=i+3){
+			if(temp[i]==' ' && temp[i+1]=='|' && temp[i+2]==' ')
+				for(size_t i2=i+3;temp.size()!=i2; i2++)
+					temp3+=temp[i2];
+			else{
+				std::cout<<"Error: bad input => "<<temp2<<std::endl;
+				continue;
+			}
+		}else{
 			std::cout<<"Error: bad input => "<<temp<<std::endl;
 			continue;
 		}
@@ -73,13 +78,9 @@ int main(int argc, char **argv){
 			i2++;
 			for(i2=i2;temp2.size()!=i2; i2++)
 				day+=temp2[i2];
+
 			bool stampa=true;
 			while (diz.find(year+"-"+mont+"-"+day) == diz.end()){
-				if(isValidDate(atoi(day.c_str()), atoi(mont.c_str()),atoi(year.c_str()))==false){
-					std::cout<<"Error: bad input => "<<temp2<<std::endl;
-					stampa=false;
-					break;
-				}
 				std::ostringstream convertitore;
 				convertitore << atoi(day.c_str())-1;
 				day=convertitore.str();
@@ -169,14 +170,19 @@ int main(int argc, char **argv){
 						day="09";
 						break;
 				}
-				if(atoi(year.c_str())<0)
-					break;
 				if(year.size()==3)
 					year="0"+year;
 				if(year.size()==2)
 					year="00"+year;
 				if(year.size()==1)
 					year="000"+year;
+				if(atoi(year.c_str())<=0)
+					break;
+				if(isValidDate(atoi(day.c_str()), atoi(mont.c_str()),atoi(year.c_str()))==false){
+					std::cout<<"Error: bad input => "<<temp2<<std::endl;
+					stampa=false;
+					break;
+				}
 			}
 			if(stampa==true)
 				std::cout<<temp2<<" => "<<temp3<<" = "<<diz[year+"-"+mont+"-"+day]*atof(temp3.c_str())<<std::endl;
