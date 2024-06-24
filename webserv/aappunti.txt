@@ -1,9 +1,19 @@
 Funzioni permesse:
 -Tutto di C++
--Altri: execve, fork
--Pipe: dup, dup2, pipe
--Errori: strerror, gai_strerror, errno
--Bho: socketpair, htons, htonl, ntohs, ntohl, select, poll, epoll (epoll_create, epoll_ctl, epoll_wait), kqueue (kqueue, kevent), socket, accept, listen, send, recv, chdir bind, connect, getaddrinfo, freeaddrinfo, setsockopt, getsockname, getprotobyname, fcntl, close, read, write, waitpid, kill, signal, access, stat, open, opendir, readdir, closedir
+-Manipolazione di file: open, close, read, write, access, stat
+-Manipolazione di cartelle: opendir, readdir, closedir chdir
+-Gestione dei processi: fork, execve, waitpid, kill
+-Gestione dei segnali: signal
+-Gestione degli errori: strerror, gai_strerror, errno
+-Gestione dei socket: socket, accept, listen, send, recv, connect,
+						socketpair, setsockopt, getsockname, getprotobyname, 
+						getaddrinfo, freeaddrinfo
+-Conversione dell'ordine dei byte: htons, htonl, ntohs, ntohl
+-Polling e selezione: select, poll, epoll_create, epoll_ctl, epoll_wait, kqueue, kevent
+-File descriptor: dup, dup2, fcntl
+-Pipeline: pipe
+-Supporto alla rete: getaddrinfo, freeaddrinfo
+-Macro per la gestione dei file descriptor: FD_SET, FD_CLR, FD_ISSET, FD_ZERO
 
 Studiare:
 RFC di telnet e NGINX [consigliato, ma non obbligatorio]
