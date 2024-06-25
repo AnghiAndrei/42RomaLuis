@@ -59,8 +59,14 @@ int main(int argc, char **argv){
 			std::cout<<"Error: bad input => "<<temp2<<std::endl;
 			continue;
 		}
-		bool valid=true;
+		bool valid=true, valid2=true;
 		for(size_t i6=0;temp3[i6]!='\0';i6++){
+			if((temp3[i6]=='+' || temp3[i6]=='-') && i6==0)
+				continue;
+			if(temp3[i6]=='.' && valid2==true){
+				valid2=false;
+				continue;
+			}
 			if(!isdigit(temp3[i6])){
 				valid=false;
 				break;

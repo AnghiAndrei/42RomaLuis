@@ -90,11 +90,21 @@ int main(int argc, char **argv){
 			webservv.servers[serv].set_port(valore);
 		else if(chiave=="body_size")
 			webservv.servers[serv].set_body_size(valore);
-
-		else if(chiave=="body_size")
+		else if(chiave=="error404")
 			webservv.servers[serv].set_error404(valore);
-		else if(chiave=="body_size")
+		else if(chiave=="error418")
 			webservv.servers[serv].set_error418(valore);
+		else if(chiave=="med-allow"){
+			std::vector<std::string> valore_vec;
+			for (size_t i4=0;i4<temp.size();i4++){
+				std::string val="";
+				for (i4=0;temp[i4]!='-' && temp[i4]!='\0';i4++){
+					val+=temp[i4];
+				}
+				valore_vec.push_back(val);
+			}
+			webservv.servers[serv].set_medallow(valore_vec);
+		}
 	}
 	if(serv==0){
 		std::cout<<"Marshal: Configurazione di un server assente"<<std::endl;
@@ -108,13 +118,18 @@ int main(int argc, char **argv){
 	webservv.set_nserv(serv);
 
 	for (size_t i=0;i!=serv;i++){
-		std::cout<<"Server   : "<<i<<std::endl;
-		std::cout<<"Name     : "<<webservv.servers[i].get_name()<<std::endl;
-		std::cout<<"Body_size: "<<webservv.servers[i].get_body_size()<<std::endl;
-		std::cout<<"Host     : "<<webservv.servers[i].get_host()<<std::endl;
-		std::cout<<"Port     : "<<webservv.servers[i].get_port()<<std::endl;
-		std::cout<<"Error 404: "<<webservv.servers[i].get_error404()<<std::endl;
-		std::cout<<"Error 418: "<<webservv.servers[i].get_error418()<<std::endl;
+		std::cout<<"Server      : "<<i<<std::endl;
+		std::cout<<"Name        : "<<webservv.servers[i].get_name()<<std::endl;
+		std::cout<<"Body_size   : "<<webservv.servers[i].get_body_size()<<std::endl;
+		std::cout<<"Host        : "<<webservv.servers[i].get_host()<<std::endl;
+		std::cout<<"Port        : "<<webservv.servers[i].get_port()<<std::endl;
+		std::cout<<"Error 404   : "<<webservv.servers[i].get_error404()<<std::endl;
+		std::cout<<"Error 418   : "<<webservv.servers[i].get_error418()<<std::endl;
+		std::cout<<"Method allow: ";
+		for (size_t i2=0;i2<webservv.servers[i].get_lmedallow();i2++)
+			std::cout<<webservv.servers[i].get_medallow(i2)<<" ";
+		std::cout<<std::endl;
+
 		std::cout<<std::endl;
 	}
     return 0;

@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/24 23:17:59 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/25 14:34:33 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,8 @@ test: re
 	@echo
 	@echo "=====> Casi in cui deve funzionare <====="
 	-./$(NAME)
+	@echo
+	-./$(NAME) conf/conffull.conf
 	@echo
 	-./$(NAME) conf/conf1.conf
 	@echo

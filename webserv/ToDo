@@ -18,7 +18,7 @@ Mandatori:
 		* ! Nota: non puoi usare regexp ! *
 		[ ] Definire un elenco di metodi HTTP accettati
 		[ ] Definire un riindirizzamento
-		[ ] ? Definire una directory o un file da cui il file deve essere cercato (URL /kapouet/pouic/toto/pouet è /tmp/www/pouic/toto/pouet)
+		[ ] Definire una directory da dove scarica e carica file dal sito
 		[ ] Attivare o disattivare l'elenco delle directory
 		[ ] Definire un index
 

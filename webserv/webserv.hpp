@@ -12,6 +12,7 @@ class webserv;
 
 class server{
 	private:
+		std::vector<std::string> med_allow;
 		std::string name_server;
 		std::string body_size;
 		std::string error404;
@@ -34,6 +35,10 @@ class server{
 
 		void set_error418(std::string &copy){error418=copy;}
 		std::string get_error418(){return error418;}
+
+		void set_medallow(std::vector<std::string> copy){this->med_allow.insert(med_allow.begin(), copy.begin(), copy.end());}
+		std::string get_medallow(int index){return med_allow[index];}
+		size_t get_lmedallow(){return med_allow.size();}
 };
 
 class webserv{
