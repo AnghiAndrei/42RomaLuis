@@ -40,6 +40,10 @@ int main(int argc, char **argv){
 		}
 	}
 	conf.close();
+	if(server==true){
+		std::cout<<"Marshal: Errore nel file di configurazione"<<std::endl;
+		return -1;
+	}
 	temp.clear();
 	conf.open(conffile.c_str());
 	if(!conf.is_open()){

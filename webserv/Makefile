@@ -6,12 +6,12 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/24 22:32:06 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/24 23:17:59 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
@@ -52,9 +52,26 @@ test: re
 	@echo
 	-./$(NAME) conf/error6.conf
 	@echo
+	-./$(NAME) conf/error7.conf
+	@echo
+	-./$(NAME) conf/error8.conf
+	@echo
+	-./$(NAME) conf/error9.conf
+	@echo
+	-./$(NAME) conf/error10.conf
+	@echo
+	-./$(NAME) conf/error11.conf
+	@echo
 	@echo "=====> Casi in cui deve funzionare <====="
 	-./$(NAME)
 	@echo
 	-./$(NAME) conf/conf1.conf
+	@echo
+	@rm -f $(NAME)
+
+test2: re
+	rm -f $(OBJ)
+	clear
+	-valgrind ./$(NAME) conf/error7.conf
 	@echo
 	@rm -f $(NAME)

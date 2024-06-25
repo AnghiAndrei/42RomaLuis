@@ -56,7 +56,18 @@ int main(int argc, char **argv){
 				continue;
 			}
 		}else{
-			std::cout<<"Error: bad input => "<<temp<<std::endl;
+			std::cout<<"Error: bad input => "<<temp2<<std::endl;
+			continue;
+		}
+		bool valid=true;
+		for(size_t i6=0;temp3[i6]!='\0';i6++){
+			if(!isdigit(temp3[i6])){
+				valid=false;
+				break;
+			}
+		}
+		if(valid==false){
+			std::cout<<"Error: bad input => "<<temp2<<std::endl;
 			continue;
 		}
 		if(atoi(temp3.c_str()) <= -1)
@@ -66,19 +77,22 @@ int main(int argc, char **argv){
 		else if(diz.find(temp2) != diz.end())
 			std::cout<<temp2<<" => "<<temp3<<" = "<<diz[temp2]*atof(temp3.c_str())<<std::endl;
 		else{
-			std::string day;
-			std::string mont;
-			std::string year;
+			std::string day="";
+			std::string mont="";
+			std::string year="";
 			size_t i2=0;
-			for(i2=0;temp2[i2]!='-' && temp2.size()!=i2; i2++)
+			for(i2=0;temp2[i2]!='-' && temp2.size()>i2; ++i2)
 				year+=temp2[i2];
 			i2++;
-			for(i2=i2;temp2[i2]!='-' && temp2.size()!=i2; i2++)
+			for(i2=i2;temp2[i2]!='-' && temp2.size()>i2; ++i2)
 				mont+=temp2[i2];
 			i2++;
-			for(i2=i2;temp2.size()!=i2; i2++)
+			for(i2=i2;temp2.size()>i2; ++i2)
 				day+=temp2[i2];
-
+			if(day=="" || mont=="" || year==""){
+				std::cout<<"Error: bad input => "<<temp2<<std::endl;
+				continue;
+			}
 			bool stampa=true;
 			while (diz.find(year+"-"+mont+"-"+day) == diz.end()){
 				std::ostringstream convertitore;
