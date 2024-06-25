@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/25 14:34:33 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/25 16:17:07 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ test: re
 	-./$(NAME) conf/error10.conf
 	@echo
 	-./$(NAME) conf/error11.conf
+	@echo
+	-./$(NAME) conf/error12.conf
 	@echo
 	@echo "=====> Casi in cui deve funzionare <====="
 	-./$(NAME)

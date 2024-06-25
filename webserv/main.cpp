@@ -94,27 +94,45 @@ int main(int argc, char **argv){
 			webservv.servers[serv].set_error404(valore);
 		else if(chiave=="error418")
 			webservv.servers[serv].set_error418(valore);
-		else if(chiave=="med-allow"){
+		else if(chiave=="index")
+			webservv.servers[serv].set_index(valore);
+		else if(chiave=="showdir")
+			webservv.servers[serv].set_showdir(valore);
+		else if(chiave=="root")
+			webservv.servers[serv].set_root(valore);
+		else if(chiave=="medallow"){
 			std::vector<std::string> valore_vec;
-			for (size_t i4=0;i4<temp.size();i4++){
+			for (size_t i4=0;i4<valore.size();i4++){
 				std::string val="";
-				for (i4=0;temp[i4]!='-' && temp[i4]!='\0';i4++){
-					val+=temp[i4];
+				for (i4=i4;valore[i4]!='-' && valore[i4]!='\0';i4++){
+					val+=valore[i4];
 				}
 				valore_vec.push_back(val);
 			}
 			webservv.servers[serv].set_medallow(valore_vec);
+		}
+		else if(chiave=="redict"){
+			std::vector<std::string> valore_vec;
+			for (size_t i4=0;i4<valore.size();i4++){
+				std::string val="";
+				for (i4=i4;valore[i4]!=' ' && valore[i4]!='\0';i4++){
+					val+=valore[i4];
+				}
+				valore_vec.push_back(val);
+			}
+			webservv.servers[serv].set_redict(valore_vec);
 		}
 	}
 	if(serv==0){
 		std::cout<<"Marshal: Configurazione di un server assente"<<std::endl;
 		return -1;
 	}
-	for (size_t i=0;i!=serv;i++)
-		if(webservv.servers[i].get_body_size()=="" || webservv.servers[i].get_host()=="" || webservv.servers[i].get_port()==""){
+	for (size_t i=0;i!=serv;i++){
+		if(webservv.servers[i].get_lredict()==1 || webservv.servers[i].get_lredict()>=3 || webservv.servers[i].get_lmedallow()==0 || webservv.servers[i].get_body_size()=="" || webservv.servers[i].get_host()=="" || webservv.servers[i].get_port()==""){
 			std::cout<<"Marshal: Nancano delle configurazione"<<std::endl;
 			return -1;
 		}
+	}
 	webservv.set_nserv(serv);
 
 	for (size_t i=0;i!=serv;i++){
@@ -125,10 +143,17 @@ int main(int argc, char **argv){
 		std::cout<<"Port        : "<<webservv.servers[i].get_port()<<std::endl;
 		std::cout<<"Error 404   : "<<webservv.servers[i].get_error404()<<std::endl;
 		std::cout<<"Error 418   : "<<webservv.servers[i].get_error418()<<std::endl;
+		std::cout<<"Show dir    : "<<webservv.servers[i].get_showdir()<<std::endl;
+		std::cout<<"Root        : "<<webservv.servers[i].get_root()<<std::endl;
 		std::cout<<"Method allow: ";
 		for (size_t i2=0;i2<webservv.servers[i].get_lmedallow();i2++)
 			std::cout<<webservv.servers[i].get_medallow(i2)<<" ";
 		std::cout<<std::endl;
+		std::cout<<"Redirect    : ";
+		for (size_t i2=0;i2<webservv.servers[i].get_lredict();i2++)
+			std::cout<<webservv.servers[i].get_redict(i2)<<" ";
+		std::cout<<std::endl;
+		std::cout<<"Index       : "<<webservv.servers[i].get_index()<<std::endl;
 
 		std::cout<<std::endl;
 	}

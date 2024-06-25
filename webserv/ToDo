@@ -16,11 +16,11 @@ Mandatori:
 			{X} 418
 			{X} 404
 		* ! Nota: non puoi usare regexp ! *
-		[ ] Definire un elenco di metodi HTTP accettati
-		[ ] Definire un riindirizzamento
+		[X] *Definire un elenco di metodi HTTP accettati
+		[X] Definire un riindirizzamento
 		[ ] Definire una directory da dove scarica e carica file dal sito
-		[ ] Attivare o disattivare l'elenco delle directory
-		[ ] Definire un index
+		[X] Attivare o disattivare l'elenco delle directory
+		[X] Definire un index
 
 Bonus:
 	[ ] Gestire piu CGI
