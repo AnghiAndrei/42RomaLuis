@@ -8,12 +8,15 @@
 #include<string>
 #include<vector>
 
+int check(int argc, char **argv, webserv *webservv);
+
 class webserv;
 
 class server{
 	private:
 		std::vector<std::string> med_allow;
 		std::vector<std::string> redict;
+		std::string root_assets;
 		std::string name_server;
 		std::string body_size;
 		std::string error404;
@@ -23,9 +26,11 @@ class server{
 		std::string host;
 		std::string root;
 		std::string port;
+
 	public:
 		server(webserv &master);
 
+		void set_root_assets(std::string &copy){root_assets=copy;}
 		void set_body_size(std::string &copy){body_size=copy;}
 		void set_error404(std::string &copy){error404=copy;}
 		void set_error418(std::string &copy){error418=copy;}
@@ -44,6 +49,7 @@ class server{
 		std::string get_error418(){return error418;}
 		std::string get_error404(){return error404;}
 		std::string get_body_size(){return body_size;}
+		std::string get_root_assets(){return root_assets;}
 
 		void set_medallow(std::vector<std::string> copy){this->med_allow.insert(med_allow.begin(), copy.begin(), copy.end());}
 		std::string get_medallow(int index){return med_allow[index];}
@@ -62,21 +68,22 @@ class webserv{
 		void crea_server(){servers.push_back(server(*this));}
 		size_t	get_n_server(){return servers.size();}
 		void set_nserv(size_t serv){this->nserv=serv;}
+		webserv(){nserv=0;}
 		~webserv(){}
-		webserv(){}
 };
 
-server::server(webserv &master) {
+server::server(webserv &master){
     std::ostringstream cy;
     cy << master.get_n_server() + 1;
     std::string n_server = cy.str();
-	error404="./pages/error404.html";
-	error418="./pages/error418.html";
+	error404="./dsite/404.html";
+	error418="./dsite/418.html";
+	root_assets="./dsite/Assets/img";
     name_server="Server"+n_server;
 	index="index.html";
+    root="./dsite/";
     showdir="yes";
     body_size="";
-    root="./site/";
     host="";
     port="";
 }

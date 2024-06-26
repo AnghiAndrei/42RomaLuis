@@ -13,7 +13,7 @@
 NAME = webserv
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = main.cpp
+SRC = main.cpp marshal.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -63,6 +63,18 @@ test: re
 	-./$(NAME) conf/error11.conf
 	@echo
 	-./$(NAME) conf/error12.conf
+	@echo
+	-./$(NAME) conf/error13.conf
+	@echo
+	-./$(NAME) conf/error14.conf
+	@echo
+	-./$(NAME) conf/error15.conf
+	@echo
+	-./$(NAME) conf/error16.conf
+	@echo
+	-./$(NAME) conf/error17.conf
+	@echo
+	-./$(NAME) conf/error18.conf
 	@echo
 	@echo "=====> Casi in cui deve funzionare <====="
 	-./$(NAME)
