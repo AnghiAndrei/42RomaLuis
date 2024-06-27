@@ -1,5 +1,6 @@
 #ifndef WEBSERV_HPP
 #define WEBSERV_HPP
+#include<algorithm>
 #include<iostream>
 #include<fstream>
 #include<cstdlib>
@@ -8,14 +9,14 @@
 #include<string>
 #include<vector>
 
-int check(int argc, char **argv, webserv *webservv);
-
 class webserv;
+
+int check(int argc, char **argv, webserv *webservv);
 
 class server{
 	private:
 		std::vector<std::string> med_allow;
-		std::vector<std::string> redict;
+		std::vector<std::string> ridirect;
 		std::string root_assets;
 		std::string name_server;
 		std::string body_size;
@@ -55,9 +56,9 @@ class server{
 		std::string get_medallow(int index){return med_allow[index];}
 		size_t get_lmedallow(){return med_allow.size();}
 
-		void set_redict(std::vector<std::string> copy){this->redict.insert(redict.begin(), copy.begin(), copy.end());}
-		std::string get_redict(int index){return redict[index];}
-		size_t get_lredict(){return redict.size();}
+		void set_ridirect(std::vector<std::string> copy){this->ridirect.insert(ridirect.begin(), copy.begin(), copy.end());}
+		std::string get_ridirect(int index){return ridirect[index];}
+		size_t get_lridirect(){return ridirect.size();}
 };
 
 class webserv{
@@ -71,20 +72,4 @@ class webserv{
 		webserv(){nserv=0;}
 		~webserv(){}
 };
-
-server::server(webserv &master){
-    std::ostringstream cy;
-    cy << master.get_n_server() + 1;
-    std::string n_server = cy.str();
-	error404="./dsite/404.html";
-	error418="./dsite/418.html";
-	root_assets="./dsite/Assets/img";
-    name_server="Server"+n_server;
-	index="index.html";
-    root="./dsite/";
-    showdir="yes";
-    body_size="";
-    host="";
-    port="";
-}
 #endif

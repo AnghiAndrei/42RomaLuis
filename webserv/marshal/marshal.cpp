@@ -1,4 +1,4 @@
-#include"webserv.hpp"
+#include"../webserv.hpp"
 
 int check(int argc, char **argv, webserv *webservv){
     std::string conffile="";
@@ -20,11 +20,11 @@ int check(int argc, char **argv, webserv *webservv){
 	while(std::getline(conf, temp)){
 		if(temp.empty())
 			continue;
-		if(temp[0]!='{' || temp[0]!='}'){
+		if(server==false && temp[0]!='{'){
 	        std::cout<<"Marshal: Trovati carattiri al di fuori delle parantesi"<<std::endl;
 			return -1;
 		}
-		if(temp.size()==1){
+		if((temp[0]=='{' || temp[0]=='}') && temp.size()!=1){
 	        std::cout<<"Marshal: Trovati altri caratteri nelle linee di apertura e chiusura server"<<std::endl;
 			return -1;
 		}
@@ -121,7 +121,7 @@ int check(int argc, char **argv, webserv *webservv){
 					return -1;
 				}
 				std::vector<std::string>::iterator temp = std::find(valore_vec.begin(), valore_vec.end(), val);
-				if(temp==valore_vec.end()){
+				if(temp!=valore_vec.end()){
 					std::cout<<"Marshal: Trovato un metodo doppione"<<std::endl;
 					return -1;
 				}
@@ -129,7 +129,7 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 			webservv->servers[serv].set_medallow(valore_vec);
 		}
-		else if(chiave=="redict"){
+		else if(chiave=="ridirect"){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
 				std::string val="";
@@ -137,13 +137,16 @@ int check(int argc, char **argv, webserv *webservv){
 					val+=valore[i4];
 				}
 				std::vector<std::string>::iterator temp = std::find(valore_vec.begin(), valore_vec.end(), val);
-				if(temp==valore_vec.end()){
+				if(temp!=valore_vec.end()){
 					std::cout<<"Marshal: rindirizzamento nella stessa risorsa"<<std::endl;
 					return -1;
 				}
 				valore_vec.push_back(val);
 			}
-			webservv->servers[serv].set_redict(valore_vec);
+			webservv->servers[serv].set_ridirect(valore_vec);
+		}else{
+			std::cout<<"Marshal: Trovato una configrazione sconosciuta"<<std::endl;
+			return -1;
 		}
 	}
 	if(serv==0){
@@ -151,7 +154,7 @@ int check(int argc, char **argv, webserv *webservv){
 		return -1;
 	}
 	for (size_t i=0;i!=serv;i++){
-		if(webservv->servers[i].get_lredict()==1 || webservv->servers[i].get_lredict()>=3 || webservv->servers[i].get_lmedallow()==0 || webservv->servers[i].get_body_size()=="" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==""){
+		if(webservv->servers[i].get_lridirect()==1 || webservv->servers[i].get_lridirect()>=3 || webservv->servers[i].get_lmedallow()==0 || webservv->servers[i].get_body_size()=="" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==""){
 			std::cout<<"Marshal: Nancano delle configurazione"<<std::endl;
 			return -1;
 		}
