@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/27 09:32:45 by aanghi           ###   ########.fr        #
+#    Updated: 2024/06/27 19:09:00 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,31 @@ test: re
 	@echo
 	-./$(NAME) conf/error18.conf
 	@echo
+	-./$(NAME) conf/error19.conf
+	@echo
+	-./$(NAME) conf/error20.conf
+	@echo
+	-./$(NAME) conf/error21.conf
+	@echo
+	-./$(NAME) conf/error22.conf
+	@echo
+	-./$(NAME) conf/error23.conf
+	@echo
+	-./$(NAME) conf/error24.conf
+	@echo
+	-./$(NAME) conf/error25.conf
+	@echo
+	-./$(NAME) conf/error26.conf
+	@echo
+	-./$(NAME) conf/error27.conf
+	@echo
+	-./$(NAME) conf/error28.conf
+	@echo
+	@rm -f $(NAME)
+
+test2: re
+	rm -f $(OBJ)
+	clear
 	@echo "=====> Casi in cui deve funzionare <====="
 	-./$(NAME)
 	@echo
@@ -84,12 +109,5 @@ test: re
 	-./$(NAME) conf/conf1.conf
 	@echo
 	-./$(NAME) conf/conf2.conf
-	@echo
-	@rm -f $(NAME)
-
-test2: re
-	rm -f $(OBJ)
-	clear
-	-valgrind ./$(NAME) conf/error7.conf
 	@echo
 	@rm -f $(NAME)

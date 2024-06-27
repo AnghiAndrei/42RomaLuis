@@ -1,5 +1,57 @@
 #include"../webserv.hpp"
 
+bool isValidIPv4(const std::string &ip) {
+    std::vector<std::string> parts;
+    std::stringstream ss(ip);
+    std::string part;
+
+    while (std::getline(ss, part, '.'))
+        parts.push_back(part);
+    if(parts.size()!=4){
+        return false;
+	}
+	for (size_t i=0;i!=4;i++){
+        if (parts[i].empty() || parts[i].size() > 3)
+            return false;
+		for (size_t i2=0;'\0'!=parts[i][i2];i2++){
+			if (!isdigit(parts[i][i2]))
+                return false;
+		}
+        int num = std::atoi(parts[i].c_str());
+        if (num < 0 || num > 255)
+            return false;
+	}
+    return true;
+}
+
+bool isValidPort(const std::string &port) {
+    if (port.empty() || port.size()>=6){
+        return false;
+	}
+	for (size_t i2=0;'\0'!=port[i2];i2++){
+		if (!isdigit(port[i2]))
+            return false;
+	}
+	int num = std::atoi(port.c_str());
+    if (num < 0 || num > 65535)
+        return false;
+    return true;
+}
+
+bool isValidBody_Size(const std::string &port) {
+    if (port.empty() || port.size()>=6){
+        return false;
+	}
+	for (size_t i2=0;'\0'!=port[i2];i2++){
+		if (!isdigit(port[i2]))
+            return false;
+	}
+	int num = std::atoi(port.c_str());
+    if (num < 0 || num > 10000)
+        return false;
+    return true;
+}
+
 int check(int argc, char **argv, webserv *webservv){
     std::string conffile="";
     if(argc>2){
@@ -92,11 +144,26 @@ int check(int argc, char **argv, webserv *webservv){
 		if(chiave=="server_name")
 			webservv->servers[serv].set_name(valore);
 		else if(chiave=="host")
-			webservv->servers[serv].set_host(valore);
+			if(isValidIPv4(valore)==true){
+				webservv->servers[serv].set_host(valore);
+			}else{
+				std::cout<<"Marshal: Host invalido"<<std::endl;
+				return -1;
+			}
 		else if(chiave=="port")
-			webservv->servers[serv].set_port(valore);
+			if(isValidPort(valore)==true){
+				webservv->servers[serv].set_port(valore);
+			}else{
+				std::cout<<"Marshal: Porta invalida"<<std::endl;
+				return -1;
+			}
 		else if(chiave=="body_size")
-			webservv->servers[serv].set_body_size(valore);
+			if(isValidBody_Size(valore)==true){
+				webservv->servers[serv].set_body_size(valore);
+			}else{
+				std::cout<<"Marshal: Body_size invalido"<<std::endl;
+				return -1;
+			}
 		else if(chiave=="error404")
 			webservv->servers[serv].set_error404(valore);
 		else if(chiave=="error418")
@@ -113,7 +180,7 @@ int check(int argc, char **argv, webserv *webservv){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
 				std::string val="";
-				for (i4=i4;valore[i4]!='-' && valore[i4]!='\0';i4++){
+				for (;valore[i4]!='-' && valore[i4]!='\0';i4++){
 					val+=valore[i4];
 				}
 				if(val!="GET" && val!="POST" && val!="DELETE"){
@@ -133,7 +200,7 @@ int check(int argc, char **argv, webserv *webservv){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
 				std::string val="";
-				for (i4=i4;valore[i4]!=' ' && valore[i4]!='\0';i4++){
+				for (;valore[i4]!=' ' && valore[i4]!='\0';i4++){
 					val+=valore[i4];
 				}
 				std::vector<std::string>::iterator temp = std::find(valore_vec.begin(), valore_vec.end(), val);
