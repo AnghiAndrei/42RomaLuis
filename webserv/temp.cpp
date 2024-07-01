@@ -80,7 +80,7 @@ int main() {
         }
 
         for (size_t i = 0; i < fds.size(); ++i) {
-            if (fds[i].revents & POLLIN) {
+            if (fds[i].revents & POLLIN) z{
                 if (fds[i].fd == server_fd1 || fds[i].fd == server_fd2) {
                     // Gestire nuove connessioni
                     int new_socket;

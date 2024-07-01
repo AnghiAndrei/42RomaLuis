@@ -17,6 +17,9 @@
 #include<vector>
 #include<poll.h>
 
+#define BUFFER_SIZE 1024
+#define MAX_CLIENTS 10
+
 class webserv;
 
 int check(int argc, char **argv, webserv *webservv);
@@ -56,6 +59,7 @@ class server{
 		int get_port(){return port;}
 		std::string get_host(){return host;}
 		std::string get_root(){return root;}
+		int get_fd(){return socketserverfd;}
 		std::string get_index(){return index;}
 		std::string get_showdir(){return showdir;}
 		std::string get_name(){return name_server;}
@@ -109,5 +113,28 @@ class webserv{
 		void set_nserv(size_t serv){this->nserv=serv;}
 		webserv(){nserv=0;}
 		~webserv(){}
+
+		void print_server(){
+			for (size_t i=0;i!=get_n_server();i++){
+				std::cout<<"Start | Server "<<i+1<<std::endl;
+				std::cout<<"Name        : "<<servers[i].get_name()<<std::endl;
+				std::cout<<"Host        : "<<servers[i].get_host()<<std::endl;
+				std::cout<<"Port        : "<<servers[i].get_port()<<std::endl;
+				std::cout<<"Body_size   : "<<servers[i].get_body_size()<<std::endl;
+				std::cout<<"Error 404   : "<<servers[i].get_error404()<<std::endl;
+				std::cout<<"Error 418   : "<<servers[i].get_error418()<<std::endl;
+				std::cout<<"Show dir    : "<<servers[i].get_showdir()<<std::endl;
+				std::cout<<"Root        : "<<servers[i].get_root()<<std::endl;
+				std::cout<<"Root_assets : "<<servers[i].get_root_assets()<<std::endl;
+				std::cout<<"Index       : "<<servers[i].get_index()<<std::endl;
+				std::cout<<"Method allow: ";
+				for (size_t i2=0;i2<servers[i].get_lmedallow();i2++)
+					std::cout<<servers[i].get_medallow(i2)<<" ";
+				std::cout<<std::endl;
+				if(servers[i].get_lridirect()!=0)
+					std::cout<<"Redirect    : "<<servers[i].get_ridirect(0)<<" -> "<<servers[i].get_ridirect(1)<<std::endl;
+				std::cout<<std::endl<<std::endl;
+			}
+		}
 };
 #endif

@@ -17,15 +17,15 @@ server::server(webserv &master){
 }
 
 int setnblocking(int socket) {
-    int flags = fcntl(socket, F_GETFL, 0);
-    if (flags == -1) {
-        perror("fcntl");
-        exit(EXIT_FAILURE);
+    int flags=fcntl(socket, F_GETFL, 0);
+    if(flags==-1){
+		std::cout<<"Marshal: Fcntl failed"<<std::endl;
+        exit(-1);
     }
     flags |= O_NONBLOCK;
     if (fcntl(socket, F_SETFL, flags) == -1) {
-        perror("fcntl");
-        exit(EXIT_FAILURE);
+        std::cout<<"Marshal: Fcntl failed"<<std::endl;
+        exit(-1);
     }
     return 0;
 }
