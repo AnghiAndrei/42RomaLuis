@@ -6,12 +6,26 @@ server::server(webserv &master){
     std::string n_server = cy.str();
 	error404="./dsite/404.html";
 	error418="./dsite/418.html";
-	root_assets="./dsite/Assets/img";
+	root_assets="./dsite";
     name_server="Server"+n_server;
 	index="index.html";
-    root="./dsite/";
+    root="./dsite";
     showdir="yes";
     body_size="";
     host="";
-    port="";
+    port=-1;
+}
+
+int setnblocking(int socket) {
+    int flags = fcntl(socket, F_GETFL, 0);
+    if (flags == -1) {
+        perror("fcntl");
+        exit(EXIT_FAILURE);
+    }
+    flags |= O_NONBLOCK;
+    if (fcntl(socket, F_SETFL, flags) == -1) {
+        perror("fcntl");
+        exit(EXIT_FAILURE);
+    }
+    return 0;
 }

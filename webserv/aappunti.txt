@@ -1,7 +1,7 @@
 Funzioni permesse:
 -Tutto di C++
 -Manipolazione di file: open, close, read, write, access, stat
--Manipolazione di cartelle: opendir, readdir, closedir chdir
+-Manipolazione di cartelle: opendir, readdir, closedir, chdir
 -Gestione dei processi: fork, execve, waitpid, kill
 -Gestione dei segnali: signal
 -Gestione degli errori: strerror, gai_strerror, errno

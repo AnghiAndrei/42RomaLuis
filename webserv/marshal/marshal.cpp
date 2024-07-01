@@ -1,6 +1,6 @@
 #include"../webserv.hpp"
 
-bool isValidIPv4(const std::string &ip) {
+bool isValidIPv4(const std::string &ip){
     std::vector<std::string> parts;
     std::stringstream ss(ip);
     std::string part;
@@ -24,7 +24,7 @@ bool isValidIPv4(const std::string &ip) {
     return true;
 }
 
-bool isValidPort(const std::string &port) {
+bool isValidPort(const std::string &port){
     if (port.empty() || port.size()>=6){
         return false;
 	}
@@ -38,7 +38,7 @@ bool isValidPort(const std::string &port) {
     return true;
 }
 
-bool isValidBody_Size(const std::string &port) {
+bool isValidBody_Size(const std::string &port){
     if (port.empty() || port.size()>=6){
         return false;
 	}
@@ -50,6 +50,21 @@ bool isValidBody_Size(const std::string &port) {
     if (num < 0 || num > 10000)
         return false;
     return true;
+}
+
+bool isValidDirectory(const std::string &path){
+    struct stat info;
+
+    if(stat(path.c_str(), &info)!=0) {
+        std::cout<<"Marshal: "<<path<<"; non esiste"<<std::endl;
+		return false;
+    }else if (info.st_mode)
+        return true;
+    else{
+        std::cout<<"Marshal: "<<path<<"; non e una cartella"<<std::endl;
+        return false;
+    }
+	return false;
 }
 
 int check(int argc, char **argv, webserv *webservv){
@@ -152,7 +167,7 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 		else if(chiave=="port")
 			if(isValidPort(valore)==true){
-				webservv->servers[serv].set_port(valore);
+				webservv->servers[serv].set_port(std::atoi(valore.c_str()));
 			}else{
 				std::cout<<"Marshal: Porta invalida"<<std::endl;
 				return -1;
@@ -221,10 +236,22 @@ int check(int argc, char **argv, webserv *webservv){
 		return -1;
 	}
 	for (size_t i=0;i!=serv;i++){
-		if(webservv->servers[i].get_lridirect()==1 || webservv->servers[i].get_lridirect()>=3 || webservv->servers[i].get_lmedallow()==0 || webservv->servers[i].get_body_size()=="" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==""){
+		std::ifstream file1(webservv->servers[i].get_error418().c_str());
+		if(!file1.is_open()){
+			std::cout<<"Marshal: Errore nella apertura del file: "<<webservv->servers[i].get_error418()<<std::endl;
+			return -1;
+		}
+		std::ifstream file2(webservv->servers[i].get_error404().c_str());
+		if(!file2.is_open()){
+			std::cout<<"Marshal: Errore nella apertura del file: "<<webservv->servers[i].get_error404()<<std::endl;
+			return -1;
+		}
+		if(webservv->servers[i].get_lridirect()==1 || webservv->servers[i].get_lridirect()>=3 || webservv->servers[i].get_lmedallow()==0 || webservv->servers[i].get_body_size()=="" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==-1){
 			std::cout<<"Marshal: Nancano delle configurazione"<<std::endl;
 			return -1;
 		}
+		if(isValidDirectory(webservv->servers[i].get_root_assets())==false)return -1;
+		if(isValidDirectory(webservv->servers[i].get_root())==false)return -1;
 	}
 	webservv->set_nserv(serv);
     return 0;

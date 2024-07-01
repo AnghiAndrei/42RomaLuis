@@ -21,10 +21,8 @@ int main(int argc, char **argv){
 		for (size_t i2=0;i2<webservv.servers[i].get_lmedallow();i2++)
 			std::cout<<webservv.servers[i].get_medallow(i2)<<" ";
 		std::cout<<std::endl;
-		std::cout<<"Redirect    : ";
-		for (size_t i2=0;i2<webservv.servers[i].get_lridirect();i2++)
-			std::cout<<webservv.servers[i].get_ridirect(i2)<<" ";
-		std::cout<<std::endl;
+		if(webservv.servers[i].get_lridirect()!=0)
+			std::cout<<"Redirect    : "<<webservv.servers[i].get_ridirect(0)<<" -> "<<webservv.servers[i].get_ridirect(1)<<std::endl;
 		std::cout<<std::endl<<std::endl;
 	}
     return 0;

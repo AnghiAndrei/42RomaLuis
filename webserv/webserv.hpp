@@ -1,17 +1,26 @@
 #ifndef WEBSERV_HPP
 #define WEBSERV_HPP
+#include<netinet/in.h>
+#include<sys/socket.h>
+#include<sys/types.h>
+#include<arpa/inet.h>
+#include<sys/stat.h>
 #include<algorithm>
+#include<unistd.h>
 #include<iostream>
 #include<fstream>
 #include<cstdlib>
 #include<cstring>
 #include<sstream>
+#include<fcntl.h>
 #include<string>
 #include<vector>
+#include<poll.h>
 
 class webserv;
 
 int check(int argc, char **argv, webserv *webservv);
+int setnblocking(int socket);
 
 class server{
 	private:
@@ -26,9 +35,12 @@ class server{
 		std::string index;
 		std::string host;
 		std::string root;
-		std::string port;
+		int port;
+
+		int socketserverfd;
 
 	public:
+		~server(){close(socketserverfd);}
 		server(webserv &master);
 
 		void set_root_assets(std::string &copy){root_assets=copy;}
@@ -40,8 +52,8 @@ class server{
 		void set_index(std::string &copy){index=copy;}
 		void set_host(std::string &copy){host=copy;}
 		void set_root(std::string &copy){root=copy;}
-		void set_port(std::string &copy){port=copy;}
-		std::string get_port(){return port;}
+		void set_port(int copy){port=copy;}
+		int get_port(){return port;}
 		std::string get_host(){return host;}
 		std::string get_root(){return root;}
 		std::string get_index(){return index;}
@@ -59,6 +71,32 @@ class server{
 		void set_ridirect(std::vector<std::string> copy){this->ridirect.insert(ridirect.begin(), copy.begin(), copy.end());}
 		std::string get_ridirect(int index){return ridirect[index];}
 		size_t get_lridirect(){return ridirect.size();}
+
+		void start(){
+			struct sockaddr_in address;
+			int opt = 1;
+
+			if((socketserverfd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+				std::cout<<"Marshal: Socket failed"<<std::endl;
+				exit(-1);
+			}
+			if(setsockopt(socketserverfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+				std::cout<<"Marshal: Setsockopt failed"<<std::endl;
+				exit(-1);
+			}
+			address.sin_family = AF_INET;
+			address.sin_addr.s_addr = INADDR_ANY;
+			address.sin_port = htons(port);
+			if(bind(socketserverfd, (struct sockaddr *)&address, sizeof(address))<0){
+				std::cout<<"Marshal: Bind failed"<<std::endl;
+				exit(-1);
+			}
+			if(listen(socketserverfd, 3)<0){
+				std::cout<<"Marshal: Listen failed"<<std::endl;
+				exit(-1);
+			}
+			setnblocking(socketserverfd);
+		}
 };
 
 class webserv{
