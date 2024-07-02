@@ -1,2 +1,3 @@
 [Migliorare con + test] Minishell
+[Caricare le mappe del test su assets] So_long
 

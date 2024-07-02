@@ -22,10 +22,15 @@ int main(int argc, char **argv){
 			std::cout<<"Marshal: Poll failed"<<std::endl;
             exit(-1);
         }
+		bool newcon=false;
         for (size_t i = 0; i < servers.size(); ++i){
+			if(newcon==true)
+				break;
             if (servers[i].revents & POLLIN){
 				bool velse=false;
 				for(size_t i2=0;i2!=webservv.get_n_server();i2++){
+					if(newcon==true)
+						break;
 					if(servers[i].fd==webservv.servers[i2].get_fd()){
 						velse=true;
 						int new_socket;
@@ -45,9 +50,10 @@ int main(int argc, char **argv){
 								pfd.fd=new_socket;
 								pfd.events=POLLIN;
 								pfd.revents=0;
+								newcon=true;
 								servers.push_back(pfd);
 							}
-                        	std::cout<<"New connection accepted on port "<<webservv.servers[i2].get_fd()<<std::endl;
+                        	std::cout<<"Nuova connessione nel fd: "<<webservv.servers[i2].get_fd()<<std::endl;
 						}
 						if(canc==true)
 							close(new_socket);
@@ -66,6 +72,7 @@ int main(int argc, char **argv){
 						buffer[valread] = '\0';
 						const char *hello = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 31\n\nVoglio mangiare il tuo pancreas";
 						send(servers[i].fd, hello, strlen(hello), 0);
+						std::cout<<"Servito fd: "<<servers[i].fd<<std::endl;
 					}
 				}
             }

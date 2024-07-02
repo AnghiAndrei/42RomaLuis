@@ -30,3 +30,4 @@ Note:
 -i codici di stato http devono essere accurati (100-500)
 -deve avere una pagina di errore predefinita
 -puoi usare fork solo per CGI
+-nota: controllare se la porta che indendi ascoltare non sia gia occupata
