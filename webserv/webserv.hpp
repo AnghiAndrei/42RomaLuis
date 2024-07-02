@@ -17,7 +17,7 @@
 #include<vector>
 #include<poll.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 99999
 #define MAX_CLIENTS 10
 
 class webserv;

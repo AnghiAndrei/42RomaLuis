@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/27 09:31:57 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/02 15:11:38 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,5 +35,5 @@ re: fclean all
 test: re
 	rm -f $(OBJ)
 	clear
-	-./$(NAME) conf/conffull.conf
+	-./$(NAME) conf/confsmplice.conf
 	@rm -f $(NAME)

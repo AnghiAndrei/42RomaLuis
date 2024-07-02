@@ -22,15 +22,10 @@ int main(int argc, char **argv){
 			std::cout<<"Marshal: Poll failed"<<std::endl;
             exit(-1);
         }
-		bool newcon=false;
+		bool velse=false;
         for (size_t i = 0; i < servers.size(); ++i){
-			if(newcon==true)
-				break;
             if (servers[i].revents & POLLIN){
-				bool velse=false;
 				for(size_t i2=0;i2!=webservv.get_n_server();i2++){
-					if(newcon==true)
-						break;
 					if(servers[i].fd==webservv.servers[i2].get_fd()){
 						velse=true;
 						int new_socket;
@@ -42,21 +37,12 @@ int main(int argc, char **argv){
 							continue;
 						}
 						setnblocking(new_socket);
-						bool canc=true;
-						for(size_t i2=0;i2!=webservv.get_n_server();i2++){
-							if(servers[i].fd==webservv.servers[i2].get_fd()){
-								struct pollfd pfd;
-								canc=false;
-								pfd.fd=new_socket;
-								pfd.events=POLLIN;
-								pfd.revents=0;
-								newcon=true;
-								servers.push_back(pfd);
-							}
-                        	std::cout<<"Nuova connessione nel fd: "<<webservv.servers[i2].get_fd()<<std::endl;
-						}
-						if(canc==true)
-							close(new_socket);
+						struct pollfd pfd;
+						pfd.fd=new_socket;
+						pfd.events=POLLIN;
+						pfd.revents=0;
+						servers.push_back(pfd);
+                        std::cout<<"Nuova connessione nel fd: "<<webservv.servers[i2].get_fd()<<std::endl;
 					}
 				}
 				if(velse==false){
@@ -64,6 +50,8 @@ int main(int argc, char **argv){
 					int valread=read(servers[i].fd, buffer, BUFFER_SIZE);
 					if(valread<=0){
 						//chiusura
+						std::cout<<"chiuso fd: "<<servers[i].fd<<std::endl;
+
 						close(servers[i].fd);
 						servers.erase(servers.begin() + i);
 						--i;
