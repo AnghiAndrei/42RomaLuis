@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/02 15:11:38 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/03 16:05:08 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = main.cpp marshal/marshal.cpp webserv.cpp
+SRC = main.cpp marshal/marshal.cpp webserv.cpp execute.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -35,5 +35,5 @@ re: fclean all
 test: re
 	rm -f $(OBJ)
 	clear
-	-./$(NAME) conf/confsmplice.conf
+	-valgrind ./$(NAME) conf/simpconf.conf
 	@rm -f $(NAME)

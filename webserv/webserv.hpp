@@ -4,6 +4,7 @@
 #include<sys/socket.h>
 #include<sys/types.h>
 #include<arpa/inet.h>
+#include<sys/wait.h>
 #include<sys/stat.h>
 #include<algorithm>
 #include<unistd.h>
@@ -16,13 +17,19 @@
 #include<string>
 #include<vector>
 #include<poll.h>
+#include<map>
 
-#define BUFFER_SIZE 99999
+#define BUFFER_SIZE 4096
 #define MAX_CLIENTS 10
 
 class webserv;
 
+bool endsWith(const std::string &str, const std::string &suffix);
+std::string executePHP(const std::string &request, char **env);
+std::string parseRequest(const std::string &request);
 int check(int argc, char **argv, webserv *webservv);
+std::string readFile(const std::string &filePath);
+std::string getext(const std::string &path);
 int setnblocking(int socket);
 
 class server{

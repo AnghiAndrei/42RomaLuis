@@ -29,3 +29,41 @@ int setnblocking(int socket) {
     }
     return 0;
 }
+
+std::string readFile(const std::string &filePath) {
+    std::ifstream file(filePath.c_str());
+    if (!file.is_open()) {
+        return "";
+    }
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
+
+std::string parseRequest(const std::string &request) {
+    std::istringstream requestStream(request);
+    std::string method, url, protocol;
+    requestStream >> method >> url >> protocol;
+    if (method != "GET") {
+        return "";
+    }
+    return url;
+}
+
+bool endsWith(const std::string &str, const std::string &suffix){return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;}
+std::string getext(const std::string &path){
+    if (endsWith(path, ".html"))
+        return "text/html";
+	else if (endsWith(path, ".php"))
+        return "text/html";
+    else if (endsWith(path, ".css"))
+        return "text/css";
+    else if (endsWith(path, ".js"))
+        return "application/javascript";
+    else if (endsWith(path, ".png"))
+        return "image/png";
+	else if (endsWith(path, ".jpg") || endsWith(path, ".jpeg"))
+        return "image/jpeg";
+    else
+        return "application/octet-stream";
+}
