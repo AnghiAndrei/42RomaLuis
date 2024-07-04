@@ -9,6 +9,7 @@ Mandatori:
             [ ] DELETE
         [X] Deve potere ascoltare da piu porte
         [ ] Eseguire codice Php o Python tramite CGI
+		[ ] Riindirizza all'index quando non specificata una cartella
     File di configurazione:
         *Parametro obbligatorio nella configurazione
         [X] *Numero di porta

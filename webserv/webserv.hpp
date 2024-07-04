@@ -23,15 +23,19 @@
 #define MAX_CLIENTS 10
 
 class webserv;
+struct t_master;
 
 bool endsWith(const std::string &str, const std::string &suffix);
-std::string executePHP(const std::string &request, char **env);
-std::string parseRequest(const std::string &request);
+t_master executePHP(const std::string &request, char **env);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
-std::string get_metod(const std::string &request);
 std::string getext(const std::string &path);
 int setnblocking(int socket);
+
+struct t_master{
+	std::string content;
+	int status;
+};
 
 class server{
 	private:

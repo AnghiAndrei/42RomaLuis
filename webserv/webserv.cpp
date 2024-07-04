@@ -40,23 +40,6 @@ std::string readFile(const std::string &filePath) {
     return buffer.str();
 }
 
-std::string parseRequest(const std::string &request) {
-    std::istringstream requestStream(request);
-    std::string method, url, protocol;
-    requestStream >> method >> url >> protocol;
-    if (method != "GET") {
-        return "";
-    }
-    return url;
-}
-
-std::string get_metod(const std::string &request) {
-    std::istringstream requestStream(request);
-    std::string method, url, protocol;
-    requestStream >> method >> url >> protocol;
-    return method;
-}
-
 bool endsWith(const std::string &str, const std::string &suffix){return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;}
 std::string getext(const std::string &path){
     if (endsWith(path, ".html"))

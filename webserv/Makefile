@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/03 16:05:08 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/04 11:02:47 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,12 @@ re: fclean all
 	c++ $(CFLAGS) -c $< -o $@
 
 test: re
+	rm -f $(OBJ)
+	clear
+	-./$(NAME) conf/simpconf.conf
+	@rm -f $(NAME)
+
+test2: re
 	rm -f $(OBJ)
 	clear
 	-valgrind ./$(NAME) conf/simpconf.conf
