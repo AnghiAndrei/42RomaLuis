@@ -29,6 +29,7 @@ std::string executePHP(const std::string &request, char **env);
 std::string parseRequest(const std::string &request);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
+std::string get_metod(const std::string &request);
 std::string getext(const std::string &path);
 int setnblocking(int socket);
 
@@ -76,11 +77,11 @@ class server{
 		std::string get_root_assets(){return root_assets;}
 
 		void set_medallow(std::vector<std::string> copy){this->med_allow.insert(med_allow.begin(), copy.begin(), copy.end());}
-		std::string get_medallow(int index){return med_allow[index];}
+		std::string get_medallow(size_t index){return med_allow[index];}
 		size_t get_lmedallow(){return med_allow.size();}
 
 		void set_ridirect(std::vector<std::string> copy){this->ridirect.insert(ridirect.begin(), copy.begin(), copy.end());}
-		std::string get_ridirect(int index){return ridirect[index];}
+		std::string get_ridirect(size_t index){return ridirect[index];}
 		size_t get_lridirect(){return ridirect.size();}
 
 		void start(){

@@ -185,8 +185,14 @@ int check(int argc, char **argv, webserv *webservv){
 			webservv->servers[serv].set_error418(valore);
 		else if(chiave=="index")
 			webservv->servers[serv].set_index(valore);
-		else if(chiave=="showdir")
-			webservv->servers[serv].set_showdir(valore);
+		else if(chiave=="showdir"){
+			if(valore=="yes" || valore=="no")
+				webservv->servers[serv].set_showdir(valore);
+			else{
+				std::cout<<"Marshal: Valore non riconosciuto in showdir"<<std::endl;
+				return -1;
+			}
+		}
 		else if(chiave=="root")
 			webservv->servers[serv].set_root(valore);
 		else if(chiave=="root_assets")

@@ -1,7 +1,6 @@
 #include"webserv.hpp"
 
 std::string executePHP(const std::string &request, char **env){
-	char buffer[BUFFER_SIZE];
 	int fd_out=dup(STDOUT_FILENO);
 	std::string output="";
 	int fd[2];
@@ -32,14 +31,14 @@ std::string executePHP(const std::string &request, char **env){
 		std::cout<<"Marshal: Execute error"<<std::endl;
 		exit(-1);
 	}else{
+		waitpid(pid, NULL, 0);
 		ssize_t bytesRead;
-        while ((bytesRead = read(fd[0], buffer, sizeof(buffer))) > 0){
+		char buffer[BUFFER_SIZE];
+        while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0){
 	    	output.append(buffer, bytesRead);
 		}
-		waitpid(pid, NULL, 0);
 	}
 	dup2(fd_out, STDOUT_FILENO);
 	close(fd_out);
-	std::cout<<&buffer[0]<<std::endl;
 	return output;
 }

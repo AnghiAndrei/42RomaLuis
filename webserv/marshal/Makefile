@@ -104,6 +104,8 @@ test: re
 	@echo
 	-./$(NAME) conf/error32.conf
 	@echo
+	-./$(NAME) conf/error33.conf
+	@echo
 	@rm -f $(NAME)
 
 test2: re

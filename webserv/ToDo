@@ -1,10 +1,13 @@
 Mandatori:
     Funzionamento:
 		[ ] Se non specificato la porta, la richiesta verra servita dal primo server
-        [ ] Hostare un sito web statico
+        [X] Hostare un sito web statico
         [ ] Gli utenti possono caricare immagini
-        [ ] Implementare metodi: GET, POST, DELETE
-        [ ] Deve potere ascoltare da piu porte
+        [ ] Implementare metodi:
+            [X] GET
+            [ ] POST
+            [ ] DELETE
+        [X] Deve potere ascoltare da piu porte
         [ ] Eseguire codice Php o Python tramite CGI
     File di configurazione:
         *Parametro obbligatorio nella configurazione

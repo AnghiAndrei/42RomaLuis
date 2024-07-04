@@ -4,7 +4,7 @@ body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}
 .centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}
 .centro{width: 500px;}
 .centro2{width: 800px;}
-.sottotitolo, .sottotitolod{font-size: 20px;}
+.sottotitolo, .sottotitolod{font-size: 25px;}
 .sottotitolod{text-align: left;}
 .titolo{font-size: 30px;}
 .link{text-decoration: underline;}

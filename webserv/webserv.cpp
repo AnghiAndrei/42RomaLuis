@@ -50,11 +50,22 @@ std::string parseRequest(const std::string &request) {
     return url;
 }
 
+std::string get_metod(const std::string &request) {
+    std::istringstream requestStream(request);
+    std::string method, url, protocol;
+    requestStream >> method >> url >> protocol;
+    return method;
+}
+
 bool endsWith(const std::string &str, const std::string &suffix){return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;}
 std::string getext(const std::string &path){
     if (endsWith(path, ".html"))
         return "text/html";
 	else if (endsWith(path, ".php"))
+        return "text/html";
+    else if (endsWith(path, ".sh"))
+        return "text/html";
+    else if (endsWith(path, ".python"))
         return "text/html";
     else if (endsWith(path, ".css"))
         return "text/css";
