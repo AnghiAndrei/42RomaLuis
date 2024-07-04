@@ -5,9 +5,11 @@
 #include<sys/types.h>
 #include<arpa/inet.h>
 #include<sys/wait.h>
+#include<sys/time.h>
 #include<sys/stat.h>
 #include<algorithm>
 #include<unistd.h>
+#include<signal.h>
 #include<iostream>
 #include<fstream>
 #include<cstdlib>
@@ -19,6 +21,7 @@
 #include<poll.h>
 #include<map>
 
+#define EXECUTION_TIME_LIMIT 7
 #define BUFFER_SIZE 4096
 #define MAX_CLIENTS 10
 
@@ -26,10 +29,14 @@ class webserv;
 struct t_master;
 
 bool endsWith(const std::string &str, const std::string &suffix);
+t_master executePython(const std::string &request, char **env);
+t_master executeShell(const std::string &request, char **env);
 t_master executePHP(const std::string &request, char **env);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
 std::string getext(const std::string &path);
+bool dirExists(const std::string &path);
+bool fileExists(const char *path);
 int setnblocking(int socket);
 
 struct t_master{

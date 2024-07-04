@@ -44,9 +44,9 @@
                             <form method="post" enctype="multipart/form-data">
                                 <input name="img" type="file" accept=".png" display="none">
                                 <?php 
-                                if(isset($_FILES["img"])){
-                                    $nome_file=$_FILES['img'];
-                                    $ext=pathinfo($nome_file, PATHINFO_EXTENSION);
+                                	if(isset($_FILES["img"])){
+										$nome_file=$_FILES['img'];
+										$ext=pathinfo($nome_file, PATHINFO_EXTENSION);
                                         $ext_acc=["png"];
                                         if(in_array($ext,$ext_acc)){
                                             $percorso_temporaneo=$_FILES['tmp_name'];

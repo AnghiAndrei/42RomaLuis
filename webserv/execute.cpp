@@ -1,54 +1,205 @@
 #include"webserv.hpp"
 
-t_master executePHP(const std::string &request, char **env){
-	t_master ris;
-	int fd_out=dup(STDOUT_FILENO);
-	int fd[2];
-    if (pipe(fd)==-1){
-        std::cout<<"Marshal: pipe"<<std::endl;
-        ris.status=-1;
-		ris.content="Pipe error";
+void handle_alarm(int sig){(void)sig;}
+
+t_master executePHP(const std::string &request, char **env) {
+    t_master ris;
+    int fd[2];
+
+    if (pipe(fd) == -1) {
+        std::cout << "Marshal: pipe" << std::endl;
+        ris.status = -1;
+        ris.content = "Pipe error";
+        return ris;
     }
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
-	close(fd[0]);
-	pid_t	pid=fork();
-	if (pid==-1){
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_out);
-		std::cout<<"Marshal: Fork error"<<std::endl;
-		ris.status=-1;
-		ris.content="Fork error";
-		exit(-1);
-	}
-	if (pid == 0){
-		std::vector<const char *> args;
-		args.push_back("php-cgi");
-		args.push_back("-f");
-		args.push_back(request.c_str());
-		args.push_back(NULL);
-		execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), env);
-		// execve("/usr/local/bin/php-cgi", const_cast<char **>(args.data()), env);
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_out);
-		std::cout<<"Marshal: Execute error"<<std::endl;
-		exit(-1);
-	}else{
-		int status;
-		while (waitpid(-1, &status, 0) > 0){;}
-		if(status==0){
-			ssize_t bytesRead;
-			char buffer[BUFFER_SIZE];
-			while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0){
-				ris.content.append(buffer, bytesRead);
-			}
-			ris.status=0;
-		}else{
-			ris.status=-1;
-			ris.content="Execute error";
-		}
-	}
-	dup2(fd_out, STDOUT_FILENO);
-	close(fd_out);
-	return ris;
+    pid_t pid = fork();
+    if (pid == -1) {
+        close(fd[0]);
+        close(fd[1]);
+        std::cout << "Marshal: Fork error" << std::endl;
+        ris.status = -1;
+        ris.content = "Fork error";
+        return ris;
+    }
+    if(pid == 0){
+        close(fd[0]);
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
+        std::vector<const char *> args;
+        args.push_back("php-grrcgi");
+        args.push_back("-f");
+        args.push_back(request.c_str());
+        args.push_back(NULL);
+        execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), env);
+        std::cout<<"Marshal: Execute error"<<std::endl;
+        exit(-1);
+    }else{
+        close(fd[1]);
+        struct sigaction sa;
+        sa.sa_handler = handle_alarm;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGALRM, &sa, NULL);
+        alarm(EXECUTION_TIME_LIMIT);
+        int status;
+        while (waitpid(pid, &status, 0) > 0) {
+            if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
+                ris.status = -1;
+                ris.content = "Execution timed out";
+                break;
+            }
+        }
+        alarm(0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+            ssize_t bytesRead;
+            char buffer[BUFFER_SIZE];
+            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0)
+                ris.content.append(buffer, bytesRead);
+            ris.status = 0;
+        }else if(!(WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM)){
+            ris.status = -1;
+            ris.content = "Execute error: <br>";
+            ssize_t bytesRead;
+            char buffer[BUFFER_SIZE];
+            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0) {
+                ris.content.append(buffer, bytesRead);
+            }
+        }
+        close(fd[0]);
+    }
+    return ris;
+}
+
+t_master executePython(const std::string &request, char **env) {
+    t_master ris;
+    int fd[2];
+
+    if (pipe(fd) == -1) {
+        std::cout << "Marshal: pipe" << std::endl;
+        ris.status = -1;
+        ris.content = "Pipe error";
+        return ris;
+    }
+    pid_t pid = fork();
+    if (pid == -1) {
+        close(fd[0]);
+        close(fd[1]);
+        std::cout << "Marshal: Fork error" << std::endl;
+        ris.status = -1;
+        ris.content = "Fork error";
+        return ris;
+    }
+    if(pid == 0){
+        close(fd[0]);
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
+        std::vector<const char *> args;
+        args.push_back("python3");
+        args.push_back(request.c_str());
+        args.push_back(NULL);
+        execve("/usr/bin/python3", const_cast<char **>(args.data()), env);
+        std::cout<<"Marshal: Execute error"<<std::endl;
+        exit(-1);
+    }else{
+        close(fd[1]);
+        struct sigaction sa;
+        sa.sa_handler = handle_alarm;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGALRM, &sa, NULL);
+        alarm(EXECUTION_TIME_LIMIT);
+        int status;
+        while (waitpid(pid, &status, 0) > 0) {
+            if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
+                ris.status = -1;
+                ris.content = "Execution timed out";
+                break;
+            }
+        }
+        alarm(0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+            ssize_t bytesRead;
+            char buffer[BUFFER_SIZE];
+            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0)
+                ris.content.append(buffer, bytesRead);
+            ris.status = 0;
+        }else if(!(WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM)){
+            ris.status = -1;
+            ris.content = "Execute error: <br>";
+            ssize_t bytesRead;
+            char buffer[BUFFER_SIZE];
+            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0) {
+                ris.content.append(buffer, bytesRead);
+            }
+        }
+        close(fd[0]);
+    }
+    return ris;
+}
+
+t_master executeShell(const std::string &request, char **env) {
+    t_master ris;
+    int fd[2];
+
+    if (pipe(fd) == -1) {
+        std::cout << "Marshal: pipe" << std::endl;
+        ris.status = -1;
+        ris.content = "Pipe error";
+        return ris;
+    }
+    pid_t pid = fork();
+    if (pid == -1) {
+        close(fd[0]);
+        close(fd[1]);
+        std::cout << "Marshal: Fork error" << std::endl;
+        ris.status = -1;
+        ris.content = "Fork error";
+        return ris;
+    }
+    if(pid == 0){
+        close(fd[0]);
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
+        std::vector<const char *> args;
+        args.push_back("bash");
+        args.push_back(request.c_str());
+        args.push_back(NULL);
+        execve("/bin/bash", const_cast<char **>(args.data()), env);
+        std::cout<<"Marshal: Execute error"<<std::endl;
+        exit(-1);
+    }else{
+        close(fd[1]);
+        struct sigaction sa;
+        sa.sa_handler = handle_alarm;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGALRM, &sa, NULL);
+        alarm(EXECUTION_TIME_LIMIT);
+        int status;
+        while (waitpid(pid, &status, 0) > 0) {
+            if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
+                ris.status = -1;
+                ris.content = "Execution timed out";
+                break;
+            }
+        }
+        alarm(0);
+        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+            ssize_t bytesRead;
+            char buffer[BUFFER_SIZE];
+            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0)
+                ris.content.append(buffer, bytesRead);
+            ris.status = 0;
+        }else if(!(WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM)){
+            ris.status = -1;
+            ris.content = "Execute error: <br>";
+            ssize_t bytesRead;
+            char buffer[BUFFER_SIZE];
+            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0) {
+                ris.content.append(buffer, bytesRead);
+            }
+        }
+        close(fd[0]);
+    }
+    return ris;
 }

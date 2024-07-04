@@ -30,6 +30,18 @@ int setnblocking(int socket) {
     return 0;
 }
 
+bool fileExists(const char *path) {
+    struct stat buffer;
+    return (stat(path, &buffer) == 0);
+}
+
+bool dirExists(const std::string &path){
+    struct stat info;
+    if(stat(path.c_str(), &info)!=0)
+		return false;
+	return true;
+}
+
 std::string readFile(const std::string &filePath) {
     std::ifstream file(filePath.c_str());
     if (!file.is_open()) {
@@ -48,7 +60,7 @@ std::string getext(const std::string &path){
         return "text/html";
     else if (endsWith(path, ".sh"))
         return "text/html";
-    else if (endsWith(path, ".python"))
+    else if (endsWith(path, ".py"))
         return "text/html";
     else if (endsWith(path, ".css"))
         return "text/css";

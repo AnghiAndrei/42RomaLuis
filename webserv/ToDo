@@ -4,12 +4,13 @@ Mandatori:
         [X] Hostare un sito web statico
         [ ] Gli utenti possono caricare immagini
         [ ] Implementare metodi:
-            [X] GET
+            [ ] GET
             [ ] POST
             [ ] DELETE
         [X] Deve potere ascoltare da piu porte
-        [ ] Eseguire codice Php o Python tramite CGI
-		[ ] Riindirizza all'index quando non specificata una cartella
+        [X] Eseguire codice Php o Python tramite CGI
+		[X] Riindirizza all'index quando non specificata un file
+		[X] Se non trova la risorsa da: 404
     File di configurazione:
         *Parametro obbligatorio nella configurazione
         [X] *Numero di porta
@@ -27,6 +28,9 @@ Mandatori:
 		[X] Definire un index
 
 Bonus:
-	[ ] Gestire piu CGI
+	[X] Gestire piu CGI
+		[X] Shell
+		[X] Python
+		[X] Php
 	[ ] Supportare: Coookie
 	[ ] Supportare: Sessioni

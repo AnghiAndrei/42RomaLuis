@@ -74,57 +74,81 @@ int main(int argc, char **argv, char **env){
                                 notallow=false;
                         }
                         if(notallow==true){
-                            content="<!DOCTYPE html><html><head><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Error: Metod non allow | Wengly</title></head><body><h1>Error: Metod non allow</h1></body></html>";
+                            content="<!DOCTYPE html><html><head><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Error: Metod non allow | Wengly</title></head><body><h1>Error: Metod:"+metod+"; non allow</h1></body></html>";
                             std::ostringstream convertitore;
                             convertitore << content.size();
                             responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: "+convertitore.str()+"\n\n"+content;
                             continue;
                         }
+
 						std::string ContentType;
 						std::string filePath;
                         if(url == "/")
                             filePath = webservv.servers[cli->second].get_root() + webservv.servers[cli->second].get_index();
                         else
                             filePath = webservv.servers[cli->second].get_root() + url;
+						
 
 						t_master ris;
 						ris.status=0;
-						if(endsWith(filePath, ".php")){
-                            ris = executePHP(filePath, env);
-							content = ris.content;
-						}else
-                            content = readFile(filePath);
-                        ContentType=getext(filePath);
-                        if (content.empty() && ris.status==-1){
-                            filePath=webservv.servers[cli->second].get_error404();
-                            content = readFile(filePath);
-							if(content.empty()){
-                                ContentType="text/html";
-                                content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><link rel='stylesheet' type='text/css' href='./Assets/main.css'><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>No Title | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
-                                if(webservv.servers[cli->second].get_showdir()=="yes"){
-                                    content+="<p class='sottotitolo'>File della cartella:";
-                                    // DIR				*dir;
-                                    // struct dirent	*entry;
+						if (!fileExists(filePath.c_str())){
+							filePath=webservv.servers[cli->second].get_error404();
+							ContentType=getext(filePath);
+							if(endsWith(filePath, ".php")){
+								ris = executePHP(filePath, env);
+								content = ris.content;
+							}else if(endsWith(filePath, ".py")){
+								ris = executePython(filePath, env);
+								content = ris.content;
+							}else if(endsWith(filePath, ".sh")){
+								ris = executeShell(filePath, env);
+								content = ris.content;
+							}else
+								content = readFile(filePath);
+						}
+						if(filePath[filePath.size()-1]=='/'){
+							filePath+=webservv.servers[cli->second].get_index();
+						}
+						std::cout<<filePath<<std::endl;
+						if(!fileExists(filePath.c_str())){
+							ContentType="text/html";
+							content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><link rel='stylesheet' type='text/css' href='./Assets/main.css'><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
+							if(webservv.servers[cli->second].get_showdir()=="yes"){
+								content+="<p class='sottotitolo'>File della cartella:";
+						//             // DIR				*dir;
+						//             // struct dirent	*entry;
 
-                                    // dir = opendir(get_path());
-                                    // if (dir == NULL){
-                                    //     std::cout<<"Marshal: Opendir error"<<std::endl;
-                                    //     exit(-1);
-                                    // }
-                                    // entry = readdir(dir);
-                                    // while (entry != NULL){
-                                    //     if (entry->d_type == DT_REG){
-                                    //         if (strncmp(entry->d_name, ".", 2) != 0 && strncmp(entry->d_name, "..", 3) != 0)
-                                    //             content+="<p class='sottotitolo'><a class='link' href='"+entry->d_name+"'>"+entry->d_name+"</a></p>";
-                                    //     }
-                                    //     entry = readdir(dir);
-                                    // }
-                                    content+="Impostazione showdir: yes";
-                                    content+="</p>";
-                                }else
-									content+="Impostazione showdir: no";
-                                content+="</div></center></body></html>";
-                            }
+						//             // dir = opendir(get_path());
+						//             // if (dir == NULL){
+						//             //     std::cout<<"Marshal: Opendir error"<<std::endl;
+						//             //     exit(-1);
+						//             // }
+						//             // entry = readdir(dir);
+						//             // while (entry != NULL){
+						//             //     if (entry->d_type == DT_REG){
+						//             //         if (strncmp(entry->d_name, ".", 2) != 0 && strncmp(entry->d_name, "..", 3) != 0)
+						//             //             content+="<p class='sottotitolo'><a class='link' href='"+entry->d_name+"'>"+entry->d_name+"</a></p>";
+						//             //     }
+						//             //     entry = readdir(dir);
+						//             // }
+								content+="Impostazione showdir: yes";
+								content+="</p>";
+							}else
+								content+="Impostazione showdir: no";
+							content+="</div></center></body></html>";
+						}else{
+							ContentType=getext(filePath);
+							if(endsWith(filePath, ".php")){
+								ris = executePHP(filePath, env);
+								content = ris.content;
+							}else if(endsWith(filePath, ".py")){
+								ris = executePython(filePath, env);
+								content = ris.content;
+							}else if(endsWith(filePath, ".sh")){
+								ris = executeShell(filePath, env);
+								content = ris.content;
+							}else
+								content = readFile(filePath);
 						}
 						std::ostringstream convertitore;
 						convertitore << content.size();
