@@ -70,8 +70,12 @@
                 </table>
                 <br>
                 <hr class="linea">
+                <p class="sottotitolod"><a target="_blank" class="link" href="cartella_vuota/">Vedi cartella vuota</a></p>
+                <p class="sottotitolod"><a target="_blank" class="link" href="inesistente.html">Vedi error 404</a></p>
+                <br>
                 <p class="sottotitolod"><a target="_blank" class="link" href="cgi.py">Vedi CGI con python</a></p>
                 <p class="sottotitolod"><a target="_blank" class="link" href="cgi.sh">Vedi CGI con shell</a></p>
+                <br>
                 <p class="sottotitolod"><a class="link" href="home.html">Torna alla Home</a></p>
             </div>
         </center>

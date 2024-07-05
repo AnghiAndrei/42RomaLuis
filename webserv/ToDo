@@ -8,9 +8,14 @@ Mandatori:
             [ ] POST
             [ ] DELETE
         [X] Deve potere ascoltare da piu porte
-        [X] Eseguire codice Php o Python tramite CGI
-		[X] Riindirizza all'index quando non specificata un file
+        [X] Eseguire codice Php, Python, Bash, ecc tramite CGI
+		[X] Riindirizza all'index quando non specificato una risorsa: /
 		[X] Se non trova la risorsa da: 404
+		[X] Pagina autogenerata quando non ce l'index in una cartella
+		[ ] Se non trova la cartella da: 404
+		[ ] Usare il body_size
+		[ ] Usare il name_server
+		[ ] Redirectsion
     File di configurazione:
         *Parametro obbligatorio nella configurazione
         [X] *Numero di porta
