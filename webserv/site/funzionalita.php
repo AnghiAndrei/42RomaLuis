@@ -20,7 +20,7 @@
                         <td>
                             <h2 class="sottotitolo">Variabili POST</h2>
                             <form method="post">
-                                <input name="post" type="text">
+                                <input name="post" type="text" value="<?php if(isset($_POST["post"])){echo$_POST["post"];}?>">
                                 <button class="pulsanti">Invia</button>
                                 <p class="sottotitolo">Valore: <?php if(isset($_POST["post"])){echo$_POST["post"];}?></p>
                             </form>
@@ -29,9 +29,9 @@
                         <td>
                             <h2 class="sottotitolo">Variabili GET</h2>
                             <form method="get">
-                                <input name="get" type="text">
+                                <input name="get" type="text" value="<?php if(isset($_GET["get"])){echo$_GET["get"];};?>">
                                 <button class="pulsanti">Invia</button>
-                                <p class="sottotitolo">Valore: <?php if(isset($_POST["post"])){echo$_POST["get"];}?></p>
+                                <p class="sottotitolo">Valore: <?php if(isset($_GET["get"])){echo$_GET["get"];};?></p>
                             </form>
                         </td>
                     </tr>
@@ -70,11 +70,14 @@
                 </table>
                 <br>
                 <hr class="linea">
-                <p class="sottotitolod"><a target="_blank" class="link" href="cartella_vuota/">Vedi cartella vuota</a></p>
-                <p class="sottotitolod"><a target="_blank" class="link" href="inesistente.html">Vedi error 404</a></p>
+                <p class="sottotitolod"><a target="_blank" class="link" href="cartella_no_index/">Vedi cartella senza index</a></p>
+                <p class="sottotitolod"><a target="_blank" class="link" href="cartella_inesistente/">Vedi error 404 con cartella</a></p>
+                <p class="sottotitolod"><a target="_blank" class="link" href="inesistente.html">Vedi error 404 con file</a></p>
                 <br>
                 <p class="sottotitolod"><a target="_blank" class="link" href="cgi.py">Vedi CGI con python</a></p>
                 <p class="sottotitolod"><a target="_blank" class="link" href="cgi.sh">Vedi CGI con shell</a></p>
+				<br>
+                <p class="sottotitolod"><a target="_blank" class="link" href="/ripasso">Redirection</a></p>
                 <br>
                 <p class="sottotitolod"><a class="link" href="home.html">Torna alla Home</a></p>
             </div>

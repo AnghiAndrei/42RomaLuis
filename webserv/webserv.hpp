@@ -28,10 +28,10 @@
 class webserv;
 struct t_master;
 
+t_master executePHP(const std::string &request, char **env, std::string &get_query, std::string &post_query);
 bool endsWith(const std::string &str, const std::string &suffix);
 t_master executePython(const std::string &request, char **env);
 t_master executeShell(const std::string &request, char **env);
-t_master executePHP(const std::string &request, char **env);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
 std::string getext(const std::string &path);

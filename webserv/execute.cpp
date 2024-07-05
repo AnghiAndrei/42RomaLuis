@@ -2,7 +2,7 @@
 
 void handle_alarm(int sig){(void)sig;}
 
-t_master executePHP(const std::string &request, char **env) {
+t_master executePHP(const std::string &request, char **env, std::string &get_query, std::string &post_query) {
     t_master ris;
     int fd[2];
 
@@ -26,11 +26,19 @@ t_master executePHP(const std::string &request, char **env) {
         dup2(fd[1], STDOUT_FILENO);
         close(fd[1]);
         std::vector<const char *> args;
-        args.push_back("php-grrcgi");
-        args.push_back("-f");
+        args.push_back("php-cgi");
+        args.push_back("-q");
         args.push_back(request.c_str());
+        args.push_back(get_query.c_str());
         args.push_back(NULL);
-        execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), env);
+
+		(void)post_query;
+		std::vector<const char *> envs;
+		for (size_t i=0;env[i]!=NULL;i++)
+	        envs.push_back(env[i]);
+        envs.push_back(NULL);
+
+        execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), const_cast<char **>(envs.data()));
         std::cout<<"Marshal: Execute error"<<std::endl;
         exit(-1);
     }else{
@@ -67,6 +75,7 @@ t_master executePHP(const std::string &request, char **env) {
         }
         close(fd[0]);
     }
+		std::cout<<"fine esecuzione"<<std::endl;
     return ris;
 }
 
