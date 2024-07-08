@@ -10,6 +10,7 @@
 #include<algorithm>
 #include<unistd.h>
 #include<signal.h>
+#include<dirent.h>
 #include<iostream>
 #include<fstream>
 #include<cstdlib>
