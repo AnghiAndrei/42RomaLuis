@@ -77,6 +77,9 @@
                 <p class="sottotitolod"><a target="_blank" class="link" href="cgi.py">Vedi CGI con python</a></p>
                 <p class="sottotitolod"><a target="_blank" class="link" href="cgi.sh">Vedi CGI con shell</a></p>
 				<br>
+                <p class="sottotitolod"><a target="_blank" class="link" href="cgi2.py">Vedi: Errore di compilazione</a></p>
+                <p class="sottotitolod"><a target="_blank" class="link" href="cgi3.py">Vedi: Tempo di esecuzione massimo</a></p>
+                <br>
                 <p class="sottotitolod"><a target="_blank" class="link" href="/ripasso">Redirection</a></p>
                 <br>
                 <p class="sottotitolod"><a class="link" href="home.html">Torna alla Home</a></p>

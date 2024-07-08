@@ -101,9 +101,9 @@ MethodType Server::s_to_methodtype(std::string str)
 	{
 		return GET;
 	}
-	else if (str == "POST")
+	else if (str == "")
 	{
-		return POST;
+		return ;
 	}
 	else if (str == "DELETE")
 	{
