@@ -30,18 +30,6 @@ int setnblocking(int socket) {
     return 0;
 }
 
-bool fileExists(const char *path) {
-    struct stat buffer;
-    return (stat(path, &buffer) == 0);
-}
-
-bool dirExists(const std::string &path){
-    struct stat info;
-    if(stat(path.c_str(), &info)!=0)
-		return false;
-	return true;
-}
-
 std::string readFile(const std::string &filePath) {
     std::ifstream file(filePath.c_str());
     if (!file.is_open()) {
@@ -72,30 +60,4 @@ std::string getext(const std::string &path){
         return "image/jpeg";
     else
         return "application/octet-stream";
-}
-
-std::string getAbsolutePathNoFile(const std::string &filename) {
-    char *pwd = getcwd(NULL, 0);
-    if (pwd == NULL){
-        std::cout<<"Marshal: Errore in: getcwd"<<std::endl;
-        exit(-1);
-    }
-    DIR *dir=opendir(cwd);
-    if (dir==NULL){
-        std::cout<<"Marshal: Errore in: opendir" << std::endl;
-        free(pwd);
-        exit(-1);
-    }
-    struct dirent *entry;
-    while ((entry=readdir(dir))!=NULL) {
-        if (strcmp(entry->d_name, filename.c_str()) == 0){
-            closedir(dir);
-            free(pwd);
-            std::string absolutePath = std::string(cwd) + "/";
-            return absolutePath;
-        }
-    }
-    free(pwd);
-    closedir(dir);
-    return "";
 }

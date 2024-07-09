@@ -13,7 +13,7 @@ Mandatori:
 		[X] Se non trova la risorsa da: 404
 		[ ] Pagina autogenerata quando non ce l'index in una cartella
 			[X] Appare
-			[ ] Se impostazione e su: yes; genenera l'elenco dei file
+			[X] Se impostazione e su: yes; genenera l'elenco dei file
 		[X] Se non trova la cartella da: 404
 		[X] Redirectsion
 		[ ] Usare il body_size

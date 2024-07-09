@@ -26,19 +26,23 @@
 #define BUFFER_SIZE 4096
 #define MAX_CLIENTS 10
 
+class server;
 class webserv;
 struct t_master;
 
-t_master executePHP(const std::string &request, char **env, std::string &get_query, std::string &post_query);
+t_master executePHP(server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
 bool endsWith(const std::string &str, const std::string &suffix);
+std::string getAbsolutePath(const std::string &filename, int i);
 t_master executePython(const std::string &request, char **env);
 t_master executeShell(const std::string &request, char **env);
+std::string ExtractFile(const std::string &directoryPath);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
 std::string getext(const std::string &path);
 bool dirExists(const std::string &path);
 bool fileExists(const char *path);
 int setnblocking(int socket);
+std::string GetRootPath();
 
 struct t_master{
 	std::string content;

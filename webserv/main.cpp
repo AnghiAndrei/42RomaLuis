@@ -67,7 +67,7 @@ int main(int argc, char **argv, char **env){
 						requestStream >> metod >> url >> protocol;
 						if(protocol==""){;}
 						size_t pos = url.find('?');
-						std::string query_post="post=hola";
+						std::string query_post="";
 						std::string query_get="";
 						if(pos<=url.size())
 							query_get = url.substr(pos+1, url.size());
@@ -99,7 +99,7 @@ int main(int argc, char **argv, char **env){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
 								if(endsWith(filePath, ".php")){
-									ris = executePHP(filePath, env, query_get, query_post);
+									ris = executePHP(webservv.servers[cli->second], filePath, env, query_get, query_post);
 									content = ris.content;
 								}else if(endsWith(filePath, ".py")){
 									ris = executePython(filePath, env);
@@ -114,7 +114,7 @@ int main(int argc, char **argv, char **env){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
 								if(endsWith(filePath, ".php")){
-									ris = executePHP(filePath, env, query_get, query_post);
+									ris = executePHP(webservv.servers[cli->second], filePath, env, query_get, query_post);
 									content = ris.content;
 								}else if(endsWith(filePath, ".py")){
 									ris = executePython(filePath, env);
@@ -132,38 +132,37 @@ int main(int argc, char **argv, char **env){
 							if(filePath[filePath.size()-1]=='/'){
 								filePath+=webservv.servers[cli->second].get_index();
 							}
-							if(!fileExists(filePath.c_str())){
+							if(!fi	std::cout << "Nuova connessione nel fd: " << webservv.servers[i2].get_fd() << std::endl;
+					}
+				}leExists(filePath.c_str())){
 								ContentType="text/html";
 								content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><style>*{text-decoration: none;color: rgb(255, 135, 211);}html{background-color:rgb(255, 211, 239);background-color: pink;height: 100vh;width: 100vw;margin: 0;padding: 0;}body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}.centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}.centro{width: 500px;}.centro2{width: 800px;}.sottotitolo, .sottotitolod{font-size: 25px;}.sottotitolod{text-align: left;}.titolo{font-size: 30px;}.link{text-decoration: underline;}.pulsanti{background-color: rgb(255, 184, 217);color: white;font-size: 20px;border: 2px solid rgb(255, 129, 190);border-radius: 3%;}.img{width: auto;height: 200px;}.linea{border: rgb(255, 135, 211) 1px solid;width: 80%;}</style><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
 								if(webservv.servers[cli->second].get_showdir()=="yes"){
 									content+="<p class='sottotitolo'>File della cartella:";
 									DIR				*dir;
 									struct dirent	*entry;
-
-									dir=opendir(getAbsolutePathNoFile(url));
+									dir=opendir(getAbsolutePath(GetRootPath()+url, 0).c_str());
 									if (dir == NULL){
-										std::cout<<"Marshal: Opendir error"<<std::endl;
-										exit(-1);
-									}
-									entry = readdir(dir);
-									while (entry != NULL){
-										if (entry->d_type == DT_REG){
-											if (strncmp(entry->d_name, "..", 3) != 0){
-												std::string temp=entry->d_name;
-												content+=("<p class='sottotitolo'><a class='link' href='"+temp.c_str()+"'>"+temp.c_str()+"</a></p>").c_str();
-											}
-										}
+										content+="<p class='sottotitolo'>Marshal: Errore in opendir</p></div></center></body></html>";										
+									}else{
 										entry = readdir(dir);
+										while (entry != NULL){
+											if (entry->d_type == DT_REG){
+												std::string temp=entry->d_name;
+												content+=("<p class='sottotitolo'><a class='link' href='"+temp+"'>"+temp+"</a></p>").c_str();
+											}
+											entry = readdir(dir);
+										}
+										closedir(dir);
+										content+="</p>";
 									}
-									closedir(dir);
-									content+="</p>";
 								}else
 									content+="Impostazione showdir: no";
 								content+="</div></center></body></html>";
 							}else{
 								ContentType=getext(filePath);
 								if(endsWith(filePath, ".php")){
-									ris = executePHP(filePath, env, query_get, query_post);
+									ris = executePHP(webservv.servers[cli->second], filePath, env, query_get, query_post);
 									content = ris.content;
 								}else if(endsWith(filePath, ".py")){
 									ris = executePython(filePath, env);
@@ -190,7 +189,6 @@ int main(int argc, char **argv, char **env){
                 std::map<int, std::string>::iterator it = responses.find(servers[i].fd);
                 if (it != responses.end()){
                     send(servers[i].fd, it->second.c_str(), it->second.size(), 0);
-                    std::cout << "Servito fd: " << servers[i].fd << std::endl;
                     responses.erase(it);
                 }
             }
