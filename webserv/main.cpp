@@ -73,7 +73,6 @@ int main(int argc, char **argv, char **env){
 							query_get = url.substr(pos+1, url.size());
                         url = url.substr(0, pos);
 						std::string content;
-						// std::cout<<"File: "<<url<<std::endl;
 
 						if(webservv.servers[cli->second].get_lridirect()==2){
 							if (url == webservv.servers[cli->second].get_ridirect(0)) {
@@ -83,23 +82,11 @@ int main(int argc, char **argv, char **env){
 							}
 						}
 
-                        bool notallow=true;
-                        for(size_t i=0;i!=webservv.servers[cli->second].get_lmedallow();i++){
-                            if(metod==webservv.servers[cli->second].get_medallow(i))
-                                notallow=false;
-                        }
-                        if(notallow==true){
-                            content="<!DOCTYPE html><html><head><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Error: Metod non allow | Wengly</title></head><body><h1>Error: Metod:"+metod+"; non allow</h1></body></html>";
-                            std::ostringstream convertitore;
-                            convertitore << content.size();
-                            responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: "+convertitore.str()+"\n\n"+content;
-                            continue;
-                        }
-
 						if(metod=="DELETE"){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 16\n\nRichiesta DELETE";
-						}
-						if(metod=="GET" || metod=="POST"){
+						}else if(metod=="POST"){
+                            responses[servers[i].fd]="HTTP/1.1 200 OK\r\n\r\n";
+						}else if(metod=="GET"){
 							std::string ContentType;
 							std::string filePath;
 							if(url == "/")
@@ -153,7 +140,7 @@ int main(int argc, char **argv, char **env){
 									DIR				*dir;
 									struct dirent	*entry;
 
-									dir = opendir("/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/");
+									dir=opendir(getAbsolutePathNoFile(url));
 									if (dir == NULL){
 										std::cout<<"Marshal: Opendir error"<<std::endl;
 										exit(-1);
@@ -163,12 +150,12 @@ int main(int argc, char **argv, char **env){
 										if (entry->d_type == DT_REG){
 											if (strncmp(entry->d_name, "..", 3) != 0){
 												std::string temp=entry->d_name;
-												content+=("<p class='sottotitolo'><a class='link' href='"+temp+"'>"+temp.c_str()+"</a></p>").c_str();
+												content+=("<p class='sottotitolo'><a class='link' href='"+temp.c_str()+"'>"+temp.c_str()+"</a></p>").c_str();
 											}
 										}
 										entry = readdir(dir);
 									}
-									content+="Impostazione showdir: yes";
+									closedir(dir);
 									content+="</p>";
 								}else
 									content+="Impostazione showdir: no";
@@ -191,6 +178,11 @@ int main(int argc, char **argv, char **env){
 							convertitore << content.size();
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore.str()+"\n\n"+content;
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
+						}else{
+							content="<!DOCTYPE html><html><head><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Error: Metod non allow | Wengly</title></head><body><h1>Error: Metod:"+metod+"; non allow</h1></body></html>";
+                            std::ostringstream convertitore;
+                            convertitore << content.size();
+                            responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: "+convertitore.str()+"\n\n"+content;
 						}
 					}
                 }
