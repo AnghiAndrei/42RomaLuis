@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **env){
             std::cout << "Marshal: Poll failed" << std::endl;
             exit(-1);
         }
-        for (size_t i = 0; i < servers.size(); ++i) {
+        for (size_t i = 0; i < servers.size(); ++i){
             if (servers[i].revents & POLLIN) {
                 bool isNewConnection = false;
 				for (size_t i2 = 0; i2 != webservv.get_n_server(); i2++) {
@@ -65,6 +65,7 @@ int main(int argc, char **argv, char **env){
 						std::istringstream requestStream(request);
 						std::string metod, url, protocol;
 						requestStream >> metod >> url >> protocol;
+						// std::cout<<"Url: "<<url<<std::endl;
 						if(protocol==""){;}
 						size_t pos = url.find('?');
 						std::string query_post="";
@@ -82,11 +83,32 @@ int main(int argc, char **argv, char **env){
 							}
 						}
 
+						std::cout<<metod<<std::endl;
 						if(metod=="DELETE"){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 16\n\nRichiesta DELETE";
-						}else if(metod=="POST"){
-                            responses[servers[i].fd]="HTTP/1.1 200 OK\r\n\r\n";
-						}else if(metod=="GET"){
+						}else if(metod=="GET" || metod=="POST"){
+							if(metod=="POST"){
+								std::string numeri="";
+								size_t posCL=request.find("Content-Length: ");
+								if(posCL+16<request.size()){
+									for (size_t i=posCL+16; isdigit(request[i]);i++)
+										numeri+=request[i];
+								}else
+									numeri="0";
+								size_t ContentLength=atoi(numeri.c_str());
+
+								posCL=request.find("\r\n\r\n");
+								if(posCL+4<request.size()){
+									size_t i2=0;
+									for (size_t i=posCL+4;i2!=ContentLength;i++){
+										query_post+=request[i];
+										i2++;
+									}
+								}else
+									query_post="";
+								// std::cout<<"Content-Length: "<<ContentLength<<std::endl;
+								// std::cout<<"Post: "<<query_post<<std::endl;
+							}
 							std::string ContentType;
 							std::string filePath;
 							if(url == "/")
@@ -99,7 +121,7 @@ int main(int argc, char **argv, char **env){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
 								if(endsWith(filePath, ".php")){
-									ris = executePHP(webservv.servers[cli->second], filePath, env, query_get, query_post);
+									ris = executePHP(servers[i].fd, webservv.servers[cli->second], filePath, env, query_get, query_post);
 									content = ris.content;
 								}else if(endsWith(filePath, ".py")){
 									ris = executePython(filePath, env);
@@ -114,7 +136,7 @@ int main(int argc, char **argv, char **env){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
 								if(endsWith(filePath, ".php")){
-									ris = executePHP(webservv.servers[cli->second], filePath, env, query_get, query_post);
+									ris = executePHP(servers[i].fd, webservv.servers[cli->second], filePath, env, query_get, query_post);
 									content = ris.content;
 								}else if(endsWith(filePath, ".py")){
 									ris = executePython(filePath, env);
@@ -132,15 +154,14 @@ int main(int argc, char **argv, char **env){
 							if(filePath[filePath.size()-1]=='/'){
 								filePath+=webservv.servers[cli->second].get_index();
 							}
-							if(!fi	std::cout << "Nuova connessione nel fd: " << webservv.servers[i2].get_fd() << std::endl;
-					}
-				}leExists(filePath.c_str())){
+							if(!fileExists(filePath.c_str())){
 								ContentType="text/html";
 								content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><style>*{text-decoration: none;color: rgb(255, 135, 211);}html{background-color:rgb(255, 211, 239);background-color: pink;height: 100vh;width: 100vw;margin: 0;padding: 0;}body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}.centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}.centro{width: 500px;}.centro2{width: 800px;}.sottotitolo, .sottotitolod{font-size: 25px;}.sottotitolod{text-align: left;}.titolo{font-size: 30px;}.link{text-decoration: underline;}.pulsanti{background-color: rgb(255, 184, 217);color: white;font-size: 20px;border: 2px solid rgb(255, 129, 190);border-radius: 3%;}.img{width: auto;height: 200px;}.linea{border: rgb(255, 135, 211) 1px solid;width: 80%;}</style><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
 								if(webservv.servers[cli->second].get_showdir()=="yes"){
 									content+="<p class='sottotitolo'>File della cartella:";
 									DIR				*dir;
 									struct dirent	*entry;
+									std::cout<<getAbsolutePath(GetRootPath()+url, 0).c_str()<<std::endl;
 									dir=opendir(getAbsolutePath(GetRootPath()+url, 0).c_str());
 									if (dir == NULL){
 										content+="<p class='sottotitolo'>Marshal: Errore in opendir</p></div></center></body></html>";										
@@ -162,7 +183,7 @@ int main(int argc, char **argv, char **env){
 							}else{
 								ContentType=getext(filePath);
 								if(endsWith(filePath, ".php")){
-									ris = executePHP(webservv.servers[cli->second], filePath, env, query_get, query_post);
+									ris = executePHP(servers[i].fd, webservv.servers[cli->second], filePath, env, query_get, query_post);
 									content = ris.content;
 								}else if(endsWith(filePath, ".py")){
 									ris = executePython(filePath, env);
@@ -188,7 +209,7 @@ int main(int argc, char **argv, char **env){
             }else if (servers[i].revents & POLLOUT){
                 std::map<int, std::string>::iterator it = responses.find(servers[i].fd);
                 if (it != responses.end()){
-                    send(servers[i].fd, it->second.c_str(), it->second.size(), 0);
+                    send(servers[i].fd, it->second.c_str(), (it->second.size()+1), 0);
                     responses.erase(it);
                 }
             }

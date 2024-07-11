@@ -22,15 +22,16 @@
 #include<poll.h>
 #include<map>
 
-#define EXECUTION_TIME_LIMIT 7
+#define EXECUTION_TIME_LIMIT 10
 #define BUFFER_SIZE 4096
-#define MAX_CLIENTS 10
+#define MAX_CLIENTS 7
 
 class server;
 class webserv;
 struct t_master;
 
-t_master executePHP(server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
+t_master executePHP(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
+std::string getAbsolutePath3(const std::string &filename, int i);
 bool endsWith(const std::string &str, const std::string &suffix);
 std::string getAbsolutePath(const std::string &filename, int i);
 t_master executePython(const std::string &request, char **env);
@@ -67,7 +68,9 @@ class server{
 		int socketserverfd;
 
 	public:
-		~server(){close(socketserverfd);}
+		~server(){
+			// close(socketserverfd);
+		}
 		server(webserv &master);
 
 		void set_root_assets(std::string &copy){root_assets=copy;}

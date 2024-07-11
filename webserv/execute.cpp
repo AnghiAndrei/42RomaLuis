@@ -5,7 +5,7 @@ void handle_alarm(int sig){
 	exit(-1);
 }
 
-t_master executePHP(server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query) {
+t_master executePHP(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query) {
     t_master ris;
     int fd[2];
 
@@ -45,35 +45,45 @@ t_master executePHP(server &server, const std::string &request, char **env, std:
 		for (size_t i=0;env[i]!=NULL;i++)
 	        envs.push_back(env[i]);
 
-        if(!post_query.empty()){
+        if (!post_query.empty()) {
             std::ostringstream convertitore;
             convertitore << "CONTENT_LENGTH=" << post_query.size();
-            envs.push_back((convertitore.str()).c_str());
+            envs.push_back(strdup(convertitore.str().c_str()));
 
-			std::ostringstream convertitore2;
-            convertitore2 << "SERVER_PORT="<<server.get_port();
-            envs.push_back((convertitore2.str()).c_str());
+            std::ostringstream convertitore2;
+            convertitore2 << "SERVER_PORT=" << server.get_port();
+            envs.push_back(strdup(convertitore2.str().c_str()));
 
-            envs.push_back(("SCRIPT_FILENAME="+request).c_str());
-            envs.push_back(("SCRIPT_NAME="+request).c_str());
-            envs.push_back(("REQUEST_URI="+request).c_str());
-            envs.push_back(("PATH_INFO="+request).c_str());
-            envs.push_back(("QUERY_STRING="+get_query).c_str());
-            envs.push_back(("SERVER_NAME="+server.get_host()).c_str());
-            envs.push_back(("REMOTE_HOST="+server.get_host()).c_str());
-            envs.push_back("CONTENT_TYPE=application/x-www-form-urlencoded");
-            envs.push_back("REQUEST_METHOD=POST");
-            envs.push_back("GATEWAY_INTERFACE=CGI/1.1");
-            envs.push_back("SERVER_PROTOCOL=HTTP/1.1");
-            envs.push_back("SERVER_SOFTWARE=webserv/1.0");
-            envs.push_back("REDIRECT_STATUS=false");
-            envs.push_back("PATH_TRANSLATED=");
-            envs.push_back("REMOTE_USER=");
-            envs.push_back("REMOTE_IDENT=");
-            envs.push_back("AUTH_TYPE=");
-            envs.push_back("REMOTE_ADDR=");
+            std::ostringstream convertitore3;
+            convertitore3 << "REMOTE_ADDR=" << fdc;
+            envs.push_back(strdup(convertitore3.str().c_str()));
+
+            envs.push_back(strdup(("SCRIPT_FILENAME=" + getAbsolutePath3(ExtractFile(request), 1)).c_str()));
+            envs.push_back(strdup(("SCRIPT_NAME=" + request).c_str()));
+            envs.push_back(strdup(("REQUEST_URI=" + request).c_str()));
+            envs.push_back(strdup(("PATH_TRANSLATED="+getAbsolutePath3(ExtractFile(request), 1)).c_str()));
+            envs.push_back(strdup(("PATH_INFO=" + request).c_str()));
+            envs.push_back(strdup(("QUERY_STRING=" + get_query).c_str()));
+            envs.push_back(strdup(("SERVER_NAME=" + server.get_host()).c_str()));
+            envs.push_back(strdup(("REMOTE_HOST=" + server.get_host()).c_str()));
+            envs.push_back(strdup("CONTENT_TYPE=application/x-www-form-urlencoded"));
+            envs.push_back(strdup("REQUEST_METHOD=POST"));
+            envs.push_back(strdup("GATEWAY_INTERFACE=CGI/1.1"));
+            envs.push_back(strdup("SERVER_PROTOCOL=HTTP/1.1"));
+            envs.push_back(strdup("SERVER_SOFTWARE=webserv/1.0"));
+            envs.push_back(strdup("REDIRECT_STATUS=false"));
+            envs.push_back(strdup("REMOTE_USER="));
+            envs.push_back(strdup("REMOTE_IDENT="));
+            envs.push_back(strdup("AUTH_TYPE="));
         }
         envs.push_back(NULL);
+
+        // for (const char *env : envs) {
+        //     if (env != NULL) {
+        //         std::cerr << env << std::endl;
+        //     }
+        // }
+
         execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), const_cast<char **>(envs.data()));
         std::cout<<"Marshal: Execute error"<<std::endl;
         exit(-1);
@@ -204,6 +214,7 @@ t_master executeShell(const std::string &request, char **env) {
         alarm(EXECUTION_TIME_LIMIT);
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);
+        dup2(fd[1], STDERR_FILENO);
         close(fd[1]);
         std::vector<const char *> args;
         args.push_back("bash");

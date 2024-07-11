@@ -75,3 +75,49 @@ std::string GetRootPath(){
     free(pwd);
 	return currentDirectory;
 }
+
+
+std::string getAbsolutePath4(const std::string &filename, const std::string &directory, int i) {
+    DIR *dir = opendir(directory.c_str());
+    if (dir == NULL) {
+        return "";
+    }
+
+    struct dirent *entry;
+	std::string fullPath="";
+    while ((entry = readdir(dir)) != NULL) {
+        std::string entryName = entry->d_name;
+        if (entryName == "." || entryName == "..") {
+            continue;
+        }
+        fullPath = directory + "/" + entryName;
+		if(entry->d_type == DT_REG){
+            if (entryName == filename) {
+                closedir(dir);
+				if(i==0)
+    	            return directory;
+    	        else
+				    return fullPath;
+            }
+		}else{
+            std::string result = getAbsolutePath4(filename, fullPath, i);
+            if (!result.empty()) {
+                closedir(dir);
+                return result;
+            }
+		}
+    }
+    closedir(dir);
+    return "";
+}
+
+std::string getAbsolutePath3(const std::string &filename, int i) {
+    char *pwd = getcwd(NULL, 0);
+    if (pwd == NULL) {
+        std::cout<<"Marshal: Errore in getcwd"<<std::endl;
+        exit(-1);
+    }
+    std::string currentDirectory = pwd;
+    free(pwd);
+    return getAbsolutePath4(filename, currentDirectory, i);
+}
