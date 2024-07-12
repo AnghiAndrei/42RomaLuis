@@ -47,7 +47,7 @@ bool isValidBody_Size(const std::string &port){
             return false;
 	}
 	int num = std::atoi(port.c_str());
-    if (num < 0 || num > 10000)
+    if (num < 0 || num > 2000000007)
         return false;
     return true;
 }
@@ -181,8 +181,12 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 		else if(chiave=="error404")
 			webservv->servers[serv].set_error404(valore);
+		else if(chiave=="error405")
+			webservv->servers[serv].set_error405(valore);
 		else if(chiave=="error418")
 			webservv->servers[serv].set_error418(valore);
+		else if(chiave=="error413")
+			webservv->servers[serv].set_error413(valore);
 		else if(chiave=="index")
 			webservv->servers[serv].set_index(valore);
 		else if(chiave=="showdir"){

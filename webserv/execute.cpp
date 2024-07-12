@@ -31,7 +31,9 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         sa.sa_flags = 0;
         sigaction(SIGALRM, &sa, NULL);
         alarm(EXECUTION_TIME_LIMIT);
+        dup2(fd[0], STDIN_FILENO);
         close(fd[0]);
+        write(STDIN_FILENO, post_query.c_str(), post_query.size());
         dup2(fd[1], STDOUT_FILENO);
         close(fd[1]);
         std::vector<const char *> args;
@@ -40,7 +42,6 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         args.push_back(request.c_str());
         args.push_back(get_query.c_str());
         args.push_back(NULL);
-		(void)post_query;
 		std::vector<const char *> envs;
 		for (size_t i=0;env[i]!=NULL;i++)
 	        envs.push_back(env[i]);

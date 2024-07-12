@@ -23,7 +23,7 @@
 #include<map>
 
 #define EXECUTION_TIME_LIMIT 10
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 8192
 #define MAX_CLIENTS 7
 
 class server;
@@ -31,6 +31,7 @@ class webserv;
 struct t_master;
 
 t_master executePHP(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
+t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post);
 std::string getAbsolutePath3(const std::string &filename, int i);
 bool endsWith(const std::string &str, const std::string &suffix);
 std::string getAbsolutePath(const std::string &filename, int i);
@@ -58,7 +59,9 @@ class server{
 		std::string name_server;
 		std::string body_size;
 		std::string error404;
+		std::string error405;
 		std::string error418;
+		std::string error413;
 		std::string showdir;
 		std::string index;
 		std::string host;
@@ -76,7 +79,9 @@ class server{
 		void set_root_assets(std::string &copy){root_assets=copy;}
 		void set_body_size(std::string &copy){body_size=copy;}
 		void set_error404(std::string &copy){error404=copy;}
+		void set_error405(std::string &copy){error405=copy;}
 		void set_error418(std::string &copy){error418=copy;}
+		void set_error413(std::string &copy){error413=copy;}
 		void set_name(std::string &copy){name_server=copy;}
 		void set_showdir(std::string &copy){showdir=copy;}
 		void set_index(std::string &copy){index=copy;}
@@ -91,7 +96,9 @@ class server{
 		std::string get_showdir(){return showdir;}
 		std::string get_name(){return name_server;}
 		std::string get_error418(){return error418;}
+		std::string get_error413(){return error413;}
 		std::string get_error404(){return error404;}
+		std::string get_error405(){return error405;}
 		std::string get_body_size(){return body_size;}
 		std::string get_root_assets(){return root_assets;}
 
@@ -149,6 +156,7 @@ class webserv{
 				std::cout<<"Port        : "<<servers[i].get_port()<<std::endl;
 				std::cout<<"Body_size   : "<<servers[i].get_body_size()<<std::endl;
 				std::cout<<"Error 404   : "<<servers[i].get_error404()<<std::endl;
+				std::cout<<"Error 413   : "<<servers[i].get_error413()<<std::endl;
 				std::cout<<"Error 418   : "<<servers[i].get_error418()<<std::endl;
 				std::cout<<"Show dir    : "<<servers[i].get_showdir()<<std::endl;
 				std::cout<<"Root        : "<<servers[i].get_root()<<std::endl;

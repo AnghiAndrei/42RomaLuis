@@ -60,6 +60,7 @@ int main(int argc, char **argv, char **env){
                         servers.erase(servers.begin() + i);
                         --i;
                     }else{
+						t_master ris;
 						std::map<int, int>::iterator cli = client_to_server.find(servers[i].fd);
 						std::string request(buffer, valread);
 						std::istringstream requestStream(request);
@@ -75,6 +76,25 @@ int main(int argc, char **argv, char **env){
                         url = url.substr(0, pos);
 						std::string content;
 
+						std::string numeri="";
+						size_t posCL=request.find("Content-Length: ");
+						if(posCL+16<request.size()){
+							for (size_t i=posCL+16; isdigit(request[i]);i++)
+								numeri+=request[i];
+						}else
+							numeri="0";
+						size_t ContentLength=atoi(numeri.c_str());
+						if(ContentLength>webservv.servers[cli->second].get_body_size()){
+							filePath=webservv.servers[cli->second].get_error413();
+							ContentType=getext(filePath);
+							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+							content = ris.content;
+							std::ostringstream convertitore2;
+							convertitore2 << content.size();
+							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+							continue;
+						}
+
 						if(webservv.servers[cli->second].get_lridirect()==2){
 							if (url == webservv.servers[cli->second].get_ridirect(0)) {
 								std::string newLocation=webservv.servers[cli->second].get_ridirect(1);
@@ -88,15 +108,6 @@ int main(int argc, char **argv, char **env){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 16\n\nRichiesta DELETE";
 						}else if(metod=="GET" || metod=="POST"){
 							if(metod=="POST"){
-								std::string numeri="";
-								size_t posCL=request.find("Content-Length: ");
-								if(posCL+16<request.size()){
-									for (size_t i=posCL+16; isdigit(request[i]);i++)
-										numeri+=request[i];
-								}else
-									numeri="0";
-								size_t ContentLength=atoi(numeri.c_str());
-
 								posCL=request.find("\r\n\r\n");
 								if(posCL+4<request.size()){
 									size_t i2=0;
@@ -115,37 +126,18 @@ int main(int argc, char **argv, char **env){
 								filePath = webservv.servers[cli->second].get_root() + webservv.servers[cli->second].get_index();
 							else
 								filePath = webservv.servers[cli->second].get_root() + url;
-							t_master ris;
 							ris.status=0;
 							if (!fileExists(filePath.c_str())){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
-								if(endsWith(filePath, ".php")){
-									ris = executePHP(servers[i].fd, webservv.servers[cli->second], filePath, env, query_get, query_post);
-									content = ris.content;
-								}else if(endsWith(filePath, ".py")){
-									ris = executePython(filePath, env);
-									content = ris.content;
-								}else if(endsWith(filePath, ".sh")){
-									ris = executeShell(filePath, env);
-									content = ris.content;
-								}else
-									content = readFile(filePath);
+								ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+								content = ris.content;
 							}
 							if(filePath[filePath.size()-1]=='/' && dirExists(filePath)==false && !fileExists(webservv.servers[cli->second].get_error404().c_str())){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
-								if(endsWith(filePath, ".php")){
-									ris = executePHP(servers[i].fd, webservv.servers[cli->second], filePath, env, query_get, query_post);
-									content = ris.content;
-								}else if(endsWith(filePath, ".py")){
-									ris = executePython(filePath, env);
-									content = ris.content;
-								}else if(endsWith(filePath, ".sh")){
-									ris = executeShell(filePath, env);
-									content = ris.content;
-								}else
-									content = readFile(filePath);
+								ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+								content = ris.content;
 								std::ostringstream convertitore2;
 								convertitore2 << content.size();
 								responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
@@ -182,27 +174,21 @@ int main(int argc, char **argv, char **env){
 								content+="</div></center></body></html>";
 							}else{
 								ContentType=getext(filePath);
-								if(endsWith(filePath, ".php")){
-									ris = executePHP(servers[i].fd, webservv.servers[cli->second], filePath, env, query_get, query_post);
-									content = ris.content;
-								}else if(endsWith(filePath, ".py")){
-									ris = executePython(filePath, env);
-									content = ris.content;
-								}else if(endsWith(filePath, ".sh")){
-									ris = executeShell(filePath, env);
-									content = ris.content;
-								}else
-									content = readFile(filePath);
+								ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+								content = ris.content;
 							}
 							std::ostringstream convertitore;
 							convertitore << content.size();
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore.str()+"\n\n"+content;
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 						}else{
-							content="<!DOCTYPE html><html><head><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Error: Metod non allow | Wengly</title></head><body><h1>Error: Metod:"+metod+"; non allow</h1></body></html>";
-                            std::ostringstream convertitore;
-                            convertitore << content.size();
-                            responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: "+convertitore.str()+"\n\n"+content;
+							filePath=webservv.servers[cli->second].get_error405();
+							ContentType=getext(filePath);
+							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+							content = ris.content;
+							std::ostringstream convertitore2;
+							convertitore2 << content.size();
+							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 						}
 					}
                 }

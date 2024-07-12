@@ -11,12 +11,12 @@ Mandatori:
         [X] Eseguire codice Php, Python, Bash, ecc tramite CGI
 		[X] Riindirizza all'index quando non specificato una risorsa: /
 		[X] Se non trova la risorsa da: 404
-		[ ] Pagina autogenerata quando non ce l'index in una cartella
+		[X] Pagina autogenerata quando non ce l'index in una cartella
 			[X] Appare
 			[X] Se impostazione e su: yes; genenera l'elenco dei file
 		[X] Se non trova la cartella da: 404
 		[X] Redirectsion
-		[ ] Usare il body_size
+		[X] Controllare che la dimenzione del body non superi il: body_size
 		[ ] Usare il name_server
     File di configurazione:
         *Parametro obbligatorio nella configurazione
@@ -26,6 +26,7 @@ Mandatori:
         [X] Nome del server
         [X] Configurare Pagine di errore [se non ci sono, prendi quelle predefinite]
 			{X} 418
+			{X} 413
 			{X} 404
 		* ! Nota: non puoi usare regexp ! *
 		[X] *Definire un elenco di metodi HTTP accettati

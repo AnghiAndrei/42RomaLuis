@@ -6,6 +6,7 @@ server::server(webserv &master){
     std::string n_server = cy.str();
 	error404="./dsite/404.html";
 	error418="./dsite/418.html";
+	error413="./dsite/413.html";
 	root_assets="./dsite";
     name_server="Server"+n_server;
 	index="index.html";
@@ -60,4 +61,16 @@ std::string getext(const std::string &path){
         return "image/jpeg";
     else
         return "application/octet-stream";
+}
+
+t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post){
+    t_master ris;
+    if(endsWith(filePath, ".php")){
+        return executePHP(fdc, server, filePath, env, query_get, query_post);
+    }else if(endsWith(filePath, ".py")){
+        return executePython(filePath, env);
+    }else if(endsWith(filePath, ".sh")){
+        return executeShell(filePath, env);
+    }else
+        return readFile(filePath);
 }
