@@ -8,6 +8,7 @@ int main(int argc, char **argv, char **env){
     std::vector<struct pollfd> servers;
 	std::map<int, int> client_to_server; //fd client->fd server
     std::map<int, std::string> responses; //fd->risposta
+    std::map<int, std::string> post_save; //fd->post
 
     for (size_t i = 0; i != webservv.get_n_server(); i++) {
         webservv.servers[i].start();
@@ -50,32 +51,40 @@ int main(int argc, char **argv, char **env){
 					}
 				}
                 if (!isNewConnection) {
+
                     char buffer[BUFFER_SIZE];
                     int valread = read(servers[i].fd, buffer, BUFFER_SIZE);
                     if (valread <= 0) {
                         // chiusura
                         std::cout << "chiuso fd: " << servers[i].fd << std::endl;
+						// std::map<int, std::string>::iterator postit2 = post_save.find(servers[i].fd);
+						// if (postit2 !=post_save.end())
+						// 	post_save.erase(postit2);
                         close(servers[i].fd);
 						client_to_server.erase(servers[i].fd);
                         servers.erase(servers.begin() + i);
                         --i;
                     }else{
+						std::string query_post="";
+						std::map<int, std::string>::iterator postit = post_save.find(servers[i].fd);
+						if (postit !=post_save.end()){
+							query_post=post_save[postit->first];
+						}
 						t_master ris;
 						std::map<int, int>::iterator cli = client_to_server.find(servers[i].fd);
+						std::string ContentType;
+						std::string filePath;
 						std::string request(buffer, valread);
 						std::istringstream requestStream(request);
 						std::string metod, url, protocol;
 						requestStream >> metod >> url >> protocol;
-						// std::cout<<"Url: "<<url<<std::endl;
 						if(protocol==""){;}
 						size_t pos = url.find('?');
-						std::string query_post="";
 						std::string query_get="";
 						if(pos<=url.size())
 							query_get = url.substr(pos+1, url.size());
                         url = url.substr(0, pos);
 						std::string content;
-
 						std::string numeri="";
 						size_t posCL=request.find("Content-Length: ");
 						if(posCL+16<request.size()){
@@ -84,7 +93,7 @@ int main(int argc, char **argv, char **env){
 						}else
 							numeri="0";
 						size_t ContentLength=atoi(numeri.c_str());
-						if(ContentLength>webservv.servers[cli->second].get_body_size()){
+						if(ContentLength>atoi(webservv.servers[cli->second].get_body_size().c_str())){
 							filePath=webservv.servers[cli->second].get_error413();
 							ContentType=getext(filePath);
 							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
@@ -92,6 +101,7 @@ int main(int argc, char **argv, char **env){
 							std::ostringstream convertitore2;
 							convertitore2 << content.size();
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 							continue;
 						}
 
@@ -99,34 +109,31 @@ int main(int argc, char **argv, char **env){
 							if (url == webservv.servers[cli->second].get_ridirect(0)) {
 								std::string newLocation=webservv.servers[cli->second].get_ridirect(1);
 								responses[servers[i].fd]="HTTP/1.1 301 Moved Permanently\nLocation: "+newLocation+"\n\n";
+								std::cout<<"Risposta per: "<<servers[i].fd<<"; con: REDIRECT"<<std::endl;
 								continue;
 							}
 						}
 
-						std::cout<<metod<<std::endl;
 						if(metod=="DELETE"){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 16\n\nRichiesta DELETE";
+							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: DELETE"<<std::endl;
 						}else if(metod=="GET" || metod=="POST"){
 							if(metod=="POST"){
 								posCL=request.find("\r\n\r\n");
 								if(posCL+4<request.size()){
+									query_post="";
 									size_t i2=0;
 									for (size_t i=posCL+4;i2!=ContentLength;i++){
 										query_post+=request[i];
 										i2++;
 									}
-								}else
-									query_post="";
-								// std::cout<<"Content-Length: "<<ContentLength<<std::endl;
-								// std::cout<<"Post: "<<query_post<<std::endl;
+									post_save[servers[i].fd]=query_post;
+								}
 							}
-							std::string ContentType;
-							std::string filePath;
 							if(url == "/")
 								filePath = webservv.servers[cli->second].get_root() + webservv.servers[cli->second].get_index();
 							else
 								filePath = webservv.servers[cli->second].get_root() + url;
-							ris.status=0;
 							if (!fileExists(filePath.c_str())){
 								filePath=webservv.servers[cli->second].get_error404();
 								ContentType=getext(filePath);
@@ -141,6 +148,7 @@ int main(int argc, char **argv, char **env){
 								std::ostringstream convertitore2;
 								convertitore2 << content.size();
 								responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+								std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 								continue;
 							}
 							if(filePath[filePath.size()-1]=='/'){
@@ -189,6 +197,7 @@ int main(int argc, char **argv, char **env){
 							std::ostringstream convertitore2;
 							convertitore2 << content.size();
 							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 						}
 					}
                 }

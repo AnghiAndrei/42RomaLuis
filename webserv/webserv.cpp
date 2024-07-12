@@ -5,6 +5,7 @@ server::server(webserv &master){
     cy << master.get_n_server() + 1;
     std::string n_server = cy.str();
 	error404="./dsite/404.html";
+	error405="./dsite/405.html";
 	error418="./dsite/418.html";
 	error413="./dsite/413.html";
 	root_assets="./dsite";
@@ -64,13 +65,16 @@ std::string getext(const std::string &path){
 }
 
 t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post){
-    t_master ris;
     if(endsWith(filePath, ".php")){
         return executePHP(fdc, server, filePath, env, query_get, query_post);
     }else if(endsWith(filePath, ".py")){
         return executePython(filePath, env);
     }else if(endsWith(filePath, ".sh")){
         return executeShell(filePath, env);
-    }else
-        return readFile(filePath);
+    }else{
+	    t_master ris;
+		ris.content=readFile(filePath);
+		ris.status=0;
+        return ris;
+	}
 }

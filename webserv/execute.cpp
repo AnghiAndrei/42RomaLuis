@@ -2,49 +2,57 @@
 
 void handle_alarm(int sig){
 	(void)sig;
-	exit(-1);
+	kill(-1,SIGKILL);
 }
 
 t_master executePHP(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query) {
     t_master ris;
-    int fd[2];
+    int read_fd[2];
+    int write_fd[2];
 
-    if (pipe(fd) == -1) {
+    if (pipe(read_fd) == -1 || pipe(write_fd) == -1) {
         std::cout << "Marshal: pipe" << std::endl;
         ris.status = -1;
         ris.content = "Pipe error";
         return ris;
     }
+
     pid_t pid = fork();
     if (pid == -1) {
-        close(fd[0]);
-        close(fd[1]);
+        close(read_fd[0]);
+        close(read_fd[1]);
+        close(write_fd[0]);
+        close(write_fd[1]);
         std::cout << "Marshal: Fork error" << std::endl;
         ris.status = -1;
         ris.content = "Fork error";
         return ris;
     }
-    if(pid == 0){
-        struct sigaction sa;
-        sa.sa_handler = handle_alarm;
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = 0;
-        sigaction(SIGALRM, &sa, NULL);
+
+    if (pid == 0) {
+        // Processo figlio
+        close(write_fd[1]);
+        close(read_fd[0]);
+
+        dup2(write_fd[0], STDIN_FILENO);
+        dup2(read_fd[1], STDOUT_FILENO);
+        close(write_fd[0]);
+        close(read_fd[1]);
+
+        signal(SIGALRM, handle_alarm);
         alarm(EXECUTION_TIME_LIMIT);
-        dup2(fd[0], STDIN_FILENO);
-        close(fd[0]);
-        write(STDIN_FILENO, post_query.c_str(), post_query.size());
-        dup2(fd[1], STDOUT_FILENO);
-        close(fd[1]);
+
         std::vector<const char *> args;
         args.push_back("php-cgi");
         args.push_back("-q");
         args.push_back(request.c_str());
         args.push_back(get_query.c_str());
         args.push_back(NULL);
-		std::vector<const char *> envs;
-		for (size_t i=0;env[i]!=NULL;i++)
-	        envs.push_back(env[i]);
+
+        std::vector<const char *> envs;
+        for (size_t i = 0; env[i] != NULL; i++) {
+            envs.push_back(env[i]);
+        }
 
         if (!post_query.empty()) {
             std::ostringstream convertitore;
@@ -62,7 +70,7 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
             envs.push_back(strdup(("SCRIPT_FILENAME=" + getAbsolutePath3(ExtractFile(request), 1)).c_str()));
             envs.push_back(strdup(("SCRIPT_NAME=" + request).c_str()));
             envs.push_back(strdup(("REQUEST_URI=" + request).c_str()));
-            envs.push_back(strdup(("PATH_TRANSLATED="+getAbsolutePath3(ExtractFile(request), 1)).c_str()));
+            envs.push_back(strdup(("PATH_TRANSLATED=" + getAbsolutePath3(ExtractFile(request), 1)).c_str()));
             envs.push_back(strdup(("PATH_INFO=" + request).c_str()));
             envs.push_back(strdup(("QUERY_STRING=" + get_query).c_str()));
             envs.push_back(strdup(("SERVER_NAME=" + server.get_host()).c_str()));
@@ -79,17 +87,19 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         }
         envs.push_back(NULL);
 
-        // for (const char *env : envs) {
-        //     if (env != NULL) {
-        //         std::cerr << env << std::endl;
-        //     }
-        // }
-
         execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), const_cast<char **>(envs.data()));
-        std::cout<<"Marshal: Execute error"<<std::endl;
+        std::cout << "Marshal: Execute error" << std::endl;
         exit(-1);
-    }else{
-        close(fd[1]);
+    } else {
+        // Processo genitore
+        close(write_fd[0]);
+        close(read_fd[1]);
+
+        if (!post_query.empty()) {
+            write(write_fd[1], post_query.c_str(), post_query.size());
+        }
+        close(write_fd[1]);
+
         int status;
         while (waitpid(pid, &status, 0) > 0) {
             if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
@@ -99,25 +109,28 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
             }
         }
         alarm(0);
+
         if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
             ssize_t bytesRead;
             char buffer[BUFFER_SIZE];
-            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0)
+            while ((bytesRead = read(read_fd[0], buffer, BUFFER_SIZE)) > 0) {
                 ris.content.append(buffer, bytesRead);
+            }
             ris.status = 0;
-        }else if(!(WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM)){
+        } else if (!(WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM)) {
             ris.status = -1;
             ris.content = "Execute error: <br>";
             ssize_t bytesRead;
             char buffer[BUFFER_SIZE];
-            while ((bytesRead = read(fd[0], buffer, BUFFER_SIZE)) > 0) {
+            while ((bytesRead = read(read_fd[0], buffer, BUFFER_SIZE)) > 0) {
                 ris.content.append(buffer, bytesRead);
             }
         }
-        close(fd[0]);
+        close(read_fd[0]);
     }
     return ris;
 }
+
 
 t_master executePython(const std::string &request, char **env) {
     t_master ris;
@@ -139,11 +152,7 @@ t_master executePython(const std::string &request, char **env) {
         return ris;
     }
     if(pid == 0){
-        struct sigaction sa;
-        sa.sa_handler = handle_alarm;
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = 0;
-        sigaction(SIGALRM, &sa, NULL);
+        signal(SIGALRM, handle_alarm);
         alarm(EXECUTION_TIME_LIMIT);
         close(fd[0]);
         dup2(fd[1], STDERR_FILENO);
@@ -207,11 +216,7 @@ t_master executeShell(const std::string &request, char **env) {
         return ris;
     }
     if(pid == 0){
-        struct sigaction sa;
-        sa.sa_handler = handle_alarm;
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = 0;
-        sigaction(SIGALRM, &sa, NULL);
+        signal(SIGALRM, handle_alarm);
         alarm(EXECUTION_TIME_LIMIT);
         close(fd[0]);
         dup2(fd[1], STDOUT_FILENO);

@@ -156,6 +156,7 @@ class webserv{
 				std::cout<<"Port        : "<<servers[i].get_port()<<std::endl;
 				std::cout<<"Body_size   : "<<servers[i].get_body_size()<<std::endl;
 				std::cout<<"Error 404   : "<<servers[i].get_error404()<<std::endl;
+				std::cout<<"Error 405   : "<<servers[i].get_error405()<<std::endl;
 				std::cout<<"Error 413   : "<<servers[i].get_error413()<<std::endl;
 				std::cout<<"Error 418   : "<<servers[i].get_error418()<<std::endl;
 				std::cout<<"Show dir    : "<<servers[i].get_showdir()<<std::endl;

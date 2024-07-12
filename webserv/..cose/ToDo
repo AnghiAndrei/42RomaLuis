@@ -5,7 +5,7 @@ Mandatori:
         [ ] Gli utenti possono caricare immagini
         [ ] Implementare metodi:
             [X] GET
-            [ ] POST
+            [X] POST
             [ ] DELETE
         [X] Deve potere ascoltare da piu porte
         [X] Eseguire codice Php, Python, Bash, ecc tramite CGI
@@ -28,6 +28,7 @@ Mandatori:
 			{X} 418
 			{X} 413
 			{X} 404
+			{X} 405
 		* ! Nota: non puoi usare regexp ! *
 		[X] *Definire un elenco di metodi HTTP accettati
 		[X] Definire un riindirizzamento

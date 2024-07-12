@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/06/27 19:09:00 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/12 11:17:15 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = main.cpp marshal.cpp ../webserv.cpp
+SRC = main.cpp marshal.cpp ../webserv.cpp ../execute.cpp ../path.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -105,6 +105,8 @@ test: re
 	-./$(NAME) conf/error32.conf
 	@echo
 	-./$(NAME) conf/error33.conf
+	@echo
+	-./$(NAME) conf/error34.conf
 	@echo
 	@rm -f $(NAME)
 
