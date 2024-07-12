@@ -16,7 +16,6 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         ris.content = "Pipe error";
         return ris;
     }
-
     pid_t pid = fork();
     if (pid == -1) {
         close(read_fd[0]);
@@ -29,30 +28,24 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         return ris;
     }
 
-    if (pid == 0) {
-        // Processo figlio
+    if (pid == 0){
         close(write_fd[1]);
         close(read_fd[0]);
-
         dup2(write_fd[0], STDIN_FILENO);
         dup2(read_fd[1], STDOUT_FILENO);
         close(write_fd[0]);
         close(read_fd[1]);
-
         signal(SIGALRM, handle_alarm);
         alarm(EXECUTION_TIME_LIMIT);
-
         std::vector<const char *> args;
         args.push_back("php-cgi");
-        args.push_back("-q");
         args.push_back(request.c_str());
         args.push_back(get_query.c_str());
         args.push_back(NULL);
 
         std::vector<const char *> envs;
-        for (size_t i = 0; env[i] != NULL; i++) {
+        for (size_t i = 0; env[i] != NULL; i++)
             envs.push_back(env[i]);
-        }
 
         if (!post_query.empty()) {
             std::ostringstream convertitore;
@@ -90,16 +83,13 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         execve("/usr/bin/php-cgi", const_cast<char **>(args.data()), const_cast<char **>(envs.data()));
         std::cout << "Marshal: Execute error" << std::endl;
         exit(-1);
-    } else {
-        // Processo genitore
+    }else{
         close(write_fd[0]);
         close(read_fd[1]);
 
-        if (!post_query.empty()) {
+        if (!post_query.empty())
             write(write_fd[1], post_query.c_str(), post_query.size());
-        }
         close(write_fd[1]);
-
         int status;
         while (waitpid(pid, &status, 0) > 0) {
             if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
@@ -109,7 +99,6 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
             }
         }
         alarm(0);
-
         if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
             ssize_t bytesRead;
             char buffer[BUFFER_SIZE];
@@ -130,7 +119,6 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
     }
     return ris;
 }
-
 
 t_master executePython(const std::string &request, char **env) {
     t_master ris;

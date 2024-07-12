@@ -23,7 +23,7 @@
 #include<map>
 
 #define EXECUTION_TIME_LIMIT 10
-#define BUFFER_SIZE 8192
+#define BUFFER_SIZE 16384
 #define MAX_CLIENTS 7
 
 class server;
@@ -38,6 +38,7 @@ std::string getAbsolutePath(const std::string &filename, int i);
 t_master executePython(const std::string &request, char **env);
 t_master executeShell(const std::string &request, char **env);
 std::string ExtractFile(const std::string &directoryPath);
+unsigned long long int stoull(const std::string &str);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
 std::string getext(const std::string &path);

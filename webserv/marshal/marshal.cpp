@@ -39,20 +39,16 @@ bool isValidPort(const std::string &port){
 }
 
 bool isValidBody_Size(const std::string &port){
-    if (port.empty() || port.size()>=11){
+    if (port.empty() || port.size()>=21){
         return false;
 	}
 	for (size_t i2=0;'\0'!=port[i2];i2++){
-		if (!isdigit(port[i2])){
-
-		std::cout<<port[i2]<<std::endl;
+		if (!isdigit(port[i2]))
             return false;
-		}
 	}
-	int num = std::atoi(port.c_str());
-    if (num < 0 || num > 2147483647){
+	unsigned long long int num = stoull(port.c_str());
+    if (num > 18446744073709551614ULL)
         return false;
-	}
     return true;
 }
 

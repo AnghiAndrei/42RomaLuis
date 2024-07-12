@@ -78,3 +78,10 @@ t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, 
         return ris;
 	}
 }
+
+unsigned long long int stoull(const std::string &str) {
+    unsigned long long int result = 0;
+    std::istringstream iss(str);
+    iss >> result;
+    return result;
+}

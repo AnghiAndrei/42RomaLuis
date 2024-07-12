@@ -51,7 +51,6 @@ int main(int argc, char **argv, char **env){
 					}
 				}
                 if (!isNewConnection) {
-
                     char buffer[BUFFER_SIZE];
                     int valread = read(servers[i].fd, buffer, BUFFER_SIZE);
                     if (valread <= 0) {
@@ -92,8 +91,8 @@ int main(int argc, char **argv, char **env){
 								numeri+=request[i];
 						}else
 							numeri="0";
-						size_t ContentLength=atoi(numeri.c_str());
-						if(ContentLength>atoi(webservv.servers[cli->second].get_body_size().c_str())){
+						unsigned long long int ContentLength=stoull(numeri.c_str());
+						if(ContentLength>stoull(webservv.servers[cli->second].get_body_size().c_str())){
 							filePath=webservv.servers[cli->second].get_error413();
 							ContentType=getext(filePath);
 							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
@@ -119,15 +118,20 @@ int main(int argc, char **argv, char **env){
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: DELETE"<<std::endl;
 						}else if(metod=="GET" || metod=="POST"){
 							if(metod=="POST"){
-								posCL=request.find("\r\n\r\n");
-								if(posCL+4<request.size()){
-									query_post="";
-									size_t i2=0;
-									for (size_t i=posCL+4;i2!=ContentLength;i++){
-										query_post+=request[i];
-										i2++;
+								if(request.find("multipart/form-data") != std::string::npos){
+									// It's a file upload
+									;
+								}else{
+									posCL=request.find("\r\n\r\n");
+									if(posCL+4<request.size()){
+										query_post="";
+										size_t i2=0;
+										for (size_t i=posCL+4;i2!=ContentLength;i++){
+											query_post+=request[i];
+											i2++;
+										}
+										post_save[servers[i].fd]=query_post;
 									}
-									post_save[servers[i].fd]=query_post;
 								}
 							}
 							if(url == "/")
