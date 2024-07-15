@@ -4,7 +4,7 @@ int main(int argc, char **argv, char **env){
     webserv webservv;
     if (check(argc, argv, &webservv) == -1)
         return -1;
-
+	
     std::vector<struct pollfd> servers;
 	std::map<int, int> client_to_server; //fd client->fd server
     std::map<int, std::string> responses; //fd->risposta
@@ -51,32 +51,32 @@ int main(int argc, char **argv, char **env){
 					}
 				}
                 if (!isNewConnection){
-					std::request="";
-                    ssize_t bytesRead;
+					t_master ris;
+					std::map<int, int>::iterator cli = client_to_server.find(servers[i].fd);
+					std::string query_get="", query_post="";
+					std::string content;
+					std::string ContentType;
+					std::string filePath;
+					std::string request="";
+                    int bytesRead;
 					char buffer[BUFFER_SIZE2];
-					while ((bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2)) > 0 || (request.size()>=2 && request[request.size()-1]=='\r' && request[request.size()]=='\n')){
+					while ((bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2)) > 0){
 						request.append(buffer, bytesRead);
+    					if (request.find("\r\n\r\n")!=std::string::npos)
+							break;
 					}
-
-					std::string query_post="";
 					std::map<int, std::string>::iterator postit = post_save.find(servers[i].fd);
 					if (postit !=post_save.end()){
 						query_post=post_save[postit->first];
 					}
-					t_master ris;
-					std::map<int, int>::iterator cli = client_to_server.find(servers[i].fd);
-					std::string ContentType;
-					std::string filePath;
 					std::istringstream requestStream(request);
 					std::string metod, url, protocol;
 					requestStream >> metod >> url >> protocol;
 					if(protocol==""){;}
 					size_t pos = url.find('?');
-					std::string query_get="";
 					if(pos<=url.size())
 						query_get = url.substr(pos+1, url.size());
 					url = url.substr(0, pos);
-					std::string content;
 					std::string numeri="";
 					size_t posCL=request.find("Content-Length: ");
 					if(posCL+16<request.size()){
@@ -106,18 +106,30 @@ int main(int argc, char **argv, char **env){
 						}
 					}
 
+					size_t posspazi=url.find("%20");
+					while(posspazi!=std::string::npos){
+						url.replace(posspazi, 3, " ");
+						posspazi=url.find("%20");
+					}
+
+					if(metod.size()>=7)
+						continue;
 					if(metod=="DELETE"){
 						responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 16\n\nRichiesta DELETE";
 						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: DELETE"<<std::endl;
 					}else if(metod=="GET" || metod=="POST"){
 						if(metod=="POST"){
 							if(request.find("multipart/form-data") != std::string::npos){
-								bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
-								request.append(buffer, bytesRead);
-								while ((bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2)) > 0 || (request.size()>=2 && request[request.size()-1]=='\r' && request[request.size()]=='\n')){
-									request.append(buffer, bytesRead);
+								std::string request2="";
+								size_t i20=0;
+								for (i20=0;i20!=ContentLength;i20++){
+									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
+									if (bytesRead>=1)
+										request2.append(buffer, bytesRead);
+									if (request2.find("\r\n\r\n")!=std::string::npos)
+										break;
 								}
-
+								request+=request2;
 								std::string fileout="";
 								size_t posfilename = request.find("filename=");
 								if (posfilename != std::string::npos){
@@ -140,7 +152,7 @@ int main(int argc, char **argv, char **env){
 									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 									continue;
 								}
-								std::ofstream file_out(webservv.servers[cli->second].get_root_assets+"/"+fileout, std::ios::binary);
+								std::ofstream file_out((webservv.servers[cli->second].get_root_assets()+"/"+fileout).c_str(), std::ios::binary);
 								if (!file_out.is_open()){
 									filePath=webservv.servers[cli->second].get_error500();
 									ContentType=getext(filePath);
@@ -152,9 +164,11 @@ int main(int argc, char **argv, char **env){
 									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 									continue;
 								}
-								for (size_t i = 0; i < ContentLength; i++){
+
+								for (;i20!=ContentLength-58;i20++){
 									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
-									file_out.write(buffer, 1);
+									if (bytesRead>=1)
+										file_out.write(buffer, 1);
 								}
 								file_out.close();
 							}else{

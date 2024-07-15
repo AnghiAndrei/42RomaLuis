@@ -9,10 +9,10 @@ server::server(webserv &master){
 	error418="./dsite/418.html";
 	error413="./dsite/413.html";
 	error500="./dsite/500.html";
-	root_assets="./dsite";
+	root_assets="./dsite/";
     name_server="Server"+n_server;
 	index="index.html";
-    root="./dsite";
+    root="./dsite/";
     showdir="yes";
     body_size="";
     host="";

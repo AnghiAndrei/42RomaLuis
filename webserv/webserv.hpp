@@ -163,7 +163,7 @@ class webserv{
 				std::cout<<"Error 405   : "<<servers[i].get_error405()<<std::endl;
 				std::cout<<"Error 413   : "<<servers[i].get_error413()<<std::endl;
 				std::cout<<"Error 418   : "<<servers[i].get_error418()<<std::endl;
-				std::cout<<"Error 450   : "<<servers[i].get_error450()<<std::endl;
+				std::cout<<"Error 500   : "<<servers[i].get_error500()<<std::endl;
 				std::cout<<"Show dir    : "<<servers[i].get_showdir()<<std::endl;
 				std::cout<<"Root        : "<<servers[i].get_root()<<std::endl;
 				std::cout<<"Root_assets : "<<servers[i].get_root_assets()<<std::endl;

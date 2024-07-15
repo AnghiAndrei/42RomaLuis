@@ -42,10 +42,10 @@
                     <tr>
                         <td>
                             <form method="post" enctype="multipart/form-data">
-                                <input name="img" type="file" accept=".png" display="none">
-                                <?php 
-                                	if(isset($_FILES["img"])){
-										$nome_file=$_FILES['img'];
+                                <input name="imginput" type="file" accept=".png" display="none">
+                                <?php
+                                	if(isset($_FILES["imginput"])){
+										$nome_file=$_FILES['imginput'];
 										$ext=pathinfo($nome_file, PATHINFO_EXTENSION);
                                         $ext_acc=["png"];
                                         if(in_array($ext,$ext_acc)){
@@ -55,15 +55,17 @@
                                             rename($percorso_salvataggio,'./Assets/img/foto'.$ext);
                                         }else echo "<br><p id='sottotitolo'>La foto deve essere .png</p>";
                                     }
-                                    ?>
+                                ?>
                                 <br><br>
                                 <button class="pulsanti">Carica</button>
                             </form>
                         </td>
-                        <td><br></td>
+                    </tr>
+					<tr>
                         <td>
                             <?php
-                                if(file_exists("Assets/img/foto.png"))echo'<img class="img" src="Assets/img/foto.png"/>';
+                                if(file_exists("Assets/img/Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai.png"))echo'<img class="img" src="Assets/img/Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai.png"/>';
+                                if(file_exists("./Assets/img/Voglio mangiare il tuo pancreas.png"))echo'<img class="img" src="./Assets/img/Voglio mangiare il tuo pancreas.png"/>';
                             ?>
                         </td>
                     </tr>
