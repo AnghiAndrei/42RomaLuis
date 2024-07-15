@@ -10,7 +10,7 @@ test-i-leaks-m: re
 	@echo
 	-valgrind ./push_swap ""
 	@echo
-	-valgrind ./push_swap ''
+	-valgrind ./push_swap '\'\''
 	@echo
 	-valgrind ./push_swap "   "
 	@echo
@@ -34,9 +34,9 @@ test-i-leaks-m: re
 	@echo
 	-valgrind ./push_swap 1 "2 3" 2
 	@echo
-	-valgrind ./push_swap "''"
+	-valgrind ./push_swap "'\'\''"
 	@echo
-	-valgrind ./push_swap '""'
+	-valgrind ./push_swap '\''""'\''
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
@@ -48,7 +48,7 @@ test-i-leaks-b: bonus
 	@echo
 	-valgrind ./checker ""
 	@echo
-	-valgrind ./checker ''
+	-valgrind ./checker '\'\''
 	@echo
 	-valgrind ./checker "   "
 	@echo
@@ -72,6 +72,10 @@ test-i-leaks-b: bonus
 	@echo
 	-valgrind ./checker 1 "2 3" 2
 	@echo
+	-valgrind ./checker "'\'\''"
+	@echo
+	-valgrind ./checker '\''""'\''
+	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
 
@@ -82,7 +86,7 @@ test-i-nleaks-m: re
 	@echo
 	-./push_swap ""
 	@echo
-	-./push_swap ''
+	-./push_swap '\'\''
 	@echo
 	-./push_swap "   "
 	@echo
@@ -106,9 +110,9 @@ test-i-nleaks-m: re
 	@echo
 	-./push_swap 1 "2 3" 2
 	@echo
-	-./push_swap "''"
+	-./push_swap "'\'\''"
 	@echo
-	-./push_swap '""'
+	-./push_swap '\''""'\''
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]
@@ -120,7 +124,7 @@ test-i-nleaks-b: bonus
 	@echo
 	-./checker ""
 	@echo
-	-./checker ''
+	-./checker '\'\''
 	@echo
 	-./checker "   "
 	@echo
@@ -143,6 +147,10 @@ test-i-nleaks-b: bonus
 	-./checker 1 "2 3" 4
 	@echo
 	-./checker 1 "2 3" 2
+	@echo
+	-./checker "'\'\''"
+	@echo
+	-./checker '\''""'\''
 	@echo
 	@echo
 	@echo TESTER AANGHI [Angly colui che regna]

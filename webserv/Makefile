@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = webserv
-CFLAGS = #-Wall -Wextra -Werror -std=c++98 -g
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
 SRC = main.cpp marshal/marshal.cpp webserv.cpp execute.cpp path.cpp
 OBJ = $(SRC:.cpp=.o)

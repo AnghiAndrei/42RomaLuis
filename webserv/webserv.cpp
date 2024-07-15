@@ -8,6 +8,7 @@ server::server(webserv &master){
 	error405="./dsite/405.html";
 	error418="./dsite/418.html";
 	error413="./dsite/413.html";
+	error500="./dsite/500.html";
 	root_assets="./dsite";
     name_server="Server"+n_server;
 	index="index.html";

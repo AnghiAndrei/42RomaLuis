@@ -23,8 +23,8 @@
 #include<map>
 
 #define EXECUTION_TIME_LIMIT 10
+#define BUFFER_SIZE2 1
 #define BUFFER_SIZE 16384
-#define MAX_CLIENTS 7
 
 class server;
 class webserv;
@@ -63,6 +63,7 @@ class server{
 		std::string error405;
 		std::string error418;
 		std::string error413;
+		std::string error500;
 		std::string showdir;
 		std::string index;
 		std::string host;
@@ -83,6 +84,7 @@ class server{
 		void set_error405(std::string &copy){error405=copy;}
 		void set_error418(std::string &copy){error418=copy;}
 		void set_error413(std::string &copy){error413=copy;}
+		void set_error500(std::string &copy){error500=copy;}
 		void set_name(std::string &copy){name_server=copy;}
 		void set_showdir(std::string &copy){showdir=copy;}
 		void set_index(std::string &copy){index=copy;}
@@ -96,6 +98,7 @@ class server{
 		std::string get_index(){return index;}
 		std::string get_showdir(){return showdir;}
 		std::string get_name(){return name_server;}
+		std::string get_error500(){return error500;}
 		std::string get_error418(){return error418;}
 		std::string get_error413(){return error413;}
 		std::string get_error404(){return error404;}
@@ -160,6 +163,7 @@ class webserv{
 				std::cout<<"Error 405   : "<<servers[i].get_error405()<<std::endl;
 				std::cout<<"Error 413   : "<<servers[i].get_error413()<<std::endl;
 				std::cout<<"Error 418   : "<<servers[i].get_error418()<<std::endl;
+				std::cout<<"Error 450   : "<<servers[i].get_error450()<<std::endl;
 				std::cout<<"Show dir    : "<<servers[i].get_showdir()<<std::endl;
 				std::cout<<"Root        : "<<servers[i].get_root()<<std::endl;
 				std::cout<<"Root_assets : "<<servers[i].get_root_assets()<<std::endl;

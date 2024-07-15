@@ -13,7 +13,7 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
     if (pipe(read_fd) == -1 || pipe(write_fd) == -1) {
         std::cout << "Marshal: pipe" << std::endl;
         ris.status = -1;
-        ris.content = "Pipe error";
+        ris.content = "Execute error: <br>Pipe error";
         return ris;
     }
     pid_t pid = fork();
@@ -24,7 +24,7 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         close(write_fd[1]);
         std::cout << "Marshal: Fork error" << std::endl;
         ris.status = -1;
-        ris.content = "Fork error";
+        ris.content = "Execute error: <br>Fork error";
         return ris;
     }
 
@@ -94,7 +94,7 @@ t_master executePHP(int fdc, server &server, const std::string &request, char **
         while (waitpid(pid, &status, 0) > 0) {
             if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
                 ris.status = -1;
-                ris.content = "Execution timed out";
+                ris.content = "Execute error: <br>Execution timed out";
                 break;
             }
         }
@@ -127,7 +127,7 @@ t_master executePython(const std::string &request, char **env) {
     if (pipe(fd) == -1) {
         std::cout << "Marshal: pipe" << std::endl;
         ris.status = -1;
-        ris.content = "Pipe error";
+        ris.content = "Execute error: <br>Pipe error";
         return ris;
     }
     pid_t pid = fork();
@@ -136,7 +136,7 @@ t_master executePython(const std::string &request, char **env) {
         close(fd[1]);
         std::cout << "Marshal: Fork error" << std::endl;
         ris.status = -1;
-        ris.content = "Fork error";
+        ris.content = "Execute error: <br>Fork error";
         return ris;
     }
     if(pid == 0){
@@ -159,7 +159,7 @@ t_master executePython(const std::string &request, char **env) {
         while (waitpid(pid, &status, 0) > 0) {
             if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
                 ris.status = -1;
-                ris.content = "Execution timed out";
+                ris.content = "Execute error: <br>Execution timed out";
                 break;
             }
         }
@@ -191,7 +191,7 @@ t_master executeShell(const std::string &request, char **env) {
     if (pipe(fd) == -1) {
         std::cout << "Marshal: pipe" << std::endl;
         ris.status = -1;
-        ris.content = "Pipe error";
+        ris.content = "Execute error: <br>Pipe error";
         return ris;
     }
     pid_t pid = fork();
@@ -200,7 +200,7 @@ t_master executeShell(const std::string &request, char **env) {
         close(fd[1]);
         std::cout << "Marshal: Fork error" << std::endl;
         ris.status = -1;
-        ris.content = "Fork error";
+        ris.content = "Execute error: <br>Fork error";
         return ris;
     }
     if(pid == 0){
@@ -223,7 +223,7 @@ t_master executeShell(const std::string &request, char **env) {
         while (waitpid(pid, &status, 0) > 0) {
             if (WIFSIGNALED(status) && WTERMSIG(status) == SIGALRM) {
                 ris.status = -1;
-                ris.content = "Execution timed out";
+                ris.content = "Execute error: <br>Execution timed out";
                 break;
             }
         }

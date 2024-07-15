@@ -167,6 +167,11 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 		else if(chiave=="port")
 			if(isValidPort(valore)==true){
+				std::vector<std::string>::iterator temp = std::find(valore_vec.begin(), valore_vec.end(), valore);
+				if(temp!=valore_vec.end()){
+					std::cout<<"Marshal: La porta: "<<valore<<" e gia impegnata in un altro server"<<std::endl;
+					return -1;
+				}
 				webservv->servers[serv].set_port(std::atoi(valore.c_str()));
 			}else{
 				std::cout<<"Marshal: Porta invalida"<<std::endl;
@@ -187,6 +192,8 @@ int check(int argc, char **argv, webserv *webservv){
 			webservv->servers[serv].set_error418(valore);
 		else if(chiave=="error413")
 			webservv->servers[serv].set_error413(valore);
+		else if(chiave=="error500")
+			webservv->servers[serv].set_error500(valore);
 		else if(chiave=="index")
 			webservv->servers[serv].set_index(valore);
 		else if(chiave=="showdir"){

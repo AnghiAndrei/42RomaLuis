@@ -108,6 +108,8 @@ test: re
 	@echo
 	-./$(NAME) conf/error34.conf
 	@echo
+	-./$(NAME) conf/error35.conf
+	@echo
 	@rm -f $(NAME)
 
 test2: re
