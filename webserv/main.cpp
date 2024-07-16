@@ -112,6 +112,9 @@ int main(int argc, char **argv, char **env){
 						posspazi=url.find("%20");
 					}
 
+					std::cout<<metod<<std::endl;
+					if(metod.size()>=7)
+						continue;
 					if(metod=="DELETE"){
 						if(std::remove((webservv.servers[cli->second].get_root()+url).c_str())==0){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\r\n\r\n";
@@ -122,8 +125,7 @@ int main(int argc, char **argv, char **env){
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: Error"<<std::endl;
 							continue;
 						}
-					}
-					if(metod=="GET" || metod=="POST"){
+					}else if(metod=="GET" || metod=="POST"){
 						if(metod=="POST"){
 							if(request.find("multipart/form-data") != std::string::npos){
 								std::string request2="";
@@ -171,7 +173,7 @@ int main(int argc, char **argv, char **env){
 									continue;
 								}
 
-								for (;i20!=ContentLength-20;i20++){
+								for (;i20!=ContentLength-42;i20++){
 									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
 									if (bytesRead>=1)
 										file_out.write(buffer, 1);
@@ -267,17 +269,18 @@ int main(int argc, char **argv, char **env){
             }else if (servers[i].revents & POLLOUT){
                 std::map<int, std::string>::iterator it = responses.find(servers[i].fd);
                 if (it != responses.end()){
-                    send(servers[i].fd, it->second.c_str(), (it->second.size()+1), 0);
+                    int sendb=send(servers[i].fd, it->second.c_str(), (it->second.size()+1), 0);
                     responses.erase(it);
-
-					// std::map<int, std::string>::iterator postit2 = post_save.find(servers[i].fd);
-					// if (postit2 !=post_save.end())
-					// 	post_save.erase(postit2);
-					std::cout << "chiuso fd: " << servers[i].fd << std::endl;
-                    close(servers[i].fd);
+					if(sendb==-1){
+						std::cout<<"Errore nell'invio di dati a fd: "<<servers[i].fd << std::endl;
+						std::map<int, std::string>::iterator postit2 = post_save.find(servers[i].fd);
+						if (postit2 !=post_save.end())
+							post_save.erase(postit2);
+					}
+					close(servers[i].fd);
 					client_to_server.erase(servers[i].fd);
-                    servers.erase(servers.begin() + i);
-                    --i;
+					servers.erase(servers.begin() + i);
+					--i;
                 }
             }
         }

@@ -71,13 +71,13 @@
                             </datalist>
                             <br><br>
                             <script>
-								function can(){
+								async function can(){
 									if(document.getElementById('server').value=="" || document.getElementById('delfile').value==""){
 										alert("Parametri mancanti");
 									}
 									else{
 										let url='http://'+document.getElementById('server').value+'/Assets/img/'+document.getElementById('delfile').value+'.png';
-										fetch(url,{method: 'DELETE',}).then(response=>{
+										await fetch(url,{method: 'DELETE',}).then(response=>{
 											if(response.ok)alert('File eliminato con successo');
 											else{
 												let url='http://'+document.getElementById('server').value+'/Assets/img/'+document.getElementById('delfile').value+'.jpg';
@@ -88,9 +88,9 @@
 													}
 												})
 											}
-										})
+										});
+										window.location="funzionalita.php";
 									}
-									window.location="funzionalita.php";
 								}
 							</script>
                             <button class="pulsanti" onclick="can()">Cancella</button>
