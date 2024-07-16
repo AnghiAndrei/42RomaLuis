@@ -174,12 +174,12 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 		else if(chiave=="port")
 			if(isValidPort(valore)==true){
-				for (size_t i7=0;i7!=webservv->servers[serv].get_lmedallow();i7++){
-					if(valore!=webservv->servers[serv].get_medallow(i7)){
-						std::cout<<"Marshal: La porta: "<<valore<<" e gia impegnata in un altro server"<<std::endl;
+				for (size_t i7=0;i7!=webservv->get_n_server();i7++){
+					if(atoi(valore.c_str())==webservv->servers[i7].get_port()){
+						std::cout<<"Marshal: La porta: "<<valore<<" e gia impegnata nel server: "<<webservv->servers[serv].get_name()<<std::endl;
 						return -1;
 					}
-				}				
+				}
 				webservv->servers[serv].set_port(std::atoi(valore.c_str()));
 			}else{
 				std::cout<<"Marshal: Porta invalida"<<std::endl;

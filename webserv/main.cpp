@@ -112,12 +112,18 @@ int main(int argc, char **argv, char **env){
 						posspazi=url.find("%20");
 					}
 
-					if(metod.size()>=7)
-						continue;
-					if(metod=="GET" || metod=="POST" || metod=="DELETE"){
-						if(metod=="DELETE"){
-							//qui devo far cancellare il file che mi viene dato
+					if(metod=="DELETE"){
+						if(std::remove((webservv.servers[cli->second].get_root()+url).c_str())==0){
+							responses[servers[i].fd]="HTTP/1.1 200 OK\r\n\r\n";
+							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: OK"<<std::endl;
+							continue;
+						}else{
+							responses[servers[i].fd]="HTTP/1.1 404 Not Found\r\n\r\n";
+							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: Error"<<std::endl;
+							continue;
 						}
+					}
+					if(metod=="GET" || metod=="POST"){
 						if(metod=="POST"){
 							if(request.find("multipart/form-data") != std::string::npos){
 								std::string request2="";
@@ -148,7 +154,7 @@ int main(int argc, char **argv, char **env){
 									content = ris.content;
 									std::ostringstream convertitore3;
 									convertitore3 << content.size();
-									responses[servers[i].fd]="HTTP/1.1 500 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
+									responses[servers[i].fd]="HTTP/1.1 500 Internal Server Error\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
 									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 									continue;
 								}
@@ -160,12 +166,12 @@ int main(int argc, char **argv, char **env){
 									content = ris.content;
 									std::ostringstream convertitore3;
 									convertitore3 << content.size();
-									responses[servers[i].fd]="HTTP/1.1 500 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
+									responses[servers[i].fd]="HTTP/1.1 500 Internal Server Error\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
 									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 									continue;
 								}
 
-								for (;i20!=ContentLength-58;i20++){
+								for (;i20!=ContentLength-20;i20++){
 									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
 									if (bytesRead>=1)
 										file_out.write(buffer, 1);
@@ -205,7 +211,7 @@ int main(int argc, char **argv, char **env){
 							content = ris.content;
 							std::ostringstream convertitore2;
 							convertitore2 << content.size();
-							responses[servers[i].fd]="HTTP/1.1 404 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+							responses[servers[i].fd]="HTTP/1.1 404 Not Found\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 							continue;
 						}
@@ -254,7 +260,7 @@ int main(int argc, char **argv, char **env){
 						content = ris.content;
 						std::ostringstream convertitore2;
 						convertitore2 << content.size();
-						responses[servers[i].fd]="HTTP/1.1 405 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+						responses[servers[i].fd]="HTTP/1.1 405 Metod not Allow\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 					}
 				}

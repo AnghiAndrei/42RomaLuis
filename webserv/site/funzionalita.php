@@ -42,7 +42,7 @@
                     <tr>
                         <td>
                             <form method="post" enctype="multipart/form-data">
-                                <input name="imginput" type="file" accept=".png" display="none">
+                                <input name="imginput" type="file" accept=".png, .jpg" display="none">
                                 <?php
                                 	if(isset($_FILES["imginput"])){
 										$nome_file=$_FILES['imginput'];
@@ -61,6 +61,7 @@
                             </form>
                         </td>
                         <td>
+                            <input id="server" type="text" value="localhost:9069">
                             <input id="delfile" type="text" list="listafile">
                             <datalist id="listafile">
                                 <option>Rascal dosent dream of bunny girl sempai</option>
@@ -69,16 +70,39 @@
                                 <option>Your lae in April</option>
                             </datalist>
                             <br><br>
-                                <!-- script per inviare richiesta di DELETE -->
-                            <button class="pulsanti">Cancella</button>
+                            <script>
+								function can(){
+									if(document.getElementById('server').value=="" || document.getElementById('delfile').value==""){
+										alert("Parametri mancanti");
+									}
+									else{
+										let url='http://'+document.getElementById('server').value+'/Assets/img/'+document.getElementById('delfile').value+'.png';
+										fetch(url,{method: 'DELETE',}).then(response=>{
+											if(response.ok)alert('File eliminato con successo');
+											else{
+												let url='http://'+document.getElementById('server').value+'/Assets/img/'+document.getElementById('delfile').value+'.jpg';
+												fetch(url,{method: 'DELETE',}).then(response=>{
+													if(response.ok)alert('File eliminato con successo');
+													else{
+														alert('Errore durante l\'eliminazione del file:', response.statusText);
+													}
+												})
+											}
+										})
+									}
+									window.location="funzionalita.php";
+								}
+							</script>
+                            <button class="pulsanti" onclick="can()">Cancella</button>
                         </td>
                     </tr>
 					<tr>
-                        <td colspan='2'>
+                        <td colspan='3'>
                             <?php
                                 if(file_exists("./Assets/img/Rascal dosent dream of bunny girl sempai.png"))echo'<img class="img" src="Assets/img/Rascal dosent dream of bunny girl sempai.png"/>';
                                 if(file_exists("./Assets/img/Voglio mangiare il tuo pancreas.png"))echo'<img class="img" src="./Assets/img/Voglio mangiare il tuo pancreas.png"/>';
-                                if(file_exists("./Assets/img/Darling in the FranXX.jpg"))echo'<img class="img" src="./Assets/img/Darling in the FranXX.jpg"/>';
+                                echo"<br>";
+								if(file_exists("./Assets/img/Darling in the FranXX.jpg"))echo'<img class="img" src="./Assets/img/Darling in the FranXX.jpg"/>';
                                 if(file_exists("./Assets/img/Your lae in April.jpg"))echo'<img class="img" src="./Assets/img/Your lae in April.jpg"/>';
                             ?>
                         </td>

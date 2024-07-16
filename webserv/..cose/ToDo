@@ -1,11 +1,11 @@
 Mandatori:
     Funzionamento:
         [X] Hostare un sito web statico
-        [X] Gli utenti possono caricare immagini
-        [ ] Implementare metodi:
+        [X] Gli utenti possono caricare file
+        [X] Implementare metodi:
             [X] GET
             [X] POST
-            [ ] DELETE
+            [X] DELETE
         [X] Deve potere ascoltare da piu porte
         [X] Eseguire codice Php, Python, Bash, ecc tramite CGI
 		[X] Riindirizza all'index quando non specificato una risorsa: /
