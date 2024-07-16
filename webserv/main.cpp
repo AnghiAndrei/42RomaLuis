@@ -111,8 +111,6 @@ int main(int argc, char **argv, char **env){
 						url.replace(posspazi, 3, " ");
 						posspazi=url.find("%20");
 					}
-
-					std::cout<<metod<<std::endl;
 					if(metod.size()>=7)
 						continue;
 					if(metod=="DELETE"){
@@ -220,16 +218,15 @@ int main(int argc, char **argv, char **env){
 						if(filePath[filePath.size()-1]=='/'){
 							filePath+=webservv.servers[cli->second].get_index();
 						}
-						if(!fileExists(filePath.c_str())){
+						if(!fileExists(filePath.c_str()) || url=="/"){
 							ContentType="text/html";
 							content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><style>*{text-decoration: none;color: rgb(255, 135, 211);}html{background-color:rgb(255, 211, 239);background-color: pink;height: 100vh;width: 100vw;margin: 0;padding: 0;}body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}.centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}.centro{width: 500px;}.centro2{width: 800px;}.sottotitolo, .sottotitolod{font-size: 25px;}.sottotitolod{text-align: left;}.titolo{font-size: 30px;}.link{text-decoration: underline;}.pulsanti{background-color: rgb(255, 184, 217);color: white;font-size: 20px;border: 2px solid rgb(255, 129, 190);border-radius: 3%;}.img{width: auto;height: 200px;}.linea{border: rgb(255, 135, 211) 1px solid;width: 80%;}</style><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
 							if(webservv.servers[cli->second].get_showdir()=="yes"){
 								content+="<p class='sottotitolo'>File della cartella:";
 								DIR				*dir;
 								struct dirent	*entry;
-								std::cout<<getAbsolutePath(GetRootPath()+url, 0).c_str()<<std::endl;
-								dir=opendir(getAbsolutePath(GetRootPath()+url, 0).c_str());
-								if (dir == NULL){
+								dir=opendir((webservv.servers[cli->second].get_root()+url).c_str());
+								if(dir == NULL){
 									content+="<p class='sottotitolo'>Marshal: Errore in opendir</p></div></center></body></html>";										
 								}else{
 									entry = readdir(dir);

@@ -46,7 +46,7 @@ std::string getAbsolutePath2(const std::string &filename, const std::string &dir
     return directory;
 }
 
-std::string getAbsolutePath(const std::string &filename, int i) {
+std::string getAbsolutePathPath(const std::string &filename, int i) {
     char *pwd = getcwd(NULL, 0);
     if (pwd == NULL) {
         std::cout<<"Marshal: Errore in getcwd"<<std::endl;

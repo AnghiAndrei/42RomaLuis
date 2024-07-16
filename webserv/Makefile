@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/11 14:07:23 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/16 17:30:44 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,11 @@ re: fclean all
 test: re
 	rm -f $(OBJ)
 	clear
-	-./$(NAME) conf/simpconf.conf
+	-./$(NAME) conf/conffull.conf
 	@rm -f $(NAME)
 
-test2: re
+tester: re
 	rm -f $(OBJ)
 	clear
-	-valgrind ./$(NAME) conf/simpconf.conf
+	-./$(NAME) conf/tester.conf
 	@rm -f $(NAME)

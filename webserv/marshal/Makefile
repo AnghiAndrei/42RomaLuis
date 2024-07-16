@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/12 11:17:15 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/16 17:23:01 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,10 @@ test: re
 	-./$(NAME) conf/error35.conf
 	@echo
 	-./$(NAME) conf/error36.conf
+	@echo
+	-./$(NAME) conf/error37.conf
+	@echo
+	-./$(NAME) conf/error38.conf
 	@echo
 	@rm -f $(NAME)
 

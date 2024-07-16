@@ -16,7 +16,6 @@ Mandatori:
 		[X] Se non trova la cartella da: 404
 		[X] Redirectsion
 		[X] Controllare che la dimenzione del body non superi il: body_size
-		[ ] Usare il name_server
     File di configurazione:
         *Parametro obbligatorio nella configurazione
         [X] *Numero di porta

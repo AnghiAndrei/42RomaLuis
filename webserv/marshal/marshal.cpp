@@ -64,6 +64,12 @@ bool isValidDirectory(const std::string &path){
         std::cout<<"Marshal: "<<path<<"; non e una cartella"<<std::endl;
         return false;
     }
+	DIR *dir=opendir(path.c_str());
+	if(dir==NULL){
+        std::cout<<"Marshal: "<<path<<"; non esiste"<<std::endl;
+		return false;
+    }
+	closedir(dir);
 	return false;
 }
 
@@ -163,6 +169,12 @@ int check(int argc, char **argv, webserv *webservv){
 					return -1;
 				}
 			}
+			for (size_t i7=0;i7!=webservv->get_n_server();i7++){
+				if(valore==webservv->servers[i7].get_name()){
+					std::cout<<"Marshal: Il nome: "<<valore<<" e gia usato"<<std::endl;
+					return -1;
+				}
+			}
 			webservv->servers[serv].set_name(valore);
 		}
 		else if(chiave=="host")
@@ -174,12 +186,6 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 		else if(chiave=="port")
 			if(isValidPort(valore)==true){
-				for (size_t i7=0;i7!=webservv->get_n_server();i7++){
-					if(atoi(valore.c_str())==webservv->servers[i7].get_port()){
-						std::cout<<"Marshal: La porta: "<<valore<<" e gia impegnata nel server: "<<webservv->servers[serv].get_name()<<std::endl;
-						return -1;
-					}
-				}
 				webservv->servers[serv].set_port(std::atoi(valore.c_str()));
 			}else{
 				std::cout<<"Marshal: Porta invalida"<<std::endl;
@@ -212,11 +218,19 @@ int check(int argc, char **argv, webserv *webservv){
 				return -1;
 			}
 		}
-		else if(chiave=="root")
+		else if(chiave=="root"){
+			if(valore[0]!='/' || valore[0]=='.' || valore[valore.size()-1]!='/'){
+				std::cout<<"Marshal: Il percorso non e un percorso statico"<<std::endl;
+				return -1;
+			}
 			webservv->servers[serv].set_root(valore);
-		else if(chiave=="root_assets")
+		}else if(chiave=="root_assets"){
+			if(valore[0]!='/' || valore[0]=='.' || valore[valore.size()-1]!='/'){
+				std::cout<<"Marshal: Il percorso non e un percorso statico"<<std::endl;
+				return -1;
+			}
 			webservv->servers[serv].set_root_assets(valore);
-		else if(chiave=="medallow"){
+		}else if(chiave=="medallow"){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
 				std::string val="";
