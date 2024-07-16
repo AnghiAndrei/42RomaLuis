@@ -92,7 +92,7 @@ int main(int argc, char **argv, char **env){
 						content = ris.content;
 						std::ostringstream convertitore2;
 						convertitore2 << content.size();
-						responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+						responses[servers[i].fd]="HTTP/1.1 413 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 						continue;
 					}
@@ -114,10 +114,10 @@ int main(int argc, char **argv, char **env){
 
 					if(metod.size()>=7)
 						continue;
-					if(metod=="DELETE"){
-						responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: 16\n\nRichiesta DELETE";
-						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: DELETE"<<std::endl;
-					}else if(metod=="GET" || metod=="POST"){
+					if(metod=="GET" || metod=="POST" || metod=="DELETE"){
+						if(metod=="DELETE"){
+							//qui devo far cancellare il file che mi viene dato
+						}
 						if(metod=="POST"){
 							if(request.find("multipart/form-data") != std::string::npos){
 								std::string request2="";
@@ -148,7 +148,7 @@ int main(int argc, char **argv, char **env){
 									content = ris.content;
 									std::ostringstream convertitore3;
 									convertitore3 << content.size();
-									responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
+									responses[servers[i].fd]="HTTP/1.1 500 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
 									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 									continue;
 								}
@@ -160,7 +160,7 @@ int main(int argc, char **argv, char **env){
 									content = ris.content;
 									std::ostringstream convertitore3;
 									convertitore3 << content.size();
-									responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
+									responses[servers[i].fd]="HTTP/1.1 500 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
 									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 									continue;
 								}
@@ -205,7 +205,7 @@ int main(int argc, char **argv, char **env){
 							content = ris.content;
 							std::ostringstream convertitore2;
 							convertitore2 << content.size();
-							responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+							responses[servers[i].fd]="HTTP/1.1 404 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 							continue;
 						}
@@ -254,7 +254,7 @@ int main(int argc, char **argv, char **env){
 						content = ris.content;
 						std::ostringstream convertitore2;
 						convertitore2 << content.size();
-						responses[servers[i].fd]="HTTP/1.1 200 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+						responses[servers[i].fd]="HTTP/1.1 405 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 					}
 				}

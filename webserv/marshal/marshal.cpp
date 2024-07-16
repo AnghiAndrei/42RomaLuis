@@ -156,8 +156,15 @@ int check(int argc, char **argv, webserv *webservv){
 			valore+=temp[i];
 			i++;
 		}
-		if(chiave=="server_name")
+		if(chiave=="server_name"){
+			for(size_t i3=0;i3!=valore.size();i3++){
+				if(valore[i3]==' '){
+					std::cout<<"Marshal: Trovato uno ' ', nel server_name"<<std::endl;
+					return -1;
+				}
+			}
 			webservv->servers[serv].set_name(valore);
+		}
 		else if(chiave=="host")
 			if(isValidIPv4(valore)==true){
 				webservv->servers[serv].set_host(valore);

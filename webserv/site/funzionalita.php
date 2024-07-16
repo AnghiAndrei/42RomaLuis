@@ -47,25 +47,39 @@
                                 	if(isset($_FILES["imginput"])){
 										$nome_file=$_FILES['imginput'];
 										$ext=pathinfo($nome_file, PATHINFO_EXTENSION);
-                                        $ext_acc=["png"];
+                                        $ext_acc=["png", "jpg"];
                                         if(in_array($ext,$ext_acc)){
                                             $percorso_temporaneo=$_FILES['tmp_name'];
-                                            $percorso_salvataggio="Assets/img/t$nome_file";
+                                            $percorso_salvataggio="Assets/img/$nome_file";
                                             move_uploaded_file($percorso_temporaneo, $percorso_salvataggio);
                                             rename($percorso_salvataggio,'./Assets/img/foto'.$ext);
-                                        }else echo "<br><p id='sottotitolo'>La foto deve essere .png</p>";
+                                        }else echo "<br><p id='sottotitolo'>La foto deve essere .png / .jpg</p>";
                                     }
                                 ?>
                                 <br><br>
                                 <button class="pulsanti">Carica</button>
                             </form>
                         </td>
+                        <td>
+                            <input id="delfile" type="text" list="listafile">
+                            <datalist id="listafile">
+                                <option>Rascal dosent dream of bunny girl sempai</option>
+                                <option>Voglio mangiare il tuo pancreas</option>
+                                <option>Darling in the FranXX</option>
+                                <option>Your lae in April</option>
+                            </datalist>
+                            <br><br>
+                                <!-- script per inviare richiesta di DELETE -->
+                            <button class="pulsanti">Cancella</button>
+                        </td>
                     </tr>
 					<tr>
-                        <td>
+                        <td colspan='2'>
                             <?php
-                                if(file_exists("Assets/img/Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai.png"))echo'<img class="img" src="Assets/img/Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai.png"/>';
+                                if(file_exists("./Assets/img/Rascal dosent dream of bunny girl sempai.png"))echo'<img class="img" src="Assets/img/Rascal dosent dream of bunny girl sempai.png"/>';
                                 if(file_exists("./Assets/img/Voglio mangiare il tuo pancreas.png"))echo'<img class="img" src="./Assets/img/Voglio mangiare il tuo pancreas.png"/>';
+                                if(file_exists("./Assets/img/Darling in the FranXX.jpg"))echo'<img class="img" src="./Assets/img/Darling in the FranXX.jpg"/>';
+                                if(file_exists("./Assets/img/Your lae in April.jpg"))echo'<img class="img" src="./Assets/img/Your lae in April.jpg"/>';
                             ?>
                         </td>
                     </tr>
