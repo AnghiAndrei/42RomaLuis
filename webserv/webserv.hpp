@@ -30,18 +30,17 @@ class server;
 class webserv;
 struct t_master;
 
-t_master executePHP(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
+t_master execute(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
 t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post);
 std::string getAbsolutePath3(const std::string &filename, int i);
 bool endsWith(const std::string &str, const std::string &suffix);
 std::string getAbsolutePath(const std::string &filename, int i);
-t_master executePython(const std::string &request, char **env);
-t_master executeShell(const std::string &request, char **env);
 std::string ExtractFile(const std::string &directoryPath);
 unsigned long long int stoull(const std::string &str);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
 std::string getext(const std::string &path);
+string ExtensionFile(std::string &nome);
 bool dirExists(const std::string &path);
 bool fileExists(const char *path);
 int setnblocking(int socket);
@@ -54,6 +53,7 @@ struct t_master{
 
 class server{
 	private:
+		std::map<std::string, std::string> gci;
 		std::vector<std::string> med_allow;
 		std::vector<std::string> ridirect;
 		std::string root_assets;

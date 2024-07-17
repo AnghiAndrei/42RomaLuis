@@ -33,6 +33,7 @@ Mandatori:
 		[X] Definire una directory da dove scarica e carica file dal sito
 		[X] Attivare o disattivare l'elenco delle directory
 		[X] Definire un index
+		[ ] Definire le cgi utilizzabili
 
 Bonus:
 	[X] Gestire piu CGI

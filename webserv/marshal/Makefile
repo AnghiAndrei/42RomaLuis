@@ -116,6 +116,14 @@ test: re
 	@echo
 	-./$(NAME) conf/error38.conf
 	@echo
+	-./$(NAME) conf/error39.conf
+	@echo
+	-./$(NAME) conf/error40.conf
+	@echo
+	-./$(NAME) conf/error41.conf
+	@echo
+	-./$(NAME) conf/error42.conf
+	@echo
 	@rm -f $(NAME)
 
 test2: re

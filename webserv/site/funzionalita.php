@@ -39,6 +39,7 @@
                 <hr class="linea">
                 <table>
                     <tr><td colspan='3'><center><h2 class="sottotitolo">Carico File</h2></center></td></tr>
+                    <tr><td colspan='3'><a class="link" href="esempio/img.zip"><h3 class="sottotitolo">Scarica Zip di img_esempio</h3></td></tr>
                     <tr>
                         <td>
                             <form method="post" enctype="multipart/form-data">

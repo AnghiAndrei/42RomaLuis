@@ -249,6 +249,27 @@ int check(int argc, char **argv, webserv *webservv){
 				valore_vec.push_back(val);
 			}
 			webservv->servers[serv].set_medallow(valore_vec);
+		}else if(chiave=="gci"){
+			std::string chiavecgi="", valorecgi="";
+			for (;valore[i4]!=' ' && valore[i4]!='\0';i4++){
+				chiavecgi+=valore[i4];
+			}
+			if(chiavecgi=="" || chiavecgi[0]!="."){
+				std::cout<<"Marshal: Errore nella configurazione delle cgi"<<std::endl;
+				return -1;
+			}
+			for (;valore[i4]!='\0';i4++){
+				valorecgi+=valore[i4];
+				if(valore[i4]==' '){
+					std::cout<<"Marshal: Errore nella configurazione delle cgi"<<std::endl;
+					return -1;
+				}
+			}
+			if(valorecgi==""){
+				std::cout<<"Marshal: Errore nella configurazione delle cgi"<<std::endl;
+				return -1;
+			}
+			webservv->servers[serv].gci[chiavecgi]=valorecgi;
 		}
 		else if(chiave=="ridirect"){
 			std::vector<std::string> valore_vec;

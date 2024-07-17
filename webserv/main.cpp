@@ -194,59 +194,45 @@ int main(int argc, char **argv, char **env){
 								}
 							}
 						}
-						if(url == "/")
-							filePath = webservv.servers[cli->second].get_root() + webservv.servers[cli->second].get_index();
-						else
-							filePath = webservv.servers[cli->second].get_root() + url;
-						if (!fileExists(filePath.c_str())){
+
+						filePath = webservv.servers[cli->second].get_root() + url;
+						if ((!fileExists(filePath.c_str()) && filePath[filePath.size()]!='/') || (filePath[filePath.size()]=='/' && dirExists(filePath)==false)){
 							filePath=webservv.servers[cli->second].get_error404();
 							ContentType=getext(filePath);
 							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 							content = ris.content;
-						}
-						if(filePath[filePath.size()-1]=='/' && dirExists(filePath)==false && !fileExists(webservv.servers[cli->second].get_error404().c_str())){
-							filePath=webservv.servers[cli->second].get_error404();
-							ContentType=getext(filePath);
-							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
-							content = ris.content;
-							std::ostringstream convertitore2;
-							convertitore2 << content.size();
-							responses[servers[i].fd]="HTTP/1.1 404 Not Found\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
-							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
-							continue;
-						}
-						if(filePath[filePath.size()-1]=='/'){
-							filePath+=webservv.servers[cli->second].get_index();
-						}
-						if(!fileExists(filePath.c_str()) || url=="/"){
-							ContentType="text/html";
-							content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><style>*{text-decoration: none;color: rgb(255, 135, 211);}html{background-color:rgb(255, 211, 239);background-color: pink;height: 100vh;width: 100vw;margin: 0;padding: 0;}body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}.centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}.centro{width: 500px;}.centro2{width: 800px;}.sottotitolo, .sottotitolod{font-size: 25px;}.sottotitolod{text-align: left;}.titolo{font-size: 30px;}.link{text-decoration: underline;}.pulsanti{background-color: rgb(255, 184, 217);color: white;font-size: 20px;border: 2px solid rgb(255, 129, 190);border-radius: 3%;}.img{width: auto;height: 200px;}.linea{border: rgb(255, 135, 211) 1px solid;width: 80%;}</style><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
-							if(webservv.servers[cli->second].get_showdir()=="yes"){
-								content+="<p class='sottotitolo'>File della cartella:";
-								DIR				*dir;
-								struct dirent	*entry;
-								dir=opendir((webservv.servers[cli->second].get_root()+url).c_str());
-								if(dir == NULL){
-									content+="<p class='sottotitolo'>Marshal: Errore in opendir</p></div></center></body></html>";										
-								}else{
-									entry = readdir(dir);
-									while (entry != NULL){
-										if (entry->d_type == DT_REG){
-											std::string temp=entry->d_name;
-											content+=("<p class='sottotitolo'><a class='link' href='"+temp+"'>"+temp+"</a></p>").c_str();
-										}
+						}else if(filePath[filePath.size()]=='/'){
+							filePath=webservv.servers[cli->second].get_root()+url+webservv.servers[cli->second].get_index();
+							if(!fileExists(filePath.c_str())){
+								ContentType="text/html";
+								content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><style>*{text-decoration: none;color: rgb(255, 135, 211);}html{background-color:rgb(255, 211, 239);background-color: pink;height: 100vh;width: 100vw;margin: 0;padding: 0;}body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}.centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}.centro{width: 500px;}.centro2{width: 800px;}.sottotitolo, .sottotitolod{font-size: 25px;}.sottotitolod{text-align: left;}.titolo{font-size: 30px;}.link{text-decoration: underline;}.pulsanti{background-color: rgb(255, 184, 217);color: white;font-size: 20px;border: 2px solid rgb(255, 129, 190);border-radius: 3%;}.img{width: auto;height: 200px;}.linea{border: rgb(255, 135, 211) 1px solid;width: 80%;}</style><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
+								if(webservv.servers[cli->second].get_showdir()=="yes"){
+									content+="<p class='sottotitolo'>File della cartella:";
+									DIR				*dir;
+									struct dirent	*entry;
+									dir=opendir((webservv.servers[cli->second].get_root()+url).c_str());
+									if(dir == NULL){
+										content+="<p class='sottotitolo'>Marshal: Errore in opendir</p></div></center></body></html>";										
+									}else{
 										entry = readdir(dir);
+										while (entry != NULL){
+											if (entry->d_type == DT_REG){
+												std::string temp=entry->d_name;
+												content+=("<p class='sottotitolo'><a class='link' href='"+temp+"'>"+temp+"</a></p>").c_str();
+											}
+											entry = readdir(dir);
+										}
+										closedir(dir);
+										content+="</p>";
 									}
-									closedir(dir);
-									content+="</p>";
-								}
-							}else
-								content+="Impostazione showdir: no";
-							content+="</div></center></body></html>";
-						}else{
-							ContentType=getext(filePath);
-							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
-							content = ris.content;
+								}else
+									content+="Impostazione showdir: no";
+								content+="</div></center></body></html>";
+							}else{
+								ContentType=getext(filePath);
+								ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+								content = ris.content;
+							}
 						}
 						std::ostringstream convertitore;
 						convertitore << content.size();

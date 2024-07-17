@@ -65,19 +65,24 @@ std::string getext(const std::string &path){
         return "application/octet-stream";
 }
 
+string ExtensionFile(std::string &nome){
+    size_t i=nome.size();
+    for(;0!=i || nome[i]!='.';i--;)
+        ;
+    std::string val="";
+    for(;nome.size()!=i;i++)
+        val+=nome[i];
+    return val;
+}
+
 t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post){
-    if(endsWith(filePath, ".php")){
-        return executePHP(fdc, server, filePath, env, query_get, query_post);
-    }else if(endsWith(filePath, ".py")){
-        return executePython(filePath, env);
-    }else if(endsWith(filePath, ".sh")){
-        return executeShell(filePath, env);
-    }else{
+    if(request.find(server.gci[ExtensionFile(request)])==diz.end()){
 	    t_master ris;
 		ris.content=readFile(filePath);
 		ris.status=0;
         return ris;
-	}
+    }
+    return execute(fdc, server, filePath, env, query_get, query_post);
 }
 
 unsigned long long int stoull(const std::string &str) {
