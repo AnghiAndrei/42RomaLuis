@@ -16,7 +16,6 @@ t_master execute(int fdc, server &server, const std::string &request, char **env
         ris.content = "Execute error: <br>Pipe error";
         return ris;
     }
-
     pid_t pid = fork();
     if (pid == -1) {
         close(read_fd[0]);
@@ -30,19 +29,21 @@ t_master execute(int fdc, server &server, const std::string &request, char **env
     }
 
     if (pid == 0){
-        std::string cmdexe=server.gci[ExtensionFile(request)];
+		std::string extension = ExtensionFile(request);
+		std::string cmdexe = server.gci[extension];
+
         close(write_fd[1]);
         close(read_fd[0]);
         dup2(write_fd[0], STDIN_FILENO);
         dup2(read_fd[1], STDOUT_FILENO);
+        dup2(read_fd[1], STDERR_FILENO);
         close(write_fd[0]);
         close(read_fd[1]);
         signal(SIGALRM, handle_alarm);
         alarm(EXECUTION_TIME_LIMIT);
-
         std::vector<const char *> args;
-        args.push_back(cmdexe);
-        args.push_back(get_query.c_str());
+        args.push_back(ExtractFile(cmdexe).c_str());
+        args.push_back(request.c_str());
         args.push_back(NULL);
 
         std::vector<const char *> envs;
@@ -62,10 +63,10 @@ t_master execute(int fdc, server &server, const std::string &request, char **env
             convertitore3 << "REMOTE_ADDR=" << fdc;
             envs.push_back(strdup(convertitore3.str().c_str()));
 
-            envs.push_back(strdup(("SCRIPT_FILENAME=" + getAbsolutePath3(ExtractFile(request), 1)).c_str()));
+            envs.push_back(strdup(("SCRIPT_FILENAME=" + request).c_str()));
             envs.push_back(strdup(("SCRIPT_NAME=" + request).c_str()));
             envs.push_back(strdup(("REQUEST_URI=" + request).c_str()));
-            envs.push_back(strdup(("PATH_TRANSLATED=" + getAbsolutePath3(ExtractFile(request), 1)).c_str()));
+            envs.push_back(strdup(("PATH_TRANSLATED=" + request).c_str()));
             envs.push_back(strdup(("PATH_INFO=" + request).c_str()));
             envs.push_back(strdup(("QUERY_STRING=" + get_query).c_str()));
             envs.push_back(strdup(("SERVER_NAME=" + server.get_host()).c_str()));
@@ -82,7 +83,7 @@ t_master execute(int fdc, server &server, const std::string &request, char **env
         }
         envs.push_back(NULL);
 
-        execve(cmdexe, const_cast<char **>(args.data()), const_cast<char **>(envs.data()));
+        execve(cmdexe.c_str(), const_cast<char **>(args.data()), const_cast<char **>(envs.data()));
         std::cout << "Marshal: Execute error" << std::endl;
         exit(-1);
     }else{

@@ -62,7 +62,7 @@
                             </form>
                         </td>
                         <td>
-                            <input id="server" type="text" value="localhost:9069">
+                            <input id="server" type="text" value="localhost:9001">
                             <input id="delfile" type="text" list="listafile">
                             <datalist id="listafile">
                                 <option>Rascal dosent dream of bunny girl sempai</option>
@@ -75,8 +75,7 @@
 								async function can(){
 									if(document.getElementById('server').value=="" || document.getElementById('delfile').value==""){
 										alert("Parametri mancanti");
-									}
-									else{
+									}else{
 										let url='http://'+document.getElementById('server').value+'/Assets/img/'+document.getElementById('delfile').value+'.png';
 										await fetch(url,{method: 'DELETE',}).then(response=>{
 											if(response.ok)alert('File eliminato con successo');
@@ -84,9 +83,7 @@
 												let url='http://'+document.getElementById('server').value+'/Assets/img/'+document.getElementById('delfile').value+'.jpg';
 												fetch(url,{method: 'DELETE',}).then(response=>{
 													if(response.ok)alert('File eliminato con successo');
-													else{
-														alert('Errore durante l\'eliminazione del file:', response.statusText);
-													}
+													else alert('Errore durante l\'eliminazione del file:', response.statusText);
 												})
 											}
 										});

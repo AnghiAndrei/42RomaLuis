@@ -32,19 +32,16 @@ struct t_master;
 
 t_master execute(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
 t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post);
-std::string getAbsolutePath3(const std::string &filename, int i);
 bool endsWith(const std::string &str, const std::string &suffix);
-std::string getAbsolutePath(const std::string &filename, int i);
 std::string ExtractFile(const std::string &directoryPath);
 unsigned long long int stoull(const std::string &str);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
 std::string getext(const std::string &path);
-string ExtensionFile(std::string &nome);
+std::string ExtensionFile(std::string nome);
 bool dirExists(const std::string &path);
 bool fileExists(const char *path);
 int setnblocking(int socket);
-std::string GetRootPath();
 
 struct t_master{
 	std::string content;
@@ -53,7 +50,6 @@ struct t_master{
 
 class server{
 	private:
-		std::map<std::string, std::string> gci;
 		std::vector<std::string> med_allow;
 		std::vector<std::string> ridirect;
 		std::string root_assets;
@@ -73,6 +69,8 @@ class server{
 		int socketserverfd;
 
 	public:
+		std::map<std::string, std::string> gci;
+
 		~server(){
 			// close(socketserverfd);
 		}
@@ -109,6 +107,12 @@ class server{
 		void set_medallow(std::vector<std::string> copy){this->med_allow.insert(med_allow.begin(), copy.begin(), copy.end());}
 		std::string get_medallow(size_t index){return med_allow[index];}
 		size_t get_lmedallow(){return med_allow.size();}
+		bool is_allow_metod(std::string metod){
+			std::vector<std::string>::iterator temp=std::find(med_allow.begin(), med_allow.end(), metod);
+			if(temp!=med_allow.end())
+				return true;
+			return false;
+		}
 
 		void set_ridirect(std::vector<std::string> copy){this->ridirect.insert(ridirect.begin(), copy.begin(), copy.end());}
 		std::string get_ridirect(size_t index){return ridirect[index];}
@@ -175,6 +179,10 @@ class webserv{
 				if(servers[i].get_lridirect()!=0)
 					std::cout<<"Redirect    : "<<servers[i].get_ridirect(0)<<" -> "<<servers[i].get_ridirect(1)<<std::endl;
 				std::cout<<std::endl<<std::endl;
+				std::cout<<"CGI         : "<<std::endl;
+				for (std::map<std::string, std::string>::iterator it = servers[i].gci.begin(); it != servers[i].gci.end(); ++it)
+					std::cout<<"	"<<it->first<<": "<<it->second<<std::endl;
+				std::cout<<std::endl;
 			}
 		}
 };

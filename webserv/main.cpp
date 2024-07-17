@@ -10,14 +10,23 @@ int main(int argc, char **argv, char **env){
     std::map<int, std::string> responses; //fd->risposta
     std::map<int, std::string> post_save; //fd->post
 
-    for (size_t i = 0; i != webservv.get_n_server(); i++) {
+    for (size_t i = 0; i != webservv.get_n_server(); i++){
+        std::cout << "Server listening on port " << webservv.servers[i].get_port() << std::endl;
+		bool skip=false;
+		if(i!=0){
+			for (size_t i2=0;i2!=i;i2++){
+				if(webservv.servers[i].get_port()==webservv.servers[i2].get_port())
+					skip=true;
+			}
+		}
+		if(skip==true)
+			continue;
         webservv.servers[i].start();
         struct pollfd pfd;
         pfd.fd = webservv.servers[i].get_fd();
         pfd.events = POLLIN;
         pfd.revents = 0;
         servers.push_back(pfd);
-        std::cout << "Server listening on port " << webservv.servers[i].get_port() << std::endl;
     }
 
     while (true) {
@@ -66,12 +75,23 @@ int main(int argc, char **argv, char **env){
 							break;
 					}
 					std::map<int, std::string>::iterator postit = post_save.find(servers[i].fd);
-					if (postit !=post_save.end()){
+					if(postit!=post_save.end())
 						query_post=post_save[postit->first];
-					}
 					std::istringstream requestStream(request);
 					std::string metod, url, protocol;
 					requestStream >> metod >> url >> protocol;
+					if(webservv.servers[cli->second].is_allow_metod(metod)==false){
+						filePath=webservv.servers[cli->second].get_error405();
+						ContentType=getext(filePath);
+						ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+						content = ris.content;
+						std::ostringstream convertitore2;
+						convertitore2 << content.size();
+						responses[servers[i].fd]="HTTP/1.1 405 Metod not Allow\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
+						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
+						continue;
+					}
+					
 					if(protocol==""){;}
 					size_t pos = url.find('?');
 					if(pos<=url.size())
@@ -111,8 +131,6 @@ int main(int argc, char **argv, char **env){
 						url.replace(posspazi, 3, " ");
 						posspazi=url.find("%20");
 					}
-					if(metod.size()>=7)
-						continue;
 					if(metod=="DELETE"){
 						if(std::remove((webservv.servers[cli->second].get_root()+url).c_str())==0){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\r\n\r\n";
@@ -137,28 +155,22 @@ int main(int argc, char **argv, char **env){
 								}
 								request+=request2;
 								std::string fileout="";
-								size_t posfilename = request.find("filename=");
+								size_t posfilename = request2.find("filename=");
 								if (posfilename != std::string::npos){
 									posfilename += 10;
-									while(request[posfilename]!='"'){
-										fileout+=request[posfilename];
+									while(request2[posfilename]!='"'){
+										fileout+=request2[posfilename];
 										if(fileout[fileout.size()]==' ')
 											fileout.replace(posfilename, 1, "%20");
 										posfilename++;
 									}
 								}
-								if (fileout.empty()){
-									filePath=webservv.servers[cli->second].get_error500();
-									ContentType=getext(filePath);
-									ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
-									content = ris.content;
-									std::ostringstream convertitore3;
-									convertitore3 << content.size();
-									responses[servers[i].fd]="HTTP/1.1 500 Internal Server Error\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore3.str()+"\n\n"+content;
-									std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
-									continue;
-								}
-								std::ofstream file_out((webservv.servers[cli->second].get_root_assets()+"/"+fileout).c_str(), std::ios::binary);
+								size_t i40=0;
+								for (;request2[i40]!='\n';i40++)
+									;
+								i40+=3;
+
+								std::ofstream file_out((webservv.servers[cli->second].get_root_assets()+fileout).c_str(), std::ios::binary);
 								if (!file_out.is_open()){
 									filePath=webservv.servers[cli->second].get_error500();
 									ContentType=getext(filePath);
@@ -171,12 +183,17 @@ int main(int argc, char **argv, char **env){
 									continue;
 								}
 
-								for (;i20!=ContentLength-42;i20++){
+								for (;i20!=ContentLength-i40;i20++){
 									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
 									if (bytesRead>=1)
 										file_out.write(buffer, 1);
 								}
 								file_out.close();
+
+								char buffer2[BUFFER_SIZE];
+								while ((bytesRead = read(servers[i].fd, buffer2, BUFFER_SIZE)) > 0){
+									request.append(buffer2, bytesRead);
+								}
 							}else{
 								char buffer2[BUFFER_SIZE];
 								while ((bytesRead = read(servers[i].fd, buffer2, BUFFER_SIZE)) > 0){
@@ -196,12 +213,12 @@ int main(int argc, char **argv, char **env){
 						}
 
 						filePath = webservv.servers[cli->second].get_root() + url;
-						if ((!fileExists(filePath.c_str()) && filePath[filePath.size()]!='/') || (filePath[filePath.size()]=='/' && dirExists(filePath)==false)){
+						if ((!fileExists(filePath.c_str()) && filePath[filePath.size() - 1] != '/') || (filePath[filePath.size() - 1] == '/' && !dirExists(filePath))){
 							filePath=webservv.servers[cli->second].get_error404();
 							ContentType=getext(filePath);
 							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 							content = ris.content;
-						}else if(filePath[filePath.size()]=='/'){
+						}else if(filePath[filePath.size()-1]=='/'){
 							filePath=webservv.servers[cli->second].get_root()+url+webservv.servers[cli->second].get_index();
 							if(!fileExists(filePath.c_str())){
 								ContentType="text/html";
@@ -230,9 +247,13 @@ int main(int argc, char **argv, char **env){
 								content+="</div></center></body></html>";
 							}else{
 								ContentType=getext(filePath);
-								ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+								ris=leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 								content = ris.content;
 							}
+						}else{
+							ContentType=getext(filePath);
+							ris=leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+							content = ris.content;
 						}
 						std::ostringstream convertitore;
 						convertitore << content.size();

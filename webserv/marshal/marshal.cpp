@@ -250,28 +250,29 @@ int check(int argc, char **argv, webserv *webservv){
 			}
 			webservv->servers[serv].set_medallow(valore_vec);
 		}else if(chiave=="gci"){
-			std::string chiavecgi="", valorecgi="";
-			for (;valore[i4]!=' ' && valore[i4]!='\0';i4++){
-				chiavecgi+=valore[i4];
-			}
-			if(chiavecgi=="" || chiavecgi[0]!="."){
-				std::cout<<"Marshal: Errore nella configurazione delle cgi"<<std::endl;
+			std::string chiavecgi, valorecgi;
+			size_t i4=0;
+			for (; valore[i4] != ' ' && valore[i4] != '\0'; i4++)
+				chiavecgi += valore[i4];
+			if (chiavecgi.empty() || chiavecgi[0] != '.') {
+				std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
 				return -1;
 			}
-			for (;valore[i4]!='\0';i4++){
-				valorecgi+=valore[i4];
-				if(valore[i4]==' '){
-					std::cout<<"Marshal: Errore nella configurazione delle cgi"<<std::endl;
+			if (valore[i4] == ' ')
+				i4++;
+			for (; valore[i4] != '\0'; i4++) {
+				if (valore[i4] == ' ') {
+					std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
 					return -1;
 				}
+				valorecgi += valore[i4];
 			}
-			if(valorecgi==""){
-				std::cout<<"Marshal: Errore nella configurazione delle cgi"<<std::endl;
+			if (valorecgi.empty()) {
+				std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
 				return -1;
 			}
 			webservv->servers[serv].gci[chiavecgi]=valorecgi;
-		}
-		else if(chiave=="ridirect"){
+		}else if(chiave=="ridirect"){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
 				std::string val="";

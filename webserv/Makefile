@@ -6,7 +6,7 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/16 17:30:44 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/17 13:23:31 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ test: re
 	rm -f $(OBJ)
 	clear
 	-./$(NAME) conf/conffull.conf
+	# -valgrind ./$(NAME) conf/conffull.conf
 	@rm -f $(NAME)
 
 tester: re
