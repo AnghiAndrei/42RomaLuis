@@ -14,10 +14,16 @@ bool dirExists(const std::string &path){
 
 std::string ExtractFile(const std::string &directoryPath){
 	size_t pos = directoryPath.find_last_of("/\\");
-    if (pos == std::string::npos) {
+    if (pos == std::string::npos)
         return "";
-    }
     return directoryPath.substr(pos + 1);
+}
+
+std::string ExtractPath(const std::string &directoryPath){
+	size_t pos = directoryPath.find_last_of("/\\");
+    if (pos == std::string::npos)
+		return "";
+    return directoryPath.substr(0, pos);
 }
 
 std::string ExtensionFile(std::string nome){

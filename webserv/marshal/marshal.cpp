@@ -53,24 +53,13 @@ bool isValidBody_Size(const std::string &port){
 }
 
 bool isValidDirectory(const std::string &path){
-    struct stat info;
-
-    if(stat(path.c_str(), &info)!=0) {
-        std::cout<<"Marshal: "<<path<<"; non esiste"<<std::endl;
-		return false;
-    }else if (info.st_mode)
-        return true;
-    else{
-        std::cout<<"Marshal: "<<path<<"; non e una cartella"<<std::endl;
-        return false;
-    }
 	DIR *dir=opendir(path.c_str());
 	if(dir==NULL){
-        std::cout<<"Marshal: "<<path<<"; non esiste"<<std::endl;
+        std::cout<<"Marshal: La cartella: "<<path.c_str()<<"; non esiste"<<std::endl;
 		return false;
     }
 	closedir(dir);
-	return false;
+	return true;
 }
 
 int check(int argc, char **argv, webserv *webservv){
@@ -293,6 +282,10 @@ int check(int argc, char **argv, webserv *webservv){
 				std::cout<<"Marshal: Error in location"<<std::endl;
 				return -1;
 			}
+			if (location[location.size()-1]=='/'){
+				std::cout<<"Marshal: Error in location"<<std::endl;
+				return -1;
+			}
 			while(std::getline(conf, temp)){
 				if(temp.empty())
 					continue;
@@ -305,6 +298,12 @@ int check(int argc, char **argv, webserv *webservv){
 					chiave+=temp[i];
 					i++;
 				}
+				if(chiave=="}"){
+					chiave="location";
+					break;
+				}
+				if(chiave=="}")
+					break;
 				if(temp[i]!='='){
 					std::cout<<"Marshal: Errore nel file di configurazione"<<std::endl;
 					return -1;
@@ -314,9 +313,7 @@ int check(int argc, char **argv, webserv *webservv){
 					valore+=temp[i];
 					i++;
 				}
-				if(valore="}")
-					break;
-				else if(chiave=="body_size")
+				if(chiave=="body_size")
 					if(isValidBody_Size(valore)==true){
 						webservv->servers[serv].locations[location].set_body_size(valore);
 					}else{
@@ -411,20 +408,22 @@ int check(int argc, char **argv, webserv *webservv){
 		return -1;
 	}
 	for (size_t i=0;i!=serv;i++){
-		if(webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==-1){
+		if(webservv->servers[i].locations["/"].get_root()=="")
+			webservv->servers[i].locations["/"].set_root("/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/marshal/dsite/");
+		if(webservv->servers[i].locations["/"].get_body_size()=="-1" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==-1){
 			std::cout<<"Marshal: Nancano delle configurazione"<<std::endl;
 			return -1;
 		}
-		for (std::map<std::string, location>::iterator it = webservv->servers[i].location.begin(); it != webservv->servers[i].location.end(); ++it){
-			if(isValidDirectory(it->second.get_root())==false)return -1;
+		for (std::map<std::string, location>::iterator it = webservv->servers[i].locations.begin(); it != webservv->servers[i].locations.end(); ++it){
 			std::vector <std::string> medotdefaul;
 			medotdefaul.push_back("GET");
 			medotdefaul.push_back("POST");
 			medotdefaul.push_back("DELETE");
 			if(it->second.get_lmedallow()==0)it->second.set_medallow(medotdefaul);
-			if(it->second.get_body_size()==-1)it->second.set_body_size(webservv->servers[i].location["/"].get_body_size());
-			if(it->second.get_index()==-1)it->second.set_index(webservv->servers[i].location["/"].get_index());
-			if(it->second.get_root()==-1)it->second.set_root(webservv->servers[i].location["/"].get_root());
+			if(it->second.get_body_size()=="-1")it->second.set_body_size(webservv->servers[i].locations["/"].get_body_size());
+			if(it->second.get_index()=="")it->second.set_index(webservv->servers[i].locations["/"].get_index());
+			if(it->second.get_root()=="")it->second.set_root(webservv->servers[i].locations["/"].get_root());
+			if(isValidDirectory(it->second.get_root())==false)return -1;
 		}
 	}
 	webservv->set_nserv(serv);

@@ -68,8 +68,8 @@ int main(int argc, char **argv, char **env){
 					std::string filePath;
 					std::string request="";
                     int bytesRead;
-					char buffer[BUFFER_SIZE2];
-					while ((bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2)) > 0){
+					char buffer[BUFFER_SIZE1];
+					while ((bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE1)) > 0){
 						request.append(buffer, bytesRead);
     					if (request.find("\r\n\r\n")!=std::string::npos)
 							break;
@@ -79,11 +79,24 @@ int main(int argc, char **argv, char **env){
 						query_post=post_save[postit->first];
 					std::istringstream requestStream(request);
 					std::string metod, url, protocol;
+
 					requestStream >> metod >> url >> protocol;
-					if(webservv.servers[cli->second].is_allow_metod(metod)==false){
+					if(protocol==""){;}
+					size_t pos = url.find('?');
+					if(pos<=url.size())
+						query_get = url.substr(pos+1, url.size());
+					url = url.substr(0, pos);
+
+					std::string location=ExtractPath(url);
+					std::cout<<"Old location: "<<location<<std::endl;
+					if(webservv.servers[cli->second].locations.find(location) == webservv.servers[cli->second].locations.end())
+						location="/";
+					std::cout<<"New location: "<<location<<std::endl;
+
+					if(webservv.servers[cli->second].locations[location].is_allow_metod(metod)==false){
 						filePath=webservv.servers[cli->second].get_error405();
 						ContentType=getext(filePath);
-						ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+						ris = leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 						content = ris.content;
 						std::ostringstream convertitore2;
 						convertitore2 << content.size();
@@ -91,12 +104,7 @@ int main(int argc, char **argv, char **env){
 						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
 						continue;
 					}
-					
-					if(protocol==""){;}
-					size_t pos = url.find('?');
-					if(pos<=url.size())
-						query_get = url.substr(pos+1, url.size());
-					url = url.substr(0, pos);
+
 					std::string numeri="";
 					size_t posCL=request.find("Content-Length: ");
 					if(posCL+16<request.size()){
@@ -105,10 +113,10 @@ int main(int argc, char **argv, char **env){
 					}else
 						numeri="0";
 					unsigned long long int ContentLength=stoull(numeri.c_str());
-					if(ContentLength>stoull(webservv.servers[cli->second].get_body_size().c_str())){
+					if(ContentLength>stoull(webservv.servers[cli->second].locations[location].get_body_size().c_str())){
 						filePath=webservv.servers[cli->second].get_error413();
 						ContentType=getext(filePath);
-						ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+						ris = leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 						content = ris.content;
 						std::ostringstream convertitore2;
 						convertitore2 << content.size();
@@ -117,9 +125,9 @@ int main(int argc, char **argv, char **env){
 						continue;
 					}
 
-					if(webservv.servers[cli->second].get_lridirect()==2){
-						if (url == webservv.servers[cli->second].get_ridirect(0)) {
-							std::string newLocation=webservv.servers[cli->second].get_ridirect(1);
+					if(webservv.servers[cli->second].locations[location].get_lridirect()==2){
+						if (url == webservv.servers[cli->second].locations[location].get_ridirect(0)) {
+							std::string newLocation=webservv.servers[cli->second].locations[location].get_ridirect(1);
 							responses[servers[i].fd]="HTTP/1.1 301 Moved Permanently\nLocation: "+newLocation+"\n\n";
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: REDIRECT"<<std::endl;
 							continue;
@@ -132,7 +140,7 @@ int main(int argc, char **argv, char **env){
 						posspazi=url.find("%20");
 					}
 					if(metod=="DELETE"){
-						if(std::remove((webservv.servers[cli->second].get_root()+url).c_str())==0){
+						if(std::remove((webservv.servers[cli->second].locations[location].get_root()+url).c_str())==0){
 							responses[servers[i].fd]="HTTP/1.1 200 OK\r\n\r\n";
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: OK"<<std::endl;
 							continue;
@@ -147,7 +155,7 @@ int main(int argc, char **argv, char **env){
 								std::string request2="";
 								size_t i20=0;
 								for (i20=0;i20!=ContentLength;i20++){
-									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
+									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE1);
 									if (bytesRead>=1)
 										request2.append(buffer, bytesRead);
 									if (request2.find("\r\n\r\n")!=std::string::npos)
@@ -170,11 +178,11 @@ int main(int argc, char **argv, char **env){
 									;
 								i40+=3;
 
-								std::ofstream file_out((webservv.servers[cli->second].get_root_assets()+fileout).c_str(), std::ios::binary);
+								std::ofstream file_out((webservv.servers[cli->second].locations[location].get_root()+"Assets/img/"+fileout).c_str(), std::ios::binary);
 								if (!file_out.is_open()){
 									filePath=webservv.servers[cli->second].get_error500();
 									ContentType=getext(filePath);
-									ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+									ris = leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 									content = ris.content;
 									std::ostringstream convertitore3;
 									convertitore3 << content.size();
@@ -184,7 +192,7 @@ int main(int argc, char **argv, char **env){
 								}
 
 								for (;i20!=ContentLength-i40;i20++){
-									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE2);
+									bytesRead = read(servers[i].fd, buffer, BUFFER_SIZE1);
 									if (bytesRead>=1)
 										file_out.write(buffer, 1);
 								}
@@ -212,22 +220,22 @@ int main(int argc, char **argv, char **env){
 							}
 						}
 
-						filePath = webservv.servers[cli->second].get_root() + url;
+						filePath = webservv.servers[cli->second].locations[location].get_root() + url;
 						if ((!fileExists(filePath.c_str()) && filePath[filePath.size() - 1] != '/') || (filePath[filePath.size() - 1] == '/' && !dirExists(filePath))){
 							filePath=webservv.servers[cli->second].get_error404();
 							ContentType=getext(filePath);
-							ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+							ris = leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 							content = ris.content;
 						}else if(filePath[filePath.size()-1]=='/'){
-							filePath=webservv.servers[cli->second].get_root()+url+webservv.servers[cli->second].get_index();
+							filePath=webservv.servers[cli->second].locations[location].get_root()+url+webservv.servers[cli->second].locations[location].get_index();
 							if(!fileExists(filePath.c_str())){
 								ContentType="text/html";
 								content="<!DOCTYPE html><html><head><link rel='shortcut icon' href='./Assets/img/icona.jpg' type='image/x-icon'><style>*{text-decoration: none;color: rgb(255, 135, 211);}html{background-color:rgb(255, 211, 239);background-color: pink;height: 100vh;width: 100vw;margin: 0;padding: 0;}body{height: 100%;width: 100%;margin: 0;padding: 0;position: fixed;top: 0;}.centro,.centro2{background-color: white;border: 2px solid rgb(255, 129, 190);border-radius: 3%;margin-top: 5vh;padding: 30px;}.centro{width: 500px;}.centro2{width: 800px;}.sottotitolo, .sottotitolod{font-size: 25px;}.sottotitolod{text-align: left;}.titolo{font-size: 30px;}.link{text-decoration: underline;}.pulsanti{background-color: rgb(255, 184, 217);color: white;font-size: 20px;border: 2px solid rgb(255, 129, 190);border-radius: 3%;}.img{width: auto;height: 200px;}.linea{border: rgb(255, 135, 211) 1px solid;width: 80%;}</style><meta charset='UTF-8'><meta http-equiv='x-ua-compatible' content='ie=8'><meta name='keywords' content=''><meta name='author' content='Andrei Anghi[Angly colui che regna]'><meta name='viewport' content='width=device-width, initial-scale=1'><meta name='copyright' content='Andrei Anghi[Angly colui che regna]'><title>Nessun titolo | Wengly</title></head><body><center><div class='centro'><h1 class='titolo'>WebServer: Wengly</h1><br><br>";
-								if(webservv.servers[cli->second].get_showdir()=="yes"){
+								if(webservv.servers[cli->second].locations[location].get_showdir()=="yes"){
 									content+="<p class='sottotitolo'>File della cartella:";
 									DIR				*dir;
 									struct dirent	*entry;
-									dir=opendir((webservv.servers[cli->second].get_root()+url).c_str());
+									dir=opendir((webservv.servers[cli->second].locations[location].get_root()+url).c_str());
 									if(dir == NULL){
 										content+="<p class='sottotitolo'>Marshal: Errore in opendir</p></div></center></body></html>";										
 									}else{
@@ -247,12 +255,12 @@ int main(int argc, char **argv, char **env){
 								content+="</div></center></body></html>";
 							}else{
 								ContentType=getext(filePath);
-								ris=leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+								ris=leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 								content = ris.content;
 							}
 						}else{
 							ContentType=getext(filePath);
-							ris=leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+							ris=leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 							content = ris.content;
 						}
 						std::ostringstream convertitore;
@@ -262,7 +270,7 @@ int main(int argc, char **argv, char **env){
 					}else{
 						filePath=webservv.servers[cli->second].get_error405();
 						ContentType=getext(filePath);
-						ris = leggi_file(filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
+						ris = leggi_file(location, filePath, servers[i].fd, webservv.servers[cli->second], env, query_get, query_post);
 						content = ris.content;
 						std::ostringstream convertitore2;
 						convertitore2 << content.size();

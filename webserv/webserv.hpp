@@ -23,18 +23,19 @@
 #include<map>
 
 #define EXECUTION_TIME_LIMIT 10
-#define BUFFER_SIZE2 1
+#define BUFFER_SIZE1 1
 #define BUFFER_SIZE 16384
 
 class server;
 class webserv;
-class locasion;
+class location;
 struct t_master;
 
-t_master execute(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
-t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post);
+t_master leggi_file(std::string &locate, std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post);
+t_master execute(std::string &locate, int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query);
 bool endsWith(const std::string &str, const std::string &suffix);
 std::string ExtractFile(const std::string &directoryPath);
+std::string ExtractPath(const std::string &directoryPath);
 unsigned long long int stoull(const std::string &str);
 int check(int argc, char **argv, webserv *webservv);
 std::string readFile(const std::string &filePath);
@@ -49,7 +50,7 @@ struct t_master{
 	int status;
 };
 
-class locasion{
+class location{
 	private:
 		std::vector<std::string> med_allow;
 		std::vector<std::string> ridirect;
@@ -61,13 +62,18 @@ class locasion{
 	public:
 		std::map<std::string, std::string> gci;
 
-		locasion(server &server);
-		~locasion(){}
+		~location(){}
+		location(){
+			root="";
+			index="";
+			showdir="yes";
+			body_size="-1";
+		}
 
-		void set_body_size(std::string &copy){body_size=copy;}
-		void set_showdir(std::string &copy){showdir=copy;}
-		void set_index(std::string &copy){index=copy;}
-		void set_root(std::string &copy){root=copy;}
+		void set_body_size(std::string copy){body_size=copy;}
+		void set_showdir(std::string copy){showdir=copy;}
+		void set_index(std::string copy){index=copy;}
+		void set_root(std::string copy){root=copy;}
 		std::string get_root(){return root;}
 		std::string get_index(){return index;}
 		std::string get_showdir(){return showdir;}
@@ -101,10 +107,13 @@ class server{
 		int port;
 
 	public:
-		std::map<std::string, locasion> locations;
+		std::map<std::string, location> locations;
 
 		~server(){/*close(socketserverfd);*/}
 		server(webserv &master);
+
+		std::map<std::string, std::string> gci;
+
 
 		void set_error404(std::string &copy){error404=copy;}
 		void set_error405(std::string &copy){error405=copy;}

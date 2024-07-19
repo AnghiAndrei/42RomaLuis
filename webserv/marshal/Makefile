@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/16 17:23:01 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/19 15:46:02 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = main.cpp marshal.cpp ../webserv.cpp ../execute.cpp ../path.cpp
+SRC = main.cpp marshal.cpp ../webserv.cpp ../execute.cpp ../path.cpp print.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -124,6 +124,14 @@ test: re
 	@echo
 	-./$(NAME) conf/error42.conf
 	@echo
+	-./$(NAME) conf/error43.conf
+	@echo
+	-./$(NAME) conf/error44.conf
+	@echo
+	-./$(NAME) conf/error45.conf
+	@echo
+	-./$(NAME) conf/error46.conf
+	@echo
 	@rm -f $(NAME)
 
 test2: re
@@ -133,7 +141,5 @@ test2: re
 	-./$(NAME)
 	@echo
 	-./$(NAME) conf/conffull.conf
-	@echo
-	-./$(NAME)
 	@echo
 	@rm -f $(NAME)

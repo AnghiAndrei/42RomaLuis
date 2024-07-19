@@ -5,7 +5,7 @@ void handle_alarm(int sig){
 	kill(-1,SIGKILL);
 }
 
-t_master execute(int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query) {
+t_master execute(std::string &locate, int fdc, server &server, const std::string &request, char **env, std::string &get_query, std::string &post_query) {
     t_master ris;
     int read_fd[2];
     int write_fd[2];
@@ -30,7 +30,7 @@ t_master execute(int fdc, server &server, const std::string &request, char **env
 
     if (pid == 0){
 		std::string extension = ExtensionFile(request);
-		std::string cmdexe = server.gci[extension];
+		std::string cmdexe = server.locations[locate].gci[extension];
 
         close(write_fd[1]);
         close(read_fd[0]);

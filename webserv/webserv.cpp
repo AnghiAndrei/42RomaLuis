@@ -8,15 +8,9 @@ server::server(webserv &master){
 	error418="./418.html";
 	error413="./413.html";
 	error500="./500.html";
-    name_server=("Server"+cy).str();
+    name_server=("Server"+cy.str());
     host="";
     port=-1;
-}
-
-locasion::locasion(server &server){
-    root="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/";
-    showdir="yes";
-    body_size="-1";
 }
 
 int setnblocking(int socket) {
@@ -65,14 +59,14 @@ std::string getext(const std::string &path){
         return "application/octet-stream";
 }
 
-t_master leggi_file(std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post){
-	if(server.gci.find(ExtensionFile(filePath)) == server.gci.end()){
+t_master leggi_file(std::string &locate, std::string &filePath, int fdc, server &server, char **env, std::string &query_get, std::string &query_post){
+	if(server.locations[locate].gci.find(ExtensionFile(filePath)) == server.locations[locate].gci.end()){
 	    t_master ris;
 		ris.content=readFile(filePath);
 		ris.status=0;
         return ris;
     }
-    return execute(fdc, server, filePath, env, query_get, query_post);
+    return execute(locate, fdc, server, filePath, env, query_get, query_post);
 }
 
 unsigned long long int stoull(const std::string &str) {
