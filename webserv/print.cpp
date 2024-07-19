@@ -13,7 +13,9 @@ void printLocation(location &loc) {
 	std::cout << std::endl;
 
 	if(loc.get_lridirect()!=0)
-    std::cout << "        Redirects: " << loc.get_ridirect(0) << " : " << loc.get_ridirect(1) << std::endl;
+        std::cout << "        Redirects: " << loc.get_ridirect(0) << " : " << loc.get_ridirect(1) << std::endl;
+    else
+        std::cout << "        Redirects: " << std::endl;
 
     std::cout << "        CGI:" << std::endl;
     for (std::map<std::string, std::string>::iterator it = loc.gci.begin(); it != loc.gci.end(); ++it) {
@@ -22,7 +24,6 @@ void printLocation(location &loc) {
 }
 
 void printServer(server &srv) {
-    std::cout << "Server:" << std::endl;
     std::cout << "  Name: " << srv.get_name() << std::endl;
     std::cout << "  Host: " << srv.get_host() << std::endl;
     std::cout << "  Port: " << srv.get_port() << std::endl;
@@ -42,6 +43,7 @@ void printServer(server &srv) {
 void printWebserv(webserv &ws) {
     std::cout << "Webserv:" << std::endl;
     std::cout << "  Number of Servers: " << ws.get_n_server() << std::endl;
+    std::cout << std::endl << std::endl;
 
     for (size_t i = 0; i < ws.get_n_server(); ++i) {
         std::cout << "  Server " << i + 1 << ":" << std::endl;
