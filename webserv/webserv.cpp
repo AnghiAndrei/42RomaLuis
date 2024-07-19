@@ -3,20 +3,20 @@
 server::server(webserv &master){
     std::ostringstream cy;
     cy << master.get_n_server() + 1;
-    std::string n_server = cy.str();
-	error404="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/404.html";
-	error405="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/405.html";
-	error418="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/418.html";
-	error413="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/413.html";
-	error500="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/500.html";
-	root_assets="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/";
-    name_server="Server"+n_server;
-	index="index.html";
-    root="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/";
-    showdir="yes";
-    body_size="";
+	error404="./404.html";
+	error405="./405.html";
+	error418="./418.html";
+	error413="./413.html";
+	error500="./500.html";
+    name_server=("Server"+cy).str();
     host="";
     port=-1;
+}
+
+locasion::locasion(server &server){
+    root="/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/";
+    showdir="yes";
+    body_size="-1";
 }
 
 int setnblocking(int socket) {

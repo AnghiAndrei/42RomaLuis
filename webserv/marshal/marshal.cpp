@@ -191,13 +191,6 @@ int check(int argc, char **argv, webserv *webservv){
 				std::cout<<"Marshal: Porta invalida"<<std::endl;
 				return -1;
 			}
-		else if(chiave=="body_size")
-			if(isValidBody_Size(valore)==true){
-				webservv->servers[serv].set_body_size(valore);
-			}else{
-				std::cout<<"Marshal: Body_size invalido"<<std::endl;
-				return -1;
-			}
 		else if(chiave=="error404")
 			webservv->servers[serv].set_error404(valore);
 		else if(chiave=="error405")
@@ -208,11 +201,18 @@ int check(int argc, char **argv, webserv *webservv){
 			webservv->servers[serv].set_error413(valore);
 		else if(chiave=="error500")
 			webservv->servers[serv].set_error500(valore);
+		else if(chiave=="body_size")
+			if(isValidBody_Size(valore)==true){
+				webservv->servers[serv].locations["/"].set_body_size(valore);
+			}else{
+				std::cout<<"Marshal: Body_size invalido"<<std::endl;
+				return -1;
+			}
 		else if(chiave=="index")
-			webservv->servers[serv].set_index(valore);
+			webservv->servers[serv].locations["/"].set_index(valore);
 		else if(chiave=="showdir"){
 			if(valore=="yes" || valore=="no")
-				webservv->servers[serv].set_showdir(valore);
+				webservv->servers[serv].locations["/"].set_showdir(valore);
 			else{
 				std::cout<<"Marshal: Valore non riconosciuto in showdir"<<std::endl;
 				return -1;
@@ -223,13 +223,7 @@ int check(int argc, char **argv, webserv *webservv){
 				std::cout<<"Marshal: Il percorso non e un percorso statico"<<std::endl;
 				return -1;
 			}
-			webservv->servers[serv].set_root(valore);
-		}else if(chiave=="root_assets"){
-			if(valore[0]!='/' || valore[0]=='.' || valore[valore.size()-1]!='/'){
-				std::cout<<"Marshal: Il percorso non e un percorso statico"<<std::endl;
-				return -1;
-			}
-			webservv->servers[serv].set_root_assets(valore);
+			webservv->servers[serv].locations["/"].set_root(valore);
 		}else if(chiave=="medallow"){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
@@ -248,7 +242,7 @@ int check(int argc, char **argv, webserv *webservv){
 				}
 				valore_vec.push_back(val);
 			}
-			webservv->servers[serv].set_medallow(valore_vec);
+			webservv->servers[serv].locations["/"].set_medallow(valore_vec);
 		}else if(chiave=="gci"){
 			std::string chiavecgi, valorecgi;
 			size_t i4=0;
@@ -271,7 +265,7 @@ int check(int argc, char **argv, webserv *webservv){
 				std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
 				return -1;
 			}
-			webservv->servers[serv].gci[chiavecgi]=valorecgi;
+			webservv->servers[serv].locations["/"].gci[chiavecgi]=valorecgi;
 		}else if(chiave=="ridirect"){
 			std::vector<std::string> valore_vec;
 			for (size_t i4=0;i4<valore.size();i4++){
@@ -286,10 +280,130 @@ int check(int argc, char **argv, webserv *webservv){
 				}
 				valore_vec.push_back(val);
 			}
-			webservv->servers[serv].set_ridirect(valore_vec);
-		}else{
-			std::cout<<"Marshal: Trovato una configrazione sconosciuta"<<std::endl;
-			return -1;
+			if(valore_vec.size()!=2){
+				std::cout<<"Marshal: Numero di parametri in redicetion errati"<<std::endl;
+				return -1;
+			}
+			webservv->servers[serv].locations["/"].set_ridirect(valore_vec);
+		}else if(chiave=="location"){
+			std::string location;
+			if(valore[valore.size()-1]=='{' && valore[valore.size()-2]==' ')
+				location = valore.substr(0, valore.size()-2);
+			else{
+				std::cout<<"Marshal: Error in location"<<std::endl;
+				return -1;
+			}
+			while(std::getline(conf, temp)){
+				if(temp.empty())
+					continue;
+				int i=0;
+				chiave="";
+				valore="";
+				while(temp[i]!='\0' && (temp[i]==' ' || temp[i]=='\t'))
+					i++;
+				while(temp[i]!='\0' && temp[i]!='='){
+					chiave+=temp[i];
+					i++;
+				}
+				if(temp[i]!='='){
+					std::cout<<"Marshal: Errore nel file di configurazione"<<std::endl;
+					return -1;
+				}
+				i++;
+				while(temp[i]!='\0'){
+					valore+=temp[i];
+					i++;
+				}
+				if(valore="}")
+					break;
+				else if(chiave=="body_size")
+					if(isValidBody_Size(valore)==true){
+						webservv->servers[serv].locations[location].set_body_size(valore);
+					}else{
+						std::cout<<"Marshal: Body_size invalido"<<std::endl;
+						return -1;
+					}
+				else if(chiave=="index")
+					webservv->servers[serv].locations[location].set_index(valore);
+				else if(chiave=="showdir"){
+					if(valore=="yes" || valore=="no")
+						webservv->servers[serv].locations[location].set_showdir(valore);
+					else{
+						std::cout<<"Marshal: Valore non riconosciuto in showdir"<<std::endl;
+						return -1;
+					}
+				}else if(chiave=="root"){
+					if(valore[0]!='/' || valore[0]=='.' || valore[valore.size()-1]!='/'){
+						std::cout<<"Marshal: Il percorso non e un percorso statico"<<std::endl;
+						return -1;
+					}
+					webservv->servers[serv].locations[location].set_root(valore);
+				}else if(chiave=="medallow"){
+					std::vector<std::string> valore_vec;
+					for (size_t i4=0;i4<valore.size();i4++){
+						std::string val="";
+						for (;valore[i4]!='-' && valore[i4]!='\0';i4++){
+							val+=valore[i4];
+						}
+						if(val!="GET" && val!="POST" && val!="DELETE"){
+							std::cout<<"Marshal: Metodo non riconosciuto"<<std::endl;
+							return -1;
+						}
+						std::vector<std::string>::iterator temp = std::find(valore_vec.begin(), valore_vec.end(), val);
+						if(temp!=valore_vec.end()){
+							std::cout<<"Marshal: Trovato un metodo doppione"<<std::endl;
+							return -1;
+						}
+						valore_vec.push_back(val);
+					}
+					webservv->servers[serv].locations[location].set_medallow(valore_vec);
+				}else if(chiave=="gci"){
+					std::string chiavecgi, valorecgi;
+					size_t i4=0;
+					for (; valore[i4] != ' ' && valore[i4] != '\0'; i4++)
+						chiavecgi += valore[i4];
+					if (chiavecgi.empty() || chiavecgi[0] != '.') {
+						std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
+						return -1;
+					}
+					if (valore[i4] == ' ')
+						i4++;
+					for (; valore[i4] != '\0'; i4++) {
+						if (valore[i4] == ' ') {
+							std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
+							return -1;
+						}
+						valorecgi += valore[i4];
+					}
+					if (valorecgi.empty()) {
+						std::cout << "Marshal: Errore nella configurazione delle cgi" << std::endl;
+						return -1;
+					}
+					webservv->servers[serv].locations[location].gci[chiavecgi]=valorecgi;
+				}else if(chiave=="ridirect"){
+					std::vector<std::string> valore_vec;
+					for (size_t i4=0;i4<valore.size();i4++){
+						std::string val="";
+						for (;valore[i4]!=' ' && valore[i4]!='\0';i4++){
+							val+=valore[i4];
+						}
+						std::vector<std::string>::iterator temp = std::find(valore_vec.begin(), valore_vec.end(), val);
+						if(temp!=valore_vec.end()){
+							std::cout<<"Marshal: rindirizzamento nella stessa risorsa"<<std::endl;
+							return -1;
+						}
+						valore_vec.push_back(val);
+					}
+					if(valore_vec.size()!=2){
+						std::cout<<"Marshal: Numero di parametri in redicetion errati"<<std::endl;
+						return -1;
+					}
+					webservv->servers[serv].locations[location].set_ridirect(valore_vec);
+				}else{
+					std::cout<<"Marshal: Trovato una configrazione sconosciuta"<<std::endl;
+					return -1;
+				}
+			}
 		}
 	}
 	if(serv==0){
@@ -297,22 +411,21 @@ int check(int argc, char **argv, webserv *webservv){
 		return -1;
 	}
 	for (size_t i=0;i!=serv;i++){
-		std::ifstream file1(webservv->servers[i].get_error418().c_str());
-		if(!file1.is_open()){
-			std::cout<<"Marshal: Errore nella apertura del file: "<<webservv->servers[i].get_error418()<<std::endl;
-			return -1;
-		}
-		std::ifstream file2(webservv->servers[i].get_error404().c_str());
-		if(!file2.is_open()){
-			std::cout<<"Marshal: Errore nella apertura del file: "<<webservv->servers[i].get_error404()<<std::endl;
-			return -1;
-		}
-		if(webservv->servers[i].get_lridirect()==1 || webservv->servers[i].get_lridirect()>=3 || webservv->servers[i].get_lmedallow()==0 || webservv->servers[i].get_body_size()=="" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==-1){
+		if(webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==-1){
 			std::cout<<"Marshal: Nancano delle configurazione"<<std::endl;
 			return -1;
 		}
-		if(isValidDirectory(webservv->servers[i].get_root_assets())==false)return -1;
-		if(isValidDirectory(webservv->servers[i].get_root())==false)return -1;
+		for (std::map<std::string, location>::iterator it = webservv->servers[i].location.begin(); it != webservv->servers[i].location.end(); ++it){
+			if(isValidDirectory(it->second.get_root())==false)return -1;
+			std::vector <std::string> medotdefaul;
+			medotdefaul.push_back("GET");
+			medotdefaul.push_back("POST");
+			medotdefaul.push_back("DELETE");
+			if(it->second.get_lmedallow()==0)it->second.set_medallow(medotdefaul);
+			if(it->second.get_body_size()==-1)it->second.set_body_size(webservv->servers[i].location["/"].get_body_size());
+			if(it->second.get_index()==-1)it->second.set_index(webservv->servers[i].location["/"].get_index());
+			if(it->second.get_root()==-1)it->second.set_root(webservv->servers[i].location["/"].get_root());
+		}
 	}
 	webservv->set_nserv(serv);
     return 0;

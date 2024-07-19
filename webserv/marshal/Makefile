@@ -134,8 +134,6 @@ test2: re
 	@echo
 	-./$(NAME) conf/conffull.conf
 	@echo
-	-./$(NAME) conf/conf1.conf
-	@echo
-	-./$(NAME) conf/conf2.conf
+	-./$(NAME)
 	@echo
 	@rm -f $(NAME)

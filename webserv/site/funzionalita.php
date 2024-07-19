@@ -120,6 +120,8 @@
                 <br>
                 <p class="sottotitolod"><a target="_blank" class="link" href="/ripasso">Redirection</a></p>
                 <br>
+                <p class="sottotitolod"><a target="_blank" class="link" href="/ripasso_loc/">Vedi le location</a></p>
+                <br>
                 <p class="sottotitolod"><a class="link" href="home.html">Torna alla Home</a></p>
             </div>
         </center>
