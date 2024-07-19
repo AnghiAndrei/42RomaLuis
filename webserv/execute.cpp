@@ -50,37 +50,36 @@ t_master execute(std::string &locate, int fdc, server &server, const std::string
         for (size_t i = 0; env[i] != NULL; i++)
             envs.push_back(env[i]);
 
-        if (!post_query.empty()) {
-            std::ostringstream convertitore;
-            convertitore << "CONTENT_LENGTH=" << post_query.size();
-            envs.push_back(strdup(convertitore.str().c_str()));
+		std::ostringstream convertitore;
+		convertitore << "CONTENT_LENGTH=" << post_query.size();
+		envs.push_back(strdup(convertitore.str().c_str()));
 
-            std::ostringstream convertitore2;
-            convertitore2 << "SERVER_PORT=" << server.get_port();
-            envs.push_back(strdup(convertitore2.str().c_str()));
+		std::ostringstream convertitore2;
+		convertitore2 << "SERVER_PORT=" << server.get_port();
+		envs.push_back(strdup(convertitore2.str().c_str()));
 
-            std::ostringstream convertitore3;
-            convertitore3 << "REMOTE_ADDR=" << fdc;
-            envs.push_back(strdup(convertitore3.str().c_str()));
+		std::ostringstream convertitore3;
+		convertitore3 << "REMOTE_ADDR=" << fdc;
+		envs.push_back(strdup(convertitore3.str().c_str()));
 
-            envs.push_back(strdup(("SCRIPT_FILENAME=" + request).c_str()));
-            envs.push_back(strdup(("SCRIPT_NAME=" + request).c_str()));
-            envs.push_back(strdup(("REQUEST_URI=" + request).c_str()));
-            envs.push_back(strdup(("PATH_TRANSLATED=" + request).c_str()));
-            envs.push_back(strdup(("PATH_INFO=" + request).c_str()));
-            envs.push_back(strdup(("QUERY_STRING=" + get_query).c_str()));
-            envs.push_back(strdup(("SERVER_NAME=" + server.get_host()).c_str()));
-            envs.push_back(strdup(("REMOTE_HOST=" + server.get_host()).c_str()));
-            envs.push_back(strdup("CONTENT_TYPE=application/x-www-form-urlencoded"));
-            envs.push_back(strdup("REQUEST_METHOD=POST"));
-            envs.push_back(strdup("GATEWAY_INTERFACE=CGI/1.1"));
-            envs.push_back(strdup("SERVER_PROTOCOL=HTTP/1.1"));
-            envs.push_back(strdup("SERVER_SOFTWARE=webserv/1.0"));
-            envs.push_back(strdup("REDIRECT_STATUS=false"));
-            envs.push_back(strdup("REMOTE_USER="));
-            envs.push_back(strdup("REMOTE_IDENT="));
-            envs.push_back(strdup("AUTH_TYPE="));
-        }
+		envs.push_back(strdup(("SCRIPT_FILENAME=" + request).c_str()));
+		envs.push_back(strdup(("SCRIPT_NAME=" + request).c_str()));
+		envs.push_back(strdup(("REQUEST_URI=" + request).c_str()));
+		envs.push_back(strdup(("PATH_TRANSLATED=" + request).c_str()));
+		envs.push_back(strdup(("PATH_INFO=" + request).c_str()));
+		envs.push_back(strdup(("QUERY_STRING=" + get_query).c_str()));
+		envs.push_back(strdup(("SERVER_NAME=" + server.get_host()).c_str()));
+		envs.push_back(strdup(("REMOTE_HOST=" + server.get_host()).c_str()));
+		envs.push_back(strdup("CONTENT_TYPE=application/x-www-form-urlencoded"));
+		envs.push_back(strdup("REQUEST_METHOD=POST"));
+		envs.push_back(strdup("GATEWAY_INTERFACE=CGI/1.1"));
+		envs.push_back(strdup("SERVER_PROTOCOL=HTTP/1.1"));
+		envs.push_back(strdup("SERVER_SOFTWARE=webserv/1.0"));
+		envs.push_back(strdup("REDIRECT_STATUS=false"));
+		envs.push_back(strdup("REMOTE_USER="));
+		envs.push_back(strdup("REMOTE_IDENT="));
+		envs.push_back(strdup("AUTH_TYPE="));
+
         envs.push_back(NULL);
 
         execve(cmdexe.c_str(), const_cast<char **>(args.data()), const_cast<char **>(envs.data()));

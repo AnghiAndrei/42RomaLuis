@@ -88,10 +88,8 @@ int main(int argc, char **argv, char **env){
 					url = url.substr(0, pos);
 
 					std::string location=ExtractPath(url);
-					std::cout<<"Old location: "<<location<<std::endl;
 					if(webservv.servers[cli->second].locations.find(location) == webservv.servers[cli->second].locations.end())
 						location="/";
-					std::cout<<"New location: "<<location<<std::endl;
 
 					if(webservv.servers[cli->second].locations[location].is_allow_metod(metod)==false){
 						filePath=webservv.servers[cli->second].get_error405();
@@ -126,7 +124,7 @@ int main(int argc, char **argv, char **env){
 					}
 
 					if(webservv.servers[cli->second].locations[location].get_lridirect()==2){
-						if (url == webservv.servers[cli->second].locations[location].get_ridirect(0)) {
+						if (url == location+webservv.servers[cli->second].locations[location].get_ridirect(0)) {
 							std::string newLocation=webservv.servers[cli->second].locations[location].get_ridirect(1);
 							responses[servers[i].fd]="HTTP/1.1 301 Moved Permanently\nLocation: "+newLocation+"\n\n";
 							std::cout<<"Risposta per: "<<servers[i].fd<<"; con: REDIRECT"<<std::endl;

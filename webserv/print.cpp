@@ -1,4 +1,4 @@
-#include "../webserv.hpp"
+#include "webserv.hpp"
 
 void printLocation(location &loc) {
     std::cout << "        Body Size: " << loc.get_body_size() << std::endl;
@@ -6,15 +6,14 @@ void printLocation(location &loc) {
     std::cout << "        Index: " << loc.get_index() << std::endl;
     std::cout << "        Root: " << loc.get_root() << std::endl;
 
-    std::cout << "        Allowed Methods:" << std::endl;
-    for (size_t i = 0; i < loc.get_lmedallow(); ++i) {
-        std::cout << "          " << loc.get_medallow(i) << std::endl;
-    }
+    std::cout << "        Allowed Methods: ";
+    for (size_t i = 0; i < loc.get_lmedallow(); ++i){
+        std::cout << loc.get_medallow(i)<< "  ";
+	}
+	std::cout << std::endl;
 
-    std::cout << "        Redirects:" << std::endl;
-    for (size_t i = 0; i < loc.get_lridirect(); ++i) {
-        std::cout << "          " << loc.get_ridirect(i) << std::endl;
-    }
+	if(loc.get_lridirect()!=0)
+    std::cout << "        Redirects: " << loc.get_ridirect(0) << " : " << loc.get_ridirect(1) << std::endl;
 
     std::cout << "        CGI:" << std::endl;
     for (std::map<std::string, std::string>::iterator it = loc.gci.begin(); it != loc.gci.end(); ++it) {

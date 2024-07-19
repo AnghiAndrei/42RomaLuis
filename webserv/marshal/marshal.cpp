@@ -409,7 +409,7 @@ int check(int argc, char **argv, webserv *webservv){
 	}
 	for (size_t i=0;i!=serv;i++){
 		if(webservv->servers[i].locations["/"].get_root()=="")
-			webservv->servers[i].locations["/"].set_root("/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/marshal/dsite/");
+			webservv->servers[i].locations["/"].set_root("/nfs/homes/aanghi/Desktop/42RomaLuis/webserv/dsite/");
 		if(webservv->servers[i].locations["/"].get_body_size()=="-1" || webservv->servers[i].get_host()=="" || webservv->servers[i].get_port()==-1){
 			std::cout<<"Marshal: Nancano delle configurazione"<<std::endl;
 			return -1;

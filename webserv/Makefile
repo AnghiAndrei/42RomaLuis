@@ -6,14 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/07/17 13:23:31 by aanghi           ###   ########.fr        #
+#    Updated: 2024/07/19 16:24:41 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = webserv
 CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = main.cpp marshal/marshal.cpp webserv.cpp execute.cpp path.cpp
+SRC = main.cpp marshal/marshal.cpp webserv.cpp execute.cpp path.cpp print.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
