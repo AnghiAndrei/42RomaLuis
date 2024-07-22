@@ -45,16 +45,21 @@
                             <form method="post" enctype="multipart/form-data">
                                 <input name="imginput" type="file" accept=".png, .jpg" display="none">
                                 <?php
-                                	if(isset($_FILES["imginput"])){
-										$nome_file=$_FILES['imginput'];
-										$ext=pathinfo($nome_file, PATHINFO_EXTENSION);
-                                        $ext_acc=["png", "jpg"];
-                                        if(in_array($ext,$ext_acc)){
-                                            $percorso_temporaneo=$_FILES['tmp_name'];
-                                            $percorso_salvataggio="Assets/img/$nome_file";
-                                            move_uploaded_file($percorso_temporaneo, $percorso_salvataggio);
-                                            rename($percorso_salvataggio,'./Assets/img/foto'.$ext);
-                                        }else echo "<br><p id='sottotitolo'>La foto deve essere .png / .jpg</p>";
+                                    if(file_exists("Rascal dosent dream of bunny girl sempai.png")){
+                                        move_uploaded_file("Rascal dosent dream of bunny girl sempai.png", './Assets/img/Rascal dosent dream of bunny girl sempai.png');
+                                        echo"<script>window.location='funzionalita.php';</script>";
+                                    }
+                                    if(file_exists("Voglio mangiare il tuo pancreas")){
+                                        move_uploaded_file("Voglio mangiare il tuo pancreas", './Assets/img/Voglio mangiare il tuo pancreas');
+                                        echo"<script>window.location='funzionalita.php';</script>";
+                                    }
+                                    if(file_exists("Darling in the FranXX")){
+                                        move_uploaded_file("Darling in the FranXX", './Assets/img/Darling in the FranXX');
+                                        echo"<script>window.location='funzionalita.php';</script>";
+                                    }
+                                    if(file_exists("Your lae in April")){
+                                        move_uploaded_file("Your lae in April", './Assets/img/Your lae in April');
+                                        echo"<script>window.location='funzionalita.php';</script>";
                                     }
                                 ?>
                                 <br><br>

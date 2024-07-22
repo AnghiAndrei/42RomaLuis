@@ -176,7 +176,7 @@ int main(int argc, char **argv, char **env){
 									;
 								i40+=3;
 
-								std::ofstream file_out((webservv.servers[cli->second].locations[location].get_root()+"Assets/img/"+fileout).c_str(), std::ios::binary);
+								std::ofstream file_out((webservv.servers[cli->second].locations[location].get_root()+fileout).c_str(), std::ios::binary);
 								if (!file_out.is_open()){
 									filePath=webservv.servers[cli->second].get_error500();
 									ContentType=getext(filePath);
