@@ -45,23 +45,18 @@
                             <form method="post" enctype="multipart/form-data">
                                 <input name="imginput" type="file" accept=".png, .jpg" display="none">
                                 <?php
-                                    if(file_exists("Rascal dosent dream of bunny girl sempai.png")){
-                                        move_uploaded_file("Rascal dosent dream of bunny girl sempai.png", './Assets/img/Rascal dosent dream of bunny girl sempai.png');
-                                        echo"<script>window.location='funzionalita.php';</script>";
-                                    }
-                                    if(file_exists("Voglio mangiare il tuo pancreas")){
-                                        move_uploaded_file("Voglio mangiare il tuo pancreas", './Assets/img/Voglio mangiare il tuo pancreas');
-                                        echo"<script>window.location='funzionalita.php';</script>";
-                                    }
-                                    if(file_exists("Darling in the FranXX")){
-                                        move_uploaded_file("Darling in the FranXX", './Assets/img/Darling in the FranXX');
-                                        echo"<script>window.location='funzionalita.php';</script>";
-                                    }
-                                    if(file_exists("Your lae in April")){
-                                        move_uploaded_file("Your lae in April", './Assets/img/Your lae in April');
-                                        echo"<script>window.location='funzionalita.php';</script>";
-                                    }
-                                ?>
+									function sposta_file($file, $destinazione) {
+										if (file_exists($file)) {
+											rename($file, $destinazione);
+											echo "<script>window.location='funzionalita.php';</script>";
+										}
+									}
+
+									sposta_file("Rascal dosent dream of bunny girl sempai.png", './Assets/img/Rascal dosent dream of bunny girl sempai.png');
+									sposta_file("Voglio mangiare il tuo pancreas.png", './Assets/img/Voglio mangiare il tuo pancreas.png');
+									sposta_file("Darling in the FranXX.jpg", './Assets/img/Darling in the FranXX.jpg');
+									sposta_file("Your lae in April.jpg", './Assets/img/Your lae in April.jpg');
+								?>
                                 <br><br>
                                 <button class="pulsanti">Carica</button>
                             </form>

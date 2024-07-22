@@ -43,6 +43,7 @@ std::string getext(const std::string &path);
 std::string ExtensionFile(std::string nome);
 bool dirExists(const std::string &path);
 bool fileExists(const char *path);
+void printWebserv(webserv &ws);
 int setnblocking(int socket);
 
 struct t_master{

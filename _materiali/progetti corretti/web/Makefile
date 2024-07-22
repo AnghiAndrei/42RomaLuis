@@ -15,7 +15,7 @@ SRCS			= $(SRCS_PATH)/main.cpp \
 
 OBJS			= $(SRCS:.cpp=.o)
 
-CXX				= clang++
+CXX				= g++
 CXXFLAGS		= -Wall -Werror -Wextra -std=c++98
 # CXXFLAGS		= -std=c++98 -fsanitize=address
 

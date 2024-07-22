@@ -29,6 +29,8 @@ int main(int argc, char **argv, char **env){
         servers.push_back(pfd);
     }
 
+	// printWebserv(webservv);
+
     while (true) {
         int poll_count = poll(servers.data(), servers.size(), -1);
         if (poll_count < 0) {
@@ -120,6 +122,8 @@ int main(int argc, char **argv, char **env){
 						convertitore2 << content.size();
 						responses[servers[i].fd]="HTTP/1.1 413 OK\nContent-Type: "+ContentType+"\nContent-Length: "+convertitore2.str()+"\n\n"+content;
 						std::cout<<"Risposta per: "<<servers[i].fd<<"; con: "<<filePath<<std::endl;
+						char buffer2[BUFFER_SIZE];
+						while ((bytesRead = read(servers[i].fd, buffer2, BUFFER_SIZE)) > 0){;}
 						continue;
 					}
 
