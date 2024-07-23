@@ -5,4 +5,5 @@ if [ ! -d ".git" ]; then
     exit 1
 fi
 git submodule update --init --recursive
+git submodule update --recursive --remote
 echo "Complete Clone!"
