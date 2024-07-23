@@ -1,6 +1,20 @@
 # ⚠️ Important ⚠️
-To clone this repo, must use this comand: 
+
+To clone this repo, use the following command:
+```bash
 git clone --recurse-submodules https://github.com/AnghiAndrei/42RomaLuis.git
+```bash
+
+Alternatively:
+```bash
+git clone https://github.com/AnghiAndrei/42RomaLuis.git
+cd 42RomaLuis
+bash finish_clone.sh
+```bash
+
+# ⚠️ Important ⚠️
+To clone this repo, must use this comand: git clone --recurse-submodules https://github.com/AnghiAndrei/42RomaLuis.git
+Or after clone with: git clone; execute: bash finish_clone.sh
 
 # Index
 C-Piscine
