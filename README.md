@@ -28,8 +28,8 @@ How to use testers:
 4. Resolve segmentation faults, memory errors, memory errors, and other errors
 5. Take that 125/100
 
-# Don't forget to give this repo a ⭐
-
 # Contact me
 - [Portfolio](https://andreianghi.ddns.net)
 - [Link tree](https://socialandreianghi.ddns.net)
+
+# Don't forget to give this repo a ⭐
