@@ -5,7 +5,7 @@ all:
 
 pull:
 	git pull
-	sh finish_close.sh
+	sh finish_clone.sh
 
 MSG=$$(read var; echo $$var;)
 m:
