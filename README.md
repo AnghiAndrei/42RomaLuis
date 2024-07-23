@@ -1,3 +1,6 @@
+# ⚠️ Important ⚠️
+To clone this repo, must use this comand: git clone --recurse-submodules https://github.com/AnghiAndrei/42RomaLuis.git
+
 # Index
 C-Piscine
 - [C-Piscine](https://github.com/AnghiAndrei/42RomaLuis/tree/main/_c-piscine)
