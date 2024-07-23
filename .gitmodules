@@ -7,3 +7,6 @@
 [submodule "_common core/cub3D"]
 	path = _common core/cub3D
 	url = https://github.com/AnghiAndrei/cub3D.git
+[submodule "_common core/webserv"]
+	path = _common core/webserv
+	url = https://github.com/AnghiAndrei/webserv.git
