@@ -1,3 +1,6 @@
 [submodule "_common core/so_long"]
 	path = _common core/so_long
 	url = git@github.com:AnghiAndrei/so_long.git
+[submodule "_common core/minishell"]
+	path = _common core/minishell
+	url = https://github.com/AnghiAndrei/minishell.git
