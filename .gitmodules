@@ -7,3 +7,6 @@
 [submodule "_common core/Webserv"]
 	path = _common core/Webserv
 	url = https://github.com/AnghiAndrei/webserv.git
+[submodule "_common core/minishell"]
+	path = _common core/minishell
+	url = https://github.com/AnghiAndrei/minishell.git
