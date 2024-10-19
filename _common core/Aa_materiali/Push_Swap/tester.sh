@@ -28,9 +28,9 @@ test-i-leaks-m: re
 	@echo
 	-valgrind ./push_swap "--42"
 	@echo
-	-valgrind ./push_swap 1 "2" 3
+	-valgrind ./push_swap 1 "3" 2
 	@echo
-	-valgrind ./push_swap 1 "2 3" 4
+	-valgrind ./push_swap 1 "2 4" 3
 	@echo
 	-valgrind ./push_swap 1 "2 3" 2
 	@echo
@@ -66,9 +66,9 @@ test-i-leaks-b: bonus
 	@echo
 	-valgrind ./checker "--42"
 	@echo
-	-valgrind ./checker 1 "2" 3
+	-valgrind ./checker 1 "3" 2
 	@echo
-	-valgrind ./checker 1 "2 3" 4
+	-valgrind ./checker 1 "2 4" 3
 	@echo
 	-valgrind ./checker 1 "2 3" 2
 	@echo
@@ -106,7 +106,7 @@ test-i-nleaks-m: re
 	@echo
 	-./push_swap 1 "2" 3
 	@echo
-	-./push_swap 1 "2 3" 4
+	-./push_swap 1 "2 4" 3
 	@echo
 	-./push_swap 1 "2 3" 2
 	@echo
@@ -144,7 +144,7 @@ test-i-nleaks-b: bonus
 	@echo
 	-./checker 1 "2" 3
 	@echo
-	-./checker 1 "2 3" 4
+	-./checker 1 "2 4" 3
 	@echo
 	-./checker 1 "2 3" 2
 	@echo
