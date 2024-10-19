@@ -24,4 +24,5 @@ int		ft_putnbr(int n);
 int		ft_putnbru(unsigned int nbr);
 int		ft_putnbrf(long long int nbr);
 int		ft_puthex(unsigned int n, int i);
+int		ft_putsign(int nbr);
 int		ft_printf(const char *str, ...);

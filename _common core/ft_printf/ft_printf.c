@@ -12,6 +12,13 @@
 
 #include "ft_printf.h"
 
+static int	control1(char c, va_list args)
+{
+	if (c == '+')
+		return (ft_putsign(va_arg(args, int)));
+	return (ft_putchar(c));
+}
+
 static int	control(char c, va_list args)
 {
 	if (c == '%')
@@ -32,7 +39,7 @@ static int	control(char c, va_list args)
 		return (ft_putnbru(va_arg(args, unsigned int)));
 	if (c == 'p')
 		return (ft_putvoid(va_arg(args, size_t)));
-	return (ft_putchar(c));
+	return (control1(c, args));
 }
 
 int	ft_printf(const char *str, ...)

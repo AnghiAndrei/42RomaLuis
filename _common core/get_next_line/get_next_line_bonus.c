@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*str_ret(int n, char *buffer)
 {
@@ -52,7 +52,7 @@ char	*get_next_line(int fd)
 	static char		buffer[1025][BUFFER_SIZE];
 	int				n;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1025)
 		return (NULL);
 	if (buffer[fd][0] == '\n')
 		return (str_ret(1, buffer[fd]));

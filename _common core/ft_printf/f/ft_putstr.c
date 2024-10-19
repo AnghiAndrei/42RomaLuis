@@ -27,7 +27,7 @@ int	ft_putstr(char *s)
 	}
 	else
 	{
-		write(1, "(null)", 6);
+		write(1, "(nill)", 6);
 		return (6);
 	}
 	return (c);

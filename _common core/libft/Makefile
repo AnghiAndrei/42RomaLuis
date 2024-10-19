@@ -27,8 +27,8 @@ $(NAME): $(OBJ)
 clean:
 	rm -f $(OBJ) $(OBJB)
 
-bonus: $(OBJB) $(OBJ)
-	ar rcs $(NAME) $(OBJB) $(OBJ)
+bonus: $(OBJB)
+	ar rcs $(NAME) $(OBJB)
 
 fclean: clean
 	rm -f $(NAME)

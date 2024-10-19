@@ -53,6 +53,17 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
+
+	
+	try
+    {
+		Array<int> numbers3(-2);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
     delete [] mirror;
     return 0;
 }

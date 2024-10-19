@@ -1,17 +1,39 @@
 #include "Harl.hpp"
 
 void Harl::complain(std::string level){
-    void (Harl::*function[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-    bool printall=false;
-	std::string text[]={"DEBUG", "INFO", "WARNING", "ERROR"};
-
-	for(int i=0;i != 4; i++){
-        if (level==text[i] || printall==true)
-		{
-			printall=true;
-            (this->*function[i])();
-		}
-    }
+	std::string text[]={"DEBUG", "INFO", "WARNING", "ERROR", ""};
+	int i=0;
+	for(;i != 5; i++){
+		if(text[i] == level)
+			break;
+	}
+	switch (i) {
+		case(0):
+			std::cout<<"[ DEBUG ]"<<std::endl;
+			debug();
+			info();
+			warning();
+			error();
+			break;
+		case(1):
+			std::cout<<"[ INFO ]"<<std::endl;
+			info();
+			warning();
+			error();
+			break;
+		case(2):
+			std::cout<<"[ WARNING ]"<<std::endl;
+			warning();
+			error();
+			break;
+		case(3):
+			std::cout<<"[ ERROR ]"<<std::endl;
+			error();
+			break;
+		default:
+			std::cout<<"[ Probably complaining about insignificant problems ]"<<std::endl;
+			break;
+	}
 }
 
 void Harl::debug(){std::cout<<"I love having extra bacon for my 7XL-double-cheese-triple-pickle-special ketchup burger. I really do!"<<std::endl;}

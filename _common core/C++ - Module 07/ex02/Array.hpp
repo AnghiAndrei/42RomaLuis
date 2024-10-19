@@ -30,10 +30,12 @@ class Array{
 			this->Size = 0;
 			(*this) = ncopy;
         }
-		Array(unsigned int size2){
+		Array(int size2){
+			if(size2<0)
+				throw std::out_of_range("segmentation fault (core dumped)");
 			this->Size=size2;
 			this->array = new T[this->Size];
-            for(unsigned int i=0;i!=size2;i++)
+            for(int i=0;i!=size2;i++)
                 this->array[i]=T();
         }
         Array(){

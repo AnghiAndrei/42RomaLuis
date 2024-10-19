@@ -6,15 +6,14 @@
 #    By: aanghi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/18 17:55:23 by aanghi            #+#    #+#              #
-#    Updated: 2024/10/18 23:53:45 by aanghi           ###   ########.fr        #
+#    Updated: 2024/10/19 01:45:45 by aanghi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = harlFilter
+NAME = BSP
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Harl.cpp
-
+SRC = main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

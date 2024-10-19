@@ -18,22 +18,28 @@ SRC = ft_printf.c \
 	  f/ft_putchar.c f/ft_puthex.c f/ft_putnbr.c  f/ft_putstr.c f/ft_putvoid.c f/ft_putnbrf.c f/ft_putnbru.c
 OBJ = $(SRC:.c=.o)
 
+SRCB = f/ft_putsign.c
+OBJB = $(SRCB:.c=.o)
+
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ) ft_printf.h
+$(NAME): $(OBJ) $(OBJB)
+	ar rcs $(NAME) $(OBJ) $(OBJB) ft_printf.h
+
+bonus: $(OBJ) $(OBJB)
+	ar rcs $(NAME) $(OBJ) $(OBJB) ft_printf.h
 
 clean:
 	rm -f $(OBJ)
+	rm -f $(OBJB)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-test: $(NAME) clean
+test: bonus clean
 	gcc main.c $(NAME)
-	rm -f $(NAME)
 
 %.o: %.c
 	gcc $(CFLAGS) -c $< -o $@
