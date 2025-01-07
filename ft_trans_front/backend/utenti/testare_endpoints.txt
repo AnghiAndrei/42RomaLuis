@@ -1,0 +1,3 @@
+curl -X POST http://localhost:8000/users/registra \
+     -H "Content-Type: application/json" \
+     -d '{"nome": "John Doe", "email": "johndoe@example.com", "password": "securepassword"}'

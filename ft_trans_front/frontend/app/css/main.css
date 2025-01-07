@@ -1,0 +1,4 @@
+html, body {background-color: rgb(23, 2, 41);margin: 0;padding: 0;height: 100vh;width: 100vw;}
+.mioform{width: 400px;}
+canvas{border: 2px solid white;background-color: #111;}
+.mybg{background-color: rgb(23, 2, 41);}

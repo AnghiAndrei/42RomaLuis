@@ -1,0 +1,34 @@
+Major module:
+    [X] Use a Framework as backend
+    [-] Standard user management, authentication, users across tournaments (
+            Users can update their information; Users can upload an avatar, with a default option if none is provided
+            Users can add others as friends and view their online status
+            User profiles display stats, such as wins and losses
+            Each user has a Match History including 1v1 games, dates, and relevant details, accessible to logged-in users
+        )
+    [ ] Implementing a remote authentication(
+            OAuth 2.0 authentication with 42
+        )
+    [X] Multiple players
+    [X] Introduce an AI Opponent
+    [-] Implement Two-Factor Authentication (2FA) and JWT
+    [X] Designing the Backend as Microservices
+    [X] Live Chat
+
+Minor module:
+    [X] Use a front-end framework or toolkit
+    [X] Use a database for the backend-and more
+    [X] Game Customization Options
+    [ ] User and Game Stats Dashboards
+    [X] Expanding Browser Compatibility
+    [X] Multiple language supports
+
+/* INTRESSANTI DA FARE */
+Major module:
+    Implement WAF/ModSecurity with Hardened Configuration and HashiCorp Vault for Secrets Management
+    GDPR Compliance Options with User Anonymization, Local Data Management, and Account Deletion
+    Add Another Game with User History and Matchmaking
+    Store the score of a tournament in the Blockchain
+    Remote players
+
+Minor module:

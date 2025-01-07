@@ -1,0 +1,104 @@
+NOTE:
+    -tabelle: utenti, giochi, amici
+    -i codici OTP li salvi in una struttura chiave valore, dove la chiae me la mandi indietro mentre il valore sara per esempio l'id dell'utente 
+
+/* ============ Utenti ============ */
+https://localhost:8000/users/login
+Method post
+Campi Json aspettati: email, password
+Campi Json ritornati: key
+Cosa fa: verifica se le credenziali esistono nel db e se si devi inviare una email con il codice: OTP e ritornare la chiave per il codice OTP
+Codici ritornati:
+    200 tutto ok
+    204 credenziali sbaliate
+    500 altri errori
+
+https://localhost:8000/users/2af
+Method post
+Campi Json aspettati: codeotp
+Campi Json ritornati: jwttoken, fotoprofilo, nome
+Cosa fa: verifica il codice 
+Codici ritornati:
+    200 tutto ok
+    204 codice otp sbagliato
+    500 altri errori
+
+https://localhost:8000/users/registra
+Method post
+Campi Json aspettati: email, nome, password
+Campi Json ritornati: jwttoken, fotoprofilo
+Cosa fa: crea l'utente
+Codici ritornati:
+    200 tutto ok
+    204 email gia usata
+    205 nome gia usato
+    500 altri errori
+
+https://localhost:8000/users/profilo
+Method get
+Campi Json aspettati: NULL (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: email, nome
+Cosa fa: ritorna le informazione del profilo
+Codici ritornati:
+    200 tutto ok
+    500 altri errori
+
+https://localhost:8000/users/modificaprofilo
+Method post
+Campi Json aspettati: nome, password, fotoprofilo (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: fotoprofilo
+Cosa fa: se vuoto non modificare il campo
+Codici ritornati:
+    200 tutto ok
+    204 nome gia in uso
+    500 altri errori
+
+https://localhost:8000/users/add_friend
+Method post
+Campi Json aspettati: nomeamico (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: NULL
+Cosa fa: manda la richiesta di amicizia alll'utente: nomeamico;
+Codici ritornati:
+    200 tutto ok
+    404 utente inesistente
+    500 altri errori
+
+https://localhost:8000/users/remove_friend
+Method delete
+Campi Json aspettati: nomeamico (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: NULL
+Cosa fa: rimuove: nomeamico; dai amici
+Codici ritornati:
+    200 tutto ok
+    404 utente inesistente
+    500 altri errori
+
+https://localhost:8000/users/friend
+Method get
+Campi Json aspettati: (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: nomeamico, statoamicizia
+Cosa fa: mostra tutti i miei amici e i inviti 
+Codici ritornati:
+    200 tutto ok
+    204 nessun amico / richiesta
+    500 altri errori
+
+/* ============ Gioco 1 ============ */
+https://localhost:8000/g1/stats
+Method get
+Campi Json aspettati: NULL (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: totalewin, totalelose, totaledraw,totalegame, {(array da max 20 elementi, in ordine dal piu recente indietro) nomep2, nomep3, nomep4, esito, data, punteggio, gioco, tipo}
+Cosa fa: ritorna le stat e le ultime partire
+Codici ritornati:
+    200 tutto ok
+    400 se non ci sono dati
+    500 altri errori
+
+https://localhost:8000/g1/stats
+Method post
+Campi Json aspettati: nomep2, nomep3, nomep4, esito, data, punteggio, gioco, tipo (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: NULL
+Cosa fa: carica la partita nel bd
+Codici ritornati:
+    200 tutto ok
+    500 altri errori
