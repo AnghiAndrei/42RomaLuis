@@ -41,6 +41,7 @@ export function loadRegistraPage() {
       sessionStorage.setItem('imguser', './../img/_default.png');
       sessionStorage.setItem('jwtToken', 'log');
       sessionStorage.setItem('p1', 'angly');
+      sessionStorage.setItem('tp1', 'angly');
       navigateTo('/');
       updateNavbar();
 

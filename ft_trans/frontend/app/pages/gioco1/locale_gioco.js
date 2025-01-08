@@ -72,8 +72,8 @@ export function loadLocaleGame1Page() {
 
         const paddleHeight = canvas.height / 3;
         const paddleWidth = canvas.width / 90;
-        const radioball = canvas.width / 100;
-    
+        const radioball = canvas.width / 120;
+
         const leftPaddle = new Paddle(10, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 'w', 's', 'sg');
         const rightPaddle = new Paddle(canvas.width - paddleWidth - 10, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 'ArrowUp', 'ArrowDown', 'sg');
         let upPaddle = null;

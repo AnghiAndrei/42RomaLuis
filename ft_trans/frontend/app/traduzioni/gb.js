@@ -52,8 +52,9 @@ export let text = {
     p51: "Number of players in the tournament: ",
     p52: "Local Pong Tournament: 2 - 4 Players",
 	p53: "Tournament in progress...",
-	p54: "Next participants:",
+	p54: "Next participants: ",
 	p55: "Round",
 	p56: "Winner",
 	p57: "Continue tournament",
+	p58: "Tournament Ended",
 };

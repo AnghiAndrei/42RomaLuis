@@ -71,7 +71,7 @@ export function loadCustumeserPage() {
             if(sessionStorage.getItem('ia')=='false')
                 navigateTo('/locale_gioco');
             else if(sessionStorage.getItem('ia')=='torneo')
-                navigateTo('/locale_torneo_gioco');
+                navigateTo('/locale_torneo_pregame');
             else
                 navigateTo('/locale_gioco_ia');
         });

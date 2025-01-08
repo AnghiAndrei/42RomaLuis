@@ -1,7 +1,7 @@
 export class PaddleIA {
   constructor(x, y, width, height, pos, ball) {
 	if (this.pos === 'ds')
-		width=width*2;
+		width=width*4;
 
     this.x = x;
     this.y = y;

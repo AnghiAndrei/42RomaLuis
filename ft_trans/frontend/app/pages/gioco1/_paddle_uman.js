@@ -1,7 +1,7 @@
 export class Paddle {
   constructor(x, y, width, height, upKey, downKey, pos) {
 	if (this.pos === 'ds')
-		width=width*2;
+		width=width*4;
     
 	this.x = x;
     this.y = y;

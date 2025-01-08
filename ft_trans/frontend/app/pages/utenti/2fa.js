@@ -46,6 +46,7 @@ export function load2faPage() {
               sessionStorage.setItem('imguser', data.fotoprofilo);
               sessionStorage.setItem('jwtToken', data.jwttoken);
               sessionStorage.setItem('p1', data.nome);
+              sessionStorage.setItem('tp1', data.nome);
               sessionStorage.removeItem('tempjwt');
               navigateTo('/');
               updateNavbar();

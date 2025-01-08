@@ -1,3 +1,5 @@
+import { torneoclass } from '../../js/router.js';
+
 export class Ball {
 	constructor(x, y, radius) {
 		this.x = x;
@@ -92,12 +94,12 @@ export class Ball {
    		 	if (document.getElementById('testo') == null)
 				return;
 			if(sessionStorage.getItem('ia')=='true'){
-			if(sessionStorage.getItem("nplayerg1")==2)
-        		document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1";
-			else if(sessionStorage.getItem("nplayerg1")==3)
-				document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1 - BOT2 0";
-			else if(sessionStorage.getItem("nplayerg1")==4)
-          		document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1 - BOT2 0 - BOT3 0";
+				if(sessionStorage.getItem("nplayerg1")==2)
+        			document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1";
+				else if(sessionStorage.getItem("nplayerg1")==3)
+					document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1 - BOT2 0";
+				else if(sessionStorage.getItem("nplayerg1")==4)
+          			document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1 - BOT2 0 - BOT3 0";
 		}else{
 			if(sessionStorage.getItem("nplayerg1")==2)
         		document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - "+this.pp2+" "+sessionStorage.getItem('p2');
@@ -178,6 +180,7 @@ export class Ball {
         players.sort((a, b) => b.score - a.score);
         const winner = players[0];
         document.getElementById('gameOverMessage').innerHTML=text.p32+winner.name;
+		torneoclass.finepartita(winner.name);
       }else{
         document.getElementById('gameOverMessage').innerHTML=text.p33;
       }

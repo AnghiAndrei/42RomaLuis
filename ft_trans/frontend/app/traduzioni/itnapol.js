@@ -52,8 +52,9 @@ export let text = {
     p51: "Nnummero e' giocature dinto 'o turneo: ",
     p52: "Turneo locale 'e Pong: 2 - 4 Giucature",
 	p53: "Torne in corso...",
-	p54: "Prossimi partecipanti:",
+	p54: "Prossimi partecipanti: ",
 	p55: "Turno",
 	p56: "Vincitore",
 	p57: "Continua 'o torneo",
+	p58: "Turneo fernuto",
 };
