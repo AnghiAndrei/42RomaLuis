@@ -9,10 +9,7 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt ./requirements.txt
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        gcc \
-        default-libmysqlclient-dev \
-        gettext && \
+    apt-get install -y --no-install-recommends default-libmysqlclient-dev gcc libpq-dev gettext && \
     pip install --no-cache-dir -r requirements.txt && \
     apt-get remove -y gcc && \
     apt-get autoremove -y && \
@@ -21,5 +18,7 @@ RUN apt-get update && \
 COPY . .
 
 EXPOSE 8003
+
+RUN python manage.py
 
 CMD ["daphne", "-b", "0.0.0.0", "-p", "8003", "asgi:application"]

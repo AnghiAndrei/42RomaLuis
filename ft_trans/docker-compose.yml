@@ -47,13 +47,25 @@ services:
   #   networks:
   #     - proxy
 
-  # postgres:
-  #   container_name: postgres
-  #   image: postgres
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - proxy
+  # BackEnd DJango Game1
+  backend-django-game1:
+    container_name: backend-django-game1
+    build:
+      context: ./backend/game1
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - proxy
+
+  # PostGresSQL
+  postgres:
+    container_name: postgres
+    image: postgres
+    env_file:
+      - .env
+    networks:
+      - proxy
 
 # Networks configuration
 networks:

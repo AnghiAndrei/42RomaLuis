@@ -1,7 +1,3 @@
-NOTE:
-    -tabelle: utenti, giochi, amici
-    -i codici OTP li salvi in una struttura chiave valore, dove la chiae me la mandi indietro mentre il valore sara per esempio l'id dell'utente 
-
 /* ============ Utenti ============ */
 https://localhost:8000/users/login
 Method post
@@ -84,7 +80,18 @@ Codici ritornati:
     500 altri errori
 
 /* ============ Gioco 1 ============ */
-https://localhost:8000/g1/stats
+https://localhost:8000/g1/save_game
+Method post
+Campi Json aspettati: nomep1, nomep2, nomep3, nomep4, esito, pp1, pp2, pp3, pp4, gioco (Nota: ti verra passato il JWT nella autorizzazioni)
+Campi Json ritornati: e
+Cosa fa: carica la partita nel bd
+Codici ritornati:
+    200 tutto ok
+	401 token invalido
+	404 valori mancanti
+    500 altri errori
+
+https://localhost:8000/g1/get_games
 Method get
 Campi Json aspettati: NULL (Nota: ti verra passato il JWT nella autorizzazioni)
 Campi Json ritornati: totalewin, totalelose, totaledraw,totalegame, {(array da max 20 elementi, in ordine dal piu recente indietro) nomep2, nomep3, nomep4, esito, data, punteggio, gioco, tipo}
@@ -92,13 +99,4 @@ Cosa fa: ritorna le stat e le ultime partire
 Codici ritornati:
     200 tutto ok
     400 se non ci sono dati
-    500 altri errori
-
-https://localhost:8000/g1/stats
-Method post
-Campi Json aspettati: nomep2, nomep3, nomep4, esito, data, punteggio, gioco, tipo (Nota: ti verra passato il JWT nella autorizzazioni)
-Campi Json ritornati: NULL
-Cosa fa: carica la partita nel bd
-Codici ritornati:
-    200 tutto ok
     500 altri errori

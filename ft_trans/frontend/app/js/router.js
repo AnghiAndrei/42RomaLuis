@@ -45,7 +45,7 @@ export function router() {
 		{ path: '/login', view: loadLoginPage },
 		{ path: '/registrati', view: loadRegistraPage },
 		{ path: '/2fa', view: load2faPage },
-		
+
 		{ path: '/giochi', view: loadGiochiHomePage },
 		{ path: '/costumeser', view: loadCustumeserPage },
 		{ path: '/locale_home', view: loadLocaleHomeGame1Page },
@@ -64,7 +64,7 @@ export function router() {
 	}
 	if(potentialMatch.path!='/2fa')
 		sessionStorage.removeItem('tempjwt');
-	const isRelevantPath = ['/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath = ['/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
 	if((sessionStorage.getItem('jwtToken')==null && isRelevantPath==true)){
 		navigateTo("/");
 		return;

@@ -160,30 +160,73 @@ export class Ball {
         }
   }
 
-  gameover(){
-    if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
-    import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
-    .then((module) => {
-      const text = module.text;
-      const modal = new bootstrap.Modal(document.getElementById('gameOverModal'));
-      modal.show();
-      const players = [
-        { name: sessionStorage.getItem('p1'), score: this.pp1 },
-        { name: sessionStorage.getItem('p2'), score: this.pp2 },
-      ];
-      if (sessionStorage.getItem('nplayerg1') == 3) players.push({ name: sessionStorage.getItem('p3'), score: this.pp3 });
-      if (sessionStorage.getItem('nplayerg1') == 4) players.push({ name: sessionStorage.getItem('p4'), score: this.pp4 });
+  	gameover(){
+    	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
+    	import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
+	    .then((module) => {
+      		const text = module.text;
+      		const modal = new bootstrap.Modal(document.getElementById('gameOverModal'));
+      		modal.show();
+      		const players = [
+        		{ name: sessionStorage.getItem('p1'), score: this.pp1 },
+        		{ name: sessionStorage.getItem('p2'), score: this.pp2 },
+      		];
+      		if (sessionStorage.getItem('nplayerg1') == 3) players.push({ name: sessionStorage.getItem('p3'), score: this.pp3 });
+      		if (sessionStorage.getItem('nplayerg1') == 4) players.push({ name: sessionStorage.getItem('p4'), score: this.pp4 });
 
-      const maxScore = Math.max(...players.map(player => player.score));
-      const winners = players.filter(player => player.score === maxScore);
-      if (winners.length === 1) {
-        players.sort((a, b) => b.score - a.score);
-        const winner = players[0];
-        document.getElementById('gameOverMessage').innerHTML=text.p32+winner.name;
-		torneoclass.finepartita(winner.name);
-      }else{
-        document.getElementById('gameOverMessage').innerHTML=text.p33;
-      }
-    })
-  }
+      		const maxScore = Math.max(...players.map(player => player.score));
+      		const winners = players.filter(player => player.score === maxScore);
+      		if (winners.length === 1) {
+        		players.sort((a, b) => b.score - a.score);
+        		const winner = players[0];
+        		document.getElementById('gameOverMessage').innerHTML=text.p32+winner.name;
+				if(sessionStorage.getItem('ia')=='torneo')
+					torneoclass.finepartita(winner.name);
+      		}else{
+        		document.getElementById('gameOverMessage').innerHTML=text.p33;
+      		}
+			
+			let esito="S";
+			if(winners.name==sessionStorage.getItem('p1'))
+				esito="V";
+
+			let gioco="p44"; //ia
+			if(sessionStorage.getItem('ia')=='false')
+				gioco="p4"; //normale
+
+			if(sessionStorage.getItem('ia')!='torneo'){
+				fetch('https://localhost:8000/g1/save_game', {
+					method: 'POST',
+					headers: {
+					  'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						nomep1: sessionStorage.getItem('p1'),
+						nomep2: sessionStorage.getItem('p2'),
+						nomep3: sessionStorage.getItem('p3'),
+						nomep4: sessionStorage.getItem('p4'),
+						esito: esito,
+						pp1: this.pp1,
+						pp2: this.pp2,
+						pp3: this.pp3,
+						pp4: this.pp4,
+						gioco: gioco
+					}),
+				})
+				.then(response => {
+					const status = response.status;
+					if(status!=200){
+						const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+						modal2.show();
+						document.getElementById('ERROREMessage').innerHTML=text.p59;
+					}
+				})
+				.catch(error => {
+					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+					modal2.show();
+					document.getElementById('ERROREMessage').innerHTML=text.p59;
+				});
+			}
+    	})
+  	}
 }
