@@ -176,19 +176,19 @@ export class Ball {
 
       		const maxScore = Math.max(...players.map(player => player.score));
       		const winners = players.filter(player => player.score === maxScore);
-      		if (winners.length === 1) {
-        		players.sort((a, b) => b.score - a.score);
+			let esito="S";
+			if (winners.length === 1) {
+				players.sort((a, b) => b.score - a.score);
         		const winner = players[0];
         		document.getElementById('gameOverMessage').innerHTML=text.p32+winner.name;
+				if(winners.name==sessionStorage.getItem('p1'))
+					esito="V";
 				if(sessionStorage.getItem('ia')=='torneo')
 					torneoclass.finepartita(winner.name);
       		}else{
         		document.getElementById('gameOverMessage').innerHTML=text.p33;
+				esito="P";
       		}
-			
-			let esito="S";
-			if(winners.name==sessionStorage.getItem('p1'))
-				esito="V";
 
 			let gioco="p44"; //ia
 			if(sessionStorage.getItem('ia')=='false')
