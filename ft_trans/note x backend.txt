@@ -94,9 +94,10 @@ Codici ritornati:
 https://localhost:8000/g1/get_games
 Method get
 Campi Json aspettati: NULL (Nota: ti verra passato il JWT nella autorizzazioni)
-Campi Json ritornati: totalewin, totalelose, totaledraw,totalegame, {(array da max 20 elementi, in ordine dal piu recente indietro) nomep2, nomep3, nomep4, esito, data, punteggio, gioco, tipo}
+Campi Json ritornati: totewin, totelose, totedraw, totegame, {(array da max 20 elementi, in ordine dal piu recente indietro) nomep2, nomep3, nomep4, esito, data, punteggio, gioco, tipo}
 Cosa fa: ritorna le stat e le ultime partire
 Codici ritornati:
     200 tutto ok
+    401 token invalido
     400 se non ci sono dati
     500 altri errori
