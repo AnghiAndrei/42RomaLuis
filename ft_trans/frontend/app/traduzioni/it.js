@@ -59,8 +59,8 @@ export let text = {
     p58: "Torneo concluso",
 
     p59: "Errore nel salvare la partita nei registri",
-    p60: "",
-    p61: "",
+    p60: "Immagina delle statistiche migliori",
+    p61: "(Tranqui non sei scarso... Ma giochi da troppo poco)",
     p62: "",
     p63: "",
     p64: "",

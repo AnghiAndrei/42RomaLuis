@@ -49,25 +49,30 @@ def GetGames(request):
         #     return HttpResponse(status=401)
         id_user = 1
 
+        data = json.loads(request.body.decode('utf-8'))
+        required_fields = ['gioco']
+        if not all(field in data for field in required_fields):
+            return HttpResponse(status=400)
+
         partite = []
         totegame = 0
         totwin = 0
         totsco = 0
         totpar = 0
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM giochi_partita WHERE id_utente = %s ORDER BY data DESC LIMIT 20", [id_user])
+            cursor.execute("SELECT * FROM giochi_partita WHERE id_utente = %s AND gioco=%s ORDER BY data DESC LIMIT 20", [id_user, data['gioco']])
             results = cursor.fetchall()
             columns = [col[0] for col in cursor.description]
             partite = [dict(zip(columns, row)) for row in results]
             if not partite:
                 return HttpResponse(status=400)
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'V'", [id_user])
+            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'V' AND gioco=%s", [id_user, data['gioco']])
             totwin = cursor.fetchone()[0]
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'S'", [id_user])
+            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'S' AND gioco=%s", [id_user, data['gioco']])
             totsco = cursor.fetchone()[0]
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'P'", [id_user])
+            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'P' AND gioco=%s", [id_user, data['gioco']])
             totpar = cursor.fetchone()[0]
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s", [id_user])
+            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s", [id_user, data['gioco']])
             totegame = cursor.fetchone()[0]
         return JsonResponse({"totwin": totwin, "totsco": totsco, "totpar": totpar, "totegame": totegame, "partite": partite}, status=200)
 

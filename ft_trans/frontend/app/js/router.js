@@ -5,6 +5,8 @@ import { loadRegistraPage } from '../pages/utenti/registrati.js';
 import { load2faPage } from '../pages/utenti/2fa.js';
 
 import { loadGiochiHomePage } from '../pages/giochi.js';
+import { loadStatsPage } from '../pages/stats.js';
+
 import { loadLocaleHomeGame1Page } from '../pages/gioco1/locale_home.js';
 import { loadLocaleGame1Page } from '../pages/gioco1/locale_gioco.js';
 import { loadCustumeserPage } from '../pages/gioco1/costumeser.js';
@@ -47,6 +49,7 @@ export function router() {
 		{ path: '/2fa', view: load2faPage },
 
 		{ path: '/giochi', view: loadGiochiHomePage },
+		{ path: '/stats', view: loadStatsPage },
 		{ path: '/costumeser', view: loadCustumeserPage },
 		{ path: '/locale_home', view: loadLocaleHomeGame1Page },
 		{ path: '/locale_gioco', view: loadLocaleGame1Page },
@@ -64,14 +67,15 @@ export function router() {
 	}
 	if(potentialMatch.path!='/2fa')
 		sessionStorage.removeItem('tempjwt');
-	const isRelevantPath = ['/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath = ['/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
 	if((sessionStorage.getItem('jwtToken')==null && isRelevantPath==true)){
 		navigateTo("/");
 		return;
     }
 
+	const isRelevantPath2 = ['/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
     const navbar = document.getElementById('navbar-content');
-	if (partitaincorso==false && isRelevantPath==true)
+	if (partitaincorso==false && isRelevantPath2==true)
 		navbar.style.display = 'none';
 	else{
 		sessionStorage.setItem('p1', sessionStorage.getItem('tp1'));
@@ -105,23 +109,24 @@ export function navigateTo2(url) {
 }
 
 export function router2() {
-	  const routes = [
-		  { path: '/', view: loadHomePage },
-		  
-		  { path: '/login', view: loadLoginPage },
-		  { path: '/registrati', view: loadRegistraPage },
-		  { path: '/2fa', view: load2faPage },
-		  
-		  { path: '/giochi', view: loadGiochiHomePage },
-		  { path: '/costumeser', view: loadCustumeserPage },
-		  { path: '/locale_home', view: loadLocaleHomeGame1Page },
-		  { path: '/locale_gioco', view: loadLocaleGame1Page },
-		  { path: '/locale_home_ia', view: loadLocaleHomeIaGame1Page },
-		  { path: '/locale_gioco_ia', view: loadLocaleIaGame1Page },
-		  { path: '/locale_torneo_home', view: loadLocaleHomeTorneoGame1Page },
-		  { path: '/locale_torneo_gioco', view: loadLocaleTorneoGame1Page },
-		  { path: '/locale_torneo_pregame', view: loadLocalePreGameTorneoGame1Page },
-	  ];
+	const routes = [
+		{ path: '/', view: loadHomePage },
+		
+		{ path: '/login', view: loadLoginPage },
+		{ path: '/registrati', view: loadRegistraPage },
+		{ path: '/2fa', view: load2faPage },
+
+		{ path: '/giochi', view: loadGiochiHomePage },
+		{ path: '/stats', view: loadStatsPage },
+		{ path: '/costumeser', view: loadCustumeserPage },
+		{ path: '/locale_home', view: loadLocaleHomeGame1Page },
+		{ path: '/locale_gioco', view: loadLocaleGame1Page },
+		{ path: '/locale_home_ia', view: loadLocaleHomeIaGame1Page },
+		{ path: '/locale_gioco_ia', view: loadLocaleIaGame1Page },
+		{ path: '/locale_torneo_home', view: loadLocaleHomeTorneoGame1Page },
+		{ path: '/locale_torneo_gioco', view: loadLocaleTorneoGame1Page },
+		{ path: '/locale_torneo_pregame', view: loadLocalePreGameTorneoGame1Page },
+	];
 		const potentialMatch = routes.find((route) => location.pathname === route.path);
 	   if (potentialMatch) {
 			if (document.getElementById('gameOverModal') != null) {
