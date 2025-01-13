@@ -199,6 +199,7 @@ export class Ball {
 					method: 'POST',
 					headers: {
 					  'Content-Type': 'application/json',
+					  'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
 					},
 					body: JSON.stringify({
 						nomep1: sessionStorage.getItem('p1'),
@@ -215,7 +216,13 @@ export class Ball {
 				})
 				.then(response => {
 					const status = response.status;
-					if(status!=200){
+					if(status==200){
+						;
+					} else if (status == 401){
+						const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+						modal2.show();
+						document.getElementById('ERROREMessage').innerHTML=text.p67;
+					}else{
 						const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 						modal2.show();
 						document.getElementById('ERROREMessage').innerHTML=text.p59;

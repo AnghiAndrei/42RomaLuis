@@ -5,7 +5,7 @@ import { loadRegistraPage } from '../pages/utenti/registrati.js';
 import { load2faPage } from '../pages/utenti/2fa.js';
 
 import { loadGiochiHomePage } from '../pages/giochi.js';
-import { loadStatsPage } from '../pages/stats.js';
+import { loadStatsPage } from '../pages/gioco1/stats.js';
 
 import { loadLocaleHomeGame1Page } from '../pages/gioco1/locale_home.js';
 import { loadLocaleGame1Page } from '../pages/gioco1/locale_gioco.js';

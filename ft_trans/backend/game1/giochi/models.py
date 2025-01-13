@@ -1,6 +1,6 @@
 from django.db import models
 
-class partita(models.Model):
+class DatiPartita(models.Model):
     id = models.BigAutoField(primary_key=True)
     id_utente = models.IntegerField()
     nomep1 = models.CharField(max_length=255)

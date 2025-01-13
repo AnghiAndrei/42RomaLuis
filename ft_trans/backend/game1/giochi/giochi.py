@@ -1,6 +1,7 @@
 from django.http import JsonResponse, HttpResponse
-from django.db import connection
-from datetime import datetime
+from giochi.models import DatiPartita
+from django.db import models
+from datetime import date
 import json
 import jwt
 
@@ -10,7 +11,6 @@ def save_game(request):
         jwt_token = None
         if token:
             jwt_token = token.split("Bearer ")[1]
-
         # try:
         #     decoded_token = jwt.decode(jwt_token, "tuo_segreto_JWT", algorithms=["HS256"])
         #     id_user = decoded_token['user_id']
@@ -19,29 +19,38 @@ def save_game(request):
         id_user = 1
 
         data = json.loads(request.body.decode('utf-8'))
-        required_fields = ['nomep1', 'nomep2', 'nomep3', 'nomep4', 'esito', 'pp1', 'pp2', 'pp3', 'pp4', 'gioco']
+        required_fields = ['nomep1', 'nomep2', 'esito', 'pp1', 'pp2', 'pp3', 'pp4', 'gioco']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        current_date = datetime.now()
-        formatted_date = current_date.strftime('%d-%m-%Y')
+        current_date = date.today().strftime('%Y-%m-%d')
 
-        with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO giochi_partita  (id_utente, nomep1, nomep2, nomep3, nomep4, esito, data, pp1, pp2, pp3, pp4, gioco) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [ id_user, data['nomep1'], data['nomep2'], data['nomep3'], data['nomep4'], data['esito'], formatted_date, data['pp1'], data['pp2'], data['pp3'], data['pp4'], data['gioco'], ])
+        partite=DatiPartita(
+            id_utente=id_user,
+            nomep1=data['nomep1'],
+            nomep2=data['nomep2'],
+            nomep3=data.get('nomep3'),
+            nomep4=data.get('nomep4'),
+            esito=data['esito'],
+            data=current_date,
+            pp1=data['pp1'],
+            pp2=data['pp2'],
+            pp3=data['pp3'],
+            pp4=data['pp4'],
+            gioco=data['gioco']
+        )
+        partite.save()
         return HttpResponse(status=200)
 
     except Exception as e:
-        print(f"Error: {e}")
-        return HttpResponse(status=500)
+        return JsonResponse({"error": f'{e}' },status=500)
 
-
-def GetGames(request):
+def get_games(request):
     try:
         token = request.headers.get('Authorization')
         jwt_token = None
         if token:
             jwt_token = token.split("Bearer ")[1]
-
         # try:
         #     decoded_token = jwt.decode(jwt_token, "tuo_segreto_JWT", algorithms=["HS256"])
         #     id_user = decoded_token['user_id']
@@ -54,28 +63,37 @@ def GetGames(request):
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        partite = []
-        totegame = 0
-        totwin = 0
-        totsco = 0
-        totpar = 0
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM giochi_partita WHERE id_utente = %s AND gioco=%s ORDER BY data DESC LIMIT 20", [id_user, data['gioco']])
-            results = cursor.fetchall()
-            columns = [col[0] for col in cursor.description]
-            partite = [dict(zip(columns, row)) for row in results]
-            if not partite:
-                return HttpResponse(status=400)
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'V' AND gioco=%s", [id_user, data['gioco']])
-            totwin = cursor.fetchone()[0]
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'S' AND gioco=%s", [id_user, data['gioco']])
-            totsco = cursor.fetchone()[0]
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s AND esito = 'P' AND gioco=%s", [id_user, data['gioco']])
-            totpar = cursor.fetchone()[0]
-            cursor.execute("SELECT COUNT(id) FROM giochi_partita WHERE id_utente = %s", [id_user, data['gioco']])
-            totegame = cursor.fetchone()[0]
-        return JsonResponse({"totwin": totwin, "totsco": totsco, "totpar": totpar, "totegame": totegame, "partite": partite}, status=200)
+        partite = DatiPartita.objects.filter(id_utente=id_user).order_by('-data')
+        partite = partite[:20]
+        if not partite.exists():
+            return JsonResponse({"error": f'{partite}' },status=500)
+            return HttpResponse(status=404)
+
+        partite_list = [{
+            "nomep1": partita.nomep1,
+            "nomep2": partita.nomep2,
+            "nomep3": partita.nomep3,
+            "nomep4": partita.nomep4,
+            "esito": partita.esito,
+            "data": partita.data.isoformat(),
+            "pp1": partita.pp1,
+            "pp2": partita.pp2,
+            "pp3": partita.pp3,
+            "pp4": partita.pp4,
+        } for partita in partite]
+
+        totwin = partite.filter(esito='V').count()
+        totsco = partite.filter(esito='S').count()
+        totpar = partite.filter(esito='P').count()
+        totegame = partite.count()
+
+        return JsonResponse({
+            "totwin": totwin,
+            "totsco": totsco,
+            "totpar": totpar,
+            "totegame": totegame,
+            "partite": partite_list
+        }, status=200)
 
     except Exception as e:
-        print(f"Error: {e}")
-        return HttpResponse(status=500)
+        return JsonResponse({"error": f'{e}' },status=500)

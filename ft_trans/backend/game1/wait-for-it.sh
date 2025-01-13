@@ -23,6 +23,6 @@ fi
 python manage.py makemigrations giochi
 python manage.py migrate
 
-python manage.py showmigrations
+# python manage.py showmigrations
 
 python manage.py runserver 0.0.0.0:8003
