@@ -64,10 +64,10 @@ def get_games(request):
             return HttpResponse(status=400)
 
         partite = DatiPartita.objects.filter(id_utente=id_user).order_by('-data')
-        partite = partite[:20]
         if not partite.exists():
-            return JsonResponse({"error": f'{partite}' },status=500)
             return HttpResponse(status=404)
+        if partite.count() > 20:
+            partite = partite[:20]
 
         partite_list = [{
             "nomep1": partita.nomep1,

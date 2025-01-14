@@ -22,30 +22,7 @@ function updatestats(data) {
 					let vittoria=data.totwin;
 					let sconfitta=data.totsco;
 					let pareggio=data.totpar;
-					let partitelist=partite;
-					const dataJson = [
-						{ label: text.p63, value: vittoria, color: "#2A9D8F" },
-						{ label: text.p62, value: pareggio, color: "#F1FAEE" },
-						{ label: text.p64, value: sconfitta, color: "#E63946" }
-					];
-					const labels = dataJson.map(item => item.label);
-					const values = dataJson.map(item => item.value);
-					const colors = dataJson.map(item => item.color);
-					const ctx = document.getElementById('pieChart').getContext('2d');
-					new Chart(ctx, {
-						type: 'pie',
-						data: {
-							labels: labels,
-							datasets: [{
-								data: values,
-								backgroundColor: colors,
-							}]
-						},
-						options: {
-							responsive: true,
-							plugins: { legend: { position: 'top', } }
-						}
-					});
+					let partitelist=data.partite;
 					const content = document.getElementById('statsid');
 					content.innerHTML = `
 						<div class="container my-5">
@@ -62,8 +39,27 @@ function updatestats(data) {
 							</div>
 						</div>
 						<table id="partite"></table>`;
-					const tableBody = document.querySelector('#partite tbody');
-					jsonData.forEach(partitelist => {
+
+					const ctx = document.getElementById("pieChart").getContext('2d');
+					new Chart(ctx, {
+						type: 'pie',
+						data: {
+							labels: [text.p63, text.p62, text.p64],
+							datasets: [{
+								data: [vittoria, pareggio, sconfitta],
+								backgroundColor: ["#2A9D8F", "#F1FAEE", "#E63946"],
+							}]
+						},
+						options: {
+							responsive: true,
+							plugins: { 
+								legend: { position: 'top' } 
+							}
+						}
+					});
+
+					const tableBody = document.getElementById('partite');
+					partitelist.forEach(partitelist => {
 						const row = document.createElement('tr');
 						row.innerHTML = `
 							<td><h2 class="text-white">${partitelist.nomep1}</h2></td>
@@ -96,12 +92,14 @@ function updatestats(data) {
 				modal2.show();
 				document.getElementById('ERROREMessage').innerHTML=text.p67;
 			} else{
+				alert("error2: "+error);
 				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 				modal2.show();
 				document.getElementById('ERROREMessage').innerHTML=text.p66;
 			}
 		})
 		.catch(error => {
+			alert("error1: "+error);
 			const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 			modal2.show();
 			document.getElementById('ERROREMessage').innerHTML=text.p66;
