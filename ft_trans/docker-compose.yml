@@ -11,8 +11,8 @@ services:
       - proxy
     depends_on:
       - frontend-node
-      # - backend-django-chat
-      # - backend-django-utenti
+      - backend-django-game1
+      - backend-django-utenti
 
   # FrontEnd Node.js
   frontend-node:
@@ -23,16 +23,16 @@ services:
     networks:
       - proxy
   
-  # BackEnd DJango Chat
-  # backend-django-chat:
-  #   container_name: backend-django-chat
-  #   build:
-  #     context: ./backend/socket-chat
-  #     dockerfile: Dockerfile
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - proxy
+  # BackEnd DJango Utenti
+  backend-django-utenti:
+    container_name: backend-django-utenti
+    build:
+      context: ./backend/utenti
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - proxy
 
   # BackEnd DJango Game1
   backend-django-game1:

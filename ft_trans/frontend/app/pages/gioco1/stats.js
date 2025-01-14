@@ -123,7 +123,7 @@ function updatestats(data) {
 				const status = response.status;
 				if (status == 200) {
 					return response.json().then(data => {
-						let tornei=data.totegame;
+						let tornei=data.totetor;
 						let vittoria=data.totwin;
 						let sconfitta=data.totsco;
 						let torneolist=data.tornei;
