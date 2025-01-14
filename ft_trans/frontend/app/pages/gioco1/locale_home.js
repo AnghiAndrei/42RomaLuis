@@ -136,7 +136,14 @@ export function loadLocaleHomeGame1Page() {
                 sessionStorage.setItem('p4', p4);
             }
             sessionStorage.setItem('nplayerg1', document.getElementById('giocatori').value);
-            sessionStorage.setItem('ia', "false");
+            
+			if(sessionStorage.getItem('nplayerg1')==2){
+				sessionStorage.removeItem("p3");
+				sessionStorage.removeItem("p4");
+			}else if(sessionStorage.getItem('nplayerg1')==3)
+				sessionStorage.removeItem("p4");
+			
+			sessionStorage.setItem('ia', "false");
             navigateTo('/costumeser');
         });
     })

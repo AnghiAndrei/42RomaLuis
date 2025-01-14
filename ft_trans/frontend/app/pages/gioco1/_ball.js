@@ -40,69 +40,68 @@ export class Ball {
     	if(sessionStorage.getItem("nplayerg1")==2){
 			if (this.y - this.radius < 0 || this.y + this.radius > canvas.height)
         		this.dy *= -1;
-			}else if(sessionStorage.getItem("nplayerg1")==3){
-      			if (this.y + this.radius > canvas.height)
-	  				this.dy *= -1;
-				if (this.y - this.radius < 4) {
-					this.incrementScore(canvas);
-					this.x = canvas.width / 2;
-					this.y = canvas.height / 2;
-					if(Math.floor(Math.random() * 2)==1)
-						this.dx *= -1;
-					else
-						this.dy *= -1;
-				}
-			}else if(sessionStorage.getItem("nplayerg1")==4){
-				if (this.y + this.radius > canvas.height-4) {
-					this.incrementScore(canvas);
-					this.x = canvas.width / 2;
-					this.y = canvas.height / 2;
-					if(Math.floor(Math.random() * 2)==1)
-						this.dx *= -1;
-					else
-						this.dy *= -1;
-				}
-				if (this.y - this.radius < 4){
-					this.incrementScore(canvas);
-					this.x = canvas.width / 2;
-					this.y = canvas.height / 2;
-					if(Math.floor(Math.random() * 2)==1)
-						this.dx *= -1;
-					else
-						this.dy *= -1;
-				}
-			}
-
-			if (this.x - this.radius < 4) {
+		}else if(sessionStorage.getItem("nplayerg1")==3){
+			if (this.y + this.radius > canvas.height)
+				this.dy *= -1;
+			if (this.y - this.radius < 4) {
 				this.incrementScore(canvas);
 				this.x = canvas.width / 2;
 				this.y = canvas.height / 2;
 				if(Math.floor(Math.random() * 2)==1)
-						this.dx *= -1;
+					this.dx *= -1;
 				else
 					this.dy *= -1;
 			}
-			if (this.x + this.radius > canvas.width-4) {
+		}else if(sessionStorage.getItem("nplayerg1")==4){
+			if (this.y + this.radius > canvas.height-4) {
 				this.incrementScore(canvas);
 				this.x = canvas.width / 2;
 				this.y = canvas.height / 2;
 				if(Math.floor(Math.random() * 2)==1)
-						this.dx *= -1;
+					this.dx *= -1;
 				else
 					this.dy *= -1;
 			}
-   		 	if (document.getElementById('testo') == null)
-				return;
-			if(sessionStorage.getItem('ia')=='true'){
-				if(sessionStorage.getItem("nplayerg1")==2)
-        			document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1";
-				else if(sessionStorage.getItem("nplayerg1")==3)
-					document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1 - BOT2 0";
-				else if(sessionStorage.getItem("nplayerg1")==4)
-          			document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" 0 - 0 BOT1 - BOT2 0 - BOT3 0";
+			if (this.y - this.radius < 4){
+				this.incrementScore(canvas);
+				this.x = canvas.width / 2;
+				this.y = canvas.height / 2;
+				if(Math.floor(Math.random() * 2)==1)
+					this.dx *= -1;
+				else
+					this.dy *= -1;
+			}
+		}
+		if (this.x - this.radius < 4) {
+			this.incrementScore(canvas);
+			this.x = canvas.width / 2;
+			this.y = canvas.height / 2;
+			if(Math.floor(Math.random() * 2)==1)
+					this.dx *= -1;
+			else
+				this.dy *= -1;
+		}
+		if (this.x + this.radius > canvas.width-4) {
+			this.incrementScore(canvas);
+			this.x = canvas.width / 2;
+			this.y = canvas.height / 2;
+			if(Math.floor(Math.random() * 2)==1)
+					this.dx *= -1;
+			else
+				this.dy *= -1;
+		}
+		if (document.getElementById('testo') == null)
+			return;
+		if(sessionStorage.getItem('ia')=='true'){
+			if(sessionStorage.getItem("nplayerg1")==2)
+				document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - "+this.pp2+" BOT1";
+			else if(sessionStorage.getItem("nplayerg1")==3)
+				document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - BOT1 "+this.pp2+" - BOT2 "+this.pp3;
+			else if(sessionStorage.getItem("nplayerg1")==4)
+				document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - BOT1 "+this.pp2+" - BOT2 "+this.pp3+" - BOT3 "+this.pp4;
 		}else{
 			if(sessionStorage.getItem("nplayerg1")==2)
-        		document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - "+this.pp2+" "+sessionStorage.getItem('p2');
+				document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - "+this.pp2+" "+sessionStorage.getItem('p2');
 			else if(sessionStorage.getItem("nplayerg1")==3)
 				document.getElementById('testo').innerHTML=sessionStorage.getItem('p1')+" "+this.pp1+" - "+sessionStorage.getItem('p2')+" "+this.pp2+" - "+sessionStorage.getItem('p3')+" "+this.pp3;
 			else if(sessionStorage.getItem("nplayerg1")==4)
@@ -167,12 +166,32 @@ export class Ball {
       		const text = module.text;
       		const modal = new bootstrap.Modal(document.getElementById('gameOverModal'));
       		modal.show();
+
+			let p2=sessionStorage.getItem('p2');
+			let p3=sessionStorage.getItem('p3');
+			let p4=sessionStorage.getItem('p4');
+			if(sessionStorage.getItem('ia')=='true'){
+				if (sessionStorage.getItem('nplayerg1')==2){
+					p2="BOT2";
+					p3=null;
+					p4=null;
+				} else if (sessionStorage.getItem('nplayerg1')==3){
+					p2="BOT2";
+					p3="BOT3";
+					p4=null;
+				} else if (sessionStorage.getItem('nplayerg1')==4){
+					p2="BOT2";
+					p3="BOT3";
+					p4="BOT4";
+				}
+			}
+
       		const players = [
         		{ name: sessionStorage.getItem('p1'), score: this.pp1 },
-        		{ name: sessionStorage.getItem('p2'), score: this.pp2 },
+        		{ name: p2, score: this.pp2 },
       		];
-      		if (sessionStorage.getItem('nplayerg1') == 3) players.push({ name: sessionStorage.getItem('p3'), score: this.pp3 });
-      		if (sessionStorage.getItem('nplayerg1') == 4) players.push({ name: sessionStorage.getItem('p4'), score: this.pp4 });
+      		if (sessionStorage.getItem('nplayerg1') == 3) players.push({ name: p3, score: this.pp3 });
+      		if (sessionStorage.getItem('nplayerg1') == 4) players.push({ name: p4, score: this.pp4 });
 
       		const maxScore = Math.max(...players.map(player => player.score));
       		const winners = players.filter(player => player.score === maxScore);
@@ -181,7 +200,7 @@ export class Ball {
 				players.sort((a, b) => b.score - a.score);
         		const winner = players[0];
         		document.getElementById('gameOverMessage').innerHTML=text.p32+winner.name;
-				if(winners.name==sessionStorage.getItem('p1'))
+				if(winner.name==sessionStorage.getItem('p1'))
 					esito="V";
 				if(sessionStorage.getItem('ia')=='torneo')
 					torneoclass.finepartita(winner.name);
@@ -190,12 +209,12 @@ export class Ball {
 				esito="P";
       		}
 
-			let gioco="p44"; //ia
+			let gioco="lpia"; //ia
 			if(sessionStorage.getItem('ia')=='false')
-				gioco="p4"; //normale
+				gioco="lp24"; //normale
 
 			if(sessionStorage.getItem('ia')!='torneo'){
-				fetch('https://localhost:8000/g1/save_game', {
+				fetch('https://localhost:8000/g1/set_game', {
 					method: 'POST',
 					headers: {
 					  'Content-Type': 'application/json',
@@ -203,15 +222,15 @@ export class Ball {
 					},
 					body: JSON.stringify({
 						nomep1: sessionStorage.getItem('p1'),
-						nomep2: sessionStorage.getItem('p2'),
-						nomep3: sessionStorage.getItem('p3'),
-						nomep4: sessionStorage.getItem('p4'),
+						nomep2: p2,
+						nomep3: p3,
+						nomep4: p4,
 						esito: esito,
 						pp1: this.pp1,
 						pp2: this.pp2,
 						pp3: this.pp3,
 						pp4: this.pp4,
-						gioco: gioco
+						game: gioco
 					}),
 				})
 				.then(response => {

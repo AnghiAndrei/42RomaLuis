@@ -24,7 +24,7 @@ export function loadCustumeserPage() {
                     <label for="Tempo" id="tempotext" class="form-label text-white"></label>
                     <input type="range" class="form-range" value="1" min="1" max="5" step="1" id="Tempo">
                     <label for="velmovball" id="velmovballtext" class="form-label text-white"></label>
-                    <input type="range" class="form-range" value="1" min="1" max="10" step="0.5" id="velmovball">
+                    <input type="range" class="form-range" value="2" min="1" max="10" step="0.5" id="velmovball">
                     <label for="velmov" id="velmovtext" class="form-label text-white"></label>
                     <input type="range" class="form-range" value="1" min="1" max="10" step="0.5" id="velmov">
                     <h3 class="h3 mb-3 fw-normal text-white">`+text.p24+`</h3>

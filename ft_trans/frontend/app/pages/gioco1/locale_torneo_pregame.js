@@ -3,6 +3,10 @@ import { navigateTo2,torneoclass,setTorneoClass,setTorneoincorso } from '../../j
 class Torneo {
   constructor() {
 	setTorneoincorso(true);
+	this.player1=sessionStorage.getItem('p1');
+	this.player2=sessionStorage.getItem('p2');
+	this.player3=sessionStorage.getItem('p3');
+	this.player4=sessionStorage.getItem('p4');
     this.numPlayers = parseInt(sessionStorage.getItem("tornplayerg1"));
     this.gruppo1 = [];
     this.gruppo2 = [];
@@ -128,6 +132,48 @@ class Torneo {
         `;
 		setTorneoincorso(false);
 		setTorneoClass(null);
+
+		let esito="S";
+		if(win==sessionStorage.getItem('tp1'))
+			esito="V";
+
+		fetch('https://localhost:8000/g1/set_tornament', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
+			},
+			body: JSON.stringify({
+				nomep1: this.player1,
+				nomep2: this.player2,
+				nomep3: this.player3,
+				nomep4: this.player4,
+				vincitore: win,
+				esito: esito
+			}),
+		})
+		.then(response => {
+			const status = response.status;
+			if(status==200){
+				;
+			} else if (status == 401){
+				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+				modal2.show();
+				document.getElementById('ERROREMessage').innerHTML=text.p67;
+			}else{
+				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+				modal2.show();
+				document.getElementById('ERROREMessage').innerHTML=text.p59;
+			}
+		})
+		.catch(error => {
+			const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+			modal2.show();
+			document.getElementById('ERROREMessage').innerHTML=text.p59;
+		});
+		sessionStorage.removeItem('p2');
+		sessionStorage.removeItem('p3');
+		sessionStorage.removeItem('p4');
       }
     })
   }

@@ -3,7 +3,6 @@ Major module:
     [-] Standard user management, authentication, users across tournaments (
             Users can update their information; Users can upload an avatar, with a default option if none is provided
             Users can add others as friends and view their online status
-            User profiles display stats, such as wins and losses
             Each user has a Match History including 1v1 games, dates, and relevant details, accessible to logged-in users
         )
     [ ] Implementing a remote authentication(
@@ -19,7 +18,7 @@ Minor module:
     [X] Use a front-end framework or toolkit
     [X] Use a database for the backend-and more
     [X] Game Customization Options
-    [ ] User and Game Stats Dashboards
+    [X] User and Game Stats Dashboards
     [X] Expanding Browser Compatibility
     [X] Multiple language supports
 

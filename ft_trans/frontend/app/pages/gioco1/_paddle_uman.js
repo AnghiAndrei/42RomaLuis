@@ -1,8 +1,8 @@
 export class Paddle {
   constructor(x, y, width, height, upKey, downKey, pos) {
-	if (this.pos === 'ds')
-		width=width*4;
-    
+	if (pos === 'ds')
+		width=width*2;
+
 	this.x = x;
     this.y = y;
     this.oheight = height;
@@ -17,7 +17,6 @@ export class Paddle {
     this.timercaos = 0;
     this.pos=pos;
     this.aumenta = true;
-
 
     document.addEventListener('keydown', (e) => {
       if (e.key === this.upKey) {

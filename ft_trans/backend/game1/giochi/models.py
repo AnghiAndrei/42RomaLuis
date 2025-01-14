@@ -1,6 +1,6 @@
 from django.db import models
 
-class DatiPartita(models.Model):
+class DPLocPong24(models.Model):
     id = models.BigAutoField(primary_key=True)
     id_utente = models.IntegerField()
     nomep1 = models.CharField(max_length=255)
@@ -13,4 +13,28 @@ class DatiPartita(models.Model):
     pp2 = models.CharField(max_length=3)
     pp3 = models.CharField(max_length=3)
     pp4 = models.CharField(max_length=3)
-    gioco = models.CharField(max_length=10)
+
+class DPLocPongIA(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    id_utente = models.IntegerField()
+    nomep1 = models.CharField(max_length=255)
+    nomep2 = models.CharField(max_length=255)
+    nomep3 = models.CharField(max_length=255, null=True, blank=True)
+    nomep4 = models.CharField(max_length=255, null=True, blank=True)
+    esito = models.CharField(max_length=50)
+    data = models.DateField()
+    pp1 = models.CharField(max_length=3)
+    pp2 = models.CharField(max_length=3)
+    pp3 = models.CharField(max_length=3)
+    pp4 = models.CharField(max_length=3)
+
+class DTLocPong24(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    id_utente = models.IntegerField()
+    nomep1 = models.CharField(max_length=255)
+    nomep2 = models.CharField(max_length=255)
+    nomep3 = models.CharField(max_length=255, null=True, blank=True)
+    nomep4 = models.CharField(max_length=255, null=True, blank=True)
+    vincitore = models.CharField(max_length=255)
+    esito = models.CharField(max_length=50)
+    data = models.DateField()

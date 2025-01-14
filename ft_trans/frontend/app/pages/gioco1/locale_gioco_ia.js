@@ -96,12 +96,12 @@ export function loadLocaleIaGame1Page() {
             ctx.fillText(sessionStorage.getItem("p1"), 40, (canvas.height / 2)- 60);
             ctx.fillText('↑ w', 30, (canvas.height / 2)- 30);
             ctx.fillText('↓ s', 30, canvas.height / 2);
-            ctx.fillText('BOT2', canvas.width - 100, (canvas.height / 2));
+            ctx.fillText('BOT1', canvas.width - 100, (canvas.height / 2));
         }
         if(sessionStorage.getItem("nplayerg1")==3 || sessionStorage.getItem("nplayerg1")==4)
-            ctx.fillText('BOT3', canvas.width / 2, 60);
+            ctx.fillText('BOT2', canvas.width / 2, 60);
         if(sessionStorage.getItem("nplayerg1")==4)
-            ctx.fillText('BOT4', canvas.width / 2, canvas.height - 60);
+            ctx.fillText('BOT3', canvas.width / 2, canvas.height - 60);
         ctx.font='bold 100px Arial';
         ctx.fillText('PONG', canvas.width / 2, canvas.height / 2);
 

@@ -37,7 +37,14 @@ export function loadLocaleHomeIaGame1Page() {
 
         document.getElementById('iniza').addEventListener('click', () => {
             sessionStorage.setItem('nplayerg1', document.getElementById('giocatori').value);
-            sessionStorage.setItem('ia', "true");
+			
+			if(sessionStorage.getItem('nplayerg1')==2){
+				sessionStorage.removeItem("p3");
+				sessionStorage.removeItem("p4");
+			}else if(sessionStorage.getItem('nplayerg1')==3)
+				sessionStorage.removeItem("p4");
+
+				sessionStorage.setItem('ia', "true");
             navigateTo('/costumeser');
         });
     })
