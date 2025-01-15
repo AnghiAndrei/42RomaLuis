@@ -12,7 +12,7 @@ services:
     depends_on:
       - frontend-node
       - backend-django-game1
-      - backend-django-utenti
+      - backend-django-users
 
   # FrontEnd Node.js
   frontend-node:
@@ -22,17 +22,21 @@ services:
       dockerfile: Dockerfile
     networks:
       - proxy
+    volumes:
+      - vol_img_users:/app/img/img_users
   
-  # BackEnd DJango Utenti
-  backend-django-utenti:
-    container_name: backend-django-utenti
+  # BackEnd DJango Users
+  backend-django-users:
+    container_name: backend-django-users
     build:
-      context: ./backend/utenti
+      context: ./backend/users
       dockerfile: Dockerfile
     env_file:
       - .env
     networks:
       - proxy
+    volumes:
+      - vol_img_users:/app/img_users
 
   # BackEnd DJango Game1
   backend-django-game1:
@@ -53,10 +57,17 @@ services:
       - .env
     networks:
       - proxy
-    # volume:
-    #   - postgres_data:/var/lib/postgresql/data
+    volumes:
+      - db_postgres:/var/lib/postgresql/data
 
 # Networks configuration
 networks:
   proxy:
     driver: bridge
+
+# Volumes
+volumes:
+  vol_img_users:
+    driver: local
+  db_postgres:
+    driver: local

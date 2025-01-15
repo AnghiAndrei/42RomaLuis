@@ -38,24 +38,29 @@ export function loadRegistraPage() {
       </main>
     `;
     document.getElementById('registra').addEventListener('click', () => {
-      sessionStorage.setItem('imguser', './../img/_default.png');
-      sessionStorage.setItem('jwtToken', 'log');
-      sessionStorage.setItem('p1', 'angly');
-      sessionStorage.setItem('tp1', 'angly');
-      navigateTo('/');
-      updateNavbar();
+    //   sessionStorage.setItem('imguser', './../img/_default.png');
+    //   sessionStorage.setItem('jwtToken', 'log');
+    //   sessionStorage.setItem('p1', 'angly');
+    //   sessionStorage.setItem('tp1', 'angly');
+    //   navigateTo('/');
+    //   updateNavbar();
 
       let email=document.getElementById('email').value;
       let nome=document.getElementById('nome').value;
       let password=document.getElementById('password').value;
       let conferpassword=document.getElementById('conferpassword').value;
 
+	  if(email=="" || nome=="" || password=="" || conferpassword==""){
+		document.getElementById('testoerrore').innerHTML=text.p72;
+        return;
+	  }
+
       if(conferpassword != password){
         document.getElementById('testoerrore').innerHTML=text.p50;
         return;
       }
 
-      fetch('https://localhost:8000/users/registra', {
+      fetch('https://localhost:8000/users/registrati', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,9 +75,10 @@ export function loadRegistraPage() {
         const status = response.status;
         if (status == 200) {
           return response.json().then(data => {
-            sessionStorage.setItem('imguser', data.fotoprofilo);
+            sessionStorage.setItem('imguser', "./../img/"+data.imguser);
             sessionStorage.setItem('jwtToken', data.jwttoken);
-            sessionStorage.setItem('p1', nome);
+            sessionStorage.setItem('tp1', data.nome);
+            sessionStorage.setItem('p1', data.nome);
             navigateTo('/');
             updateNavbar();
           });

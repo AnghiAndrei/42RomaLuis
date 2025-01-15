@@ -1,8 +1,12 @@
 import { navigateTo,router } from '../js/router.js';
 
 /* ========== LOGOUT ========== */
+window.logout = logout;
 function logout() {
-  	sessionStorage.setItem('jwtToken', '');
+  	sessionStorage.removeItem('jwtToken');
+  	sessionStorage.removeItem('imguser');
+  	sessionStorage.removeItem('tp1');
+  	sessionStorage.removeItem('p1');
   	navigateTo("/");
   	updateNavbar();
 }

@@ -73,7 +73,7 @@ export function router() {
 		return;
     }
 
-	const isRelevantPath2 = ['/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath2 = ['/costumeser','/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
     const navbar = document.getElementById('navbar-content');
 	if (partitaincorso==false && isRelevantPath2==true)
 		navbar.style.display = 'none';

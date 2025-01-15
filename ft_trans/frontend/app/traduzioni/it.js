@@ -71,7 +71,7 @@ export let text = {
     p69: "Vittoria",
 	p70: "Sconfitta",
     p71: "Totali tornei: ",
-    p72: "",
+    p72: "Tutti i campi sono richiesti",
     p73: "",
     p74: "",
     p75: "",
