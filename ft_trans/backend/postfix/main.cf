@@ -1,0 +1,18 @@
+myhostname = placeholder_hostname
+mydomain = trans.com
+myorigin = $mydomain
+
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+smtpd_relay_restrictions = permit_sasl_authenticated, reject_unauth_destination
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_security_level = may
+
+sender_canonical_maps = hash:/etc/postfix/sender_canonical
+
+inet_interfaces = all
+inet_protocols = ipv4
+mynetworks = 127.0.0.0/8

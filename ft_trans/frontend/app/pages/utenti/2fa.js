@@ -22,21 +22,21 @@ export function load2faPage() {
       </div>
     `;
     document.getElementById('valid').addEventListener('click', () => {
-      // sessionStorage.setItem('imguser', './../img/_default.png');
-      // sessionStorage.setItem('jwtToken', 'log');
-      // sessionStorage.setItem('p1', 'angly');
-      // sessionStorage.removeItem('tempjwt');
-      // navigateTo('/');
-      // updateNavbar();
-      
+
       let codeotp=document.getElementById('codeotp').value;
-      fetch('https://localhost:8000/users/2af', {
+      if(codeotp==""){
+        document.getElementById('testoerrore').innerHTML=text.p72;
+        return;
+      }
+
+      fetch('https://localhost:8000/users/check_2fa', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          codeotp: codeotp
+          codeotp: codeotp, 
+          key: sessionStorage.getItem("tempjwt")
         }),
       })
       .then(response => {
@@ -53,7 +53,7 @@ export function load2faPage() {
             });
           } else if (status == 204)
             document.getElementById('testoerrore').innerHTML=text.p48;
-            else
+          else
             document.getElementById('testoerrore').innerHTML=text.p47;
         })
         .catch(error => {

@@ -38,13 +38,6 @@ export function loadRegistraPage() {
       </main>
     `;
     document.getElementById('registra').addEventListener('click', () => {
-    //   sessionStorage.setItem('imguser', './../img/_default.png');
-    //   sessionStorage.setItem('jwtToken', 'log');
-    //   sessionStorage.setItem('p1', 'angly');
-    //   sessionStorage.setItem('tp1', 'angly');
-    //   navigateTo('/');
-    //   updateNavbar();
-
       let email=document.getElementById('email').value;
       let nome=document.getElementById('nome').value;
       let password=document.getElementById('password').value;

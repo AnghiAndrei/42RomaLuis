@@ -28,11 +28,13 @@ export function loadLoginPage() {
       </div>
     `;
     document.getElementById('loggin').addEventListener('click', () => {
-      // sessionStorage.setItem('tempjwt', 'tempjwt');
-      // navigateTo('/2fa');
-
       let email=document.getElementById('email').value;
       let password=document.getElementById('password').value;
+
+      if(email=="" || password==""){
+        document.getElementById('testoerrore').innerHTML=text.p72;
+        return;
+      }
 
       fetch('https://localhost:8000/users/login', {
         method: 'POST',
