@@ -13,11 +13,11 @@ export function load2faPage() {
         <main class="form-signin m-auto mioform">
           <h1 class="h3 mb-3 fw-normal text-white">`+text.p13+`</h1>
           <div class="form-floating mb-3">
-            <input type="text" class="form-control text-black" id="codeotp" placeholder="`+text.p514+`">
-            <label class="text-black" for="codeotp">`+text.p514+`</label>
+            <input type="text" class="form-control text-black" id="codeotp" placeholder="`+text.p14+`">
+            <label class="text-black" for="codeotp">`+text.p14+`</label>
           </div>
           <h2 id="testoerrore" class="text-white"></h2>
-          <button class="btn btn-primary w-100 py-2" id="valid">`+text.p515+`</button>
+          <button class="btn btn-primary w-100 py-2" id="valid">`+text.p15+`</button>
         </main>
       </div>
     `;

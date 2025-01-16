@@ -1,7 +1,7 @@
 services:
-  # reverse-proxy server
+  # reverse-proxy
   proxy:
-    container_name: proxy-service
+    container_name: proxy
     build:
       context: ./proxy
       dockerfile: Dockerfile
@@ -37,28 +37,9 @@ services:
       - proxy
     volumes:
       - vol_img_users:/app/img_users
-
-  # BackEnd DJango Game1
-  backend-django-game1:
-    container_name: backend-django-game1
-    build:
-      context: ./backend/game1
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    networks:
-      - proxy
-
-  # PostGresSQL
-  postgres:
-    container_name: postgres
-    image: postgres
-    env_file:
-      - .env
-    networks:
-      - proxy
-    volumes:
-      - db_postgres:/var/lib/postgresql/data
+    depends_on:
+      - postfix
+      - postgres
 
   # PostFix
   postfix:
@@ -70,6 +51,30 @@ services:
       - .env
     networks:
       - proxy
+
+  # BackEnd DJango Game1
+  backend-django-game1:
+    container_name: backend-django-game1
+    build:
+      context: ./backend/game1
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - proxy
+    depends_on:
+      - postgres
+
+  # PostGresSQL
+  postgres:
+    container_name: postgres
+    image: postgres
+    env_file:
+      - .env
+    networks:
+      - proxy
+    volumes:
+      - db_postgres:/var/lib/postgresql/data
 
 # Networks configuration
 networks:
