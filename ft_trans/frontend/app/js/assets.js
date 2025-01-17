@@ -2,7 +2,7 @@ import { navigateTo,router } from '../js/router.js';
 
 /* ========== LOGOUT ========== */
 window.logout = logout;
-function logout() {
+export function logout() {
   	sessionStorage.removeItem('jwtToken');
   	sessionStorage.removeItem('imguser');
   	sessionStorage.removeItem('tp1');
@@ -90,3 +90,5 @@ export function updateNavbar() {
 		document.getElementById('imguser').src='./../img/lingue/'+localStorage.getItem('lingua')+'.png';
   	})
 }
+
+export function isEmptyOrWhitespace(str) {return !str || str.trim().length === 0;}

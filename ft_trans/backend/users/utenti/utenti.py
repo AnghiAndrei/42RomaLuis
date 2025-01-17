@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse, HttpResponse
+from validate_email import validate_email
 from django.core.mail import send_mail
 from utenti.models import Utenti
 from django.db import models
@@ -17,6 +18,12 @@ def registrati(request):
         required_fields = ['nome', 'email', 'password']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
+
+        if is_empty_or_whitespace(data['nome']):
+            return HttpResponse(status=400)
+
+        if not validate_email(data["email"]):
+            return HttpResponse(status=401)
 
         utenti = Utenti.objects.filter(nome=data['nome'])
         if utenti.exists():
@@ -62,7 +69,12 @@ def login(request):
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        user = Utenti.objects.get(email=data["email"])
+        if not validate_email(data["email"]):
+            return HttpResponse(status=501)
+
+        user = Utenti.objects.filter(email=data["email"])
+        if user.exists():
+            return HttpResponse(status=204)
         if not check_password(data["password"], user.password):
             return HttpResponse(status=204)
 
@@ -151,12 +163,49 @@ def profile(request):
 
 def modify(request):
     try:
-        data = json.loads(request.body.decode('utf-8'))
-        required_fields = ['nome', 'img']
+        # Controlla che il corpo della richiesta non sia vuoto
+        if not request.body:
+            return JsonResponse({"error": "Request body is empty"}, status=400)
+
+        # Tenta di decodificare il JSON
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+
+        required_fields = ['nome']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
+        if is_empty_or_whitespace(data['nome']):
+            return HttpResponse(status=400)
+
+        img = request.FILES.get('img')
+
+        token = request.headers.get('Authorization')
+        jwt_token = None
+        if token:
+            jwt_token = token.split("Bearer ")[1]
+        try:
+            decoded_token = jwt.decode(jwt_token, os.getenv('YWT_KEY'), algorithms=["HS256"])
+            id_user = decoded_token['user_id']
+        except Exception as e:
+            return HttpResponse(status=401)
+
+        utente = Utenti.objects.get(id=id_user)
+        if img is not None:
+            max_file_size = 5 * 1024 * 1024
+            if img.size > max_file_size or not img.name.lower().endswith('.png'):
+                return HttpResponse(status=400)
+            utente.img = img
+        utente.nome = data['nome']
+        utente.save()
         return HttpResponse(status=200)
 
     except Exception as e:
-        return JsonResponse({"error": f'{e}' },status=500)
+        return JsonResponse({"error": f'{e}'}, status=500)
+
+
+# ===== UTILITIS ===== #
+def is_empty_or_whitespace(string):
+    return not string or string.strip() == ""

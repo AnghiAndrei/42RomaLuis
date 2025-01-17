@@ -1,3 +1,4 @@
+import { isEmptyOrWhitespace } from './../../js/assets.js';
 import { navigateTo } from './../../js/router.js';
 
 function update() {
@@ -94,7 +95,7 @@ export function loadLocaleHomeGame1Page() {
         document.getElementById('iniza').addEventListener('click', () => {
             if(document.getElementById('giocatori').value==2){
                 let p2=document.getElementById('gest1').value;
-                if(p2==''){
+                if(p2=='' || isEmptyOrWhitespace(p2)){
                     document.getElementById('texterror').innerHTML=text.p20;
                     return;
                 }
@@ -106,7 +107,7 @@ export function loadLocaleHomeGame1Page() {
             }else if(document.getElementById('giocatori').value==3){
                 let p2=document.getElementById('gest1').value;
                 let p3=document.getElementById('gest2').value;
-                if(p2=='' || p3==''){
+                if(p2=='' || p3=='' || isEmptyOrWhitespace(p2) || isEmptyOrWhitespace(p3)){
                     document.getElementById('texterror').innerHTML=text.p20;
                     return;
                 }
@@ -121,7 +122,7 @@ export function loadLocaleHomeGame1Page() {
                 let p2=document.getElementById('gest1').value;
                 let p3=document.getElementById('gest2').value;
                 let p4=document.getElementById('gest3').value;
-                if(p2=='' || p4=='' || p3==''){
+                if(p2=='' || p4=='' || p3=='' || isEmptyOrWhitespace(p2) || isEmptyOrWhitespace(p3) || isEmptyOrWhitespace(p4)){
                     document.getElementById('texterror').innerHTML=text.p20;
                     return;
                 }

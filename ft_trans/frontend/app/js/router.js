@@ -4,7 +4,7 @@ import { loadLoginPage } from '../pages/utenti/login.js';
 import { loadRegistraPage } from '../pages/utenti/registrati.js';
 import { load2faPage } from '../pages/utenti/2fa.js';
 import { loadProfilePage } from '../pages/utenti/profile.js';
-import { loadModifyPage } from '../pages/utenti/modify.js';
+import { loadModifyPage } from '../pages/utenti/update_profile.js';
 
 import { loadGiochiHomePage } from '../pages/giochi.js';
 import { loadStatsPage } from '../pages/gioco1/stats.js';
@@ -50,7 +50,7 @@ export function router() {
 		{ path: '/registrati', view: loadRegistraPage },
 		{ path: '/2fa', view: load2faPage },
 		{ path: '/profile', view: loadProfilePage },
-		{ path: '/modify', view: loadModifyPage },
+		{ path: '/update_profile', view: loadModifyPage },
 
 		{ path: '/giochi', view: loadGiochiHomePage },
 		{ path: '/stats', view: loadStatsPage },

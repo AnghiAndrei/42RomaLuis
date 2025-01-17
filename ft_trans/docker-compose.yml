@@ -23,7 +23,7 @@ services:
     networks:
       - proxy
     volumes:
-      - vol_img_users:/app/img/img_users
+      - vol_img_users:/app/img/app/img_users
   
   # BackEnd DJango Users
   backend-django-users:

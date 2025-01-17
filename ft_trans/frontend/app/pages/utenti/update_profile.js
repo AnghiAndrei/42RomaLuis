@@ -1,4 +1,5 @@
-import { navigateTo } from './../../js/router.js';
+import { navigateTo } from '../../js/router.js';
+import { isEmptyOrWhitespace } from '../../js/assets.js';
 
 export function loadModifyPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -26,7 +27,7 @@ export function loadModifyPage() {
 									<label class="text-black" for="nome">`+text.p6+`</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input type="file" class="form-control text-black" id="imgform" placeholder="`+text.p75+`">
+									<input type="file" accept="image/.png" class="form-control text-black" id="imgform" placeholder="`+text.p75+`">
 									<label class="text-black" for="imgform">`+text.p75+`</label>
 								</div>
           						<h2 id="testoerrore" class="text-white"></h2>
@@ -35,22 +36,24 @@ export function loadModifyPage() {
       					</div>`;
 						  document.getElementById('loggin').addEventListener('click', () => {
 							let nome=document.getElementById('nome').value;
-							let imgform=document.getElementById('imgform').value;
-					  
-							if(nome==""){
+							const file = document.getElementById('imgform').files[0];
+
+							if(nome=="" || isEmptyOrWhitespace(nome)){
 							  document.getElementById('testoerrore').innerHTML=text.p72;
 							  return;
 							}
-					  
+
+							const formData = new FormData();
+							formData.append('nome', nome);
+							if (file)
+								formData.append('img', file);
+
 							fetch('https://localhost:8000/users/modify', {
 							  method: 'POST',
 							  headers: {
 								'Content-Type': 'application/json',
 							  },
-							  body: JSON.stringify({
-								nome: nome,
-								img: imgform
-							}),
+							  body: formData
 							})
 							.then(response => {
 								const status = response.status;
@@ -71,8 +74,8 @@ export function loadModifyPage() {
 							});
 						  });
 				});
-			} else navigateTo('/');
+			} else logout();
 		})
-		.catch(error => { navigateTo('/'); })
+		.catch(error => { logout(); })
     })
 }

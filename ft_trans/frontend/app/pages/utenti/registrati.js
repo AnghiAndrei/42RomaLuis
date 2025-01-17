@@ -1,5 +1,6 @@
 import { updateNavbar } from './../../js/assets.js';
 import { navigateTo } from './../../js/router.js';
+import { isEmptyOrWhitespace } from './../../js/assets.js';
 
 export function loadRegistraPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -43,7 +44,7 @@ export function loadRegistraPage() {
       let password=document.getElementById('password').value;
       let conferpassword=document.getElementById('conferpassword').value;
 
-	  if(email=="" || nome=="" || password=="" || conferpassword==""){
+	  if(email=="" || nome=="" || password=="" || conferpassword=="" || isEmptyOrWhitespace(email) || isEmptyOrWhitespace(nome)){
 		document.getElementById('testoerrore').innerHTML=text.p72;
         return;
 	  }

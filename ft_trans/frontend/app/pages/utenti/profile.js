@@ -1,4 +1,5 @@
 import { navigateTo } from './../../js/router.js';
+import { logout } from './../../js/assets.js';
 
 export function loadProfilePage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -32,8 +33,8 @@ export function loadProfilePage() {
 							</main>
 						</div>`;
 				});
-			} else navigateTo('/');
+			} else logout();
 		})
-		.catch(error => { navigateTo('/'); })
+		.catch(error => { logout(); })
     })
 }

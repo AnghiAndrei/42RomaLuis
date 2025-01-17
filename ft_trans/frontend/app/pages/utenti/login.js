@@ -1,4 +1,5 @@
 import { navigateTo } from './../../js/router.js';
+import { isEmptyOrWhitespace } from './../../js/assets.js';
 
 export function loadLoginPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -31,7 +32,7 @@ export function loadLoginPage() {
       let email=document.getElementById('email').value;
       let password=document.getElementById('password').value;
 
-      if(email=="" || password==""){
+      if(email=="" || password==""  || isEmptyOrWhitespace(email)){
         document.getElementById('testoerrore').innerHTML=text.p72;
         return;
       }

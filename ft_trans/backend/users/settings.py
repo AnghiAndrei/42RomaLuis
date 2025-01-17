@@ -6,8 +6,8 @@ SECRET_KEY = os.getenv('DJANGO_KEY')
 ROOT_URLCONF = 'utenti.url'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-MEDIA_ROOT = BASE_DIR
-MEDIA_URL = '/'
+MEDIA_URL = '/app/'
+MEDIA_ROOT = BASE_DIR / 'app'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

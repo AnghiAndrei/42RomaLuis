@@ -23,6 +23,11 @@ def set_tornament(request):
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
+        if is_empty_or_whitespace(data['nomep1']) and is_empty_or_whitespace(data['nomep2']) and is_empty_or_whitespace(data['vincitore']):
+            return HttpResponse(status=400)
+        if data['esito'] != 'S' and data['esito'] != 'P' and data['esito'] != 'V':
+            return HttpResponse(status=400)
+
         current_date = date.today().strftime('%Y-%m-%d')
 
         torneo=DTLocPong24(
@@ -84,3 +89,7 @@ def get_tornament(request):
 
     except Exception as e:
         return JsonResponse({"error": f'{e}' },status=500)
+
+# ===== UTILITIS ===== #
+def is_empty_or_whitespace(string):
+    return not string or string.strip() == ""

@@ -23,6 +23,11 @@ def set_game(request):
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
+        if is_empty_or_whitespace(data['nomep1']) and is_empty_or_whitespace(data['nomep2']):
+            return HttpResponse(status=400)
+        if data['esito'] != 'S' and data['esito'] != 'P' and data['esito'] != 'V':
+            return HttpResponse(status=400)
+
         current_date = date.today().strftime('%Y-%m-%d')
 
         if data['game']=='lp24':
@@ -39,7 +44,7 @@ def set_game(request):
                 pp3=data['pp3'],
                 pp4=data['pp4']
             )
-        else:
+        elif data['game']=='lpia':
             partite=DPLocPongIA(
                 id_utente=id_user,
                 nomep1=data['nomep1'],
@@ -53,6 +58,8 @@ def set_game(request):
                 pp3=data['pp3'],
                 pp4=data['pp4']
             )
+        else:
+            return HttpResponse(status=400)
         partite.save()
         return HttpResponse(status=200)
 
@@ -79,8 +86,10 @@ def get_game(request):
 
         if data['game']=='lp24':
             partite = DPLocPong24.objects.filter(id_utente=id_user)
-        else:
+        elif data['game']=='lpia':
             partite = DPLocPongIA.objects.filter(id_utente=id_user)
+        else:
+            return HttpResponse(status=400)
 
         partite = partite.order_by('-id')
         if not partite.exists():
@@ -116,3 +125,7 @@ def get_game(request):
 
     except Exception as e:
         return JsonResponse({"error": f'{e}' },status=500)
+
+# ===== UTILITIS ===== #
+def is_empty_or_whitespace(string):
+    return not string or string.strip() == ""
