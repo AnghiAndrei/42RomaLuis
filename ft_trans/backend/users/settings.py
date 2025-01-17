@@ -10,11 +10,12 @@ MEDIA_ROOT = BASE_DIR
 MEDIA_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'postfix'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('SEND_EMAIL')
 EMAIL_HOST_PASSWORD = os.getenv('SEND_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('SEND_EMAIL')
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',

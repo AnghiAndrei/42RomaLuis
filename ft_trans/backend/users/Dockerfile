@@ -8,5 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY . .
 RUN dos2unix ./wait-for-it.sh
 RUN chmod +x ./wait-for-it.sh
+RUN echo '' > /app/utenti/otp_codes.json
 
 CMD ["./wait-for-it.sh"]

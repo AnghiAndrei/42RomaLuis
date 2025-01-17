@@ -38,19 +38,7 @@ services:
     volumes:
       - vol_img_users:/app/img_users
     depends_on:
-      - postfix
       - postgres
-
-  # PostFix
-  postfix:
-    container_name: postfix
-    build:
-      context: ./backend/postfix
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    networks:
-      - proxy
 
   # BackEnd DJango Game1
   backend-django-game1:

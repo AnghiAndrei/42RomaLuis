@@ -43,7 +43,7 @@ export function load2faPage() {
         const status = response.status;
         if (status == 200) {
             return response.json().then(data => {
-              sessionStorage.setItem('imguser', data.fotoprofilo);
+			  sessionStorage.setItem('imguser', "./../img/"+data.imguser);
               sessionStorage.setItem('jwtToken', data.jwttoken);
               sessionStorage.setItem('p1', data.nome);
               sessionStorage.setItem('tp1', data.nome);
@@ -51,7 +51,7 @@ export function load2faPage() {
               navigateTo('/');
               updateNavbar();
             });
-          } else if (status == 204)
+          } else if (status == 204 || status == 205)
             document.getElementById('testoerrore').innerHTML=text.p48;
           else
             document.getElementById('testoerrore').innerHTML=text.p47;

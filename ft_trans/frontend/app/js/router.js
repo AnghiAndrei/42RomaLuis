@@ -3,6 +3,8 @@ import { loadHomePage } from '../pages/home.js';
 import { loadLoginPage } from '../pages/utenti/login.js';
 import { loadRegistraPage } from '../pages/utenti/registrati.js';
 import { load2faPage } from '../pages/utenti/2fa.js';
+import { loadProfilePage } from '../pages/utenti/profile.js';
+import { loadModifyPage } from '../pages/utenti/modify.js';
 
 import { loadGiochiHomePage } from '../pages/giochi.js';
 import { loadStatsPage } from '../pages/gioco1/stats.js';
@@ -47,6 +49,8 @@ export function router() {
 		{ path: '/login', view: loadLoginPage },
 		{ path: '/registrati', view: loadRegistraPage },
 		{ path: '/2fa', view: load2faPage },
+		{ path: '/profile', view: loadProfilePage },
+		{ path: '/modify', view: loadModifyPage },
 
 		{ path: '/giochi', view: loadGiochiHomePage },
 		{ path: '/stats', view: loadStatsPage },
@@ -67,7 +71,7 @@ export function router() {
 	}
 	if(potentialMatch.path!='/2fa')
 		sessionStorage.removeItem('tempjwt');
-	const isRelevantPath = ['/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath = ['/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
 	if((sessionStorage.getItem('jwtToken')==null && isRelevantPath==true)){
 		navigateTo("/");
 		return;

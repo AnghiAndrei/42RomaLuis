@@ -11,11 +11,11 @@ def set_tornament(request):
         jwt_token = None
         if token:
             jwt_token = token.split("Bearer ")[1]
-        # try:
-        #     decoded_token = jwt.decode(jwt_token, "tuo_segreto_JWT", algorithms=["HS256"])
-        #     id_user = decoded_token['user_id']
-        # except Exception as e:
-        #     return HttpResponse(status=401)
+        try:
+            decoded_token = jwt.decode(jwt_token, os.getenv('YWT_KEY'), algorithms=["HS256"])
+            id_user = decoded_token['user_id']
+        except Exception as e:
+            return HttpResponse(status=401)
         id_user = 1
 
         data = json.loads(request.body.decode('utf-8'))
@@ -47,11 +47,11 @@ def get_tornament(request):
         jwt_token = None
         if token:
             jwt_token = token.split("Bearer ")[1]
-        # try:
-        #     decoded_token = jwt.decode(jwt_token, "tuo_segreto_JWT", algorithms=["HS256"])
-        #     id_user = decoded_token['user_id']
-        # except Exception as e:
-        #     return HttpResponse(status=401)
+        try:
+            decoded_token = jwt.decode(jwt_token, os.getenv('YWT_KEY'), algorithms=["HS256"])
+            id_user = decoded_token['user_id']
+        except Exception as e:
+            return HttpResponse(status=401)
         id_user = 1
 
         partite = DTLocPong24.objects.filter(id_utente=id_user)
