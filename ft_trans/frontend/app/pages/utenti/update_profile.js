@@ -1,5 +1,5 @@
 import { navigateTo } from '../../js/router.js';
-import { isEmptyOrWhitespace } from '../../js/assets.js';
+import { isEmptyOrWhitespace, updateNavbar } from '../../js/assets.js';
 
 export function loadModifyPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -69,6 +69,7 @@ export function loadModifyPage() {
 										sessionStorage.setItem('imguser', "./../img/"+data.imguser);
 										sessionStorage.setItem('p1', nome);
 										sessionStorage.setItem('tp1', nome);
+										updateNavbar();
 										navigateTo('/profile');
 									});
 								} else if (status == 204)
