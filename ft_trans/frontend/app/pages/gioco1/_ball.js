@@ -1,4 +1,5 @@
 import { torneoclass } from '../../js/router.js';
+import { logout } from './../../js/assets.js';
 
 export class Ball {
 	constructor(x, y, radius) {
@@ -241,6 +242,7 @@ export class Ball {
 						const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 						modal2.show();
 						document.getElementById('ERROREMessage').innerHTML=text.p67;
+						logout();
 					}else{
 						const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 						modal2.show();

@@ -4,6 +4,7 @@ from django.db import models
 from datetime import date
 import json
 import jwt
+import os
 
 def set_game(request):
     try:
@@ -16,7 +17,6 @@ def set_game(request):
             id_user = decoded_token['user_id']
         except Exception as e:
             return HttpResponse(status=401)
-        id_user = 1
 
         data = json.loads(request.body.decode('utf-8'))
         required_fields = ['nomep1', 'nomep2', 'nomep3', 'nomep4', 'esito', 'pp1', 'pp2', 'pp3', 'pp4', 'game']
@@ -77,7 +77,6 @@ def get_game(request):
             id_user = decoded_token['user_id']
         except Exception as e:
             return HttpResponse(status=401)
-        id_user = 1
 
         data = json.loads(request.body.decode('utf-8'))
         required_fields = ['game']

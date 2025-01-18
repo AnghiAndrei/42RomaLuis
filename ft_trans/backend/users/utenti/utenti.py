@@ -26,10 +26,10 @@ def registrati(request):
             return HttpResponse(status=401)
 
         utenti = Utenti.objects.filter(nome=data['nome'])
-        if utenti.exists():
+        if utenti:
             return HttpResponse(status=204)
-        utenti = Utenti.objects.filter(email=data['email'])
-        if utenti.exists():
+        utenti2 = Utenti.objects.filter(email=data['email'])
+        if utenti2:
             return HttpResponse(status=205)
 
         utenti=Utenti(
@@ -72,8 +72,9 @@ def login(request):
         if not validate_email(data["email"]):
             return HttpResponse(status=501)
 
-        user = Utenti.objects.filter(email=data["email"])
-        if user.exists():
+        try:
+            user = Utenti.objects.get(email=data["email"])
+        except Utenti.DoesNotExist:
             return HttpResponse(status=204)
         if not check_password(data["password"], user.password):
             return HttpResponse(status=204)
@@ -115,7 +116,9 @@ def check_2fa(request):
             return HttpResponse(status=205)
 
         if OTP_Codes[data["key"]]["otp"] == data["codeotp"]:
-            utenti = Utenti.objects.get(id=OTP_Codes[data["key"]]["iduser"])
+            utenti = Utenti.objects.filter(id=OTP_Codes[data["key"]]["iduser"]).first()
+            if not utenti:
+                return HttpResponse(status=204)
             payload = {
                 'user_id': utenti.id,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24),
@@ -155,32 +158,18 @@ def profile(request):
         except Exception as e:
             return HttpResponse(status=401)
 
-        utenti = Utenti.objects.get(id=id_user)
-        return JsonResponse({"email": utenti.email, "nome": utenti.nome },status=200)
+        user = Utenti.objects.filter(id=id_user).first()
+        if not user:
+            return HttpResponse(status=204)
+        return JsonResponse({"email": user.email, "nome": user.nome },status=200)
 
     except Exception as e:
         return JsonResponse({"error": f'{e}' },status=500)
 
 def modify(request):
     try:
-        # Controlla che il corpo della richiesta non sia vuoto
         if not request.body:
-            return JsonResponse({"error": "Request body is empty"}, status=400)
-
-        # Tenta di decodificare il JSON
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
-
-        required_fields = ['nome']
-        if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
-
-        if is_empty_or_whitespace(data['nome']):
-            return HttpResponse(status=400)
-
-        img = request.FILES.get('img')
 
         token = request.headers.get('Authorization')
         jwt_token = None
@@ -192,19 +181,30 @@ def modify(request):
         except Exception as e:
             return HttpResponse(status=401)
 
-        utente = Utenti.objects.get(id=id_user)
+        user = Utenti.objects.filter(id=id_user).first()
+        if not user:
+            return HttpResponse(status=204)
+
+        img = request.FILES.get('img')
         if img is not None:
+            if not img.name.lower().endswith('.png'):
+                return HttpResponse(status=414)
             max_file_size = 5 * 1024 * 1024
-            if img.size > max_file_size or not img.name.lower().endswith('.png'):
-                return HttpResponse(status=400)
-            utente.img = img
-        utente.nome = data['nome']
-        utente.save()
-        return HttpResponse(status=200)
+            if img.size > max_file_size:
+                return HttpResponse(status=413)
+            user.img = img
+
+        nome = request.POST.get('nome')
+        if nome is None:
+            return HttpResponse(status=400)
+        if is_empty_or_whitespace(nome):
+            return HttpResponse(status=400)
+        user.nome = nome
+        user.save()
+        return JsonResponse({ "imguser": user.img.url },status=200)
 
     except Exception as e:
         return JsonResponse({"error": f'{e}'}, status=500)
-
 
 # ===== UTILITIS ===== #
 def is_empty_or_whitespace(string):

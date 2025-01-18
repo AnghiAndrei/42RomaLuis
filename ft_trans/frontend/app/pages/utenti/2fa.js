@@ -43,7 +43,7 @@ export function load2faPage() {
         const status = response.status;
         if (status == 200) {
             return response.json().then(data => {
-			  sessionStorage.setItem('imguser', "./../img/"+data.imguser);
+			        sessionStorage.setItem('imguser', "./../img/"+data.imguser);
               sessionStorage.setItem('jwtToken', data.jwttoken);
               sessionStorage.setItem('p1', data.nome);
               sessionStorage.setItem('tp1', data.nome);

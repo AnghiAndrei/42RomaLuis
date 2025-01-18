@@ -4,6 +4,7 @@ from django.db import models
 from datetime import date
 import json
 import jwt
+import os
 
 def set_tornament(request):
     try:
@@ -16,7 +17,6 @@ def set_tornament(request):
             id_user = decoded_token['user_id']
         except Exception as e:
             return HttpResponse(status=401)
-        id_user = 1
 
         data = json.loads(request.body.decode('utf-8'))
         required_fields = ['nomep1', 'nomep2', 'nomep3', 'nomep4', 'vincitore', 'esito']
@@ -57,7 +57,6 @@ def get_tornament(request):
             id_user = decoded_token['user_id']
         except Exception as e:
             return HttpResponse(status=401)
-        id_user = 1
 
         partite = DTLocPong24.objects.filter(id_utente=id_user)
         partite = partite.order_by('-id')

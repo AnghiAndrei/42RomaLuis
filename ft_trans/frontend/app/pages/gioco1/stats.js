@@ -1,3 +1,5 @@
+import { logout } from './../../js/assets.js';
+
 window.updatestats=updatestats;
 function updatestats(data) {
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -98,6 +100,7 @@ function updatestats(data) {
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 					modal2.show();
 					document.getElementById('ERROREMessage').innerHTML=text.p67;
+					logout();
 				} else{
 					alert("error2");
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
@@ -199,6 +202,7 @@ function updatestats(data) {
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 					modal2.show();
 					document.getElementById('ERROREMessage').innerHTML=text.p67;
+					logout();
 				} else{
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 					modal2.show();
@@ -228,7 +232,7 @@ export function loadStatsPage() {
                 <a onclick="updatestats('lpia')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p44+`</a>
                 <a onclick="updatestats('lt24')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p52+`</a>
                 <br><br>
-				<div id="statsid" class="d-flex flex-column align-items-center w-100" style="overflow-y: auto;"></div>
+				<div id="statsid" class="d-flex flex-column align-items-center" style="overflow-y: hidden;overflow-x: none;"></div>
 			</div>`;
     })
 }

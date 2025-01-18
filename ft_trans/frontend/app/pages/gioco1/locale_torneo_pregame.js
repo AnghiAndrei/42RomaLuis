@@ -1,4 +1,5 @@
 import { navigateTo2,torneoclass,setTorneoClass,setTorneoincorso } from '../../js/router.js';
+import { logout } from './../../js/assets.js';
 
 class Torneo {
   constructor() {
@@ -160,6 +161,7 @@ class Torneo {
 				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 				modal2.show();
 				document.getElementById('ERROREMessage').innerHTML=text.p67;
+				logout();
 			}else{
 				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 				modal2.show();

@@ -1,7 +1,6 @@
 Major module:
     [X] Use a Framework as backend
     [-] Standard user management, authentication, users across tournaments (
-            Users can update their information; Users can upload an avatar
             Users can add others as friends and view their online status
         )
     [ ] Implementing a remote authentication(

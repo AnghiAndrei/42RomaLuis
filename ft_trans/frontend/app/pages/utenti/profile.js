@@ -20,17 +20,21 @@ export function loadProfilePage() {
 					const content = document.getElementById('main-content');
 					content.innerHTML = `
 						<div class="d-flex justify-content-center align-items-center">
-							<main class="form-signin m-auto mioform">
-								<h1 class="text-white text-center">`+text.p73+`</h1>
-								<br>
-								<img src="`+sessionStorage.getItem('imguser')+`" width="50" height="50" class="rounded-circle" />
-								<h2 class="text-white">`+text.p39+`: `+data.email+`</h2>
-								<h2 class="text-white">`+text.p6+`: `+data.nome+`</h2>
-								<br>
-								<a data-link href="/update_profile"><h2 class="text-white">`+text.p74+`</h2></a>
-								<a data-link href="/stats"><h2 class="text-white">`+text.p42+`</h2></a>
-								<h2 onclick="logout()" class="text-white">`+text.p43+`</h2>
-							</main>
+							<div class="container my-5">
+								<div class="row align-items-center">
+									<div class="col-md-6 text-center"><img src="`+sessionStorage.getItem('imguser')+`" width="200" height="200" class="rounded-circle" /></div>
+									<div class="col-md-6">
+										<h1 class="text-white text-center">`+text.p73+`</h1>
+										<br>
+										<h2 class="text-white">`+text.p39+`: `+data.email+`</h2>
+										<h2 class="text-white">`+text.p6+`: `+data.nome+`</h2>
+										<br>
+										<a data-link href="/update_profile"><h3 class="text-white">`+text.p74+`</h3></a>
+										<a data-link href="/stats"><h3 class="text-white">`+text.p42+`</h3></a>
+										<h3 onclick="logout()" class="text-white">`+text.p43+`</h3>
+									</div>
+								</div>
+							</div>
 						</div>`;
 				});
 			} else logout();

@@ -27,11 +27,14 @@ export function loadModifyPage() {
 									<label class="text-black" for="nome">`+text.p6+`</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input type="file" accept="image/.png" class="form-control text-black" id="imgform" placeholder="`+text.p75+`">
+									<input type="file" accept="image/png" class="form-control text-black" id="imgform" placeholder="`+text.p75+`">
 									<label class="text-black" for="imgform">`+text.p75+`</label>
 								</div>
           						<h2 id="testoerrore" class="text-white"></h2>
           						<button class="btn btn-primary w-100 py-2" id="loggin">`+text.p76+`</button>
+								<p class="mt-5 mb-3">
+									<a data-link href="/profile" class="h4 px-2 link-secondary text-white">`+text.p77+`</a>
+								</p>
         					</main>
       					</div>`;
 						  document.getElementById('loggin').addEventListener('click', () => {
@@ -45,27 +48,35 @@ export function loadModifyPage() {
 
 							const formData = new FormData();
 							formData.append('nome', nome);
-							if (file)
+							if (file){
+								var maxFileSize = 5 * 1024 * 1024;
+								if (file.size > maxFileSize){
+									document.getElementById('testoerrore').innerHTML=text.p78;
+									return;
+								}
 								formData.append('img', file);
+							}
 
 							fetch('https://localhost:8000/users/modify', {
 							  method: 'POST',
-							  headers: {
-								'Content-Type': 'application/json',
-							  },
+							  headers: { 'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'), },
 							  body: formData
 							})
 							.then(response => {
 								const status = response.status;
 								if (status == 200) {
-								  return response.json().then(data => {
-									sessionStorage.setItem('tempjwt', data.tempjwt);
-									sessionStorage.setItem('p1', nome);
-									sessionStorage.setItem('tp1', nome);
-									navigateTo('/profile');
-								  });
+									return response.json().then(data => {
+										sessionStorage.setItem('imguser', "./../img/"+data.imguser);
+										sessionStorage.setItem('p1', nome);
+										sessionStorage.setItem('tp1', nome);
+										navigateTo('/profile');
+									});
 								} else if (status == 204)
 								  document.getElementById('testoerrore').innerHTML=text.p46;
+								else if (status == 413)
+									document.getElementById('testoerrore').innerHTML=text.p78;
+								else if (status == 414)
+									document.getElementById('testoerrore').innerHTML=text.p79;
 								else
 								  document.getElementById('testoerrore').innerHTML=text.p47;
 							})
