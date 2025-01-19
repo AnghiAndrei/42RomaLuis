@@ -69,6 +69,7 @@ export function updateNavbar() {
 							<ul class="dropdown-menu text-small" style="">
 								<li><a class="dropdown-item" data-link href="/profile">`+text.p41+`</a></li>
 								<li><a class="dropdown-item" data-link href="/stats">`+text.p42+`</a></li>
+								<li><a class="dropdown-item" data-link href="/friend">`+text.p82+`</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" data-link href="/" onclick="logout()">`+text.p43+`</a></li>
 							</ul>

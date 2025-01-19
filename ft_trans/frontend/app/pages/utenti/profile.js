@@ -31,6 +31,7 @@ export function loadProfilePage() {
 										<br>
 										<a data-link href="/update_profile"><h3 class="text-white">`+text.p74+`</h3></a>
 										<a data-link href="/stats"><h3 class="text-white">`+text.p42+`</h3></a>
+										<a data-link href="/friend"><h3 class="text-white">`+text.p82+`</h3></a>
 										<h3 onclick="logout()" class="text-white">`+text.p43+`</h3>
 									</div>
 								</div>

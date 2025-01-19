@@ -228,9 +228,11 @@ export function loadStatsPage() {
 			<div class="d-flex flex-column justify-content-center align-items-center">
 				<h1 class="text-white text-center">`+text.p60+`</h1>
 				<h2 class="text-white text-center">`+text.p61+`</h2>
-                <a onclick="updatestats('lp24')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p4+`</a>
-                <a onclick="updatestats('lpia')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p44+`</a>
-                <a onclick="updatestats('lt24')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p52+`</a>
+				<div class="d-flex justify-content-start mt-3">
+					<a onclick="updatestats('lp24')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p4+`</a>
+					<a onclick="updatestats('lpia')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p44+`</a>
+					<a onclick="updatestats('lt24')" class="btn btn-primary h4 px-2 link-secondary text-white mt-3">`+text.p52+`</a>
+				</div>
                 <br><br>
 				<div id="statsid" class="d-flex flex-column align-items-center w-100"></div>
 			</div>`;
