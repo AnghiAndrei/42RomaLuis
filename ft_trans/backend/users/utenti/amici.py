@@ -51,11 +51,11 @@ def apcet_request_friend(request):
             return HttpResponse(status=401)
 
         data = json.loads(request.body.decode('utf-8'))
-        required_fields = ['id_request']
+        required_fields = ['id_req_friendo']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        richiesta = RiquestFriend.objects.filter(id=data['id_request'])
+        richiesta = RiquestFriend.objects.filter(id=data['id_req_friendo'])
         if not richiesta:
             return HttpResponse(status=204)
 
@@ -85,16 +85,15 @@ def refuse_request_friend(request):
             return HttpResponse(status=401)
 
         data = json.loads(request.body.decode('utf-8'))
-        required_fields = ['id_request']
+        required_fields = ['id_req_friendo']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        richiesta = RiquestFriend.objects.filter(id=data['id_request'])
+        richiesta = RiquestFriend.objects.filter(id=data['id_req_friendo'])
         if not richiesta:
             return HttpResponse(status=204)
 
         richiesta.delete()
-
         return HttpResponse(status=200)
 
     except Exception as e:
@@ -113,11 +112,11 @@ def remove_friend(request):
             return HttpResponse(status=401)
 
         data = json.loads(request.body.decode('utf-8'))
-        required_fields = ['id_friend']
+        required_fields = ['id_req_friendo']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        amico = Amici.objects.filter(id=data['id_friend'])
+        amico = Amici.objects.filter(id=data['id_req_friendo'])
         if not amico:
             return HttpResponse(status=204)
         amico.delete()

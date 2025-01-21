@@ -1,6 +1,54 @@
 import { navigateTo } from './../../js/router.js';
 import { logout } from './../../js/assets.js';
 
+window.accetta_rifuita_richiesta_rimuovi_amico=accetta_rifuita_richiesta_rimuovi_amico;
+function accetta_rifuita_richiesta_rimuovi_amico(id, operazione) {
+    if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
+    import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
+    .then((module) => {
+        const text = module.text;
+        const query = document.getElementById("searchBar").value;
+		let link;
+		if(operazione=="accetta") link=`https://localhost:8000/users/apcet_request_friend`;
+		if(operazione=="rifiuta") link=`https://localhost:8000/users/refuse_request_friend`;
+		if(operazione=="rimuoviamico") link=`https://localhost:8000/users/remove_friend`;
+		else{
+			const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+			modal2.show();
+			document.getElementById('ERROREMessage').innerHTML=text.p92;
+			return ;
+		}
+        fetch(link, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
+            },
+			body: JSON.stringify({ id_req_friendo: id }),
+        })
+        .then(response => {
+            const status = response.status;
+            if (status == 200) {
+                navigateTo("friend");
+            } else if (status == 401){
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p67;
+                logout();
+            } else {
+				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p92;
+            }
+        })
+        .catch(error => {
+            const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+			modal2.show();
+			document.getElementById('ERROREMessage').innerHTML=text.p92;
+        });
+    });
+}
+
 function send_request(nome) {
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
     import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
@@ -126,6 +174,8 @@ function updatepagefriendo(data) {
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
 							li.onclick = send_request();
                             li.innerHTML = `
+								<img onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')" src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/>
+                                <span> | </span>
                                 <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${listaamici.nome}</span>`;
                             friendList.appendChild(li);
@@ -174,6 +224,9 @@ function updatepagefriendo(data) {
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
 							li.onclick = send_request();
                             li.innerHTML = `
+								<img onclick="rifuitaamicizia(${listaamici.idrichiesta}, 'rifiuta')" src="./../img/amici/rifuita.gif" alt="${listaamici.nome}" class="me-3" width="40" height="40"/>
+								<img onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idrichiesta}, 'accetta')" src="./../img/amici/accetta.gif" alt="${listaamici.nome}" class="me-3" width="40" height="40"/>
+                                <span> | </span>
                                 <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${listaamici.nome}</span>`;
                             friendList.appendChild(li);
