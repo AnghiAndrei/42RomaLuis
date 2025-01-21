@@ -90,7 +90,7 @@ export let text = {
     p89: "Aggiungi amici",
     p90: "Nessun potenziale amico trovato",
     p91: "Cerca il tuo potenziale amico",
-    p92: "",
+    p92: "Erroro nel spedire la richiesta",
     p93: "",
     p94: "",
     p95: "",

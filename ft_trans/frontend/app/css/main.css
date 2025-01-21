@@ -3,5 +3,6 @@ html, body {background-color: rgb(23, 2, 41);margin: 0;padding: 0;height: 100vh;
 .w-70{width: 70%;}
 canvas{border: 2px solid white;background-color: #111;}
 .mybg{background-color: rgb(23, 2, 41);}
+.mybg2{background-color:rgba(23, 2, 41, 0.800);}
 
 .titanic{float: none;}

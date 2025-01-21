@@ -216,7 +216,13 @@ def search_friend(request):
         utenti = Utenti.objects.exclude(id=id_user).filter(nome__icontains=query)
         amici_list = []
         for amico in utenti:
-            amici_list.append({ "nome": amico.nome, "imgfriend": amico.img.url })
+            utenti = RiquestFriend.objects.filter(to=amico.id)
+            utenti = utenti.filter(sender=id_user)
+            if not utenti:
+                amico = RiquestFriend.objects.filter(id_user_2=amico.id)
+                amico = amico.filter(id_user_1=id_user)
+                if not amico:
+                    amici_list.append({ "nome": amico.nome, "imgfriend": amico.img.url })
 
         return JsonResponse({"lista_amici": amici_list}, status=200)
 

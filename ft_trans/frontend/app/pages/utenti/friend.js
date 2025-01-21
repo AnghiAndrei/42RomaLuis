@@ -1,6 +1,43 @@
 import { navigateTo } from './../../js/router.js';
 import { logout } from './../../js/assets.js';
 
+function send_request(nome) {
+    if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
+    import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
+    .then((module) => {
+        const text = module.text;
+        const query = document.getElementById("searchBar").value;
+        fetch(`https://localhost:8000/users/send_request_friend`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
+            },
+			body: JSON.stringify({ nome_frind: nome }),
+        })
+        .then(response => {
+            const status = response.status;
+            if (status == 200) {
+                navigateTo("friend");
+            } else if (status == 401){
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p67;
+                logout();
+            } else {
+				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p92;
+            }
+        })
+        .catch(error => {
+            const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+			modal2.show();
+			document.getElementById('ERROREMessage').innerHTML=text.p92;
+        });
+    });
+}
+
 window.searchFriend=searchFriend;
 function searchFriend() {
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -25,6 +62,7 @@ function searchFriend() {
                         lista_amici.forEach(amico => {
                             const li = document.createElement("li");
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
+							li.onclick = send_request();
                             li.innerHTML = `
                                 <img src="./../img/${amico.imgfriend}" alt="${amico.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${amico.nome}</span>`;
@@ -80,21 +118,17 @@ function updatepagefriendo(data) {
 					return response.json().then(data => {
 						let listaamici=data.richiesta_list;
 						const content = document.getElementById('amicirichieste');
-						content.innerHTML = `<table id="amici" class="w-70"></table>`;
+						content.innerHTML = `<ul id="friendList2" class="list-group mt-3 mybg2"></ul>`;
 
-						const tableBody = document.getElementById('amici');
+						const friendList = document.getElementById('friendList2');
 						listaamici.forEach(listaamici => {
-							const row = document.createElement('tr');
-							row.innerHTML = `
-								<td><img src="./../img/`+listaamici.img+`" alt="mdo" width="32" height="32" class="rounded-circle"></td>
-								<td><h2 class="text-white p-3">`+listaamici.img+`</h2></td>
-								<td><br></td>
-								<td><h2 class="text-white p-3">`+text.p84+`</h2></td>
-							`;
-							tableBody.appendChild(row);
-                            const row2 = document.createElement('tr');
-							row2.innerHTML = `<td colspa="3"><br></td>`;
-							tableBody.appendChild(row2);
+							const li = document.createElement("li");
+                            li.classList.add("list-group-item", "d-flex", "align-items-center");
+							li.onclick = send_request();
+                            li.innerHTML = `
+                                <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
+                                <span>${listaamici.nome}</span>`;
+                            friendList.appendChild(li);
 						});
 					});
 				} else if (status == 400){
@@ -132,24 +166,17 @@ function updatepagefriendo(data) {
 					return response.json().then(data => {
 						let listaamici=data.lista_richiesta;
 						const content = document.getElementById('amicirichieste');
-						content.innerHTML = `<table id="amici" class="w-70"></table>`;
+						content.innerHTML = `<ul id="friendList3" class="list-group mt-3 mybg2"></ul>`;
 
-						const tableBody = document.getElementById('amici');
+						const friendList = document.getElementById('friendList3');
 						listaamici.forEach(listaamici => {
-							const row = document.createElement('tr');
-							row.innerHTML = `
-								<td><img src="./../img/`+listaamici.img+`" alt="mdo" width="32" height="32" class="rounded-circle"></td>
-								<td><h2 class="text-white p-3">`+listaamici.img+`</h2></td>
-								<td><br></td>
-								<td>
-                                    <h2 class="text-white p-3">`+text.p86+`</h2>
-                                    <h2 class="text-white p-3">`+text.p85+`</h2>
-                                </td>
-							`;
-							tableBody.appendChild(row);
-                            const row2 = document.createElement('tr');
-							row2.innerHTML = `<td colspa="3"><br></td>`;
-							tableBody.appendChild(row2);
+							const li = document.createElement("li");
+                            li.classList.add("list-group-item", "d-flex", "align-items-center");
+							li.onclick = send_request();
+                            li.innerHTML = `
+                                <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
+                                <span>${listaamici.nome}</span>`;
+                            friendList.appendChild(li);
 						});
 					});
 				} else if (status == 400){
@@ -177,7 +204,7 @@ function updatepagefriendo(data) {
             const content = document.getElementById('amicirichieste');
             content.innerHTML = `<div class="container mt-4">
                                     <input type="text" id="searchBar" class="form-control" placeholder="`+text.p91+`" onkeyup="searchFriend()" />
-                                    <ul id="friendList" class="list-group mt-3"></ul>
+                                    <ul id="friendList" class="list-group mt-3 mybg2"></ul>
                                 </div>`;
         }
     })
