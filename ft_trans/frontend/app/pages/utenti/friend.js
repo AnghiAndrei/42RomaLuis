@@ -1,17 +1,25 @@
 import { navigateTo } from './../../js/router.js';
 import { logout } from './../../js/assets.js';
 
+function messaggidiv(){
+	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
+    import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
+    .then((module) => {
+        const text = module.text;
+		document.getElementById('messaggidiv').display="block";
+    });
+}
+
 window.accetta_rifuita_richiesta_rimuovi_amico=accetta_rifuita_richiesta_rimuovi_amico;
-function accetta_rifuita_richiesta_rimuovi_amico(id, operazione) {
+function accetta_rifuita_richiesta_rimuovi_amico(id, op) {
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
     import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
     .then((module) => {
         const text = module.text;
-        const query = document.getElementById("searchBar").value;
 		let link;
-		if(operazione=="accetta") link=`https://localhost:8000/users/apcet_request_friend`;
-		if(operazione=="rifiuta") link=`https://localhost:8000/users/refuse_request_friend`;
-		if(operazione=="rimuoviamico") link=`https://localhost:8000/users/remove_friend`;
+		if(op=="accetta") link="https://localhost:8000/users/apcet_request_friend";
+		else if(op=="rifiuta") link="https://localhost:8000/users/refuse_request_friend";
+		else if(op=="rimuoviamico") link="https://localhost:8000/users/remove_friend";
 		else{
 			const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 			modal2.show();
@@ -42,6 +50,7 @@ function accetta_rifuita_richiesta_rimuovi_amico(id, operazione) {
             }
         })
         .catch(error => {
+			alert(error);
             const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 			modal2.show();
 			document.getElementById('ERROREMessage').innerHTML=text.p92;
@@ -54,7 +63,6 @@ function send_request(nome) {
     import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
     .then((module) => {
         const text = module.text;
-        const query = document.getElementById("searchBar").value;
         fetch(`https://localhost:8000/users/send_request_friend`, {
             method: 'POST',
             headers: {
@@ -109,8 +117,8 @@ function searchFriend() {
                     if (lista_amici && lista_amici.length > 0) {
                         lista_amici.forEach(amico => {
                             const li = document.createElement("li");
-                            li.classList.add("list-group-item", "d-flex", "align-items-center");
-							li.onclick = send_request();
+                            li.classList.add("point", "list-group-item", "d-flex", "align-items-center");
+							li.onclick = () => send_request(amico.nome);
                             li.innerHTML = `
                                 <img src="./../img/${amico.imgfriend}" alt="${amico.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${amico.nome}</span>`;
@@ -148,6 +156,11 @@ function searchFriend() {
 
 window.updatepagefriendo=updatepagefriendo;
 function updatepagefriendo(data) {
+	const audio = document.getElementById("lonely");
+	if (audio && !audio.paused){
+		audio.pause();
+		audio.currentTime = 0;
+	}
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
     import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
     .then((module) => {
@@ -164,17 +177,21 @@ function updatepagefriendo(data) {
 				const status = response.status;
 				if (status == 200) {
 					return response.json().then(data => {
-						let listaamici=data.richiesta_list;
+						let listaamici=data.lista_amici;
 						const content = document.getElementById('amicirichieste');
-						content.innerHTML = `<ul id="friendList2" class="list-group mt-3 mybg2"></ul>`;
-
+						content.innerHTML = `<div class="row align-items-center w-100">
+												<div class="col-md-6"><ul id="friendList2" class="list-group mt-3"></ul></div>
+												<div class="col-md-6">
+													<div class="invible" id="messaggidiv"></div>
+												</div>
+											</div>`;
 						const friendList = document.getElementById('friendList2');
 						listaamici.forEach(listaamici => {
 							const li = document.createElement("li");
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
-							li.onclick = send_request();
                             li.innerHTML = `
-								<img onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')" src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/>
+								<span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')"><img src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/></span>
+								<span class="point" onclick="messaggi()"><img src="./../img/amici/message.png" class="me-3" width="40" height="40"/></span>
                                 <span> | </span>
                                 <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${listaamici.nome}</span>`;
@@ -185,7 +202,9 @@ function updatepagefriendo(data) {
 					const content = document.getElementById('amicirichieste');
 					content.innerHTML = `
                         <h2 class="text-white text-center">`+text.p87+`</h2>
-                        <audio controls><source src="./../../song/lonely.mp3" type="audio/mpeg"></audio>`;
+                        <audio controls id="lonely" style="display: none;"><source src="./../../song/lonely.mp3" type="audio/mp3"></audio>`;
+					const audio = document.getElementById("lonely");
+					audio.play();
 				} else if (status == 401){
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 					modal2.show();
@@ -218,16 +237,15 @@ function updatepagefriendo(data) {
 					return response.json().then(data => {
 						let listaamici=data.lista_richiesta;
 						const content = document.getElementById('amicirichieste');
-						content.innerHTML = `<ul id="friendList3" class="list-group mt-3 mybg2"></ul>`;
+						content.innerHTML = `<ul id="friendList3" class="list-group mt-3"></ul>`;
 
 						const friendList = document.getElementById('friendList3');
 						listaamici.forEach(listaamici => {
 							const li = document.createElement("li");
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
-							li.onclick = send_request();
                             li.innerHTML = `
-								<img onclick="rifuitaamicizia(${listaamici.idrichiesta}, 'rifiuta')" src="./../img/amici/rifuita.gif" alt="${listaamici.nome}" class="me-3" width="40" height="40"/>
-								<img onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idrichiesta}, 'accetta')" src="./../img/amici/accetta.gif" alt="${listaamici.nome}" class="me-3" width="40" height="40"/>
+								<span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idrichiesta}, 'rifiuta')"><img src="./../img/amici/rifuita.gif" alt="${listaamici.nome}" class="me-3" width="40" height="40"/></span>
+								<span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idrichiesta}, 'accetta')"><img  src="./../img/amici/accetta.gif" alt="${listaamici.nome}" class="me-3" width="40" height="40"/></span>
                                 <span> | </span>
                                 <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${listaamici.nome}</span>`;
@@ -259,7 +277,7 @@ function updatepagefriendo(data) {
             const content = document.getElementById('amicirichieste');
             content.innerHTML = `<div class="container mt-4">
                                     <input type="text" id="searchBar" class="form-control" placeholder="`+text.p91+`" onkeyup="searchFriend()" />
-                                    <ul id="friendList" class="list-group mt-3 mybg2"></ul>
+                                    <ul id="friendList" class="list-group mt-3"></ul>
                                 </div>`;
         }
     })

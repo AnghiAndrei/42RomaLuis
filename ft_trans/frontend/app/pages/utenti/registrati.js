@@ -21,14 +21,15 @@ export function loadRegistraPage() {
             <input type="text" class="form-control text-black" id="nome" placeholder="`+text.p6+`">
             <label class="text-black" for="nome">`+text.p6+`</label>
           </div>
-          <label for="sessoinput" class="form-label">`+text.p93+`</label>
+		  <br>
+          <label for="sessoinput" class="form-label text-white">`+text.p93+`</label>
           <select class="form-select" id="sessoinput">
-            <option value="male">`+text.p84+`</option>
-            <option value="male">`+text.p94+`</option>
-            <option value="female">`+text.p86+`</option>
-            <option value="female">`+text.p85+`</option>
+            <option value="`+text.p84+`">`+text.p84+`</option>
+            <option value="`+text.p86+`">`+text.p86+`</option>
+            <option value="`+text.p85+`">`+text.p85+`</option>
+            <option value="`+text.p94+`">`+text.p94+`</option>
           </select>
-          <br>
+          <br><br>
           <div class="form-floating">
             <input type="password" class="form-control text-black" id="password" placeholder="`+text.p40+`">
             <label class="text-black" for="password">`+text.p40+`</label>
@@ -37,14 +38,13 @@ export function loadRegistraPage() {
             <input type="password" class="form-control text-black" id="conferpassword" placeholder="`+text.p6+`">
             <label class="text-black" for="conferpassword">`+text.p6+`</label>
           </div>
-          <h2 id="testoerrore" class="text-white"></h2>
+          <h2 id="testoerrore" class="text-white text-center"></h2>
           <button class="btn btn-primary w-100 py-2" id="registra">`+text.p8+`</button>
           <p class="mt-5 mb-3">
             <a data-link href="/login" class="h4 px-2 link-secondary text-white">`+text.p9+`</a>
           </p>
         </main>
-      </main>
-    `;
+      </main>`;
     document.getElementById('registra').addEventListener('click', () => {
       let email=document.getElementById('email').value;
       let nome=document.getElementById('nome').value;

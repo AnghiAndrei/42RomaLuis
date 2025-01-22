@@ -35,7 +35,7 @@ def registrati(request):
         utenti=Utenti(
             nome=data['nome'],
             email=data['email'],
-            password=make_password(data['password'])
+            password=make_password(data['password']),
             sesso=data['sesso'],
         )
         utenti.save()

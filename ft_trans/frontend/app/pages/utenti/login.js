@@ -20,14 +20,13 @@ export function loadLoginPage() {
             <input type="password" class="form-control text-black" id="password" placeholder="`+text.p40+`">
             <label class="text-black" for="password">`+text.p40+`</label>
           </div>
-          <h2 id="testoerrore" class="text-white"></h2>
+          <h2 id="testoerrore" class="text-white text-center"></h2>
           <button class="btn btn-primary w-100 py-2" id="loggin">`+text.p11+`</button>
           <p class="mt-5 mb-3">
             <a data-link href="/registrati" class="h4 px-2 link-secondary text-white">`+text.p12+`</a>
           </p>
         </main>
-      </div>
-    `;
+      </div>`;
     document.getElementById('loggin').addEventListener('click', () => {
       let email=document.getElementById('email').value;
       let password=document.getElementById('password').value;

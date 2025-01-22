@@ -16,11 +16,10 @@ export function load2faPage() {
             <input type="text" class="form-control text-black" id="codeotp" placeholder="`+text.p14+`">
             <label class="text-black" for="codeotp">`+text.p14+`</label>
           </div>
-          <h2 id="testoerrore" class="text-white"></h2>
+          <h2 id="testoerrore" class="text-white text-center"></h2>
           <button class="btn btn-primary w-100 py-2" id="valid">`+text.p15+`</button>
         </main>
-      </div>
-    `;
+      </div>`;
     document.getElementById('valid').addEventListener('click', () => {
 
       let codeotp=document.getElementById('codeotp').value;

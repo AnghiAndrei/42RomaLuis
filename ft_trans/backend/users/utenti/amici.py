@@ -23,7 +23,7 @@ def send_request_friend(request):
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        amico = Utenti.objects.filter(nome=data['nome_frind'])
+        amico = Utenti.objects.filter(nome=data['nome_frind']).first()
         if not amico:
             return HttpResponse(status=204)
 
@@ -55,13 +55,13 @@ def apcet_request_friend(request):
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
-        richiesta = RiquestFriend.objects.filter(id=data['id_req_friendo'])
+        richiesta = RiquestFriend.objects.filter(id=data['id_req_friendo']).first()
         if not richiesta:
             return HttpResponse(status=204)
 
         amicidata=Amici(
-            id_utente1=richiesta.sender,
-            id_utente2=richiesta.to
+            id_user_1=richiesta.sender,
+            id_user_2=richiesta.to
         )
         amicidata.save()
 
@@ -213,15 +213,13 @@ def search_friend(request):
             return JsonResponse({"lista_amici": []}, status=400)
 
         utenti = Utenti.objects.exclude(id=id_user).filter(nome__icontains=query)
-        amici_list = []
-        for amico in utenti:
-            utenti = RiquestFriend.objects.filter(to=amico.id)
-            utenti = utenti.filter(sender=id_user)
-            if not utenti:
-                amico = RiquestFriend.objects.filter(id_user_2=amico.id)
-                amico = amico.filter(id_user_1=id_user)
-                if not amico:
-                    amici_list.append({ "nome": amico.nome, "imgfriend": amico.img.url })
+
+        utenti = utenti.exclude(id__in=RiquestFriend.objects.filter(sender=id_user).values_list('to', flat=True)
+        ).exclude(id__in=RiquestFriend.objects.filter(to=id_user).values_list('sender', flat=True)
+        ).exclude(id__in=Amici.objects.filter(id_user_1=id_user).values_list('id_user_2', flat=True)
+        ).exclude(id__in=Amici.objects.filter(id_user_2=id_user).values_list('id_user_1', flat=True))
+
+        amici_list = [{"nome": amico.nome, "imgfriend": amico.img.url} for amico in utenti]
 
         return JsonResponse({"lista_amici": amici_list}, status=200)
 

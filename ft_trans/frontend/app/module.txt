@@ -1,7 +1,7 @@
 Major module:
     [X] Use a Framework as backend
     [-] Standard user management, authentication, users across tournaments (
-            Users can add others as friends and view their online status
+            view their online status
         )
     [ ] Implementing a remote authentication(
             OAuth 2.0 authentication with 42
@@ -10,6 +10,7 @@ Major module:
     [X] Introduce an AI Opponent
     [X] Implement Two-Factor Authentication (2FA) and JWT
     [X] Designing the Backend as Microservices
+    [ ] Live Chat
 
 Minor module:
     [X] Use a front-end framework or toolkit
@@ -26,4 +27,3 @@ Major module:
     Add Another Game with User History and Matchmaking
     Store the score of a tournament in the Blockchain
     Remote players
-    Live Chat
