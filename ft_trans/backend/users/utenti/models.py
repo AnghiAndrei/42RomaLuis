@@ -5,6 +5,7 @@ class Utenti(models.Model):
     nome = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
+    sesso = models.CharField(max_length=20)
     img = models.ImageField(upload_to='img_users/', default='./img_users/_default.png')
 
 class RiquestFriend(models.Model):

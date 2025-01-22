@@ -10,7 +10,6 @@ Major module:
     [X] Introduce an AI Opponent
     [X] Implement Two-Factor Authentication (2FA) and JWT
     [X] Designing the Backend as Microservices
-    [-] Live Chat
 
 Minor module:
     [X] Use a front-end framework or toolkit
@@ -27,3 +26,4 @@ Major module:
     Add Another Game with User History and Matchmaking
     Store the score of a tournament in the Blockchain
     Remote players
+    Live Chat

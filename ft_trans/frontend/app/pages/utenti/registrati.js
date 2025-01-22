@@ -21,6 +21,13 @@ export function loadRegistraPage() {
             <input type="text" class="form-control text-black" id="nome" placeholder="`+text.p6+`">
             <label class="text-black" for="nome">`+text.p6+`</label>
           </div>
+          <label for="sessoinput" class="form-label">`+text.p93+`</label>
+          <select class="form-select" id="sessoinput">
+            <option value="male">`+text.p84+`</option>
+            <option value="male">`+text.p94+`</option>
+            <option value="female">`+text.p86+`</option>
+            <option value="female">`+text.p85+`</option>
+          </select>
           <br>
           <div class="form-floating">
             <input type="password" class="form-control text-black" id="password" placeholder="`+text.p40+`">
@@ -43,11 +50,24 @@ export function loadRegistraPage() {
       let nome=document.getElementById('nome').value;
       let password=document.getElementById('password').value;
       let conferpassword=document.getElementById('conferpassword').value;
+      let sesso=document.getElementById('sessoinput').value;
 
-	  if(email=="" || nome=="" || password=="" || conferpassword=="" || isEmptyOrWhitespace(email) || isEmptyOrWhitespace(nome)){
-		document.getElementById('testoerrore').innerHTML=text.p72;
+      if(email=="" || nome=="" || password=="" || conferpassword=="" || sesso=="" || isEmptyOrWhitespace(email) || isEmptyOrWhitespace(nome)){
+        document.getElementById('testoerrore').innerHTML=text.p72;
         return;
-	  }
+      }
+
+      if(sesso==text.p84) sesso='p84';
+      else if(sesso==text.p94){
+        document.getElementById('testoerrore').innerHTML=text.p95;
+        return;
+      }
+      else if(sesso==text.p86) sesso='p86';
+      else if(sesso==text.p85) sesso='p85';
+      else{
+        document.getElementById('testoerrore').innerHTML=text.p72;
+        return;
+      }
 
       if(conferpassword != password){
         document.getElementById('testoerrore').innerHTML=text.p50;
@@ -63,6 +83,7 @@ export function loadRegistraPage() {
           nome: nome,
           email: email,
           password: password,
+          sesso: sesso,
       }),
       })
       .then(response => {

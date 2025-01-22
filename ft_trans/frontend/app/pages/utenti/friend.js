@@ -183,7 +183,9 @@ function updatepagefriendo(data) {
 					});
 				} else if (status == 400){
 					const content = document.getElementById('amicirichieste');
-					content.innerHTML = `<h2 class="text-white text-center">`+text.p87+`</h2>`;
+					content.innerHTML = `
+                        <h2 class="text-white text-center">`+text.p87+`</h2>
+                        <audio controls><source src="./../../song/lonely.mp3" type="audio/mpeg"></audio>`;
 				} else if (status == 401){
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 					modal2.show();

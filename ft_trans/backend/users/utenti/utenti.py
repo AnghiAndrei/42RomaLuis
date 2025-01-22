@@ -15,7 +15,7 @@ import os
 def registrati(request):
     try:
         data = json.loads(request.body.decode('utf-8'))
-        required_fields = ['nome', 'email', 'password']
+        required_fields = ['nome', 'email', 'password', 'sesso']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
 
@@ -36,6 +36,7 @@ def registrati(request):
             nome=data['nome'],
             email=data['email'],
             password=make_password(data['password'])
+            sesso=data['sesso'],
         )
         utenti.save()
 
