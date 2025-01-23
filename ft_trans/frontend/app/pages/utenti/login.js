@@ -1,5 +1,6 @@
 import { navigateTo } from './../../js/router.js';
 import { isEmptyOrWhitespace } from './../../js/assets.js';
+import { hashPassword } from './zz_assets.js';
 
 export function loadLoginPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -35,6 +36,8 @@ export function loadLoginPage() {
         document.getElementById('testoerrore').innerHTML=text.p72;
         return;
       }
+
+      hashPassword(password).then(hash => {password=hash;});
 
       fetch('https://localhost:8000/users/login', {
         method: 'POST',

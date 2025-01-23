@@ -10,20 +10,17 @@ Major module:
     [X] Introduce an AI Opponent
     [X] Implement Two-Factor Authentication (2FA) and JWT
     [X] Designing the Backend as Microservices
-    [ ] Live Chat
+    [ ] Live Chat(
+        The user should be able to send direct messages to other users.
+        The user should be able to block other users. This way, they will see no more messages from the account they blocked.
+        The user should be able to invite other users to play a Pong game through the chat interface.
+        The tournament system should be able to warn users expected for the next game.
+        The user should be able to access other players profiles through the chat interface.
+    )
 
 Minor module:
     [X] Use a front-end framework or toolkit
     [X] Use a database for the backend-and more
     [X] Game Customization Options
-    [X] User and Game Stats Dashboards
     [X] Expanding Browser Compatibility
     [X] Multiple language supports
-
-/* INTRESSANTI DA FARE */
-Major module:
-    Implement WAF/ModSecurity with Hardened Configuration and HashiCorp Vault for Secrets Management
-    GDPR Compliance Options with User Anonymization, Local Data Management, and Account Deletion
-    Add Another Game with User History and Matchmaking
-    Store the score of a tournament in the Blockchain
-    Remote players

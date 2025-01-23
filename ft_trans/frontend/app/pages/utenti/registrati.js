@@ -1,6 +1,7 @@
 import { updateNavbar } from './../../js/assets.js';
 import { navigateTo } from './../../js/router.js';
 import { isEmptyOrWhitespace } from './../../js/assets.js';
+import { hashPassword } from './zz_assets.js';
 
 export function loadRegistraPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -73,6 +74,8 @@ export function loadRegistraPage() {
         document.getElementById('testoerrore').innerHTML=text.p50;
         return;
       }
+
+      hashPassword(password).then(hash => {password=hash;});
 
       fetch('https://localhost:8000/users/registrati', {
         method: 'POST',

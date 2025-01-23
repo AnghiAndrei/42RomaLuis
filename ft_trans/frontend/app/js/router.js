@@ -71,6 +71,11 @@ export function router() {
 		  	const modal = bootstrap.Modal.getInstance(document.getElementById('gameOverModal'));
 		if(modal) modal.hide();
 	}
+	const audio = document.getElementById("lonely");
+	if (audio && !audio.paused){
+		audio.pause();
+		audio.currentTime = 0;
+	}
 	if(potentialMatch.path!='/2fa')
 		sessionStorage.removeItem('tempjwt');
 	const isRelevantPath = ['/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);

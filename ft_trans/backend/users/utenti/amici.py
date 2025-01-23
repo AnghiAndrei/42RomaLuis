@@ -28,8 +28,8 @@ def send_request_friend(request):
             return HttpResponse(status=204)
 
         amicidata=RiquestFriend(
-            sender=id_user,
-            to=amico.id
+            sender=amico.id,
+            to=id_user
         )
         amicidata.save()
 
