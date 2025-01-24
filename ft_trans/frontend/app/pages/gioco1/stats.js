@@ -7,7 +7,7 @@ function updatestats(data) {
     .then((module) => {
         const text = module.text;
 		if(data=="lp24" || data=="lpia"){
-			fetch('https://localhost:8000/g1/get_game', {
+			fetch(sessionStorage.getItem("hostapp")+'/g1/get_game', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ function updatestats(data) {
 				document.getElementById('ERROREMessage').innerHTML=text.p66;
 			});
 		} else if(data=="lt24"){
-			fetch('https://localhost:8000/g1/get_tornament', {
+			fetch(sessionStorage.getItem("hostapp")+'/g1/get_tornament', {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',

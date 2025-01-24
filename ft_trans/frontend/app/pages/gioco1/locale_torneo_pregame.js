@@ -138,7 +138,7 @@ class Torneo {
 		if(win==sessionStorage.getItem('tp1'))
 			esito="V";
 
-		fetch('https://localhost:8000/g1/set_tornament', {
+		fetch(sessionStorage.getItem("hostapp")+'/g1/set_tornament', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

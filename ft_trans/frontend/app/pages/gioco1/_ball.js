@@ -215,7 +215,7 @@ export class Ball {
 				gioco="lp24"; //normale
 
 			if(sessionStorage.getItem('ia')!='torneo'){
-				fetch('https://localhost:8000/g1/set_game', {
+				fetch(sessionStorage.getItem("hostapp")+'/g1/set_game', {
 					method: 'POST',
 					headers: {
 					  'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ export function loadProfilePage() {
 	import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
 	.then((module) => {
 		const text = module.text;
-		fetch('https://localhost:8000/users/profile', {
+		fetch(sessionStorage.getItem("hostapp")+'/users/profile', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

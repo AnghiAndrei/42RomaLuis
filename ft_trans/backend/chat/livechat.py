@@ -1,9 +1,9 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
-class LiveChat(AsyncWebsocketConsumer):
+class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
+        self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = f'chat_{self.room_name}'
 
         await self.channel_layer.group_add(
@@ -20,12 +20,18 @@ class LiveChat(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        message = data['message']
+        required_fields = ['message']
+        if not all(field in data for field in required_fields):
+            return
+
+        if data['message'] is None:
+            return
+
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message,
+                'message': data['message'],
             }
         )
 

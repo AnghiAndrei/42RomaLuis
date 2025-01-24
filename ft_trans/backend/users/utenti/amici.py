@@ -27,6 +27,10 @@ def send_request_friend(request):
         if not amico:
             return HttpResponse(status=204)
 
+        amicoceck = RiquestFriend.objects.filter(sender=amico.id).first()
+        if amicoceck:
+            return HttpResponse(status=207)
+
         amicidata=RiquestFriend(
             sender=id_user,
             to=amico.id

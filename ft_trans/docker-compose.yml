@@ -2,6 +2,7 @@ services:
   # reverse-proxy
   proxy:
     container_name: proxy
+    restart: always
     build:
       context: ./proxy
       dockerfile: Dockerfile
@@ -17,6 +18,7 @@ services:
   # FrontEnd Node.js
   frontend-node:
     container_name: frontend-node
+    restart: always
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -28,6 +30,7 @@ services:
   # BackEnd DJango Users
   backend-django-users:
     container_name: backend-django-users
+    restart: always
     build:
       context: ./backend/users
       dockerfile: Dockerfile
@@ -40,9 +43,23 @@ services:
     depends_on:
       - postgres
 
+  # BackEnd Chat
+  backend-django-chat:
+    container_name: backend-django-chat
+    build:
+      context: ./backend/chat
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - proxy
+    ports:
+      - "8005:8005"
+
   # BackEnd DJango Game1
   backend-django-game1:
     container_name: backend-django-game1
+    restart: always
     build:
       context: ./backend/game1
       dockerfile: Dockerfile
@@ -57,6 +74,7 @@ services:
   postgres:
     container_name: postgres
     image: postgres
+    restart: always
     env_file:
       - .env
     networks:

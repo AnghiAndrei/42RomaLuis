@@ -39,7 +39,7 @@ export function loadLoginPage() {
 
       hashPassword(password).then(hash => {password=hash;});
 
-      fetch('https://localhost:8000/users/login', {
+      fetch(sessionStorage.getItem("hostapp")+'/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

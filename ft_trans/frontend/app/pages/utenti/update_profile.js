@@ -6,7 +6,7 @@ export function loadModifyPage() {
 	import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
 	.then((module) => {
 		const text = module.text;
-		fetch('https://localhost:8000/users/profile', {
+		fetch(sessionStorage.getItem("hostapp")+'/users/profile', {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export function loadModifyPage() {
 								formData.append('img', file);
 							}
 
-							fetch('https://localhost:8000/users/modify', {
+							fetch(sessionStorage.getItem("hostapp")+'/users/modify', {
 							  method: 'POST',
 							  headers: { 'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'), },
 							  body: formData

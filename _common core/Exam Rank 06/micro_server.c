@@ -17,7 +17,7 @@ int serverfd, maxfd=0, gfd=0;
 char send_msg[1000000], recive_msg[1000000];
 
 void send_all(int excludi, int server){
-	for(int i=0; i != maxfd; i++){
+	for(int i=0; i <= maxfd; i++){
 		if(i!=server && FD_ISSET(i, &writefd) && i != excludi)
 			if(send(i, send_msg, strlen(send_msg), 0) == -1){
 				write(2, "Fatal error\n", 12);

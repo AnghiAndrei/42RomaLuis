@@ -77,17 +77,17 @@ export function loadRegistraPage() {
 
       hashPassword(password).then(hash => {password=hash;});
 
-      fetch('https://localhost:8000/users/registrati', {
+      fetch(sessionStorage.getItem("hostapp")+'/users/registrati', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          nome: nome,
-          email: email,
-          password: password,
-          sesso: sesso,
-      }),
+			nome: nome,
+			email: email,
+			password: password,
+			sesso: sesso,
+		}),
       })
       .then(response => {
         const status = response.status;

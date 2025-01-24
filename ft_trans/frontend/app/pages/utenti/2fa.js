@@ -28,7 +28,7 @@ export function load2faPage() {
         return;
       }
 
-      fetch('https://localhost:8000/users/check_2fa', {
+      fetch(sessionStorage.getItem("hostapp")+'/users/check_2fa', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
