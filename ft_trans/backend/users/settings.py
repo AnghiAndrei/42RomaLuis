@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 
+ASGI_APPLICATION = 'utenti.asgi.application'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECRET_KEY = os.getenv('DJANGO_KEY')
 ROOT_URLCONF = 'utenti.url'

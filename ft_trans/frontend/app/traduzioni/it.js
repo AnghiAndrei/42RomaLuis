@@ -94,7 +94,7 @@ export let text = {
     p93: "Seleziona il tuo sesso: ",
     p94: "Tanto",
     p95: "Serio? : \\",
-    p96: "",
+    p96: "Errore nel mandare il messaggio",
     p97: "",
     p98: "",
     p99: "",

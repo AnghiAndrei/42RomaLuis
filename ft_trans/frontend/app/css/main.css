@@ -5,5 +5,6 @@ canvas{border: 2px solid white;background-color: #111;}
 .mybg{background-color: rgb(23, 2, 41);}
 .point{cursor: pointer;}
 .invible{display: none;}
+.h-50{min-height: 50vh;}
 
 .titanic{float: none;}

@@ -1,12 +1,43 @@
 import { navigateTo } from './../../js/router.js';
 import { logout } from './../../js/assets.js';
 
-function messaggidiv(){
+let socket;
+
+window.sendMessage=sendMessage;
+function sendMessage() {
+    if (socket.readyState === WebSocket.OPEN) {
+		socket.send(JSON.stringify({
+			message: document.getElementById('messageInput').value
+        }));
+		document.getElementById('messageInput').value = "";
+    } else {
+		const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+		modal2.show();
+		document.getElementById('ERROREMessage').innerHTML=text.p96;
+    }
+}
+
+window.messaggi=messaggi;
+function messaggi(id, nome, img){
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
     import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
     .then((module) => {
-        const text = module.text;
-		document.getElementById('messaggidiv').display="block";
+		const text = module.text;
+		const modal_messaggi = new bootstrap.Modal(document.getElementById('boxmessaggi'));
+        modal_messaggi.show();
+		document.getElementById('dickpic').src = "./../img/"+img;
+		document.getElementById('nomeamicomes').innerHTML=nome;
+
+		socket = new WebSocket(`ws://localhost:8003/chat/test_room/`);
+		socket.onopen = function (event) {;};
+		socket.onmessage = function (event) {
+			const data = JSON.parse(event.data);
+			const messageElement = document.createElement("div");
+    		messageElement.textContent = data.message;
+    		document.getElementById('chatContainer').appendChild(messageElement);
+		};
+		socket.onclose = function (event) {};
+		socket.onerror = function (error) {};
     });
 }
 
@@ -179,19 +210,14 @@ function updatepagefriendo(data) {
 					return response.json().then(data => {
 						let listaamici=data.lista_amici;
 						const content = document.getElementById('amicirichieste');
-						content.innerHTML = `<div class="row align-items-center w-100">
-												<div class="col-md-6"><ul id="friendList2" class="list-group mt-3"></ul></div>
-												<div class="col-md-6">
-													<div class="invible" id="messaggidiv"></div>
-												</div>
-											</div>`;
+						content.innerHTML = `<div class="row align-items-center w-100"><div class="col-md-6"><ul id="friendList2" class="list-group mt-3"></ul></div></div>`;
 						const friendList = document.getElementById('friendList2');
 						listaamici.forEach(listaamici => {
 							const li = document.createElement("li");
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
                             li.innerHTML = `
 								<span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')"><img src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/></span>
-								<span class="point" onclick="messaggi()"><img src="./../img/amici/message.png" class="me-3" width="40" height="40"/></span>
+								<span class="point" onclick="messaggi(${listaamici.idfriend}, '${listaamici.nome}', '${listaamici.imgfriend}')"><img src="./../img/amici/message.png" class="me-3" width="40" height="40"/></span>
                                 <span> | </span>
                                 <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
                                 <span>${listaamici.nome}</span>`;
@@ -300,6 +326,23 @@ export function loadFriendPage() {
                 </div>
                 <br><br>
 				<div id="amicirichieste" class="d-flex flex-column align-items-center w-100"></div>
+			</div>
+			<div class="modal fade" id="boxmessaggi" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="false">
+				<div class="modal-dialog modal-dialog-centered w-70">
+					<div class="modal-content mybg">
+						<div class="modal-header">
+							<img id="dickpic" src="" class="rounded-circle me-3" width="40" height="40"/>
+							<h1 class="text-white" id="nomeamicomes"></h1>
+						</div>
+						<div class="modal-body">
+							<div id="chatContainer" class="h-50"></div>
+							<div class="d-flex align-items-center mt-3">
+								<input id="messageInput" type="text" class="form-control me-2">
+								<h2 class="mb-0" onclick="sendMessage" style="cursor: pointer;"><img src="./../img/amici/send.png" width="25" height="25" /></h2>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>`;
     })
 }

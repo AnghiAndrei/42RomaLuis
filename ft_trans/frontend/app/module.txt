@@ -3,9 +3,6 @@ Major module:
     [-] Standard user management, authentication, users across tournaments (
             view their online status
         )
-    [ ] Implementing a remote authentication(
-            OAuth 2.0 authentication with 42
-        )
     [X] Multiple players
     [X] Introduce an AI Opponent
     [X] Implement Two-Factor Authentication (2FA) and JWT

@@ -28,8 +28,8 @@ def send_request_friend(request):
             return HttpResponse(status=204)
 
         amicidata=RiquestFriend(
-            sender=amico.id,
-            to=id_user
+            sender=id_user,
+            to=amico.id
         )
         amicidata.save()
 
@@ -177,7 +177,7 @@ def get_request(request):
         amici = RiquestFriend.objects.filter(to=id_user)
 
         for relazione in amici:
-            friend_id = relazione.to
+            friend_id = relazione.sender
             try:
                 amico = Utenti.objects.get(id=friend_id)
                 richieste_list.append({
