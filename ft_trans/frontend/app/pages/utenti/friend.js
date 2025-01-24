@@ -41,6 +41,7 @@ function messaggi(id, nome, img){
         document.getElementById('dickpic').src = "./../img/"+img;
         document.getElementById('nomeamicomes').innerHTML=nome;
         stanza=id;
+		document.getElementById('chatContainer').innerHTML="";
     });
 }
 
