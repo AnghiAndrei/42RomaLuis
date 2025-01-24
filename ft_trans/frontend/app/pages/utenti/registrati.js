@@ -97,6 +97,13 @@ export function loadRegistraPage() {
             sessionStorage.setItem('jwtToken', data.jwttoken);
             sessionStorage.setItem('tp1', data.nome);
             sessionStorage.setItem('p1', data.nome);
+            if (sessionStorage.getItem('jwtToken') != null){
+              const online_sock = new WebSocket(sessionStorage.getItem('hostsock')+'/online/'+sessionStorage.getItem('jwtToken')+"/");
+              online_sock.onopen = () => {};
+              online_sock.onmessage = (event) => {};
+              online_sock.onerror = (error) => {};
+              online_sock.onclose = () => {};
+            }
             navigateTo('/');
             updateNavbar();
           });

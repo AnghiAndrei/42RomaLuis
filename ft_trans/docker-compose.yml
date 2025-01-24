@@ -82,6 +82,15 @@ services:
     volumes:
       - db_postgres:/var/lib/postgresql/data
 
+  # Redis
+  redis:
+    container_name: redis
+    image: redis:latest
+    env_file:
+      - .env
+    networks:
+      - proxy
+
 # Networks configuration
 networks:
   proxy:

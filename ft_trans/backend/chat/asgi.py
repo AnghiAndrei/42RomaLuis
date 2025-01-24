@@ -2,6 +2,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
 from channels.auth import AuthMiddlewareStack
 from livechat import ChatConsumer
+from online import OnlineConsumer
 from django.urls import path
 import os
 
@@ -12,6 +13,7 @@ application = ProtocolTypeRouter({
     "websocket": AuthMiddlewareStack(
         URLRouter([
             path('chat/<str:room_name>/', ChatConsumer.as_asgi()),
+            path('online/<str:token>/', OnlineConsumer.as_asgi()),
         ])
     ),
 })

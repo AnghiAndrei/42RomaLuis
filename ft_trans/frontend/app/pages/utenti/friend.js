@@ -223,12 +223,28 @@ function updatepagefriendo(data) {
                         listaamici.forEach(listaamici => {
                             const li = document.createElement("li");
                             li.classList.add("list-group-item", "d-flex", "align-items-center");
-                            li.innerHTML = `
-                                <span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')"><img src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/></span>
-                                <span class="point" onclick="messaggi(${listaamici.idfriend}, '${listaamici.nome}', '${listaamici.imgfriend}')"><img src="./../img/amici/message.png" class="me-3" width="40" height="40"/></span>
-                                <span> | </span>
-                                <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
-                                <span>${listaamici.nome}</span>`;
+                            if (listaamici.online == true)
+                                li.innerHTML = `
+                                    <span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')"><img src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/></span>
+                                    <span class="point" onclick="messaggi(${listaamici.idfriend}, '${listaamici.nome}', '${listaamici.imgfriend}')"><img src="./../img/amici/message.png" class="me-3" width="40" height="40"/></span>
+                                    <span> | </span>
+                                    <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
+                                    <span>
+                                        ${listaamici.nome}
+                                        <br>
+                                        <span class="bg-success rounded-circle" style="width: 10px; height: 10px; display: inline-block;"></span>
+                                    </span>`;
+                            else
+                                li.innerHTML = `
+                                    <span class="point" onclick="accetta_rifuita_richiesta_rimuovi_amico(${listaamici.idfriend}, 'rimuoviamico')"><img src="./../img/amici/rimuovi.png" class="me-3" width="40" height="40"/></span>
+                                    <span class="point" onclick="messaggi(${listaamici.idfriend}, '${listaamici.nome}', '${listaamici.imgfriend}')"><img src="./../img/amici/message.png" class="me-3" width="40" height="40"/></span>
+                                    <span> | </span>
+                                    <img src="./../img/${listaamici.imgfriend}" alt="${listaamici.nome}" class="rounded-circle me-3" width="40" height="40"/>
+                                    <span>
+                                        ${listaamici.nome}
+                                        <br>
+                                        <span class="bg-danger rounded-circle" style="width: 10px; height: 10px; display: inline-block;"></span>
+                                    </span>`;
                             friendList.appendChild(li);
 
                             const friendSocket = new WebSocket(sessionStorage.getItem('hostsock') + '/chat/' + listaamici.idfriend + '/');

@@ -2,9 +2,16 @@ from utenti.models import Utenti, Amici, RiquestFriend
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from django.db import models
+import redis
 import json
 import jwt
 import os
+
+redis_client = redis.StrictRedis(
+    host=os.getenv('REDIS_HOST', 'localhost'),
+    port=int(os.getenv('REDIS_PORT', 6379)),
+    db=0
+)
 
 def send_request_friend(request):
     try:
@@ -149,10 +156,12 @@ def get_friend(request):
             friend_id = relazione.id_user_2 if relazione.id_user_1 == id_user else relazione.id_user_1
             try:
                 amico = Utenti.objects.get(id=friend_id)
+                is_online = redis_client.sismember("online_users", friend_id)
                 amici_list.append({
                     "nome": amico.nome,
                     "imgfriend": amico.img.url,
-                    "idfriend": relazione.id
+                    "idfriend": relazione.id,
+                    "online": bool(is_online)
                 })
             except Utenti.DoesNotExist:
                 continue

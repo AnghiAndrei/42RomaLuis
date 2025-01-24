@@ -49,7 +49,7 @@ export function router() {
 
 	const routes = [
 		{ path: '/', view: loadHomePage },
-		
+
 		{ path: '/login', view: loadLoginPage },
 		{ path: '/registrati', view: loadRegistraPage },
 		{ path: '/2fa', view: load2faPage },
