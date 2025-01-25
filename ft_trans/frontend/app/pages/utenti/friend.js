@@ -254,12 +254,12 @@ function updatepagefriendo(data) {
                             friendSocket.onmessage = function (event) {
                                 const data = JSON.parse(event.data);
                                 const messageElement = document.createElement("div");
-                                messageElement.textContent = data.message;
                                 messageElement.classList.add("p-2", "mb-2", "rounded", "border", "border-white", "text-white");
+                                messageElement.textContent = data.message;
                                 document.getElementById('chatContainer').appendChild(messageElement);
                             };
-                            friendSocket.onclose = function () { console.log(`Connessione chiusa per ${listaamici.nome}`); };
-                            friendSocket.onerror = function (error) { console.error(`Errore WebSocket per ${listaamici.nome}:`, error); };
+                            friendSocket.onclose = function () { ; };
+                            friendSocket.onerror = function (error) { ; };
                         });
                     });
                 } else if (status == 400){
