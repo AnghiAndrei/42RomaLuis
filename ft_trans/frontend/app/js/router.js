@@ -70,10 +70,17 @@ export function router() {
 	];
   	const potentialMatch = routes.find((route) => location.pathname === route.path);
  	if (potentialMatch) {
-	  	if (document.getElementById('gameOverModal') != null) {
-		  	const modal = bootstrap.Modal.getInstance(document.getElementById('gameOverModal'));
+	if (document.getElementById('gameOverModal') != null) {
+		document.getElementById('main-content').focus();
+		const modal = bootstrap.Modal.getInstance(document.getElementById('gameOverModal'));
 		if(modal) modal.hide();
 	}
+	if (document.getElementById('boxmessaggi') != null) {
+		document.getElementById('main-content').focus();
+		const modal = bootstrap.Modal.getInstance(document.getElementById('boxmessaggi'));
+		if(modal) modal.hide();
+	}
+
 	const audio = document.getElementById("lonely");
 	if (audio && !audio.paused){
 		audio.pause();

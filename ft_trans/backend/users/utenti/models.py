@@ -17,3 +17,10 @@ class Amici(models.Model):
     id = models.BigAutoField(primary_key=True)
     id_user_1 = models.IntegerField()
     id_user_2 = models.IntegerField()
+    block_by = models.IntegerField(default=-1)
+
+class Messaggi(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    id_utente = models.IntegerField()
+    messaggio = models.CharField(max_length=255)
+    stanza = models.IntegerField()

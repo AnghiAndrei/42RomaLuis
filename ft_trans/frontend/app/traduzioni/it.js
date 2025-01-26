@@ -96,8 +96,8 @@ export let text = {
     p95: "Serio? : \\",
     p96: "Errore nel mandare il messaggio",
     p97: "Il tuo amico ti ha gia inviato la richiesta",
-    p98: "",
-    p99: "",
+    p98: "Errore nel recupero dei messaggi",
+    p99: "Il tuo amico non ti vuole sentire",
 
     // p10: "",
     // p11: "",

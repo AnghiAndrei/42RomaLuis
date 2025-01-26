@@ -4,6 +4,78 @@ import { logout } from './../../js/assets.js';
 let connectedSockets = {};
 let stanza;
 
+window.blockfriendo=blockfriendo;
+function blockfriendo(){
+    if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
+    import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
+    .then((module) => {
+        const text = module.text;
+        fetch(sessionStorage.getItem("hostapp")+`/chat/blockfriendo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
+            },
+            body: JSON.stringify({ stanza: stanza }),
+        })
+        .then(response => {
+            const status = response.status;
+            if (status == 200) {
+                navigateTo("friend");
+            } else if (status == 201) {
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p99;
+            } else {
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p47;
+            }
+        })
+        .catch(error => {
+            const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+            modal2.show();
+            document.getElementById('ERROREMessage').innerHTML=text.p47;
+        });
+    });
+}
+
+window.sblockfriendo=sblockfriendo;
+function sblockfriendo(){
+    if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
+    import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
+    .then((module) => {
+        const text = module.text;
+        fetch(sessionStorage.getItem("hostapp")+`/chat/sblockfriendo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
+            },
+            body: JSON.stringify({ stanza: stanza }),
+        })
+        .then(response => {
+            const status = response.status;
+            if (status == 200) {
+                navigateTo("friend");
+            } else if (status == 201) {
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p99;
+            } else {
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p47;
+            }
+        })
+        .catch(error => {
+            const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+            modal2.show();
+            document.getElementById('ERROREMessage').innerHTML=text.p47;
+        });
+    });
+}
+
 window.sendMessage=sendMessage;
 function sendMessage() {
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -14,7 +86,8 @@ function sendMessage() {
         if (socket.readyState === WebSocket.OPEN) {
             try {	
                 socket.send(JSON.stringify({
-                    message: document.getElementById('messageInput').value
+                    message: document.getElementById('messageInput').value,
+                    token: sessionStorage.getItem('jwtToken'),
                 }));
                 document.getElementById('messageInput').value = "";
             } catch (error) {
@@ -36,12 +109,81 @@ function messaggi(id, nome, img){
     if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
     import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
     .then((module) => {
+        const text = module.text;
         const modal_messaggi = new bootstrap.Modal(document.getElementById('boxmessaggi'));
         modal_messaggi.show();
         document.getElementById('dickpic').src = "./../img/"+img;
         document.getElementById('nomeamicomes').innerHTML=nome;
         stanza=id;
-		document.getElementById('chatContainer').innerHTML="";
+        document.getElementById('chatContainer').innerHTML="";
+
+        fetch(sessionStorage.getItem("hostapp")+`/chat/get_status`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+sessionStorage.getItem('jwtToken'),
+            },
+            body: JSON.stringify({ stanza: stanza }),
+        })
+        .then(response => {
+            const status = response.status;
+            if (status == 200) {
+                document.getElementById('statoblocca').innerHTML = `<h2 class="point" onclick="sblockfriendo()"><img src="./../img/amici/sblocca.png" width="25" height="25" /></h2>`;
+            } else if (status == 201){
+                document.getElementById('statoblocca').innerHTML = `<h2 class="point" onclick="blockfriendo()"><img src="./../img/amici/blocca.png" width="25" height="25" /></h2>`;
+            } else {
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p98;
+            }
+        })
+        .catch(error => {
+            const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+            modal2.show();
+            document.getElementById('ERROREMessage').innerHTML=text.p98;
+        });
+
+        fetch(sessionStorage.getItem("hostapp")+`/chat/get_message`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ stanza: stanza }),
+        })
+        .then(response => {
+            const status = response.status;
+            if (status == 200) {
+                return response.json().then(data => {
+                    document.getElementById('chatContainer').innerHTML="";
+                    let messaggio=data.messaggio;
+                    messaggio.forEach(messaggio => {
+                        const messageElement = document.createElement("div");
+                        messageElement.classList.add("p-2", "mb-2", "rounded", "border", "border-white", "text-white");
+                        messageElement.classList.add("list-group-item", "d-flex", "align-items-center");
+                        messageElement.innerHTML = `
+                            <img src="./../img/${messaggio.imgfriend}" class="rounded-circle me-3" width="40" height="40"/>
+                            <span>
+                                <h3>${messaggio.nome}</h3>
+                                <p class="chatmsg">${messaggio.msg}</p>
+                            </span>
+                        `;
+                        document.getElementById('chatContainer').appendChild(messageElement);
+                    });
+                    document.getElementById('chatContainer').scrollTop = document.getElementById('chatContainer').scrollHeight;
+                });
+            } else if (status == 400){
+                ;
+            } else {
+                const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                modal2.show();
+                document.getElementById('ERROREMessage').innerHTML=text.p98;
+            }
+        })
+        .catch(error => {
+            const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+            modal2.show();
+            document.getElementById('ERROREMessage').innerHTML=text.p98;
+        });
     });
 }
 
@@ -253,10 +395,48 @@ function updatepagefriendo(data) {
                             connectedSockets[listaamici.idfriend].push(friendSocket);
                             friendSocket.onmessage = function (event) {
                                 const data = JSON.parse(event.data);
-                                const messageElement = document.createElement("div");
-                                messageElement.classList.add("p-2", "mb-2", "rounded", "border", "border-white", "text-white");
-                                messageElement.textContent = data.message;
-                                document.getElementById('chatContainer').appendChild(messageElement);
+                                if (data.type === 'error_message')
+                                    console.error("Error:", data.error);
+
+                                fetch(sessionStorage.getItem("hostapp")+`/chat/get_message`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ stanza: stanza }),
+                                })
+                                .then(response => {
+                                    const status = response.status;
+                                    if (status == 200) {
+                                        return response.json().then(data => {
+                                            document.getElementById('chatContainer').innerHTML="";
+                                            let messaggio=data.messaggio;
+                                            messaggio.forEach(messaggio => {
+                                                const messageElement = document.createElement("div");
+                                                messageElement.classList.add("p-2", "mb-2", "rounded", "border", "border-white", "text-white");
+                                                messageElement.classList.add("list-group-item", "d-flex", "align-items-center");
+                                                messageElement.innerHTML = `
+                                                    <img src="./../img/${messaggio.imgfriend}" class="rounded-circle me-3" width="40" height="40"/>
+                                                    <span>
+                                                        <h3>${messaggio.nome}</h3>
+                                                        <p class="chatmsg">${messaggio.msg}</p>
+                                                    </span>
+                                                `;
+                                                document.getElementById('chatContainer').appendChild(messageElement);
+                                            });
+                                            document.getElementById('chatContainer').scrollTop = document.getElementById('chatContainer').scrollHeight;
+                                        });
+                                    } else if (status == 400){ ; } else {
+                                        const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                                        modal2.show();
+                                        document.getElementById('ERROREMessage').innerHTML=text.p98;
+                                    }
+                                })
+                                .catch(error => {
+                                    const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
+                                    modal2.show();
+                                    document.getElementById('ERROREMessage').innerHTML=text.p98;
+                                });
                             };
                             friendSocket.onclose = function () { ; };
                             friendSocket.onerror = function (error) { ; };
@@ -369,9 +549,10 @@ export function loadFriendPage() {
                         <div class="modal-header">
                             <img id="dickpic" src="" class="rounded-circle me-3" width="40" height="40"/>
                             <h1 class="text-white" id="nomeamicomes"></h1>
+                            <h2 class="text-white ms-auto" id="statoblocca"></h2>
                         </div>
                         <div class="modal-body">
-                            <div id="chatContainer" class="h-50"></div>
+                            <div id="chatContainer" class="h-50 chatbox"></div>
                             <div class="d-flex align-items-center mt-3">
                                 <input id="messageInput" type="text" class="form-control me-2">
                                 <h2 onclick="sendMessage()" style="cursor: pointer;"><img src="./../img/amici/send.png" width="25" height="25" /></h2>
