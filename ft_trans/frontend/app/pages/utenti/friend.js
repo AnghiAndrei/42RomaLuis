@@ -394,9 +394,11 @@ function updatepagefriendo(data) {
                                 connectedSockets[listaamici.idfriend] = [];
                             connectedSockets[listaamici.idfriend].push(friendSocket);
                             friendSocket.onmessage = function (event) {
+                                const content = document.getElementById('amicirichieste');
+                                if (!content) {return;}
                                 const data = JSON.parse(event.data);
-                                if (data.type === 'error_message')
-                                    console.error("Error:", data.error);
+                                // if (data.type === 'error_message')
+                                //     console.error("Error:", data.error);
 
                                 fetch(sessionStorage.getItem("hostapp")+`/chat/get_message`, {
                                     method: 'POST',

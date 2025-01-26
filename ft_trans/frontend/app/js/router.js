@@ -7,6 +7,7 @@ import { loadProfilePage } from '../pages/utenti/profile.js';
 import { loadModifyPage } from '../pages/utenti/update_profile.js';
 import { loadFriendPage } from '../pages/utenti/friend.js';
 
+import { loadInvitaHomePage } from '../pages/invita.js';
 import { loadGiochiHomePage } from '../pages/giochi.js';
 import { loadStatsPage } from '../pages/gioco1/stats.js';
 
@@ -57,6 +58,7 @@ export function router() {
 		{ path: '/update_profile', view: loadModifyPage },
 		{ path: '/friend', view: loadFriendPage },
 
+		{ path: '/invita', view: loadInvitaHomePage },
 		{ path: '/giochi', view: loadGiochiHomePage },
 		{ path: '/stats', view: loadStatsPage },
 		{ path: '/costumeser', view: loadCustumeserPage },
@@ -88,13 +90,13 @@ export function router() {
 	}
 	if(potentialMatch.path!='/2fa')
 		sessionStorage.removeItem('tempjwt');
-	const isRelevantPath = ['/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath = ['/invita', '/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
 	if((sessionStorage.getItem('jwtToken')==null && isRelevantPath==true)){
 		navigateTo("/");
 		return;
     }
 
-	const isRelevantPath2 = ['/costumeser','/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath2 = ['/invita', '/costumeser','/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
     const navbar = document.getElementById('navbar-content');
 	if (partitaincorso==false && isRelevantPath2==true)
 		navbar.style.display = 'none';
