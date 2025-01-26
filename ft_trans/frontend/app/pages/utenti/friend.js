@@ -117,6 +117,11 @@ function messaggi(id, nome, img){
         stanza=id;
         document.getElementById('chatContainer').innerHTML="";
 
+        document.getElementById('needonclick').onclick = () => {
+            sessionStorage.setItem('idamico', id);
+            navigateTo("profile_friendo");
+        };
+
         fetch(sessionStorage.getItem("hostapp")+`/chat/get_status`, {
             method: 'POST',
             headers: {
@@ -548,10 +553,12 @@ export function loadFriendPage() {
             <div class="modal fade" id="boxmessaggi" tabindex="-1" aria-labelledby="gameOverModalLabel" aria-hidden="true" data-bs-backdrop="true" data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered w-70">
                     <div class="modal-content mybg">
-                        <div class="modal-header">
-                            <img id="dickpic" src="" class="rounded-circle me-3" width="40" height="40"/>
-                            <h1 class="text-white" id="nomeamicomes"></h1>
-                            <h2 class="text-white ms-auto" id="statoblocca"></h2>
+                        <div class="modal-header d-flex align-items-center">
+                            <span id="needonclick" class="d-flex align-items-center flex-grow-1">
+                                <img id="dickpic" src="" class="rounded-circle me-3" width="40" height="40" />
+                                <h1 class="text-white mb-0" id="nomeamicomes"></h1>
+                            </span>
+                            <h2 class="text-white ms-auto mb-0" id="statoblocca"></h2>
                         </div>
                         <div class="modal-body">
                             <div id="chatContainer" class="h-50 chatbox"></div>

@@ -238,3 +238,40 @@ def search_friend(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+def profilefriendo(request):
+    try:
+        token = request.headers.get('Authorization')
+        jwt_token = None
+        if token:
+            jwt_token = token.split("Bearer ")[1]
+        try:
+            decoded_token = jwt.decode(jwt_token, os.getenv('YWT_KEY'), algorithms=["HS256"])
+            id_user = decoded_token['user_id']
+        except Exception as e:
+            return HttpResponse(status=401)
+
+        data = json.loads(request.body.decode('utf-8'))
+        required_fields = ['idamico']
+        if not all(field in data for field in required_fields):
+            return HttpResponse(status=400)
+
+        amici = Amici.objects.filter(id=data['idamico']).first()
+        if not amici:
+            return HttpResponse(status=204)
+
+        if amici.id_user_1 == id_user:
+            user = Utenti.objects.filter(id=amici.id_user_2).first()
+            if not user:
+                return HttpResponse(status=204)
+            is_online = redis_client.sismember("online_users", amici.id_user_2)
+            return JsonResponse({"nome": user.nome, "img": user.img.url, "online": bool(is_online)},status=200)
+        else:
+            user = Utenti.objects.filter(id=amici.id_user_1).first()
+            if not user:
+                return HttpResponse(status=204)
+            is_online = redis_client.sismember("online_users", amici.id_user_1)
+            return JsonResponse({"nome": user.nome, "img": user.img.url, "online": bool(is_online)},status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": f'{e}' },status=500)

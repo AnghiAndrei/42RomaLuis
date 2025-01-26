@@ -1,23 +1,15 @@
 Major module:
-    [X] Use a Framework as backend
-    [-] Standard user management, authentication, users across tournaments (
-            view their online status
-        )
-    [X] Multiple players
-    [X] Introduce an AI Opponent
-    [X] Implement Two-Factor Authentication (2FA) and JWT
-    [X] Designing the Backend as Microservices
-    [ ] Live Chat(
-        The user should be able to send direct messages to other users.
-        The user should be able to block other users. This way, they will see no more messages from the account they blocked.
-        The user should be able to invite other users to play a Pong game through the chat interface.
-        The tournament system should be able to warn users expected for the next game.
-        The user should be able to access other players profiles through the chat interface.
-    )
+    Use a Framework as backend
+    Standard user management, authentication, users across tournaments
+    Multiple players
+    Introduce an AI Opponent
+    Implement Two-Factor Authentication (2FA) and JWT
+    Designing the Backend as Microservices
+    Live Chat
 
 Minor module:
-    [X] Use a front-end framework or toolkit
-    [X] Use a database for the backend-and more
-    [X] Game Customization Options
-    [X] Expanding Browser Compatibility
-    [X] Multiple language supports
+    Use a front-end framework or toolkit
+    Use a database for the backend-and more
+    Game Customization Options
+    Expanding Browser Compatibility
+    Multiple language supports

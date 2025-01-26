@@ -1,6 +1,6 @@
 from django.urls import path
 from utenti.utenti import registrati,check_2fa,login,profile,modify
-from utenti.amici import send_request_friend,apcet_request_friend,refuse_request_friend,remove_friend,get_friend,get_request,search_friend
+from utenti.amici import send_request_friend,apcet_request_friend,refuse_request_friend,remove_friend,get_friend,get_request,profilefriendo,search_friend
 from utenti.chat import salva_msg,get_message,get_status,sblockfriendo,blockfriendo
 
 urlpatterns = [
@@ -17,6 +17,8 @@ urlpatterns = [
     path('users/get_friend', get_friend, name='get_friend'),
     path('users/get_request', get_request, name='get_request'),
     path('users/search_friend', search_friend, name='search_friend'),
+
+    path('users/profilefriendo', profilefriendo, name='profilefriendo'),
 
     path('chat/salva_msg', salva_msg, name='salva_msg'),
     path('chat/get_message', get_message, name='get_message'),

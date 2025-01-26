@@ -3,6 +3,7 @@ import { loadHomePage } from '../pages/home.js';
 import { loadLoginPage } from '../pages/utenti/login.js';
 import { loadRegistraPage } from '../pages/utenti/registrati.js';
 import { load2faPage } from '../pages/utenti/2fa.js';
+import { loadProfileFriendoPage } from '../pages/utenti/profile_friendo.js';
 import { loadProfilePage } from '../pages/utenti/profile.js';
 import { loadModifyPage } from '../pages/utenti/update_profile.js';
 import { loadFriendPage } from '../pages/utenti/friend.js';
@@ -55,6 +56,7 @@ export function router() {
 		{ path: '/registrati', view: loadRegistraPage },
 		{ path: '/2fa', view: load2faPage },
 		{ path: '/profile', view: loadProfilePage },
+		{ path: '/profile_friendo', view: loadProfileFriendoPage },
 		{ path: '/update_profile', view: loadModifyPage },
 		{ path: '/friend', view: loadFriendPage },
 
@@ -90,13 +92,15 @@ export function router() {
 	}
 	if(potentialMatch.path!='/2fa')
 		sessionStorage.removeItem('tempjwt');
-	const isRelevantPath = ['/invita', '/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
+	if(potentialMatch.path!='/profile_friendo')
+		sessionStorage.removeItem('idamico');
+	const isRelevantPath = ['/profile_friendo', '/invita', '/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
 	if((sessionStorage.getItem('jwtToken')==null && isRelevantPath==true)){
 		navigateTo("/");
 		return;
     }
 
-	const isRelevantPath2 = ['/invita', '/costumeser','/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath2 = ['/costumeser','/locale_torneo_pregame','/locale_gioco','/locale_gioco_ia','/locale_torneo_gioco'].includes(potentialMatch.path);
     const navbar = document.getElementById('navbar-content');
 	if (partitaincorso==false && isRelevantPath2==true)
 		navbar.style.display = 'none';
