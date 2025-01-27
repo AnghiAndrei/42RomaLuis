@@ -13,3 +13,7 @@ Minor module:
     Game Customization Options
     Expanding Browser Compatibility
     Multiple language supports
+
+cose da fare:
+	-abilita/disabilita 2fa
+	-fine torneo winner song

@@ -49,7 +49,7 @@ def send_request_friend(request):
     except Exception as e:
         return JsonResponse({"error": f'{e}'}, status=500)
 
-def apcet_request_friend(request):
+def accept_request_friend(request):
     try:
         token = request.headers.get('Authorization')
         jwt_token = None

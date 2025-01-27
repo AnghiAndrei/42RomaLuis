@@ -108,4 +108,5 @@ p106: "; at ",
 p107: "Go back",
 p108: "Friend profile",
 p109: "Status",
+p110: "Invalid email",
 };

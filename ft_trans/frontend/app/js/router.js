@@ -94,9 +94,9 @@ export function router() {
 		sessionStorage.removeItem('tempjwt');
 	if(potentialMatch.path!='/profile_friendo')
 		sessionStorage.removeItem('idamico');
-	const isRelevantPath = ['/profile_friendo', '/invita', '/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco'].includes(potentialMatch.path);
+	const isRelevantPath = ['/profile_friendo', '/invita', '/update_profile', '/friend', '/profile', '/stats', '/costumeser','/locale_torneo_home','/locale_torneo_pregame', '/locale_gioco', '/locale_gioco_ia', '/locale_torneo_gioco', '/locale_home_ia', '/locale_home'].includes(potentialMatch.path);
 	if((sessionStorage.getItem('jwtToken')==null && isRelevantPath==true)){
-		navigateTo("/");
+		navigateTo("login");
 		return;
     }
 

@@ -112,10 +112,22 @@ export class Ball {
 
 	incrementScore(canvas) {
 		if(sessionStorage.getItem("nplayerg1")!=2){
-			if (this.last === 'left') this.pp1++;
-			else if (this.last === 'right') this.pp2++;
-			else if (this.last === 'up') this.pp3++;
-			else if (this.last === 'down') this.pp4++;
+			if (this.last === 'left') {
+				this.last='';
+				this.pp1++;
+			}
+			else if (this.last === 'right') {
+				this.last='';
+				this.pp2++;
+			}
+			else if (this.last === 'up') {
+				this.last='';
+				this.pp3++;
+			}
+			else if (this.last === 'down') {
+				this.last='';
+				this.pp4++;
+			}
 		}else{
 			if (this.x + this.radius > canvas.width-4)
 				this.pp1++;
@@ -173,17 +185,17 @@ export class Ball {
 			let p4=sessionStorage.getItem('p4');
 			if(sessionStorage.getItem('ia')=='true'){
 				if (sessionStorage.getItem('nplayerg1')==2){
-					p2="BOT2";
+					p2="BOT1";
 					p3=null;
 					p4=null;
 				} else if (sessionStorage.getItem('nplayerg1')==3){
-					p2="BOT2";
-					p3="BOT3";
+					p2="BOT1";
+					p3="BOT2";
 					p4=null;
 				} else if (sessionStorage.getItem('nplayerg1')==4){
-					p2="BOT2";
-					p3="BOT3";
-					p4="BOT4";
+					p2="BOT1";
+					p3="BOT2";
+					p4="BOT3";
 				}
 			}
 
@@ -191,8 +203,8 @@ export class Ball {
         		{ name: sessionStorage.getItem('p1'), score: this.pp1 },
         		{ name: p2, score: this.pp2 },
       		];
-      		if (sessionStorage.getItem('nplayerg1') == 3) players.push({ name: p3, score: this.pp3 });
-      		if (sessionStorage.getItem('nplayerg1') == 4) players.push({ name: p4, score: this.pp4 });
+      		if (p3 != null) players.push({ name: p3, score: this.pp3 });
+      		if (p4 != null) players.push({ name: p4, score: this.pp4 });
 
       		const maxScore = Math.max(...players.map(player => player.score));
       		const winners = players.filter(player => player.score === maxScore);

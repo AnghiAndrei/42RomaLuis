@@ -108,4 +108,5 @@ p106: "; a ",
 p107: "Turna 'nnanz",
 p108: "Profilo d' 'o amico",
 p109: "Stato",
+p110: "Sta email nun è bona",
 };

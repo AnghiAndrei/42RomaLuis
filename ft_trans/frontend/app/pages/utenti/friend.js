@@ -199,7 +199,7 @@ function accetta_rifuita_richiesta_rimuovi_amico(id, op) {
     .then((module) => {
         const text = module.text;
         let link;
-        if(op=="accetta") link=sessionStorage.getItem('hostapp')+"/users/apcet_request_friend";
+        if(op=="accetta") link=sessionStorage.getItem('hostapp')+"/users/accept_request_friend";
         else if(op=="rifiuta") link=sessionStorage.getItem('hostapp')+"/users/refuse_request_friend";
         else if(op=="rimuoviamico") link=sessionStorage.getItem('hostapp')+"/users/remove_friend";
         else{
@@ -399,7 +399,7 @@ function updatepagefriendo(data) {
                                 connectedSockets[listaamici.idfriend] = [];
                             connectedSockets[listaamici.idfriend].push(friendSocket);
                             friendSocket.onmessage = function (event) {
-                                const content = document.getElementById('amicirichieste');
+                                const content = document.getElementById('chatContainer');
                                 if (!content) {return;}
                                 const data = JSON.parse(event.data);
                                 // if (data.type === 'error_message')

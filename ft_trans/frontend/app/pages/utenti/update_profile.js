@@ -76,6 +76,8 @@ export function loadModifyPage() {
 								  document.getElementById('testoerrore').innerHTML=text.p46;
 								else if (status == 413)
 									document.getElementById('testoerrore').innerHTML=text.p78;
+								else if (status == 420)
+									document.getElementById('testoerrore').innerHTML=text.p111;
 								else if (status == 414)
 									document.getElementById('testoerrore').innerHTML=text.p79;
 								else

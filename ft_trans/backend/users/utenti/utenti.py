@@ -162,7 +162,38 @@ def profile(request):
         user = Utenti.objects.filter(id=id_user).first()
         if not user:
             return HttpResponse(status=204)
-        return JsonResponse({"email": user.email, "nome": user.nome },status=200)
+        return JsonResponse({"email": user.email, "nome": user.nome, "fa2": user.fa2 },status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": f'{e}' },status=500)
+
+def update_2fa(request):
+    try:
+        token = request.headers.get('Authorization')
+        jwt_token = None
+        if token:
+            jwt_token = token.split("Bearer ")[1]
+        try:
+            decoded_token = jwt.decode(jwt_token, os.getenv('YWT_KEY'), algorithms=["HS256"])
+            id_user = decoded_token['user_id']
+        except Exception as e:
+            return HttpResponse(status=401)
+
+        user = Utenti.objects.filter(id=id_user).first()
+        if not user:
+            return HttpResponse(status=204)
+
+        data = json.loads(request.body.decode('utf-8'))
+        required_fields = ['fa2']
+        if not all(field in data for field in required_fields):
+            return HttpResponse(status=400)
+
+        if(data['fa2'] != "p113" and data['fa2'] != "p114"):
+            return HttpResponse(status=400)
+
+        user.fa2 = data['fa2']
+        user.save()
+        return HttpResponse(status=200)
 
     except Exception as e:
         return JsonResponse({"error": f'{e}' },status=500)
@@ -200,6 +231,10 @@ def modify(request):
             return HttpResponse(status=400)
         if is_empty_or_whitespace(nome):
             return HttpResponse(status=400)
+        user2 = Utenti.objects.filter(nome=nome).first()
+        if user2:
+            if user2.id != id_user:
+                return HttpResponse(status=420)
         user.nome = nome
         user.save()
         return JsonResponse({ "imguser": user.img.url },status=200)
