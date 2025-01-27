@@ -8,9 +8,16 @@ from django.db import models
 import datetime
 import string
 import random
+import redis
 import json
 import jwt
 import os
+
+redis_client = redis.StrictRedis(
+    host=os.getenv('REDIS_HOST', 'localhost'),
+    port=int(os.getenv('REDIS_PORT', 6379)),
+    db=0
+)
 
 def registrati(request):
     try:
@@ -79,6 +86,10 @@ def login(request):
             return HttpResponse(status=204)
         if not check_password(data["password"], user.password):
             return HttpResponse(status=204)
+
+        is_online = redis_client.sismember("online_users", user.id)
+        if is_online == True:
+            return HttpResponse(status=234)
 
         if user.fa2 == "p114":
             caratteri = string.ascii_letters + string.digits

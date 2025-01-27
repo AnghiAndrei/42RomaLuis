@@ -128,7 +128,9 @@ class Torneo {
 					</tr>
                 </table>
               <p class="mt-5 mb-3"><a data-link href="/giochi" class="h4 px-2 link-secondary text-white">`+text.p31+`</a></p>
-            </main>
+			  <audio controls id="win" style="display: none;"><source src="./../../song/win.mp3" type="audio/mp3"></audio>
+			  <audio controls id="defit" style="display: none;"><source src="./../../song/defit.mp3" type="audio/mp3"></audio>
+			</main>
           </div>
         `;
 		setTorneoincorso(false);
@@ -137,6 +139,14 @@ class Torneo {
 		let esito="S";
 		if(win==sessionStorage.getItem('tp1'))
 			esito="V";
+
+		if(esito == "V"){
+			const audio = document.getElementById("win");
+    		audio.play();
+		}else{
+			const audio = document.getElementById("defit");
+    		audio.play();
+		}
 
 		fetch(sessionStorage.getItem("hostapp")+'/g1/set_tornament', {
 			method: 'POST',
