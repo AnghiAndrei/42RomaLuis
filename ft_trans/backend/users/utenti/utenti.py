@@ -23,7 +23,7 @@ def registrati(request):
             return HttpResponse(status=400)
 
         if not validate_email(data["email"]):
-            return HttpResponse(status=401)
+            return HttpResponse(status=501)
 
         utenti = Utenti.objects.filter(nome=data['nome'])
         if utenti:

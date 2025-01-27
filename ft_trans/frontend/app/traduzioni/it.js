@@ -108,4 +108,5 @@ p106: "; al ",
 p107: "Torna indietro",
 p108: "Profilo amico",
 p109: "Stato",
+p110: "Email non valida",
 };

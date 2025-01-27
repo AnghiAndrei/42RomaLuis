@@ -109,6 +109,8 @@ export function loadRegistraPage() {
           });
         } else if (status == 204 || status == 205)
           document.getElementById('testoerrore').innerHTML=text.p49;
+		else if (status == 501)
+            document.getElementById('testoerrore').innerHTML=text.p110;
         else
           document.getElementById('testoerrore').innerHTML=text.p47;
       })

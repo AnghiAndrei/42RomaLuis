@@ -56,7 +56,10 @@ export function loadLoginPage() {
               sessionStorage.setItem('tempjwt', data.tempjwt);
               navigateTo('/2fa');
             });
-          } else if (status == 204)
+          }
+		  else if (status == 501)
+            document.getElementById('testoerrore').innerHTML=text.p110;
+		  else if (status == 204)
             document.getElementById('testoerrore').innerHTML=text.p46;
           else
             document.getElementById('testoerrore').innerHTML=text.p47;
