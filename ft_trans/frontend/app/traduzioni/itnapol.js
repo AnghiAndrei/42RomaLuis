@@ -109,4 +109,8 @@ p107: "Turna 'nnanz",
 p108: "Profilo d' 'o amico",
 p109: "Stato",
 p110: "Sta email nun è bona",
+p111: "Nome già in uso",
+p112: "Verifica a 2 fatture",
+p113: "Nisciuna",
+p114: "OTP pe' email",
 };

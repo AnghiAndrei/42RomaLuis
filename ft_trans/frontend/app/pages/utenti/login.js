@@ -1,6 +1,7 @@
 import { navigateTo } from './../../js/router.js';
 import { isEmptyOrWhitespace } from './../../js/assets.js';
 import { hashPassword } from './zz_assets.js';
+import { updateNavbar } from './../../js/assets.js';
 
 export function loadLoginPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -55,6 +56,24 @@ export function loadLoginPage() {
             return response.json().then(data => {
               sessionStorage.setItem('tempjwt', data.tempjwt);
               navigateTo('/2fa');
+            });
+          }
+		  else if (status == 201) {
+            return response.json().then(data => {
+				sessionStorage.setItem('imguser', "./../img/"+data.imguser);
+				sessionStorage.setItem('jwtToken', data.jwttoken);
+				sessionStorage.setItem('p1', data.nome);
+				sessionStorage.setItem('tp1', data.nome);
+				sessionStorage.removeItem('tempjwt');
+				if (sessionStorage.getItem('jwtToken') != null){
+				  const online_sock = new WebSocket(sessionStorage.getItem('hostsock')+'/online/'+sessionStorage.getItem('jwtToken')+"/");
+				  online_sock.onopen = () => {};
+				  online_sock.onmessage = (event) => {};
+				  online_sock.onerror = (error) => {};
+				  online_sock.onclose = () => {};
+				}
+				updateNavbar();
+				navigateTo('/');
             });
           }
 		  else if (status == 501)

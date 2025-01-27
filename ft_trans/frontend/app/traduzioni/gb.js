@@ -109,4 +109,8 @@ p107: "Go back",
 p108: "Friend profile",
 p109: "Status",
 p110: "Invalid email",
+p111: "Name already in use",
+p112: "Two-factor authentication",
+p113: "None",
+p114: "OTP via email",
 };

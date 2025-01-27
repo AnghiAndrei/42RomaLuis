@@ -80,21 +80,37 @@ def login(request):
         if not check_password(data["password"], user.password):
             return HttpResponse(status=204)
 
-        caratteri = string.ascii_letters + string.digits
-        CodiceOTP = ''.join(random.choice(caratteri) for _ in range(8))
+        if user.fa2 == "p114":
+            caratteri = string.ascii_letters + string.digits
+            CodiceOTP = ''.join(random.choice(caratteri) for _ in range(8))
 
-        i = random.randint(100000, 999999)
-        while i in OTP_Codes:
             i = random.randint(100000, 999999)
+            while i in OTP_Codes:
+                i = random.randint(100000, 999999)
 
-        OTP_Codes[i]={"otp": CodiceOTP, "iduser": user.id, "tryc": 3}
+            OTP_Codes[i]={"otp": CodiceOTP, "iduser": user.id, "tryc": 3}
 
-        send_mail('Code OTP for access!', CodiceOTP, os.getenv('SEND_EMAIL'), [data["email"]])
+            send_mail('Code OTP for access!', CodiceOTP, os.getenv('SEND_EMAIL'), [data["email"]])
 
-        with open('/app/utenti/otp_codes.json', 'w') as f:
-            json.dump(OTP_Codes, f)
+            with open('/app/utenti/otp_codes.json', 'w') as f:
+                json.dump(OTP_Codes, f)
 
-        return JsonResponse({"tempjwt": f'{i}' },status=200)
+            return JsonResponse({"tempjwt": f'{i}' },status=200)
+        elif user.fa2 == "p113":
+            payload = {
+                'user_id': user.id,
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=24),
+                'iat': datetime.datetime.utcnow(),
+            }
+            jwt_token=jwt.encode(payload, os.getenv('YWT_KEY'), algorithm='HS256')
+
+            return JsonResponse({
+                "jwttoken": f'{jwt_token}',
+                "imguser": user.img.url,
+                "nome": f'{user.nome}',
+            },status=201)
+        else:
+            return HttpResponse(status=508)
 
     except Exception as e:
         return JsonResponse({"error": f'{e}' },status=500)

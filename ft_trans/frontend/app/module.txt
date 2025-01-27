@@ -15,5 +15,4 @@ Minor module:
     Multiple language supports
 
 cose da fare:
-	-abilita/disabilita 2fa
 	-fine torneo winner song

@@ -109,11 +109,11 @@ p107: "Torna indietro",
 p108: "Profilo amico",
 p109: "Stato",
 p110: "Email non valida",
-
 p111: "Nome gia in uso",
 p112: "Verifia a 2 fattori",
 p113: "Nessuna",
 p114: "OTP via email",
+
 p115: "",
 p116: "",
 p117: "",

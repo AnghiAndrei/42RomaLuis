@@ -62,7 +62,7 @@ export function loadProfilePage() {
 										<h2 class="text-white">`+text.p39+`: `+data.email+`</h2>
 										<h2 class="text-white">`+text.p6+`: `+data.nome+`</h2>
 										<br>
-										<label for="fa2" class="form-label text-white">`+text.p93+`</label>
+										<label for="fa2" class="form-label text-white">`+text.p112+`</label>
 										<select onchange="update2fa()" class="form-select" id="fa2">
 											<option id="p113" value="p113">`+text.p113+`</option>
 											<option id="p114" value="p114">`+text.p114+`</option>
