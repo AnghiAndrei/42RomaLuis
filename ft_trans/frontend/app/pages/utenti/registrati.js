@@ -36,8 +36,8 @@ export function loadRegistraPage() {
             <label class="text-black" for="password">`+text.p40+`</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control text-black" id="conferpassword" placeholder="`+text.p6+`">
-            <label class="text-black" for="conferpassword">`+text.p6+`</label>
+            <input type="password" class="form-control text-black" id="conferpassword" placeholder="`+text.p7+`">
+            <label class="text-black" for="conferpassword">`+text.p7+`</label>
           </div>
           <h2 id="testoerrore" class="text-white text-center"></h2>
           <button class="btn btn-primary w-100 py-2" id="registra">`+text.p8+`</button>

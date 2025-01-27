@@ -1,6 +1,6 @@
 FROM node:16
 WORKDIR /app
-RUN npm install -g http-server
+RUN npm install -g serve
 COPY ./app ./
 EXPOSE 8080
-CMD ["http-server", "-p", "8080", "-P", "http://0.0.0.0:8080"]
+CMD ["serve", "-s", ".", "-l", "8080"]
