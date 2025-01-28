@@ -113,5 +113,4 @@ p111: "Nome già in uso",
 p112: "Verifica a 2 fatture",
 p113: "Nisciuna",
 p114: "OTP pe' email",
-p115: "Si già online, guarda e controlla 'e tab",
 };

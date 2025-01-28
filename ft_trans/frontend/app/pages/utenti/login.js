@@ -78,8 +78,6 @@ export function loadLoginPage() {
         }
         else if (status == 501)
           document.getElementById('testoerrore').innerHTML=text.p110;
-        else if (status == 234)
-          document.getElementById('testoerrore').innerHTML=text.p115;
         else if (status == 204)
           document.getElementById('testoerrore').innerHTML=text.p46;
         else
