@@ -1,6 +1,5 @@
-import { updateNavbar } from './../../js/assets.js';
+import { updateNavbar, isEmptyOrWhitespace, sanitizeInput } from './../../js/assets.js';
 import { navigateTo } from './../../js/router.js';
-import { isEmptyOrWhitespace } from './../../js/assets.js';
 import { hashPassword } from './zz_assets.js';
 
 export function loadRegistraPage() {
@@ -52,6 +51,12 @@ export function loadRegistraPage() {
       let password=document.getElementById('password').value;
       let conferpassword=document.getElementById('conferpassword').value;
       let sesso=document.getElementById('sessoinput').value;
+
+	  email=sanitizeInput(email);
+	  nome=sanitizeInput(nome);
+	  password=sanitizeInput(password);
+	  conferpassword=sanitizeInput(conferpassword);
+	  sesso=sanitizeInput(sesso);
 
       if(email=="" || nome=="" || password=="" || conferpassword=="" || sesso=="" || isEmptyOrWhitespace(email) || isEmptyOrWhitespace(nome)){
         document.getElementById('testoerrore').innerHTML=text.p72;

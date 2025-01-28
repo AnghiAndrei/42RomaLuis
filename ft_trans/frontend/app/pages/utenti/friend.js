@@ -1,5 +1,5 @@
 import { navigateTo } from './../../js/router.js';
-import { logout } from './../../js/assets.js';
+import { logout, sanitizeInput } from './../../js/assets.js';
 
 let connectedSockets = {};
 let stanza;
@@ -86,7 +86,7 @@ function sendMessage() {
         if (socket.readyState === WebSocket.OPEN) {
             try {	
                 socket.send(JSON.stringify({
-                    message: document.getElementById('messageInput').value,
+                    message: sanitizeInput(document.getElementById('messageInput').value),
                     token: sessionStorage.getItem('jwtToken'),
                 }));
                 document.getElementById('messageInput').value = "";

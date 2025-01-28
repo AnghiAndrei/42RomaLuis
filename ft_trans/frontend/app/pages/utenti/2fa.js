@@ -1,4 +1,4 @@
-import { updateNavbar } from './../../js/assets.js';
+import { updateNavbar,sanitizeInput } from './../../js/assets.js';
 import { navigateTo } from './../../js/router.js';
 
 export function load2faPage() {
@@ -23,6 +23,9 @@ export function load2faPage() {
     document.getElementById('valid').addEventListener('click', () => {
 
       let codeotp=document.getElementById('codeotp').value;
+
+	  codeotp=sanitizeInput(codeotp);
+
       if(codeotp==""){
         document.getElementById('testoerrore').innerHTML=text.p72;
         return;

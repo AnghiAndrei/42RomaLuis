@@ -46,6 +46,7 @@ services:
   # BackEnd Chat
   backend-django-chat:
     container_name: backend-django-chat
+    restart: always
     build:
       context: ./backend/chat
       dockerfile: Dockerfile
@@ -87,6 +88,7 @@ services:
   # Redis
   redis:
     container_name: redis
+    restart: always
     image: redis:latest
     env_file:
       - .env

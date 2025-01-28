@@ -1,4 +1,4 @@
-import { isEmptyOrWhitespace } from './../../js/assets.js';
+import { isEmptyOrWhitespace, sanitizeInput } from './../../js/assets.js';
 import { navigateTo } from './../../js/router.js';
 
 function update() {
@@ -103,7 +103,7 @@ export function loadLocaleHomeGame1Page() {
                     document.getElementById('texterror').innerHTML=text.p21;
                     return;
                 }
-                sessionStorage.setItem('p2', p2);
+                sessionStorage.setItem('p2', sanitizeInput(p2));
             }else if(document.getElementById('giocatori').value==3){
                 let p2=document.getElementById('gest1').value;
                 let p3=document.getElementById('gest2').value;
@@ -116,8 +116,8 @@ export function loadLocaleHomeGame1Page() {
                     document.getElementById('texterror').innerHTML=text.p21;
                     return;
                 }
-                sessionStorage.setItem('p2', p2);
-                sessionStorage.setItem('p3', p3);
+                sessionStorage.setItem('p2', sanitizeInput(p2));
+                sessionStorage.setItem('p3', sanitizeInput(p3));
             }else if(document.getElementById('giocatori').value==4){
                 let p2=document.getElementById('gest1').value;
                 let p3=document.getElementById('gest2').value;
@@ -132,9 +132,9 @@ export function loadLocaleHomeGame1Page() {
                     document.getElementById('texterror').innerHTML=text.p21;
                     return;
                 }
-                sessionStorage.setItem('p2', p2);
-                sessionStorage.setItem('p3', p3);
-                sessionStorage.setItem('p4', p4);
+                sessionStorage.setItem('p2', sanitizeInput(p2));
+                sessionStorage.setItem('p3', sanitizeInput(p3));
+                sessionStorage.setItem('p4', sanitizeInput(p4));
             }
             sessionStorage.setItem('nplayerg1', document.getElementById('giocatori').value);
             

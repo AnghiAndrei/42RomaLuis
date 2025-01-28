@@ -1,7 +1,6 @@
 import { navigateTo } from './../../js/router.js';
-import { isEmptyOrWhitespace } from './../../js/assets.js';
+import { isEmptyOrWhitespace, sanitizeInput, updateNavbar } from './../../js/assets.js';
 import { hashPassword } from './zz_assets.js';
-import { updateNavbar } from './../../js/assets.js';
 
 export function loadLoginPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -32,6 +31,9 @@ export function loadLoginPage() {
     document.getElementById('loggin').addEventListener('click', () => {
       let email=document.getElementById('email').value;
       let password=document.getElementById('password').value;
+
+	  email=sanitizeInput(email);
+	  password=sanitizeInput(password);
 
       if(email=="" || password==""  || isEmptyOrWhitespace(email)){
         document.getElementById('testoerrore').innerHTML=text.p72;

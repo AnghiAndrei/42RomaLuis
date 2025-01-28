@@ -1,5 +1,5 @@
 import { navigateTo } from '../../js/router.js';
-import { isEmptyOrWhitespace, updateNavbar } from '../../js/assets.js';
+import { isEmptyOrWhitespace, updateNavbar, sanitizeInput } from '../../js/assets.js';
 
 export function loadModifyPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
@@ -40,6 +40,8 @@ export function loadModifyPage() {
 						  document.getElementById('loggin').addEventListener('click', () => {
 							let nome=document.getElementById('nome').value;
 							const file = document.getElementById('imgform').files[0];
+
+							nome=sanitizeInput(nome);
 
 							if(nome=="" || isEmptyOrWhitespace(nome)){
 							  document.getElementById('testoerrore').innerHTML=text.p72;

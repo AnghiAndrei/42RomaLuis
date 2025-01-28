@@ -11,6 +11,13 @@ export function logout() {
   	updateNavbar();
 }
 
+/* ========== SANITAISER ========== */
+export function sanitizeInput(input) {
+    const tempDiv = document.createElement("div");
+    tempDiv.textContent = input;
+    return tempDiv.innerHTML;
+}
+
 /* ========== LINGUE ========== */
 window.cambialingua = cambialingua;
 function cambialingua(lingua){

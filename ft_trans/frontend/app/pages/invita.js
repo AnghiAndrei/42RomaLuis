@@ -1,5 +1,5 @@
 import { navigateTo } from './../js/router.js';
-import { logout } from './../js/assets.js';
+import { logout, sanitizeInput } from './../js/assets.js';
 
 function get_friend() {
 	fetch(sessionStorage.getItem("hostapp")+'/users/get_friend', {
@@ -77,6 +77,10 @@ export function loadInvitaHomePage() {
 			let amico=document.getElementById('amico').value;
 			let posto=document.getElementById('posto').value;
 			let gioco=document.getElementById('gioco').value;
+
+			amico=sanitizeInput(amico);
+			posto=sanitizeInput(posto);
+			gioco=sanitizeInput(gioco);
 
 			if(amico=="" || amico=="undefined" || posto=="" || gioco==""){
 				document.getElementById('testoerrore').innerHTML=text.p72;
