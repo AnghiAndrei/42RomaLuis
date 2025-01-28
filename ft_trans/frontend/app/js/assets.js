@@ -13,9 +13,12 @@ export function logout() {
 
 /* ========== SANITAISER ========== */
 export function sanitizeInput(input) {
-    const tempDiv = document.createElement("div");
-    tempDiv.textContent = input;
-    return tempDiv.innerHTML;
+    return input
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
 
 /* ========== LINGUE ========== */
