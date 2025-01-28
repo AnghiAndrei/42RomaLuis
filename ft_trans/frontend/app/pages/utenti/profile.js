@@ -20,7 +20,6 @@ function update2fa() {
 			if(status == 200) ;
 			else if (status == 401 || status == 204) logout();
 			else{
-				alert("hola");
 				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 				modal2.show();
 				document.getElementById('ERROREMessage').innerHTML=text.p47;

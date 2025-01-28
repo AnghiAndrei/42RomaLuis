@@ -95,7 +95,6 @@ export function loadInvitaHomePage() {
 							token: sessionStorage.getItem('jwtToken'),
 						}));
 					} catch (error) {
-						alert(error);
 						const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 						modal2.show();
 						document.getElementById('ERROREMessage').innerHTML=text.p96;

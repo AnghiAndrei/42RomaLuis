@@ -102,14 +102,12 @@ function updatestats(data) {
 					document.getElementById('ERROREMessage').innerHTML=text.p67;
 					logout();
 				} else{
-					alert("error2");
 					const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 					modal2.show();
 					document.getElementById('ERROREMessage').innerHTML=text.p66;
 				}
 			})
 			.catch(error => {
-				alert("error1: "+error);
 				const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
 				modal2.show();
 				document.getElementById('ERROREMessage').innerHTML=text.p66;
