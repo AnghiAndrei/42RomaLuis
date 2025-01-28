@@ -14,5 +14,5 @@ Minor module:
     Expanding Browser Compatibility
     Multiple language supports
 
-cose da fare:
-	-fine torneo winner song
+Notifica quando tocca a te giocare nel torneo:
+	creazione socket con id utente per questo
