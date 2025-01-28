@@ -431,7 +431,9 @@ function updatepagefriendo(data) {
                                             });
                                             document.getElementById('chatContainer').scrollTop = document.getElementById('chatContainer').scrollHeight;
                                         });
-                                    } else if (status == 400){ ; } else {
+                                    }
+                                    else if (status == 400){ ; }
+                                    else {
                                         const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
                                         modal2.show();
                                         document.getElementById('ERROREMessage').innerHTML=text.p98;

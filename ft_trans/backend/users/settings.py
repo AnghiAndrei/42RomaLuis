@@ -31,7 +31,7 @@ CHANNEL_LAYERS = {
 }
 
 ALLOWED_HOSTS = [
-    'localhost',
+    'proxy',
 ]
 
 DATABASES = {

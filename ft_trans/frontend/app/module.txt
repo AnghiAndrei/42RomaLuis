@@ -13,6 +13,3 @@ Minor module:
     Game Customization Options
     Expanding Browser Compatibility
     Multiple language supports
-
-Notifica quando tocca a te giocare nel torneo:
-	creazione socket con id utente per questo
