@@ -113,4 +113,5 @@ p111: "Name already in use",
 p112: "Two-factor authentication",
 p113: "None",
 p114: "OTP via email",
+p115: "Game color",
 };

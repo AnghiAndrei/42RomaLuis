@@ -433,6 +433,7 @@ function updatepagefriendo(data) {
                                         });
                                     }
                                     else if (status == 400){ ; }
+                                    else if (status == 401){ ; }
                                     else {
                                         const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
                                         modal2.show();

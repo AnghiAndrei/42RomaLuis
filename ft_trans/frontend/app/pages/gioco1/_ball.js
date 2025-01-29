@@ -19,11 +19,11 @@ export class Ball {
 	draw(ctx) {
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		ctx.fillStyle = 'white';
+		ctx.fillStyle = sessionStorage.getItem('color');
 		ctx.fill();
 		ctx.closePath();
 	}
-	
+
 	update(canvas, leftPaddle, rightPaddle) {
 		if(sessionStorage.getItem('caosg1')=='true'){
 			if(Math.floor(Math.random() * 6)==1){

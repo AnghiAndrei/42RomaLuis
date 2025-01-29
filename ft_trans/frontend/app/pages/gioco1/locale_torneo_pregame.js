@@ -1,8 +1,12 @@
-import { navigateTo2,torneoclass,setTorneoClass,setTorneoincorso } from '../../js/router.js';
+import { navigateTo,navigateTo2,torneoclass,setTorneoClass,setTorneoincorso } from '../../js/router.js';
 import { logout } from './../../js/assets.js';
 
 class Torneo {
   constructor() {
+	if(sessionStorage.getItem("tornplayerg1")==null){
+		navigateTo("/");
+		return;
+	}
 	setTorneoincorso(true);
 	this.player1=sessionStorage.getItem('p1');
 	this.player2=sessionStorage.getItem('p2');
@@ -25,6 +29,11 @@ class Torneo {
 			this.gruppo2.push(playerName);
       }
     }
+
+	sessionStorage.removeItem('p1');
+	sessionStorage.removeItem('p2');
+	sessionStorage.removeItem('p3');
+	sessionStorage.removeItem('p4');
   }
 
   update(){
@@ -145,6 +154,7 @@ class Torneo {
     		audio.play();
 		}else{
 			const audio = document.getElementById("defit");
+			audio.volume = 0.4;
     		audio.play();
 		}
 
@@ -186,6 +196,7 @@ class Torneo {
 		sessionStorage.removeItem('p2');
 		sessionStorage.removeItem('p3');
 		sessionStorage.removeItem('p4');
+		sessionStorage.removeItem('tornplayerg1');
       }
     })
   }

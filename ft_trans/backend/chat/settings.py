@@ -17,6 +17,10 @@ CHANNEL_LAYERS = {
     },
 }
 
+ALLOWED_HOSTS = [
+    'frontend-node',
+]
+
 import os
 
 DATABASES = {

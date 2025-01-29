@@ -28,6 +28,8 @@ export function loadCustumeserPage() {
                     <label for="velmov" id="velmovtext" class="form-label text-white"></label>
                     <input type="range" class="form-range" value="1" min="1" max="10" step="0.5" id="velmov">
                     <h3 class="h3 mb-3 fw-normal text-white">`+text.p24+`</h3>
+					<label for="colorinput" id="color" class="form-label text-white">`+text.p115+`</label>
+                    <input type="color" class="form-range" id="colorinput">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="classc" checked>
                         <label class="form-check-label text-white" for="classc">`+text.p25+`</label>
@@ -41,18 +43,23 @@ export function loadCustumeserPage() {
                         <a data-link href="/locale_home" class="h4 px-2 link-secondary text-white">`+text.p19+`</a>
                     </p>
                 </main>
-            </div>
-        `;
+            </div>`;
         if(sessionStorage.getItem('tempog1')!=null)
             document.getElementById('Tempo').value=sessionStorage.getItem('tempog1');
         if(sessionStorage.getItem('velmovg1')!=null)
             document.getElementById('velmov').value=sessionStorage.getItem('velmovg1');
         if(sessionStorage.getItem('velmovballg1')!=null)
             document.getElementById('velmovball').value=sessionStorage.getItem('velmovballg1');
+		if(sessionStorage.getItem('color')!=null)
+            document.getElementById('colorinput').value=sessionStorage.getItem('color');
         if (sessionStorage.getItem('caosg1') != null) {
             const caosg1 = JSON.parse(sessionStorage.getItem('caosg1'));
-            document.getElementById('classc').checked = !caosg1;
-            document.getElementById('caos').checked = caosg1;
+			const classc = document.getElementById('classc');
+			const caos = document.getElementById('caos');
+			if (classc && caos) {
+				classc.checked = !caosg1;
+				caos.checked = caosg1;
+			}
         }
 
         document.getElementById('Tempo').addEventListener('input', update);
@@ -64,6 +71,7 @@ export function loadCustumeserPage() {
             sessionStorage.setItem('tempog1', document.getElementById('Tempo').value);
             sessionStorage.setItem('velmovg1', document.getElementById('velmov').value);
             sessionStorage.setItem('velmovballg1', document.getElementById('velmovball').value);
+            sessionStorage.setItem('color', document.getElementById('colorinput').value);
             if(document.getElementById('classc').checked)
                 sessionStorage.setItem('caosg1', 'false');
             else
