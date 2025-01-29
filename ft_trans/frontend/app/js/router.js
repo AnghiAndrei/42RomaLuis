@@ -47,7 +47,7 @@ export function navigateTo(url) {
 
 export function router() {
 	sessionStorage.setItem('hostapp', "https://localhost:8000");
-	sessionStorage.setItem('hostsock', "ws://localhost:8005");
+	sessionStorage.setItem('hostsock', "wss://localhost:8000");
 
 	const routes = [
 		{ path: '/', view: loadHomePage },

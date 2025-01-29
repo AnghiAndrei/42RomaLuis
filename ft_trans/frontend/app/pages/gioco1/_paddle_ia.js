@@ -20,7 +20,7 @@ export class PaddleIA {
   }
 
   draw(ctx) {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = sessionStorage.getItem('color');
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 

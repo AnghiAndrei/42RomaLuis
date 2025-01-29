@@ -14,6 +14,7 @@ services:
       - frontend-node
       - backend-django-game1
       - backend-django-users
+      - backend-django-chat
 
   # FrontEnd Node.js
   frontend-node:
@@ -54,8 +55,6 @@ services:
       - .env
     networks:
       - proxy
-    ports:
-      - "8005:8005"
     depends_on:
       - postgres
 

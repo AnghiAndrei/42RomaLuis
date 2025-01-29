@@ -31,6 +31,7 @@ CHANNEL_LAYERS = {
 }
 
 ALLOWED_HOSTS = [
+    'backend-django-chat',
     'proxy',
 ]
 

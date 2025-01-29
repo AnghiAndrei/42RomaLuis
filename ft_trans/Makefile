@@ -1,5 +1,5 @@
 start:
-	docker compose up --build
+	@docker compose up --build
 
 prune:
 	-docker compose down --volumes --remove-orphans

@@ -87,7 +87,7 @@ export function loadInvitaHomePage() {
 				return;
 			}
 
-			const friendSocket = new WebSocket(sessionStorage.getItem('hostsock')+'/chat/'+amico+'/');
+			const friendSocket = new WebSocket(sessionStorage.getItem('hostsock')+'/wchat/'+amico+'/');
 			friendSocket.onmessage = function (event) { ; };
 			friendSocket.onclose = function () { ; };
 			friendSocket.onerror = function (error) { ; };

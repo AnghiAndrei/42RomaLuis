@@ -96,6 +96,7 @@ function sendMessage() {
                 document.getElementById('ERROREMessage').innerHTML=text.p96;
             }
         } else {
+			alert("99");
             const modal2 = new bootstrap.Modal(document.getElementById('ErroriPopUp'));
             modal2.show();
             document.getElementById('ERROREMessage').innerHTML=text.p96;
@@ -392,7 +393,7 @@ function updatepagefriendo(data) {
                                     </span>`;
                             friendList.appendChild(li);
 
-                            const friendSocket = new WebSocket(sessionStorage.getItem('hostsock') + '/chat/' + listaamici.idfriend + '/');
+                            const friendSocket = new WebSocket(sessionStorage.getItem('hostsock') + '/wchat/' + listaamici.idfriend + '/');
                             if (!connectedSockets[listaamici.idfriend])
                                 connectedSockets[listaamici.idfriend] = [];
                             connectedSockets[listaamici.idfriend].push(friendSocket);

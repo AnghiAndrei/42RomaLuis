@@ -12,7 +12,7 @@ application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": AuthMiddlewareStack(
         URLRouter([
-            path('chat/<str:room_name>/', ChatConsumer.as_asgi()),
+            path('wchat/<str:room_name>/', ChatConsumer.as_asgi()),
             path('online/<str:token>/', OnlineConsumer.as_asgi()),
         ])
     ),
