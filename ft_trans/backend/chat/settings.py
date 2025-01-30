@@ -18,7 +18,7 @@ CHANNEL_LAYERS = {
 }
 
 ALLOWED_HOSTS = [
-    'frontend-node',
+    'proxy',
 ]
 
 import os

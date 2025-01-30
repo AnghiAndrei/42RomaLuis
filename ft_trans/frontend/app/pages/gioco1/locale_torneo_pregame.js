@@ -149,14 +149,8 @@ class Torneo {
 		if(win==sessionStorage.getItem('tp1'))
 			esito="V";
 
-		if(esito == "V"){
-			const audio = document.getElementById("win");
-    		audio.play();
-		}else{
-			const audio = document.getElementById("defit");
-			audio.volume = 0.4;
-    		audio.play();
-		}
+		const audio = document.getElementById("win");
+		audio.play();
 
 		fetch(sessionStorage.getItem("hostapp")+'/g1/set_tornament', {
 			method: 'POST',

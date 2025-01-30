@@ -1,5 +1,6 @@
 FROM nginx:alpine
 
+EXPOSE 8069
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir -p /etc/nginx/certs && \
