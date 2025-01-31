@@ -29,7 +29,7 @@ export function loadCustumeserPage() {
                     <input type="range" class="form-range" value="1" min="1" max="10" step="0.5" id="velmov">
                     <h3 class="h3 mb-3 fw-normal text-white">`+text.p24+`</h3>
 					<label for="colorinput" id="color" class="form-label text-white">`+text.p115+`</label>
-                    <input type="color" class="form-range" id="colorinput">
+                    <input type="color" class="form-range" value="#ffffff" id="colorinput">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="classc" checked>
                         <label class="form-check-label text-white" for="classc">`+text.p25+`</label>

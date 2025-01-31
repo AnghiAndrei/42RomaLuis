@@ -78,7 +78,9 @@ export function loadLoginPage() {
             navigateTo('/');
           });
         }
-        else if (status == 501)
+        else if (status == 207)
+			document.getElementById('testoerrore').innerHTML=text.p116;
+		else if (status == 501)
           document.getElementById('testoerrore').innerHTML=text.p110;
         else if (status == 204)
           document.getElementById('testoerrore').innerHTML=text.p46;

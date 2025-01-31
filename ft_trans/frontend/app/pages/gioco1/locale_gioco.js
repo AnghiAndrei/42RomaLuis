@@ -61,7 +61,8 @@ export function loadLocaleGame1Page() {
                     </div>
                 </div>
             </div>
-        `;
+			<audio controls id="punti" style="display: none;"><source src="./../../song/point.mp3" type="audio/mp3"></audio>
+			<audio controls id="parata" style="display: none;"><source src="./../../song/parata.mp3" type="audio/mp3"></audio>`;
         const canvas = document.getElementById('gameCanvas');
         const devicePixelRatio = window.devicePixelRatio || 1;
         const width = canvas.offsetWidth * devicePixelRatio;

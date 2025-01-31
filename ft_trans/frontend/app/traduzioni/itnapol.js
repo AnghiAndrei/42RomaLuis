@@ -113,5 +113,6 @@ p111: "Nome già in uso",
 p112: "Verifica a 2 fatture",
 p113: "Nisciuna",
 p114: "OTP pe' email",
-p115: "Culore d’o gioco",
+p115: "Culore d'o gioco",
+p116: "Errore a mannà 'a mail. Pruvace cchiù tard'",
 };

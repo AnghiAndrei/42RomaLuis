@@ -25,6 +25,7 @@ export class Ball {
 	}
 
 	update(canvas, leftPaddle, rightPaddle) {
+		const parata = document.getElementById("parata");
 		if(sessionStorage.getItem('caosg1')=='true'){
 			if(Math.floor(Math.random() * 6)==1){
 				if(Math.floor(Math.random() * 3)==1){
@@ -39,11 +40,15 @@ export class Ball {
 		this.x += this.dx;
 		this.y += this.dy;
     	if(sessionStorage.getItem("nplayerg1")==2){
-			if (this.y - this.radius < 0 || this.y + this.radius > canvas.height)
-        		this.dy *= -1;
-		}else if(sessionStorage.getItem("nplayerg1")==3){
-			if (this.y + this.radius > canvas.height)
+			if (this.y - this.radius < 0 || this.y + this.radius > canvas.height){
+				if(parata) parata.play();
 				this.dy *= -1;
+			}
+		}else if(sessionStorage.getItem("nplayerg1")==3){
+			if (this.y + this.radius > canvas.height){
+				if(parata) parata.play();
+				this.dy *= -1;
+			}
 			if (this.y - this.radius < 4) {
 				this.incrementScore(canvas);
 				this.x = canvas.width / 2;
@@ -111,20 +116,25 @@ export class Ball {
 	}
 
 	incrementScore(canvas) {
+		const audio = document.getElementById("punti");
 		if(sessionStorage.getItem("nplayerg1")!=2){
 			if (this.last === 'left') {
+				if(audio) audio.play();
 				this.last='';
 				this.pp1++;
 			}
 			else if (this.last === 'right') {
+				if(audio) audio.play();
 				this.last='';
 				this.pp2++;
 			}
 			else if (this.last === 'up') {
+				if(audio) audio.play();
 				this.last='';
 				this.pp3++;
 			}
 			else if (this.last === 'down') {
+				if(audio) audio.play();
 				this.last='';
 				this.pp4++;
 			}
@@ -133,6 +143,7 @@ export class Ball {
 				this.pp1++;
 			if (this.x - this.radius < 4)
 				this.pp2++;
+			if(audio) audio.play();
 		}
 	}
 

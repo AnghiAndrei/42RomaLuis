@@ -60,7 +60,8 @@ export function loadLocaleTorneoGame1Page() {
                     </div>
                 </div>
             </div>
-        `;
+			<audio controls id="punti" style="display: none;"><source src="./../../song/point.mp3" type="audio/mp3"></audio>
+			<audio controls id="parata" style="display: none;"><source src="./../../song/parata.mp3" type="audio/mp3"></audio>`;
 		document.getElementById('navigate-button').addEventListener('click', () => {navigateTo2("/locale_torneo_pregame");});
 
         const canvas = document.getElementById('gameCanvas');

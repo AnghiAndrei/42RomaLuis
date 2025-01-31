@@ -89,7 +89,7 @@ services:
   redis:
     container_name: redis
     restart: always
-    image: redis:latest
+    image: redis:7.4.2
     env_file:
       - .env
     networks:

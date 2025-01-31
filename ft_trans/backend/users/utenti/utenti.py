@@ -6,8 +6,8 @@ from django.core.mail import send_mail
 from utenti.models import Utenti
 from django.db import models
 import datetime
+import secrets
 import string
-import random
 import json
 import jwt
 import os
@@ -82,11 +82,11 @@ def login(request):
 
 		if user.fa2 == "p114":
 			caratteri = string.ascii_letters + string.digits
-			CodiceOTP = ''.join(random.choice(caratteri) for _ in range(8))
+			CodiceOTP = ''.join(secrets.choice(caratteri) for _ in range(8))
 
-			i = random.randint(100000, 999999)
+			i = secrets.randbelow(900000) + 100000
 			while i in OTP_Codes:
-				i = random.randint(100000, 999999)
+				i = secrets.randbelow(900000) + 100000
 
 			payload = {
 				'key': str(i),
@@ -97,7 +97,10 @@ def login(request):
 
 			OTP_Codes[i]={"otp": CodiceOTP, "iduser": user.id, "tryc": 3}
 
-			send_mail('Code OTP for access!', CodiceOTP, os.getenv('SEND_EMAIL'), [data["email"]])
+			try:
+				send_mail('Code OTP for access!', CodiceOTP, os.getenv('SEND_EMAIL'), [data["email"]])
+			except Exception as e:
+				return HttpResponse(status=207)
 
 			with open('/app/utenti/otp_codes.json', 'w') as f:
 				json.dump(OTP_Codes, f)
