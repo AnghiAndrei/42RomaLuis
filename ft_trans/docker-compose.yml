@@ -9,7 +9,8 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - backend
+      - PrivBackend
+      - PubBackend
       - frontend
     depends_on:
       - frontend-node
@@ -39,7 +40,8 @@ services:
     env_file:
       - .env
     networks:
-      - backend
+      - PubBackend
+      - PrivBackend
     volumes:
       - vol_img_users:/app/img_users
     depends_on:
@@ -55,7 +57,7 @@ services:
     env_file:
       - .env
     networks:
-      - backend
+      - PrivBackend
     depends_on:
       - postgres
 
@@ -69,7 +71,7 @@ services:
     env_file:
       - .env
     networks:
-      - backend
+      - PrivBackend
     depends_on:
       - postgres
 
@@ -81,7 +83,7 @@ services:
     env_file:
       - .env
     networks:
-      - backend
+      - PrivBackend
     volumes:
       - db_postgres:/var/lib/postgresql/data
 
@@ -93,15 +95,17 @@ services:
     env_file:
       - .env
     networks:
-      - backend
+      - PrivBackend
 
 # Networks
 networks:
   frontend:
     driver: bridge
-  backend:
+  PrivBackend:
     driver: bridge
     internal: true
+  PubBackend:
+    driver: bridge
 
 # Volumes
 volumes:

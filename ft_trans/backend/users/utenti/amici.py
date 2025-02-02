@@ -26,6 +26,7 @@ def send_request_friend(request):
 			return HttpResponse(status=401)
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['nome_frind']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -64,6 +65,7 @@ def accept_request_friend(request):
 			return HttpResponse(status=401)
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['id_req_friendo']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -98,6 +100,7 @@ def refuse_request_friend(request):
 			return HttpResponse(status=401)
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['id_req_friendo']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -125,6 +128,7 @@ def remove_friend(request):
 			return HttpResponse(status=401)
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['id_req_friendo']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -254,6 +258,7 @@ def profilefriendo(request):
 			return HttpResponse(status=401)
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['idamico']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -320,3 +325,10 @@ def profilefriendo(request):
 
 	except Exception as e:
 		return JsonResponse({"error": f'{e}' },status=500)
+
+# ===== UTILITIS ===== #
+import bleach
+def sanitaiser2025(data):
+    if not isinstance(data, dict):
+        raise ValueError("Il parametro deve essere un dizionario")
+    return {key: bleach.clean(value, tags=[], strip=True) if isinstance(value, str) else value for key, value in data.items()}

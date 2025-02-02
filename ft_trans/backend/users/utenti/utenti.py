@@ -15,6 +15,7 @@ import os
 def registrati(request):
 	try:
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['nome', 'email', 'password', 'sesso']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -66,6 +67,7 @@ def login(request):
 			print("voglio mangiare il tuo pancreas")
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['email', 'password']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -135,6 +137,7 @@ def check_2fa(request):
 			print("voglio mangiare il tuo pancreas")
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['codeotp', 'key']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -218,6 +221,7 @@ def update_2fa(request):
 			return HttpResponse(status=204)
 
 		data = json.loads(request.body.decode('utf-8'))
+		data = sanitaiser2025(data)
 		required_fields = ['fa2']
 		if not all(field in data for field in required_fields):
 			return HttpResponse(status=400)
@@ -279,3 +283,9 @@ def modify(request):
 # ===== UTILITIS ===== #
 def is_empty_or_whitespace(string):
 	return not string or string.strip() == ""
+
+import bleach
+def sanitaiser2025(data):
+    if not isinstance(data, dict):
+        raise ValueError("Il parametro deve essere un dizionario")
+    return {key: bleach.clean(value, tags=[], strip=True) if isinstance(value, str) else value for key, value in data.items()}

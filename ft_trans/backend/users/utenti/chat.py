@@ -7,6 +7,7 @@ import os
 def get_message(request):
     try:
         data = json.loads(request.body.decode('utf-8'))
+        data = sanitaiser2025(data)
         required_fields = ['stanza']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=401)
@@ -36,6 +37,7 @@ def get_message(request):
 def salva_msg(request):
     try:
         data = json.loads(request.body.decode('utf-8'))
+        data = sanitaiser2025(data)
         required_fields = ['stanza', 'token', 'msg']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
@@ -64,6 +66,7 @@ def salva_msg(request):
 def get_status(request):
     try:
         data = json.loads(request.body.decode('utf-8'))
+        data = sanitaiser2025(data)
         required_fields = ['stanza']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
@@ -93,6 +96,7 @@ def get_status(request):
 def sblockfriendo(request):
     try:
         data = json.loads(request.body.decode('utf-8'))
+        data = sanitaiser2025(data)
         required_fields = ['stanza']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
@@ -124,6 +128,7 @@ def sblockfriendo(request):
 def blockfriendo(request):
     try:
         data = json.loads(request.body.decode('utf-8'))
+        data = sanitaiser2025(data)
         required_fields = ['stanza']
         if not all(field in data for field in required_fields):
             return HttpResponse(status=400)
@@ -151,3 +156,10 @@ def blockfriendo(request):
 
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+# ===== UTILITIS ===== #
+import bleach
+def sanitaiser2025(data):
+    if not isinstance(data, dict):
+        raise ValueError("Il parametro deve essere un dizionario")
+    return {key: bleach.clean(value, tags=[], strip=True) if isinstance(value, str) else value for key, value in data.items()}

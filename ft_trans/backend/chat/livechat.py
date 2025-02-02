@@ -20,6 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
+        data = sanitaiser2025(data)
         required_fields = ['message','token']
         if not all(field in data for field in required_fields):
             return
@@ -63,3 +64,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message,
         }))
+
+# ===== UTILITIS ===== #
+import bleach
+def sanitaiser2025(data):
+    if not isinstance(data, dict):
+        raise ValueError("Il parametro deve essere un dizionario")
+    return {key: bleach.clean(value, tags=[], strip=True) if isinstance(value, str) else value for key, value in data.items()}

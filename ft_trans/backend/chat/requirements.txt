@@ -5,4 +5,5 @@ PyJWT==2.7.0
 django==4.2
 daphne==4.0
 aiohttp
+bleach
 redis
