@@ -1,5 +1,5 @@
 import { navigateTo } from './../../js/router.js';
-import { isEmptyOrWhitespace, sanitizeInput, updateNavbar } from './../../js/assets.js';
+import { isEmptyOrWhitespace, sanitizeInput, updateNavbar, setSocketInput } from './../../js/assets.js';
 import { hashPassword } from './zz_assets.js';
 
 export function loadLoginPage() {
@@ -69,7 +69,8 @@ export function loadLoginPage() {
             sessionStorage.removeItem('tempjwt');
             if (sessionStorage.getItem('jwtToken') != null){
               const online_sock = new WebSocket(sessionStorage.getItem('hostsock')+'/online/'+sessionStorage.getItem('jwtToken')+"/");
-              online_sock.onopen = () => {};
+              setSocketInput(online_sock);
+			  online_sock.onopen = () => {};
               online_sock.onmessage = (event) => {};
               online_sock.onerror = (error) => {};
               online_sock.onclose = () => {};

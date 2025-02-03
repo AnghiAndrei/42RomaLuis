@@ -1,11 +1,12 @@
 import { navigateTo,router } from './router.js';
-import { updateNavbar } from './assets.js';
+import { updateNavbar,setSocketInput } from './assets.js';
 
 if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
 if(localStorage.getItem('tp1')==null)sessionStorage.setItem('p1', sessionStorage.getItem('tp1'));
 
 if (sessionStorage.getItem('jwtToken') != null){
   const online_sock = new WebSocket(sessionStorage.getItem('hostsock')+'/online/'+sessionStorage.getItem('jwtToken')+"/");
+  setSocketInput(online_sock);
   online_sock.onopen = () => {};
   online_sock.onmessage = (event) => {};
   online_sock.onerror = (error) => {};

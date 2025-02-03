@@ -1,5 +1,8 @@
 import { navigateTo,router } from '../js/router.js';
 
+export let sockinput; 
+export function setSocketInput(sock){sockinput=sock;}
+
 /* ========== LOGOUT ========== */
 window.logout = logout;
 export function logout() {
@@ -9,6 +12,7 @@ export function logout() {
   	sessionStorage.removeItem('p1');
   	navigateTo("/");
   	updateNavbar();
+	if(sockinput) sockinput.close();
 }
 
 /* ========== SANITAISER ========== */
