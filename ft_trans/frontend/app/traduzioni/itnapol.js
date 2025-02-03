@@ -115,4 +115,5 @@ p113: "Nisciuna",
 p114: "OTP pe' email",
 p115: "Culore d'o gioco",
 p116: "Errore a mannà 'a mail. Pruvace cchiù tard'",
+p117: "Errore pe' piglià 'e dati d' 'o amico",
 };

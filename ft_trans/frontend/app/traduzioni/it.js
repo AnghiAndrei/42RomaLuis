@@ -115,7 +115,7 @@ p113: "Nessuna",
 p114: "OTP via email",
 p115: "Colore gioco",
 p116: "Errore nell'invio dell'email. Riprovi piu tardi",
-p117: "",
+p117: "Errore nell'ottenere i dati dell'amico",
 p118: "",
 p119: "",
 };

@@ -1,8 +1,14 @@
+import { logout } from './../../js/assets.js';
+
 export function loadProfileFriendoPage() {
 	if(localStorage.getItem('lingua')==null){localStorage.setItem('lingua', 'it');}
 	import(`./../../traduzioni/${localStorage.getItem('lingua')}.js`)
 	.then((module) => {
 		const text = module.text;
+		if(sessionStorage.getItem('idamico')){
+			const content = document.getElementById('main-content');
+			content.innerHTML = `<h1 class="text-white">`+text.p117+`</h1>`;
+		}
 		fetch(sessionStorage.getItem("hostapp")+'/users/profilefriendo', {
 			method: 'POST',
 			headers: {
@@ -132,10 +138,16 @@ export function loadProfileFriendoPage() {
 						tableBody.appendChild(row);
 					});
 				});
+			} else if(status == 401){
+				logout();
 			} else{
-				alert("error");
-			}// logout();
+				const content = document.getElementById('main-content');
+				content.innerHTML = `<h1 class="text-white">`+text.p117+`</h1>`;
+			}
 		})
-		.catch(error => { alert(error); /*logout();*/ })
+		.catch(error => {
+			const content = document.getElementById('main-content');
+			content.innerHTML = `<h1 class="text-white">`+text.p117+`</h1>`;
+		})
     })
 }

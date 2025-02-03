@@ -115,4 +115,5 @@ p113: "None",
 p114: "OTP via email",
 p115: "Game color",
 p116: "Error sending the email. Please try again later",
+p117: "Error in obtaining friend's data",
 };
