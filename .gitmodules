@@ -13,3 +13,6 @@
 [submodule "_common core/ft_transcendence"]
 	path = _common core/ft_transcendence
 	url = https://github.com/AnghiAndrei/ft_transcendence.git
+[submodule "_common core/webserv"]
+	path = _common core/webserv
+	url = https://github.com/AnghiAndrei/webserv.git
